@@ -1,0 +1,161 @@
+export const description = 'The dog model contains all the pertinent information on a given dog within IWDR.'
+
+# Dogs
+Dogs are the focal point of IWDR. When you input a dog into IWDR it becomes a part of 
+the global data set used to calculate Estimated Breeding Values on a variety of health 
+and behavior charecteristics. The more dogs input into our database the more accurate 
+the calculations become.
+
+## The dog model
+The dog model contains all the pertinent information on a given dog within IWDR.
+
+## Properties
+
+<Properties>
+  <Property name="dog_DogID" type="integer">
+    Unique identifier for the dog.
+  </Property>
+  <Property name="dog_LitterID" type="string">
+    The unique identifier for this dog amongst it's litter mates.
+  </Property>
+  <Property name="dog_LitterRecordID" type="integer">
+    The unique identified for the litter record of this dog, if assigned.
+  </Property>
+  <Property name="dog_BreedCode" type="integer">
+    The unique identifier for the breed of this dog.
+  </Property>
+  <Property name="dog_SchoolID" type="string">
+    The unique identifier within the managing owners colony.
+  </Property>
+  <Property name="dog_SchoolIDBreeder" type="string">
+    The unique identifier with the breeder's colony.
+  </Property>
+  <Property name="dog_CallName" type="string">
+    The base name of the dog. Usually the name used in training.
+  </Property>
+  <Property name="dog_PedigreeName" type="string">
+    To be determined
+  </Property>
+  <Property name="dog_SearchName" type="string">
+    A calculated string which is commonly used for searching amongst a set of dogs.
+    Typically comprised of the dog_CallName and dog_LitterID
+  </Property>
+  <Property name="dog_DisplayName" type="string">
+    A calculated string which is a combination of multiple points of a dogs
+    dataset. 
+    - Call name
+    - Owning organization 
+    - Kennel club designatino 
+    - Litter Designation 
+    - Breed 
+    - Date of Birth
+  </Property>
+  <Property name="dog_CountryOfOriginCode" type="integer">
+    A coded integer pertaining to the text for the country a dog was born in.
+  </Property>
+  <Property name="dog_BreederID" type="integer">
+    The unique identifier for the organization designated as the breeder of this dog.
+  </Property>
+  <Property name="dog_OwnerID" type="integer">
+    The unique identifier for the organization designated as the owner of this dog.
+  </Property>
+  <Property name="dog_IFTRecallDate" type="date">
+    The date of IFT recall.
+  </Property>
+  <Property name="dog_TrainingStartDate" type="date">
+    The date this dog's training began.
+  </Property>
+  <Property name="dog_LocationStartDt" type="date">
+    The date this dog was placed at it's current location.
+  </Property>
+  <Property name="dog_LocationCode" type="integer">
+    The unique identifier for this dog's current location.
+  </Property>
+  <Property name="dog_PPRegionCode" type="integer">
+    The unique identifier for this dog's puppy program region.
+  </Property>
+  <Property name="dog_PPRegionDate" type="date">
+    The date this dog was placed at it's puppy program region.
+  </Property>
+  <Property name="dog_TrnRegionCode" type="integer">
+    The unique identifier for this dog's training region.
+  </Property>
+  <Property name="dog_TrnRegionDate" type="date">
+    The date this dog was placed at it's training region.
+  </Property>
+  <Property name="dog_GradRegion" type="integer">
+    The unique identifier for thid dog's graduation region.
+  </Property>
+  <Property name="dog_GradRegionDate" type="date">
+    The date this dog was placed at it's graduation region.
+  </Property>
+  <Property name="dog_DOB" type="date">
+    The date of birth for this dog.
+  </Property>
+  <Property name="dog_ApproxBirthYr" type="string">
+    The approximate year this dog was born.
+  </Property>
+  <Property name="dog_AgeText" type="string">
+    The string representation of this dogs current age. I.e 5 yrs
+  </Property>
+  <Property name="dog_SireID" type="integer">
+    The unique IWDR dog_DogID for this dog's sire.
+  </Property>
+  <Property name="dog_DamID" type="integer">
+    The unique IWDR dog_DogID for this dog's dam.
+  </Property>
+  <Property name="dog_BirthWeight" type="float">
+    The birth weight for this dog in imperial pounds.
+  </Property>
+  <Property name="dog_BirthWeightMetric" type="float">
+    The birth weight for this dog in metric kilograms.
+  </Property>
+  <Property name="dog_Sex" type="string">
+    The assigned sex of this dog. Either "M" or "F" for Male/Female.
+  </Property>
+  <Property name="dog_NeuterOKDate" type="date">
+    The date this dog's neuter procedure was allowed.
+  </Property>
+  <Property name="dog_PsnOKNeuter" type="integer">
+    The unique identifier for the person who allowed this dog's neuter procedure.
+  </Property>
+  <Property name="dog_CoopNeuterOKDate" type="date">
+    The date this dog's neuter procedure was allowed by it's managing breeding cooperative.
+  </Property>
+  <Property name="dog_CoopWhoOkdNeuter" type="integer">
+    The persos from this dog's managing breeding cooperative who allowed the neuter procedure.
+  </Property>
+  <Property name="dog_ColorCode" type="integer">
+    The unique identifier for this dog's coat color text.
+  </Property>
+  <Property name="dog_CoatLength" type="integer">
+    The unique identifier for this dog's coat length text.
+  </Property>
+  <Property name="dog_CoatType" type="integer">
+    The unique identifier for this dog's coat type text.
+  </Property>
+  <Property name="dog_StatusChangeDate" type="date">
+    The date this dog's current status was assigned.
+  </Property>
+  <Property name="dog_StatusChangeComments" type="string">
+    The user comments for this dog's current status.
+  </Property>
+  <Property name="dog_ProgramCode" type="integer">
+    The unique identifier for this dog's current program.
+  </Property>
+  <Property name="dog_StatusCode" type="integer">
+    The unique identifier for this dog's current status category.
+  </Property>
+  <Property name="dog_SubStatusCode" type="integer">
+    The unique identifier for this dog's current sub status text.
+  </Property>
+  <Property name="dog_MilestoneCode" type="integer">
+    The unique identifier for this dog's current milestone status.
+  </Property>
+  <Property name="dog_MilestoneRecID" type="integer">
+    The unique identifier for this dog's corresponding milestone record.
+  </Property>
+  <Property name="dog_WorkType" type="integer">
+    The unique identifier for this dog's designated work type.
+  </Property>
+</Properties>
