@@ -31,7 +31,7 @@ export function CreateTokenForm({ onSubmit, id }) {
     e.preventDefault()
 
     setLoading(true)
-    fetch(`${process.env.API_URL}/tokens`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
       method: 'POST',
       credentials: 'include',
       headers: {

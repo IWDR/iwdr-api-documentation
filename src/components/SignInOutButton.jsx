@@ -16,7 +16,7 @@ export default function SignInOutButton({ className }) {
 
   const logout = () => {
     setLoading(true)
-    fetch(`${process.env.API_URL}/logout`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/logout`, {
       method: 'POST',
       credentials: 'include',
       headers: {

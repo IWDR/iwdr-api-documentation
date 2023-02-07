@@ -11,7 +11,7 @@ import { ClipboardIcon } from '@heroicons/react/20/solid'
 // Fetch tokens on server and return as prop
 // Redirect if the users token list is unreadable
 export async function getServerSideProps({ req }) {
-  const result = await fetch(`${process.env.API_URL}/tokens`, {
+  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
     credentials: 'include',
     headers: {
       Cookie: req.headers.cookie,
@@ -52,7 +52,7 @@ export default function Tokens({ initTokens }) {
       setShowActionPanel(true)
     }
 
-    fetch(`${process.env.API_URL}/tokens`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
       credentials: 'include',
       headers: {
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
@@ -74,7 +74,7 @@ export default function Tokens({ initTokens }) {
 
   const deleteToken = (id) => {
     setLoading(true)
-    fetch(`${process.env.API_URL}/tokens/${id}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: {

@@ -9,7 +9,7 @@ import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
 const get_csrf_token = async () => {
-  let response = await fetch(`${process.env.API_URL}/sanctum/csrf-cookie`, {
+  let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
     credentials: 'include',
   })
 
@@ -36,7 +36,7 @@ export default function LoginForm() {
     const redirect = queryParams.get('redirect') ?? false
 
     setLoading(true)
-    fetch(`${process.env.API_URL}/login`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/login`, {
       method: 'POST',
       body: JSON.stringify({
         email: email,

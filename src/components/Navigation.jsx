@@ -196,19 +196,17 @@ export const navigation = [
   {
     title: 'Resources',
     links: [
-      { title: 'Dogs', href: '/resources/dogs', is_restricted: true },
-      { title: 'Contacts', href: '/resources/contacts', is_restricted: true },
+      { title: 'Dogs', href: '/resources/dogs' },
+      { title: 'Contacts', href: '/resources/contacts' },
       {
         title: 'Conversations',
         href: '/resources/conversations',
-        is_restricted: true,
       },
-      { title: 'Messages', href: '/resources/messages', is_restricted: true },
-      { title: 'Groups', href: '/resources/groups', is_restricted: true },
+      { title: 'Messages', href: '/resources/messages' },
+      { title: 'Groups', href: '/resources/groups' },
       {
         title: 'Attachments',
         href: '/resources/attachments',
-        is_restricted: true,
       },
     ],
     is_restricted: true,
@@ -220,8 +218,8 @@ export default function Navigation(props) {
 
   const navList = () =>
     navigation.map((group, groupIndex) => {
-      if (group.is_restricted && !user) {
-        return <></>
+      if (group.is_restricted && !Boolean(user)) {
+        return <li className='hidden' key={group.title}></li>
       }
 
       return (
