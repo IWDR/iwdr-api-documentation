@@ -7,25 +7,7 @@ import Cookies from 'js-cookie'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
-export async function getServerSideProps({ res }) {
-  // Get the CSRF Token from server
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
-      credentials: 'include',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        Accept: 'application/json',
-      },
-    }
-  )
-
-  if (response.status !== 204) {
-    // TODO: Create some kind of alert system
-  }
-
-  res.setHeader('set-cookie', response.headers.raw()['set-cookie'])
-
+export async function getServerSideProps() {
   return {
     props: {
       title: 'Sign In',
@@ -43,8 +25,41 @@ export default function Login(props) {
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
 
+  const server_error_alert = () =>
+    showAlert(
+      'There was an issue proccessing your request. Please try again later.',
+      'error',
+      true,
+      6000
+    )
+
+  const get_csrf_token = async () => {
+    // Get the CSRF Token from api server
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+      {
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Accept: 'application/json',
+        },
+      }
+    )
+
+    if (!response.ok) {
+      server_error_alert()
+      return false
+    }
+
+    return true
+  }
+
   const submit_form = async (e) => {
     e.preventDefault()
+
+    let has_token = await get_csrf_token()
+
+    if (!has_token) return
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -67,12 +82,7 @@ export default function Login(props) {
     })
       .then((response) => {
         if (!response.ok && response.status !== 422) {
-          showAlert(
-            'There was an issue proccessing your request. Please try again later.',
-            'error',
-            true,
-            6000
-          )
+          server_error_alert()
 
           return null
         }
