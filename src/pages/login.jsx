@@ -14,8 +14,8 @@ export async function getServerSideProps({ res }) {
     {
       credentials: 'include',
       headers: {
-        Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
+        Accept: 'application/json',
       },
     }
   )
@@ -24,7 +24,7 @@ export async function getServerSideProps({ res }) {
     // TODO: Create some kind of alert system
   }
 
-  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
+  res.setHeader('set-cookie', response.headers.raw()['set-cookie'])
 
   return {
     props: {
@@ -61,10 +61,24 @@ export default function Login(props) {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
         'X-Requested-With': 'XMLHttpRequest',
+        Accept: 'application/json',
       },
       credentials: 'include',
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok && response.status !== 422) {
+          showAlert(
+            'There was an issue proccessing your request. Please try again later.',
+            'error',
+            true,
+            6000
+          )
+
+          return null
+        }
+
+        return response.json()
+      })
       .then((data) => {
         setLoading(false)
         if (!!data.errors) {
