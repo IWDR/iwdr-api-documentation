@@ -25,13 +25,14 @@ export default function Login(props) {
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
 
-  const server_error_alert = () =>
+  const server_error_alert = () => {
     showAlert(
       'There was an issue proccessing your request. Please try again later.',
       'error',
       true,
       6000
     )
+  }
 
   const get_csrf_token = async () => {
     // Get the CSRF Token from api server
