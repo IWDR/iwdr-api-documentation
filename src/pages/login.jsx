@@ -1,3 +1,4 @@
+'use client'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
 import { useEffect, useState } from 'react'
@@ -7,21 +8,7 @@ import Cookies from 'js-cookie'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
-export async function getServerSideProps({ res }) {
-  // Get the CSRF Token from api server
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
-      credentials: 'include',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        Accept: 'application/json',
-      },
-    }
-  )
-
-  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
-
+export async function getServerSideProps() {
   return {
     props: {
       title: 'Sign In',
@@ -107,7 +94,7 @@ export default function Login(props) {
           return
         }
 
-        setUser(data.data)
+        setUser(data?.data)
 
         if (!redirect) {
           router.push('/')
