@@ -1,13 +1,27 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ res }) {
+  // Get the CSRF Token from api server
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+    {
+      credentials: 'include',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Accept: 'application/json',
+      },
+    }
+  )
+
+  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
+
   return {
     props: {
       title: 'Sign In',
@@ -49,18 +63,11 @@ export default function Login(props) {
 
     if (!response.ok) {
       server_error_alert()
-      return false
     }
-
-    return true
   }
 
   const submit_form = async (e) => {
     e.preventDefault()
-
-    let has_token = await get_csrf_token()
-
-    if (!has_token) return
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -114,6 +121,10 @@ export default function Login(props) {
         console.log(error)
       })
   }
+
+  useEffect(() => {
+    get_csrf_token()
+  }, [])
 
   return (
     <>
