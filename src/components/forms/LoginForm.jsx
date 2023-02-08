@@ -1,6 +1,6 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
@@ -16,6 +16,23 @@ export default function LoginForm() {
   const { showAlert } = useAlertStore()
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
+
+  const get_csrf_cookie = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+      {
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      }
+    )
+
+    if (response.status !== 204) {
+      // TODO: Create some kind of alert system
+    }
+  }
 
   const submit_form = async (e) => {
     e.preventDefault()
@@ -35,7 +52,6 @@ export default function LoginForm() {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
         'X-Requested-With': 'XMLHttpRequest',
-        Accept: 'application/json',
       },
       credentials: 'include',
     })
@@ -64,6 +80,10 @@ export default function LoginForm() {
         console.log(error)
       })
   }
+
+  useEffect(() => {
+    get_csrf_cookie()
+  }, [])
 
   return (
     <>

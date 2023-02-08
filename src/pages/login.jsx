@@ -1,19 +1,6 @@
 import LoginForm from '@/components/forms/LoginForm'
 
-export async function getServerSideProps({ res }) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
-      credentials: 'include',
-    }
-  )
-
-  if (response.status !== 204) {
-    // TODO: Create some kind of alert system
-  }
-
-  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie']);
-
+export function getServerSideProps() {
   return {
     props: {
       title: 'Sign In',
