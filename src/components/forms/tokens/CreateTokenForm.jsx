@@ -38,6 +38,7 @@ export function CreateTokenForm({ onSubmit, id }) {
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json',
+        'Accept': 'application/json'
       },
       body: JSON.stringify({
         token_name,

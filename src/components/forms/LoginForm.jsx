@@ -8,19 +8,6 @@ import Cookies from 'js-cookie'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
-const get_csrf_token = async () => {
-  let response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
-      credentials: 'include',
-    }
-  )
-
-  if (response.status !== 204) {
-    // TODO: Create some kind of alert system
-  }
-}
-
 export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [email_error, setEmailError] = useState(undefined)
@@ -49,6 +36,7 @@ export default function LoginForm() {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
         'X-Requested-With': 'XMLHttpRequest',
+        'Accept': 'application/json'
       },
       credentials: 'include',
     })
@@ -76,6 +64,23 @@ export default function LoginForm() {
       .catch((error) => {
         console.log(error)
       })
+  }
+
+  const get_csrf_token = async () => {
+    let response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+      {
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          'Accept': 'application/json'
+        }
+      }
+    )
+  
+    if (response.status !== 204) {
+      // TODO: Create some kind of alert system
+    }
   }
 
   useEffect(() => {
