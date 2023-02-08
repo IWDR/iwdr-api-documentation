@@ -19,7 +19,7 @@ function useAutocomplete() {
   let [autocomplete] = useState(() =>
     createAutocomplete({
       id,
-      placeholder: 'Find something...',
+      placeholder: 'Search for something...',
       defaultActiveItemId: 0,
       onStateChange({ state }) {
         setAutocompleteState(state)
@@ -74,6 +74,7 @@ function useAutocomplete() {
 }
 
 function resolveResult(result) {
+  console.log(result)
   let allLevels = Object.keys(result.hierarchy)
   let hierarchy = Object.entries(result._highlightResult.hierarchy).filter(
     ([, { value }]) => Boolean(value)

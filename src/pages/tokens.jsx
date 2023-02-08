@@ -6,7 +6,6 @@ import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
-import { ClipboardIcon } from '@heroicons/react/20/solid'
 
 // Fetch tokens on server and return as prop
 // Redirect if the users token list is unreadable

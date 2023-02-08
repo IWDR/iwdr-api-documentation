@@ -9,9 +9,12 @@ import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 
 const get_csrf_token = async () => {
-  let response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
-    credentials: 'include',
-  })
+  let response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+    {
+      credentials: 'include',
+    }
+  )
 
   if (response.status !== 204) {
     // TODO: Create some kind of alert system
@@ -23,9 +26,9 @@ export default function LoginForm() {
   const [email_error, setEmailError] = useState(undefined)
   const [password, setPassword] = useState('')
   const [password_error, setPasswordError] = useState(undefined)
-  const setUser = useAuthStore((state) => state.setUser)
   const { setLoading } = useLoadingStore()
   const { showAlert } = useAlertStore()
+  const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
 
   const submit_form = async (e) => {
@@ -60,7 +63,7 @@ export default function LoginForm() {
           return
         }
 
-        setUser(data.user)
+        setUser(data.data)
 
         if (!redirect) {
           router.push('/')
