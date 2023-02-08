@@ -1,7 +1,6 @@
-'use client'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
@@ -36,7 +35,7 @@ export default function LoginForm() {
         'Content-Type': 'application/json',
         'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
         'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'application/json'
+        Accept: 'application/json',
       },
       credentials: 'include',
     })
@@ -65,27 +64,6 @@ export default function LoginForm() {
         console.log(error)
       })
   }
-
-  const get_csrf_token = async () => {
-    let response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-      {
-        credentials: 'include',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          'Accept': 'application/json'
-        }
-      }
-    )
-  
-    if (response.status !== 204) {
-      // TODO: Create some kind of alert system
-    }
-  }
-
-  useEffect(() => {
-    get_csrf_token()
-  }, [])
 
   return (
     <>
