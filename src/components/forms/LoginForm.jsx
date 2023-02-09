@@ -1,6 +1,6 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
@@ -27,11 +27,6 @@ export default function LoginForm({ csrf_token }) {
 
   const submit_form = async (e) => {
     e.preventDefault()
-
-    if (!csrf_token) {
-      server_error_alert()
-      return
-    }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -85,6 +80,25 @@ export default function LoginForm({ csrf_token }) {
       })
       .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    const get_csrf_token = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+        {
+          credentials: 'include',
+          headers: {
+            Accept: 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+          },
+        }
+      )
+
+      if (response.status !== 204) server_error_alert()
+    }
+
+    get_csrf_token()
+  }, [])
 
   return (
     <>
