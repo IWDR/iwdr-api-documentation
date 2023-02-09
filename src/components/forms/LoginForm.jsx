@@ -5,8 +5,9 @@ import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
+import cookie from 'cookie'
 
-export default function LoginForm({ csrf_token }) {
+export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [email_error, setEmailError] = useState(undefined)
   const [password, setPassword] = useState('')
@@ -41,7 +42,7 @@ export default function LoginForm({ csrf_token }) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': csrf_token,
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
