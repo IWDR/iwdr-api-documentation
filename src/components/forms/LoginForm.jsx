@@ -1,11 +1,10 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
-import useSWR from 'swr'
 import cookie from 'cookie'
 
 export default function LoginForm() {
@@ -17,18 +16,31 @@ export default function LoginForm() {
   const { showAlert } = useAlertStore()
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
-  const { data, error } = useSWR([
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
+
+  const server_error_alert = () => {
+    showAlert(
+      'There was an issue contacting our servers. Please try again later.',
+      'error',
+      true,
+      6000
+    )
+  }
+
+  const get_csrf_token = async () => {
+    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
       credentials: 'include',
       headers: {
         Accept: 'application/json',
         'X-Requested-With': 'XMLHttpRequest',
       },
-    },
-  ])
-
-  if (error) return <></>
+    })
+      .then((res) => {
+        if (!res.status === 204) server_error_alert()
+      })
+      .catch((e) => {
+        console.log(e)
+      })
+  }
 
   const submit_form = async (e) => {
     e.preventDefault()
@@ -55,7 +67,7 @@ export default function LoginForm() {
       .then((response) => {
         if (!response.ok && response.status !== 422) {
           server_error_alert()
-          return
+          return null
         }
 
         return response.json()
@@ -85,6 +97,10 @@ export default function LoginForm() {
       })
       .finally(() => setLoading(false))
   }
+
+  useEffect(() => {
+    get_csrf_token()
+  }, [])
 
   return (
     <>
