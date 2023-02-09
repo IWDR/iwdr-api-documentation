@@ -5,17 +5,10 @@ import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
+import useSWR from 'swr'
 import cookie from 'cookie'
 
-export async function getServerSideProps({ req, res }) {
-  return {
-    props: {
-      title: 'Sign In',
-    },
-  }
-}
-
-export default function Login({ title, csrf_cookie }) {
+export default function LoginForm() {
   const [email, setEmail] = useState('')
   const [email_error, setEmailError] = useState(undefined)
   const [password, setPassword] = useState('')
@@ -24,39 +17,15 @@ export default function Login({ title, csrf_cookie }) {
   const { showAlert } = useAlertStore()
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
+  const { data, error } = useSWR([
+    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+    { credentials: 'include' },
+  ])
 
-  const server_error_alert = () => {
-    showAlert(
-      'There was an issue proccessing your request. Please try again later.',
-      'error',
-      true,
-      6000
-    )
-  }
+  if (error) return <></>
 
   const submit_form = async (e) => {
     e.preventDefault()
-
-    // Get the CSRF Token from api server
-    // await fetch(
-    //   `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    //   {
-    //     credentials: 'include',
-    //     headers: {
-    //       'X-Requested-With': 'XMLHttpRequest',
-    //       Accept: 'application/json',
-    //     },
-    //   }
-    // )
-
-    // let cookies = cookie.parse(document.cookie)
-    // let csrf_cookie = cookies['XSRF-TOKEN']
-
-    // // Ensure there is a active csrf cookie
-    // if (!csrf_cookie) {
-    //   server_error_alert()
-    //   return
-    // }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -71,7 +40,7 @@ export default function Login({ title, csrf_cookie }) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': csrf_cookie,
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
@@ -112,8 +81,6 @@ export default function Login({ title, csrf_cookie }) {
 
   return (
     <>
-      <h1>{title}</h1>
-      <p>Access user restricted pages and content.</p>
       <form className="my-6" onSubmit={(e) => submit_form(e)}>
         <div>
           <TextField
