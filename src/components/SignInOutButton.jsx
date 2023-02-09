@@ -1,6 +1,5 @@
 import { useAuthStore } from '@/lib/stores/authStore'
 import { Button } from '@/components/Button'
-import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
@@ -19,9 +18,9 @@ export default function SignInOutButton({ className }) {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'application/json'
+        Accept: 'application/json',
       },
     })
       .then((res) => {

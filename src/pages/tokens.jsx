@@ -1,11 +1,11 @@
 import { CreateTokenDialog } from '@/components/CreateTokenDialog'
 import { useState } from 'react'
-import Cookies from 'js-cookie'
 import { useAlertStore } from '@/lib/stores/alertStore'
 import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
+import cookie from 'cookie'
 
 // Fetch tokens on server and return as prop
 // Redirect if the users token list is unreadable
@@ -54,7 +54,7 @@ export default function Tokens({ initTokens }) {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
       credentials: 'include',
       headers: {
-        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
       },
     })
@@ -77,7 +77,7 @@ export default function Tokens({ initTokens }) {
       method: 'DELETE',
       credentials: 'include',
       headers: {
-        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
       },
     })

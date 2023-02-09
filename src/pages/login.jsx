@@ -1,22 +1,38 @@
-'use client'
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
+import cookie from 'cookie'
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req, res }) {
+  // Get the CSRF Token from api server
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+    {
+      credentials: 'include',
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+        Accept: 'application/json',
+      },
+    }
+  )
+
+  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
+
+  let cookies = cookie.parse(response.headers.get('set-cookie'));
+
   return {
     props: {
       title: 'Sign In',
+      csrf_cookie: cookies['XSRF-TOKEN'],
     },
   }
 }
 
-export default function Login(props) {
+export default function Login({ title, csrf_cookie }) {
   const [email, setEmail] = useState('')
   const [email_error, setEmailError] = useState(undefined)
   const [password, setPassword] = useState('')
@@ -35,26 +51,13 @@ export default function Login(props) {
     )
   }
 
-  const get_csrf_token = async () => {
-    // Get the CSRF Token from api server
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-      {
-        credentials: 'include',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          Accept: 'application/json',
-        },
-      }
-    )
-
-    if (!response.ok) {
-      server_error_alert()
-    }
-  }
-
   const submit_form = async (e) => {
     e.preventDefault()
+
+    // Ensure there is a active csrf cookie
+    if (!csrf_cookie) {
+      server_error_alert()
+    }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -69,7 +72,7 @@ export default function Login(props) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'X-XSRF-TOKEN': csrf_cookie,
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
@@ -109,13 +112,9 @@ export default function Login(props) {
       })
   }
 
-  useEffect(() => {
-    get_csrf_token()
-  }, [])
-
   return (
     <>
-      <h1>{props.title}</h1>
+      <h1>{title}</h1>
       <p>Access user restricted pages and content.</p>
       <form className="my-6" onSubmit={(e) => submit_form(e)}>
         <div>
