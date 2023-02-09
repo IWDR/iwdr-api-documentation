@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
+import clsx from 'clsx'
 
 import { GridPattern } from '@/components/GridPattern'
 import { Heading } from '@/components/Heading'
@@ -160,27 +161,26 @@ function Resource({ resource }) {
 export function Resources() {
   const user = useAuthStore((state) => state.user)
 
-  if(!user){
-    return (
-      <div className='my-16 xl:max-w-none'>
-        <Heading level={2} id="resources">
-          Resources
-        </Heading>
-        <div className='not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'>
-          <p className='font-medium dark:text-gray-200'>You must sign in to view our available API resources.</p>
-        </div>
-      </div>
-    )
-  }
   return (
     <div className="my-16 xl:max-w-none">
       <Heading level={2} id="resources">
         Resources
       </Heading>
-      <div className="not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5 sm:grid-cols-2 xl:grid-cols-4">
-        {resources.map((resource) => (
-          <Resource key={resource.href} resource={resource} />
-        ))}
+      <div
+        className={clsx(
+          Boolean(user) && 'sm:grid-cols-2 xl:grid-cols-4',
+          'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
+        )}
+      >
+        {Boolean(user) ? (
+          resources.map((resource) => (
+            <Resource key={resource.href} resource={resource} />
+          ))
+        ) : (
+          <p className="font-medium dark:text-gray-200">
+            You must sign in to view our available API resources.
+          </p>
+        )}
       </div>
     </div>
   )

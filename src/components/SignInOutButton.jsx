@@ -3,6 +3,7 @@ import { Button } from '@/components/Button'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
+import cookie from 'cookie'
 
 export default function SignInOutButton({ className }) {
   const user = useAuthStore((state) => state.user)

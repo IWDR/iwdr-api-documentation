@@ -27,7 +27,7 @@ export default function LoginForm() {
   }
 
   const get_csrf_token = async () => {
-    const response = await fetch(
+    let response = await fetch(
       `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
       {
         credentials: 'include',
@@ -38,13 +38,21 @@ export default function LoginForm() {
       }
     )
 
-    if (response.status !== 204) server_error_alert()
+    console.log(response)
+    if (response.status !== 204) {
+      server_error_alert()
+      return null
+    }
+
+    return cookie.parse(document.cookie)['XSRF-TOKEN']
   }
 
   const submit_form = async (e) => {
     e.preventDefault()
 
-    await get_csrf_token()
+    let token = await get_csrf_token()
+
+    if (!token) return
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -59,7 +67,7 @@ export default function LoginForm() {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
+        'X-XSRF-TOKEN': token,
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
