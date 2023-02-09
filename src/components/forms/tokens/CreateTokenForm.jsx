@@ -3,8 +3,8 @@ import { TextField } from '@/components/TextField'
 import { useAlertStore } from '@/lib/stores/alertStore'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
-import Cookies from 'js-cookie'
 import { useState } from 'react'
+import cookie from 'cookie'
 
 export function CreateTokenForm({ onSubmit, id }) {
   const user = useAuthStore((state) => state.user)
@@ -35,10 +35,10 @@ export function CreateTokenForm({ onSubmit, id }) {
       method: 'POST',
       credentials: 'include',
       headers: {
-        'X-XSRF-TOKEN': Cookies.get('XSRF-TOKEN'),
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
         'Content-Type': 'application/json',
-        'Accept': 'application/json'
+        Accept: 'application/json',
       },
       body: JSON.stringify({
         token_name,
