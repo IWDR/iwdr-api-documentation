@@ -8,26 +8,9 @@ import { useAlertStore } from '@/lib/stores/alertStore'
 import cookie from 'cookie'
 
 export async function getServerSideProps({ req, res }) {
-  // Get the CSRF Token from api server
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    {
-      credentials: 'include',
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        Accept: 'application/json',
-      },
-    }
-  )
-
-  res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
-
-  let cookies = cookie.parse(response.headers.get('set-cookie'));
-
   return {
     props: {
       title: 'Sign In',
-      csrf_cookie: cookies['XSRF-TOKEN'],
     },
   }
 }
@@ -53,6 +36,21 @@ export default function Login({ title, csrf_cookie }) {
 
   const submit_form = async (e) => {
     e.preventDefault()
+
+    // Get the CSRF Token from api server
+    await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+      {
+        credentials: 'include',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest',
+          Accept: 'application/json',
+        },
+      }
+    )
+
+    let cookies = cookie.parse(document.cookie)
+    let csrf_cookie = cookies['XSRF-TOKEN']
 
     // Ensure there is a active csrf cookie
     if (!csrf_cookie) {
@@ -82,7 +80,7 @@ export default function Login({ title, csrf_cookie }) {
         if (!response.ok && response.status !== 422) {
           server_error_alert()
 
-          return null
+          return
         }
 
         return response.json()
