@@ -1,13 +1,12 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
-import cookie from 'cookie'
 
-export default function LoginForm() {
+export default function LoginForm({ csrf_token }) {
   const [email, setEmail] = useState('')
   const [email_error, setEmailError] = useState(undefined)
   const [password, setPassword] = useState('')
@@ -26,26 +25,13 @@ export default function LoginForm() {
     )
   }
 
-  const get_csrf_token = async () => {
-    await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`, {
-      credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-    })
-      .then((res) => {
-        if (res.status !== 204) server_error_alert()
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }
-
   const submit_form = async (e) => {
     e.preventDefault()
 
-    await get_csrf_token()
+    if (!csrf_token) {
+      server_error_alert()
+      return
+    }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -60,7 +46,7 @@ export default function LoginForm() {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
+        'X-XSRF-TOKEN': csrf_token,
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
