@@ -38,24 +38,25 @@ export default function Login({ title, csrf_cookie }) {
     e.preventDefault()
 
     // Get the CSRF Token from api server
-    await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-      {
-        credentials: 'include',
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest',
-          Accept: 'application/json',
-        },
-      }
-    )
+    // await fetch(
+    //   `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+    //   {
+    //     credentials: 'include',
+    //     headers: {
+    //       'X-Requested-With': 'XMLHttpRequest',
+    //       Accept: 'application/json',
+    //     },
+    //   }
+    // )
 
-    let cookies = cookie.parse(document.cookie)
-    let csrf_cookie = cookies['XSRF-TOKEN']
+    // let cookies = cookie.parse(document.cookie)
+    // let csrf_cookie = cookies['XSRF-TOKEN']
 
-    // Ensure there is a active csrf cookie
-    if (!csrf_cookie) {
-      server_error_alert()
-    }
+    // // Ensure there is a active csrf cookie
+    // if (!csrf_cookie) {
+    //   server_error_alert()
+    //   return
+    // }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -79,7 +80,6 @@ export default function Login({ title, csrf_cookie }) {
       .then((response) => {
         if (!response.ok && response.status !== 422) {
           server_error_alert()
-
           return
         }
 
