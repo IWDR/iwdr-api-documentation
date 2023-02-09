@@ -19,7 +19,7 @@ export default function LoginForm() {
 
   const server_error_alert = () => {
     showAlert(
-      'There was an issue contacting our servers. Please try again later.',
+      'There was an issue proccessing your request. Please try again later.',
       'error',
       true,
       6000
@@ -35,7 +35,7 @@ export default function LoginForm() {
       },
     })
       .then((res) => {
-        if (!res.status === 204) server_error_alert()
+        if (res.status !== 204) server_error_alert()
       })
       .catch((e) => {
         console.log(e)
@@ -44,6 +44,8 @@ export default function LoginForm() {
 
   const submit_form = async (e) => {
     e.preventDefault()
+
+    await get_csrf_token()
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -97,10 +99,6 @@ export default function LoginForm() {
       })
       .finally(() => setLoading(false))
   }
-
-  useEffect(() => {
-    get_csrf_token()
-  }, [])
 
   return (
     <>
