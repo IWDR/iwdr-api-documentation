@@ -40,7 +40,9 @@ export default function LoginForm() {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
+        'X-XSRF-TOKEN': cookie.parse(data.headers.raw()['Set-Cookie'])[
+          'XSRF-TOKEN'
+        ],
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
@@ -77,6 +79,7 @@ export default function LoginForm() {
       .catch((error) => {
         console.log(error)
       })
+      .finally(() => setLoading(false))
   }
 
   return (

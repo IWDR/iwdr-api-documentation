@@ -41,7 +41,6 @@ export default function App({ Component, pageProps }) {
         <MDXProvider components={mdxComponents}>
           <SWRConfig
             value={{
-              refreshInterval: 120 * 1000,
               fetcher: ([resource, init]) => {
                 setLoading(true)
                 fetch(resource, init)
@@ -57,7 +56,7 @@ export default function App({ Component, pageProps }) {
 
                     if (res.status !== 204) return res.json()
 
-                    return res.body
+                    return res
                   })
                   .finally(() => setLoading(false))
               },
