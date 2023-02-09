@@ -26,8 +26,25 @@ export default function LoginForm() {
     )
   }
 
+  const get_csrf_token = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
+      {
+        credentials: 'include',
+        headers: {
+          Accept: 'application/json',
+          'X-Requested-With': 'XMLHttpRequest',
+        },
+      }
+    )
+
+    if (response.status !== 204) server_error_alert()
+  }
+
   const submit_form = async (e) => {
     e.preventDefault()
+
+    await get_csrf_token()
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
@@ -81,25 +98,6 @@ export default function LoginForm() {
       })
       .finally(() => setLoading(false))
   }
-
-  useEffect(() => {
-    const get_csrf_token = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-        {
-          credentials: 'include',
-          headers: {
-            Accept: 'application/json',
-            'X-Requested-With': 'XMLHttpRequest',
-          },
-        }
-      )
-
-      if (response.status !== 204) server_error_alert()
-    }
-
-    get_csrf_token()
-  }, [])
 
   return (
     <>
