@@ -19,7 +19,13 @@ export default function LoginForm() {
   const router = useRouter()
   const { data, error } = useSWR([
     `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-    { credentials: 'include' },
+    {
+      credentials: 'include',
+      headers: {
+        Accept: 'application/json',
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    },
   ])
 
   if (error) return <></>
@@ -40,9 +46,7 @@ export default function LoginForm() {
       }),
       headers: {
         'Content-Type': 'application/json',
-        'X-XSRF-TOKEN': cookie.parse(data.headers.raw()['Set-Cookie'])[
-          'XSRF-TOKEN'
-        ],
+        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
