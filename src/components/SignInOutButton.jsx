@@ -9,7 +9,7 @@ export default function SignInOutButton({ className }) {
   const user = useAuthStore((state) => state.user)
   const setUser = useAuthStore((state) => state.setUser)
 
-  const { showAlert } = useAlertStore()
+  const { showAlert, serverErrorAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
   const router = useRouter()
 
@@ -23,19 +23,21 @@ export default function SignInOutButton({ className }) {
         'X-Requested-With': 'XMLHttpRequest',
         Accept: 'application/json',
       },
-    })
-      .then((res) => {
-        if (res.status !== 204) {
-          // TODO: Create some kind of alert system
-        }
+    }).then((res) => {
+      // Something went wrong and we need to investigate
+      if (res.status !== 204) {
+        serverErrorAlert()
+        return
+      }
 
-        setLoading(false)
-        setUser(null)
-        router.push('/')
-      })
-      .finally(() => {
-        showAlert('You are now signed out.', 'success', true, 4000)
-      })
+      // Clear user data and loading state
+      setUser(null)
+      setLoading(false)
+
+      // Push router back to index and show log out alert
+      router.push('/')
+      showAlert('You are now signed out.', 'success', true, 4000)
+    })
   }
 
   if (user) {

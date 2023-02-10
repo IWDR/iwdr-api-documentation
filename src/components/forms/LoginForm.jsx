@@ -13,33 +13,9 @@ export default function LoginForm() {
   const [password, setPassword] = useState('')
   const [password_error, setPasswordError] = useState(undefined)
   const { setLoading } = useLoadingStore()
-  const { showAlert } = useAlertStore()
+  const { serverErrorAlert } = useAlertStore()
   const setUser = useAuthStore((state) => state.setUser)
   const router = useRouter()
-
-  const server_error_alert = () => {
-    showAlert(
-      'There was an issue proccessing your request. Please try again later.',
-      'error',
-      true,
-      6000
-    )
-  }
-
-  const get_csrf_token = async () => {
-    let response = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
-      {
-        credentials: 'include',
-        headers: {
-          Accept: 'application/json',
-          'X-Requested-With': 'XMLHttpRequest',
-        },
-      }
-    )
-
-    if (response.status !== 204) server_error_alert()
-  }
 
   const submit_form = async (e) => {
     e.preventDefault()
@@ -47,7 +23,7 @@ export default function LoginForm() {
     let token = cookie.parse(document.cookie)['XSRF-TOKEN']
 
     if (!token) {
-      server_error_alert()
+      serverErrorAlert()
       return
     }
 
@@ -72,7 +48,7 @@ export default function LoginForm() {
     })
       .then((response) => {
         if (!response.ok && response.status !== 422) {
-          server_error_alert()
+          serverErrorAlert()
           return null
         }
 
@@ -103,10 +79,6 @@ export default function LoginForm() {
       })
       .finally(() => setLoading(false))
   }
-
-  useEffect(() => {
-    get_csrf_token()
-  }, [])
 
   return (
     <>
