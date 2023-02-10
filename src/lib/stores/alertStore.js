@@ -5,20 +5,18 @@ export const useAlertStore = create((set, get) => ({
   message: null,
   variant: 'plain',
   isClosable: false,
-  serverErrorAlert: (isClosable, withTimeout = 0) => {
+  serverErrorAlert: () => {
     set({
       open: true,
       message:
         'There was an issue proccessing your request. Please try again later.',
       variant: 'error',
-      isClosable: isClosable ?? false,
+      isClosable: true,
     })
 
-    if (withTimeout > 0) {
-      setTimeout(() => {
-        get().clearAlert()
-      }, withTimeout)
-    }
+    setTimeout(() => {
+      get().clearAlert()
+    }, 6000)
   },
   showAlert: (msg, variant, isClosable = undefined, withTimeout = 0) => {
     set({

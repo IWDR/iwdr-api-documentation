@@ -6,10 +6,6 @@ export async function getServerSideProps({ res }) {
     `${process.env.NEXT_PUBLIC_API_URL}/sanctum/csrf-cookie`,
     {
       credentials: 'include',
-      headers: {
-        Accept: 'application/json',
-        'X-Requested-With': 'XMLHttpRequest',
-      },
     }
   )
 
@@ -17,7 +13,7 @@ export async function getServerSideProps({ res }) {
     return initProps
   }
 
-  // Ensure cookies are transferred 
+  // Ensure cookies are transferred
   res.setHeader('Set-Cookie', response.headers.raw()['set-cookie'])
   return initProps
 }

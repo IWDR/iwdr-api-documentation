@@ -1,6 +1,6 @@
 import { TextField } from '@/components/TextField'
 import { Button } from '@/components/Button'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useAuthStore } from '@/lib/stores/authStore'
 import { useRouter } from 'next/router'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
