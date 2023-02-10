@@ -9,7 +9,7 @@ import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
 import { UserIcon } from '@/components/icons/UserIcon'
 import { UsersIcon } from '@/components/icons/UsersIcon'
 import { ServiceDogIcon } from './icons/ServiceDogIcon'
-import { useAuthStore } from '@/lib/stores/authStore'
+import { useAuth } from '@/hooks/auth'
 
 const resources = [
   {
@@ -159,7 +159,7 @@ function Resource({ resource }) {
 }
 
 export function Resources() {
-  const user = useAuthStore((state) => state.user)
+  const { user } = useAuth({ middleware: 'guest' })
 
   return (
     <div className="my-16 xl:max-w-none">

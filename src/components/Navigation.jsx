@@ -10,7 +10,7 @@ import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
 import { TopLevelNavItem } from './TopLevelNavItem'
-import { useAuthStore } from '@/lib/stores/authStore'
+import { useAuth } from '@/hooks/auth'
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current
@@ -214,12 +214,12 @@ export const navigation = [
 ]
 
 export default function Navigation(props) {
-  const user = useAuthStore((state) => state.user)
+  const { user } = useAuth()
 
   const navList = () =>
     navigation.map((group, groupIndex) => {
-      if (group.is_restricted && !Boolean(user)) {
-        return <li className='hidden' key={group.title}></li>
+      if (group.is_restricted && !user) {
+        return <li className="hidden" key={group.title}></li>
       }
 
       return (

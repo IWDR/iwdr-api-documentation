@@ -11,8 +11,8 @@ import '@/styles/app.css'
 import 'focus-visible'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
-import { authStore, AuthProvider } from '@/lib/stores/authStore'
 import { SWRConfig } from 'swr'
+import axios from '@/lib/axios'
 
 function onRouteChange() {
   useMobileNavigationStore.getState().close()
@@ -25,7 +25,7 @@ Router.events.on('routeChangeError', onRouteChange)
 export default function App({ Component, pageProps }) {
   let router = useRouter()
   const { setLoading } = useLoadingStore()
-  const { showAlert } = useAlertStore()
+  const { serverErrorAlert } = useAlertStore()
 
   return (
     <>
@@ -37,37 +37,36 @@ export default function App({ Component, pageProps }) {
         )}
         <meta name="description" content={pageProps.description} />
       </Head>
-      <AuthProvider value={authStore}>
-        <MDXProvider components={mdxComponents}>
-          <SWRConfig
-            value={{
-              fetcher: ([resource, init]) => {
-                setLoading(true)
-                fetch(resource, init)
-                  .then((res) => {
-                    if (!res.ok && res.status !== 422) {
-                      showAlert(
-                        'There was an issue proccessing your request. Please try again later.',
-                        'error',
-                        true,
-                        6000
-                      )
-                    }
+      <MDXProvider components={mdxComponents}>
+        <SWRConfig
+          value={{
+            errorRetryCount: 2,
+            fallbackData: null,
+            onError: () => {},
+            fetcher: ({ resource, options, method = 'get' }) => {
+              setLoading(true)
+              axios[method](resource, options ?? null)
+                .then((res) => {
+                  if (res.status !== 200 || res.status !== 204) {
+                    serverErrorAlert()
+                    return null
+                  }
 
-                    if (res.status !== 204) return res.json()
-
-                    return res
-                  })
-                  .finally(() => setLoading(false))
-              },
-            }}
-          >
-            <Layout {...pageProps}>
-              <Component {...pageProps} />
-            </Layout>
-          </SWRConfig>
-        </MDXProvider>
-      </AuthProvider>
+                  return res.data
+                })
+                .catch((error) => {
+                  serverErrorAlert()
+                  console.log(error)
+                })
+                .finally(() => setLoading(false))
+            },
+          }}
+        >
+          <Layout {...pageProps}>
+            <Component {...pageProps} />
+          </Layout>
+        </SWRConfig>
+      </MDXProvider>
     </>
   )
 }

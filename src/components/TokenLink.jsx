@@ -1,13 +1,13 @@
 import { TopLevelNavItem } from './TopLevelNavItem'
 import clsx from 'clsx'
-import { useAuthStore } from '@/lib/stores/authStore'
+import { useAuth } from '@/hooks/auth'
 
 export default function TokenLink({ className, listClass }) {
-  const user = useAuthStore((state) => state.user)
+  const { user } = useAuth()
 
   return (
     <TopLevelNavItem
-      className={clsx(className, user === null && 'hidden')}
+      className={clsx(className, !user && 'hidden')}
       listClass={listClass}
       href="/tokens"
     >

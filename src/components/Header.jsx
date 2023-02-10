@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 
 import { IWDRLogo } from '@/components/IWDRLogo'
 import {
-  MobileNavigation,
+  useMobileNavigationStore,
   useIsInsideMobileNavigation,
+  MobileNavigation,
 } from '@/components/MobileNavigation'
-import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import { ModeToggle } from '@/components/ModeToggle'
 import { MobileSearch, Search } from '@/components/Search'
 import { TopLevelNavItem } from '@/components/TopLevelNavItem'

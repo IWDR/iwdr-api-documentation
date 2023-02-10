@@ -1,13 +1,13 @@
 import { SelectField } from '@/components/SelectField'
 import { TextField } from '@/components/TextField'
+import { useAuth } from '@/hooks/auth'
+import axios from '@/lib/axios'
 import { useAlertStore } from '@/lib/stores/alertStore'
-import { useAuthStore } from '@/lib/stores/authStore'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useState } from 'react'
-import cookie from 'cookie'
 
-export function CreateTokenForm({ onSubmit, id }) {
-  const user = useAuthStore((state) => state.user)
+export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
+  const user = useAuth({ middleware: 'auth' })
   const { setLoading } = useLoadingStore()
   const { showAlert } = useAlertStore()
 
@@ -17,7 +17,7 @@ export function CreateTokenForm({ onSubmit, id }) {
   }))
   const [token_name, setTokenName] = useState('')
   const [token_name_error, setTokenNameError] = useState('')
-  const [abilities, setTokenAbilities] = useState([])
+  const [token_abilities, setTokenAbilities] = useState(abilities)
   const [abilities_error, setAbilitiesError] = useState('')
 
   const reset = () => {
@@ -31,43 +31,25 @@ export function CreateTokenForm({ onSubmit, id }) {
     e.preventDefault()
 
     setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
-      method: 'POST',
-      credentials: 'include',
-      headers: {
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
-        'X-Requested-With': 'XMLHttpRequest',
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        token_name,
-        abilities,
-      }),
-    })
-      .then(async (res) => {
-        if (!res.ok) {
-          if (res.status === 422) {
-            let data = await res.json()
-            let errors = data.errors
-
-            setTokenNameError(errors.token_name ?? '')
-            setAbilitiesError(errors.abilities ?? '')
-          } else {
-            console.log(res)
-            showAlert(
-              'There was an error processing your request. Please try again later.',
-              'error',
-              true
-            )
-          }
-
-          return
-        }
-
-        let token_data = await res.json()
+    axios
+      .post(
+        '/tokens',
+        JSON.stringify({
+          token_name,
+          abilities: token_abilities,
+        })
+      )
+      .then((res) => {
         reset()
-        onSubmit(token_data)
+        onSubmit()
+      })
+      .catch((err) => {
+        if (err.response.status === 422) {
+          let errors = err.response.data.errors
+
+          setTokenNameError(errors.token_name ?? '')
+          setAbilitiesError(errors.abilities ?? '')
+        }
       })
       .finally(() => {
         setLoading(false)

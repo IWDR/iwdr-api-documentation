@@ -5,82 +5,21 @@ import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
-import cookie from 'cookie'
+import useSWR from 'swr'
+import axios from '@/lib/axios'
 
-// Fetch tokens on server and return as prop
-// Redirect if the users token list is unreadable
-export async function getServerSideProps({ req }) {
-  const result = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
-    credentials: 'include',
-    headers: {
-      Cookie: req.headers.cookie,
-      'X-XSRF-TOKEN': req.cookies['XSRF-TOKEN'],
-      'X-Requested-With': 'XMLHttpRequest',
-    },
-  })
-
-  let initTokens = await result.json()
-
-  if (!Array.isArray(initTokens)) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: '/login?redirect=tokens',
-      },
-    }
-  }
-
-  return {
-    props: {
-      title: 'Manage Tokens',
-      initTokens,
-    },
-  }
-}
-
-export default function Tokens({ initTokens }) {
-  const [tokens, setTokens] = useState(initTokens)
+export default function Tokens() {
   const [showActionPanel, setShowActionPanel] = useState(false)
-  const [freshToken, setFreshToken] = useState('')
-  const { showAlert } = useAlertStore()
+  const [newToken, setNewToken] = useState('')
+  const { serverErrorAlert, showAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
 
-  const refreshTokens = async (new_token) => {
-    if (new_token) {
-      setFreshToken(new_token.token)
-      setShowActionPanel(true)
-    }
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens`, {
-      credentials: 'include',
-      headers: {
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.log(res)
-        }
-
-        return res.json()
-      })
-      .then((data) => setTokens(data))
-      .catch((err) => {
-        console.log(err)
-      })
-  }
+  const { data: tokens, error, mutate } = useSWR({ resource: '/tokens' })
 
   const deleteToken = (id) => {
     setLoading(true)
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/tokens/${id}`, {
-      method: 'DELETE',
-      credentials: 'include',
-      headers: {
-        'X-XSRF-TOKEN': cookie.parse(document.cookie)['XSRF-TOKEN'],
-        'X-Requested-With': 'XMLHttpRequest',
-      },
-    })
+    axios
+      .delete(`/tokens/${id}`)
       .then((res) => {
         if (!res.ok) {
           showAlert(
@@ -91,11 +30,13 @@ export default function Tokens({ initTokens }) {
           )
         }
 
-        refreshTokens()
         showAlert('Token revoked successfully.', 'success', true, 4000)
+        mutate()
       })
       .finally(() => setLoading(false))
   }
+
+  if (error) return <></>
 
   return (
     <>
@@ -106,7 +47,7 @@ export default function Tokens({ initTokens }) {
         setOpen={setShowActionPanel}
       >
         <TextField
-          value={freshToken}
+          value={newToken}
           readonly={true}
           className="rounded-r-none"
           copyable={true}
@@ -120,7 +61,7 @@ export default function Tokens({ initTokens }) {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <CreateTokenDialog onSubmit={(data) => refreshTokens(data)} />
+          <CreateTokenDialog onSubmit={() => mutate()} />
         </div>
       </div>
       <div className="mt-8 flex flex-col">
@@ -163,7 +104,7 @@ export default function Tokens({ initTokens }) {
                   </tr>
                 </thead>
                 <tbody className="not-prose divide-y divide-gray-200 bg-white dark:divide-zinc-500 dark:bg-zinc-700">
-                  {tokens.length > 0 ? (
+                  {tokens ? (
                     tokens.map((token) => (
                       <tr key={token.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">
