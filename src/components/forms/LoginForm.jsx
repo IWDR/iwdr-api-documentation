@@ -38,21 +38,18 @@ export default function LoginForm() {
       }
     )
 
-    console.log(response)
-    if (response.status !== 204) {
-      server_error_alert()
-      return null
-    }
-
-    return cookie.parse(document.cookie)['XSRF-TOKEN']
+    if (response.status !== 204) server_error_alert()
   }
 
   const submit_form = async (e) => {
     e.preventDefault()
 
-    let token = await get_csrf_token()
+    let token = cookie.parse(document.cookie)['XSRF-TOKEN']
 
-    if (!token) return
+    if (!token) {
+      server_error_alert()
+      return
+    }
 
     // Get possible redirects
     const queryParams = new URLSearchParams(window.location.search)
