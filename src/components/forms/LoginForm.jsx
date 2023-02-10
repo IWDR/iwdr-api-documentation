@@ -104,6 +104,10 @@ export default function LoginForm() {
       .finally(() => setLoading(false))
   }
 
+  useEffect(() => {
+    get_csrf_token()
+  }, [])
+
   return (
     <>
       <form className="my-6" onSubmit={(e) => submit_form(e)}>
