@@ -54,10 +54,6 @@ export default function App({ Component, pageProps }) {
 
                   return res.data
                 })
-                .catch((error) => {
-                  serverErrorAlert()
-                  console.log(error)
-                })
                 .finally(() => setLoading(false))
             },
           }}

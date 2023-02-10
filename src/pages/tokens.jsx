@@ -11,10 +11,10 @@ import axios from '@/lib/axios'
 export default function Tokens() {
   const [showActionPanel, setShowActionPanel] = useState(false)
   const [newToken, setNewToken] = useState('')
-  const { serverErrorAlert, showAlert } = useAlertStore()
+  const { showAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
 
-  const { data: tokens, error, mutate } = useSWR({ resource: '/tokens' })
+  const { data: tokens, mutate } = useSWR({ resource: '/tokens' })
 
   const deleteToken = (id) => {
     setLoading(true)
@@ -36,7 +36,11 @@ export default function Tokens() {
       .finally(() => setLoading(false))
   }
 
-  if (error) return <></>
+  const new_token_created = (token) => {
+    setNewToken(token)
+    setShowActionPanel(true)
+    mutate()
+  }
 
   return (
     <>
@@ -61,7 +65,7 @@ export default function Tokens() {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <CreateTokenDialog onSubmit={() => mutate()} />
+          <CreateTokenDialog onSubmit={(token) => new_token_created(token)} />
         </div>
       </div>
       <div className="mt-8 flex flex-col">

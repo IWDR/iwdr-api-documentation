@@ -7,17 +7,12 @@ import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useState } from 'react'
 
 export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
-  const user = useAuth({ middleware: 'auth' })
   const { setLoading } = useLoadingStore()
   const { showAlert } = useAlertStore()
 
-  const availableAbilites = user.permissions.map((text) => ({
-    text: text,
-    value: text,
-  }))
   const [token_name, setTokenName] = useState('')
   const [token_name_error, setTokenNameError] = useState('')
-  const [token_abilities, setTokenAbilities] = useState(abilities)
+  const [token_abilities, setTokenAbilities] = useState([])
   const [abilities_error, setAbilitiesError] = useState('')
 
   const reset = () => {
@@ -32,16 +27,13 @@ export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
 
     setLoading(true)
     axios
-      .post(
-        '/tokens',
-        JSON.stringify({
-          token_name,
-          abilities: token_abilities,
-        })
-      )
+      .post('/tokens', {
+        token_name,
+        abilities: token_abilities,
+      })
       .then((res) => {
         reset()
-        onSubmit()
+        onSubmit(res.data)
       })
       .catch((err) => {
         if (err.response.status === 422) {
