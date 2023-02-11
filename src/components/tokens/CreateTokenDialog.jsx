@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Button } from '@/components/Button'
 import { Modal } from '@/components/Modal'
 import { Dialog } from '@headlessui/react'
-import { CreateTokenForm } from './forms/tokens/CreateTokenForm'
+import { CreateTokenForm } from './CreateTokenForm'
 
 export function CreateTokenDialog({ onSubmit }) {
   const [open, setOpen] = useState(false)

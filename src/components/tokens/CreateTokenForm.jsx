@@ -15,6 +15,12 @@ export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
   const [token_abilities, setTokenAbilities] = useState([])
   const [abilities_error, setAbilitiesError] = useState('')
 
+  const { user } = useAuth({ middleware: 'auth' })
+
+  const availableAbilites = user.permissions.map((perm) => {
+    return { text: perm, value: perm }
+  })
+
   const reset = () => {
     setTokenName('')
     setTokenNameError('')
@@ -70,7 +76,7 @@ export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
           id="abilities"
           placeholder="Select any number of abilities..."
           options={availableAbilites}
-          value={abilities}
+          value={token_abilities}
           onChange={setTokenAbilities}
           error={!!abilities_error}
           error_message={abilities_error}

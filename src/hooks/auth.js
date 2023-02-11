@@ -72,11 +72,16 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .post('/logout')
       .then(() => {
         mutate()
-        // Push router back to index and show log out alert
-        router.push('/')
         showAlert('You are now signed out.', 'success', true, 6000)
       })
-      .finally(() => setLoading(false))
+      .catch((error) => {
+        // Handle error
+      })
+      .finally(() => {
+        // Push router back to index and show log out alert
+        router.push('/')
+        setLoading(false)
+      })
   }
 
   useEffect(() => {

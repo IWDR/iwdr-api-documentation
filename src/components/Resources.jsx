@@ -159,7 +159,7 @@ function Resource({ resource }) {
 }
 
 export function Resources() {
-  const { user } = useAuth({ middleware: 'guest' })
+  const { user } = useAuth()
 
   return (
     <div className="my-16 xl:max-w-none">
@@ -172,7 +172,7 @@ export function Resources() {
           'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
         )}
       >
-        {Boolean(user) ? (
+        {user ? (
           resources.map((resource) => (
             <Resource key={resource.href} resource={resource} />
           ))

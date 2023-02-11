@@ -1,14 +1,16 @@
-import { CreateTokenDialog } from '@/components/CreateTokenDialog'
+import { CreateTokenDialog } from '@/components/tokens/CreateTokenDialog'
 import { useState } from 'react'
 import { useAlertStore } from '@/lib/stores/alertStore'
 import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
+import { useAuth } from '@/hooks/auth'
 import useSWR from 'swr'
 import axios from '@/lib/axios'
 
-export default function Tokens() {
+export default function TokensDataTable() {
+  const auth = useAuth({ middleware: 'auth' })
   const [showActionPanel, setShowActionPanel] = useState(false)
   const [newToken, setNewToken] = useState('')
   const { showAlert } = useAlertStore()
@@ -32,6 +34,10 @@ export default function Tokens() {
 
         showAlert('Token revoked successfully.', 'success', true, 4000)
         mutate()
+      })
+      .catch((error) => {
+        console.log(error)
+        throw Error
       })
       .finally(() => setLoading(false))
   }

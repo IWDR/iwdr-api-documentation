@@ -13,6 +13,7 @@ import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useAlertStore } from '@/lib/stores/alertStore'
 import { SWRConfig } from 'swr'
 import axios from '@/lib/axios'
+import { useAuth } from '@/hooks/auth'
 
 function onRouteChange() {
   useMobileNavigationStore.getState().close()
@@ -26,6 +27,7 @@ export default function App({ Component, pageProps }) {
   let router = useRouter()
   const { setLoading } = useLoadingStore()
   const { serverErrorAlert } = useAlertStore()
+  const { logout } = useAuth()
 
   return (
     <>
@@ -53,6 +55,16 @@ export default function App({ Component, pageProps }) {
                   }
 
                   return res.data
+                })
+                .catch((error) => {
+                  // All requests should be authenticated
+                  if (
+                    error.response?.status === 401 ||
+                    error.response?.status === 403
+                  ) {
+                    logout()
+                  }
+                  serverErrorAlert()
                 })
                 .finally(() => setLoading(false))
             },
