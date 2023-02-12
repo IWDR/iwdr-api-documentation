@@ -4,24 +4,18 @@ import { useRouter } from 'next/router'
 import clsx from 'clsx'
 import { AnimatePresence, motion, useIsPresent } from 'framer-motion'
 
-import dynamic from 'next/dynamic'
 import { useIsInsideMobileNavigation } from '@/components/MobileNavigation'
 import { useSectionStore } from '@/components/SectionProvider'
 import { Tag } from '@/components/Tag'
 import { remToPx } from '@/lib/remToPx'
 import { TopLevelNavItem } from './TopLevelNavItem'
-import { useAuth } from '@/hooks/auth'
+import SignInOutButton from './SignInOutButton'
+import TokenLink from './TokenLink'
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current
   return condition ? initialValue : value
 }
-
-const DynamicSignInOutButton = dynamic(() => import('./SignInOutButton'), {
-  ssr: false,
-})
-
-const DynamicTokenLink = dynamic(() => import('./TokenLink'), { ssr: false })
 
 function NavLink({ href, tag, active, isAnchorLink = false, children }) {
   return (
@@ -213,9 +207,7 @@ export const navigation = [
   },
 ]
 
-export default function Navigation(props) {
-  const { user } = useAuth({ middleware: 'guest' })
-
+export default function Navigation({ user, ...props }) {
   const navList = () =>
     navigation.map((group, groupIndex) => {
       if (group.is_restricted && !Object.keys(user).length > 0) {
@@ -234,7 +226,7 @@ export default function Navigation(props) {
   return (
     <nav {...props}>
       <ul role="list">
-        <DynamicTokenLink className="block py-1" listClass="md:hidden" />
+        <TokenLink className="block py-1" listClass="md:hidden" user={user} />
         <TopLevelNavItem href="#" className="block py-1" listClass="md:hidden">
           Documentation
         </TopLevelNavItem>
@@ -243,7 +235,7 @@ export default function Navigation(props) {
         </TopLevelNavItem>
         {navList()}
         <li className="mt-5 min-[416px]:hidden">
-          <DynamicSignInOutButton className="w-full" />
+          <SignInOutButton user={user} className="w-full" />
         </li>
       </ul>
     </nav>

@@ -9,11 +9,8 @@ import { useMobileNavigationStore } from '@/components/MobileNavigation'
 import '@/styles/tailwind.css'
 import '@/styles/app.css'
 import 'focus-visible'
-import { useLoadingStore } from '@/lib/stores/loadingStore'
-import { useAlertStore } from '@/lib/stores/alertStore'
 import { SWRConfig } from 'swr'
 import axios from '@/lib/axios'
-import { useAuth } from '@/hooks/auth'
 
 function onRouteChange() {
   useMobileNavigationStore.getState().close()
@@ -24,18 +21,14 @@ Router.events.on('routeChangeComplete', onRouteChange)
 Router.events.on('routeChangeError', onRouteChange)
 
 export default function App({ Component, pageProps }) {
-  const router = useRouter()
-  const { setLoading } = useLoadingStore()
-  const { serverErrorAlert, showAlert } = useAlertStore()
-
   return (
     <>
       <Head>
-        {router.pathname === '/' ? (
-          <title>IWDR API Reference</title>
-        ) : (
-          <title>{`${pageProps.title} - IWDR API Reference`}</title>
-        )}
+        {
+          <title>{`${
+            pageProps.title ? pageProps.title + ' - ' : ''
+          } IWDR API Reference`}</title>
+        }
         <meta name="description" content={pageProps.description} />
       </Head>
       <MDXProvider components={mdxComponents}>

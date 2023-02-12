@@ -1,8 +1,8 @@
 import { Button } from '@/components/Button'
 import { useAuth } from '@/hooks/auth'
 
-export default function SignInOutButton({ className }) {
-  const { user, logout } = useAuth({ middleware: 'guest' })
+export default function SignInOutButton({ className, user }) {
+  const { logout } = useAuth()
 
   if (Object.keys(user).length > 0) {
     return (

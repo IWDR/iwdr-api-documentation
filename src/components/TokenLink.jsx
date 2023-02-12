@@ -1,10 +1,7 @@
 import { TopLevelNavItem } from './TopLevelNavItem'
 import clsx from 'clsx'
-import { useAuth } from '@/hooks/auth'
 
-export default function TokenLink({ className, listClass }) {
-  const { user } = useAuth({ middleware: 'guest' })
-
+export default function TokenLink({ className, listClass, user }) {
   return (
     <TopLevelNavItem
       className={clsx(className, !Object.keys(user).length > 0 && 'hidden')}

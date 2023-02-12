@@ -2,7 +2,6 @@ import Link from 'next/link'
 import clsx from 'clsx'
 
 import { Heading } from '@/components/Heading'
-import dynamic from 'next/dynamic'
 
 export const a = Link
 export { Button } from '@/components/Button'
@@ -12,8 +11,6 @@ export { CodeGroup, Code as code, Pre as pre } from '@/components/Code'
 export const h2 = function H2(props) {
   return <Heading level={2} {...props} />
 }
-
-export const DynamicResources = dynamic(() => import('@/components/Resources'), { ssr: false })
 
 function InfoIcon(props) {
   return (

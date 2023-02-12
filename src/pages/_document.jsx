@@ -40,6 +40,7 @@ export default function Document() {
     <Html lang="en">
       <Head>
         <script dangerouslySetInnerHTML={{ __html: modeScript }} />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3"/>
       </Head>
       <body className="bg-white antialiased dark:bg-zinc-900">
         <Main />

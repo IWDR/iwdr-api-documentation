@@ -8,13 +8,12 @@ import { Prose } from '@/components/Prose'
 import { SectionProvider } from '@/components/SectionProvider'
 import LoadingOverlay from './LoadingOverlay'
 import { Alert } from './Alert'
-import dynamic from 'next/dynamic'
-
-const DynamicNavigation = dynamic(() => import('@/components/Navigation'), {
-  ssr: false,
-})
+import Navigation from './Navigation'
+import { useAuth } from '@/hooks/auth'
 
 export function Layout({ children, sections = [] }) {
+  const { user } = useAuth({ middleware: 'guest' })
+
   return (
     <SectionProvider sections={sections}>
       <LoadingOverlay />
@@ -30,8 +29,8 @@ export function Layout({ children, sections = [] }) {
                 <IWDRLogo className="h-12" />
               </Link>
             </div>
-            <Header />
-            <DynamicNavigation className="hidden lg:mt-10 lg:block" />
+            <Header user={user} />
+            <Navigation className="hidden lg:mt-10 lg:block" user={user} />
           </div>
         </motion.header>
         <div className="relative px-4 pt-14 sm:px-6 lg:px-8">

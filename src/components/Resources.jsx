@@ -9,11 +9,10 @@ import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
 import { UserIcon } from '@/components/icons/UserIcon'
 import { UsersIcon } from '@/components/icons/UsersIcon'
 import { ServiceDogIcon } from './icons/ServiceDogIcon'
-import { useAuth } from '@/hooks/auth'
 
 const resources = [
   {
-    href: '/dogs',
+    href: '/resources/dogs',
     name: 'Dogs',
     description:
       'Learn about the dog model and how to create, retrieve, update, and list the dogs owned by your organization.',
@@ -27,7 +26,7 @@ const resources = [
     },
   },
   {
-    href: '/contacts',
+    href: '/resources/contacts',
     name: 'Contacts',
     description:
       'Learn about the contact model and how to create, retrieve, update, delete, and list contacts.',
@@ -41,7 +40,7 @@ const resources = [
     },
   },
   {
-    href: '/conversations',
+    href: '/resources/conversations',
     name: 'Conversations',
     description:
       'Learn about the conversation model and how to create, retrieve, update, delete, and list conversations.',
@@ -55,7 +54,7 @@ const resources = [
     },
   },
   {
-    href: '/messages',
+    href: '/resources/messages',
     name: 'Messages',
     description:
       'Learn about the message model and how to create, retrieve, update, delete, and list messages.',
@@ -69,7 +68,7 @@ const resources = [
     },
   },
   {
-    href: '/groups',
+    href: '/resources/groups',
     name: 'Groups',
     description:
       'Learn about the group model and how to create, retrieve, update, delete, and list groups.',
@@ -158,8 +157,8 @@ function Resource({ resource }) {
   )
 }
 
-export function Resources() {
-  const { user } = useAuth({ middleware: 'guest' })
+export function Resources({ user }) {
+  const has_user = Object.keys(user).length > 0;
 
   return (
     <div className="my-16 xl:max-w-none">
@@ -168,11 +167,11 @@ export function Resources() {
       </Heading>
       <div
         className={clsx(
-          Boolean(user) && 'sm:grid-cols-2 xl:grid-cols-4',
+          has_user && 'sm:grid-cols-2 xl:grid-cols-4',
           'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
         )}
       >
-        {user ? (
+        { has_user ? (
           resources.map((resource) => (
             <Resource key={resource.href} resource={resource} />
           ))

@@ -14,8 +14,12 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     data: user,
     error,
     mutate,
-  } = useSWR(`/user-info`, () =>
-    axios.get('/user-info').then((res) => res.data?.data)
+  } = useSWR(
+    `/user-info`,
+    () => axios.get('/user-info').then((res) => res.data?.data),
+    {
+      fallbackData: {},
+    }
   )
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')

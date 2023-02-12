@@ -5,6 +5,7 @@ import { recmaPlugins } from './mdx/recma.mjs'
 
 const withMDX = nextMDX({
   options: {
+    providerImportSource: '@mdx-js/react',
     remarkPlugins,
     rehypePlugins,
     recmaPlugins,

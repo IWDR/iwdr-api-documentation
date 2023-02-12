@@ -12,15 +12,10 @@ import {
 import { ModeToggle } from '@/components/ModeToggle'
 import { MobileSearch, Search } from '@/components/Search'
 import { TopLevelNavItem } from '@/components/TopLevelNavItem'
-import dynamic from 'next/dynamic'
+import TokenLink from './TokenLink'
+import SignInOutButton from './SignInOutButton'
 
-const DynamicSignInOutButton = dynamic(() => import('./SignInOutButton'), {
-  ssr: false,
-})
-
-const DynamicTokenLink = dynamic(() => import('./TokenLink'), { ssr: false })
-
-export const Header = forwardRef(function Header({ className }, ref) {
+export const Header = forwardRef(function Header({ className, user }, ref) {
   let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
@@ -62,7 +57,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <DynamicTokenLink className="text-sm leading-5" />
+            <TokenLink className="text-sm leading-5" user={user} />
             <TopLevelNavItem href="#" className="text-sm leading-5">
               Documentation
             </TopLevelNavItem>
@@ -77,7 +72,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
           <ModeToggle />
         </div>
         <div className="hidden min-[416px]:contents">
-          <DynamicSignInOutButton />
+          <SignInOutButton user={user} />
         </div>
       </div>
     </motion.div>
