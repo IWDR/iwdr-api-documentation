@@ -34,7 +34,6 @@ function XIcon(props) {
   )
 }
 
-
 const IsInsideMobileNavigationContext = createContext(false)
 
 export function useIsInsideMobileNavigation() {
@@ -48,7 +47,7 @@ export const useMobileNavigationStore = create((set) => ({
   toggle: () => set((state) => ({ isOpen: !state.isOpen })),
 }))
 
-export function MobileNavigation() {
+export function MobileNavigation({ user }) {
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
   let { isOpen, toggle, close } = useMobileNavigationStore()
   let ToggleIcon = isOpen ? XIcon : MenuIcon
@@ -88,7 +87,7 @@ export function MobileNavigation() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
               >
-                <Header />
+                <Header user={user} />
               </Transition.Child>
 
               <Transition.Child
@@ -104,7 +103,7 @@ export function MobileNavigation() {
                   layoutScroll
                   className="fixed left-0 top-14 bottom-0 w-full overflow-y-auto bg-white px-4 pt-6 pb-4 shadow-lg shadow-zinc-900/10 ring-1 ring-zinc-900/7.5 dark:bg-zinc-900 dark:ring-zinc-800 min-[416px]:max-w-sm sm:px-6 sm:pb-10"
                 >
-                  <Navigation />
+                  <Navigation user={user} />
                 </motion.div>
               </Transition.Child>
             </Dialog.Panel>

@@ -49,7 +49,7 @@ export const Header = forwardRef(function Header({ className, user }, ref) {
       />
       <Search />
       <div className="flex items-center gap-5 lg:hidden">
-        <MobileNavigation />
+        <MobileNavigation user={user} />
         <Link href="/" aria-label="Home">
           <IWDRLogo className="hidden lg:inline-block" />
         </Link>
