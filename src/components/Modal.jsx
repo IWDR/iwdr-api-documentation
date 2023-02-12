@@ -1,6 +1,5 @@
 import { Transition, Dialog } from '@headlessui/react'
 import { Fragment } from 'react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 
 export function Modal({ open, openModifier, children, className }) {

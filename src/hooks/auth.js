@@ -40,7 +40,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         // Mutate data
         mutate()
         showAlert('You are now signed in.', 'success', true, 6000)
-        router.push('/')
       })
       .catch((error) => {
         // Unknown error
@@ -74,9 +73,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         mutate({})
       })
-      .catch((error) => {
-        // Handle error
-      })
+      .catch(() => serverErrorAlert())
       .finally(() => {
         setLoading(false)
       })

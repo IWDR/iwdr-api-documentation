@@ -7,6 +7,7 @@ export function getServerSideProps() {
   return {
     props: {
       title: 'Tokens',
+      description: 'A list of currently active tokens in use by your organization.'
     },
   }
 }
