@@ -8,15 +8,14 @@ import { TextField } from '@/components/TextField'
 import { useAuth } from '@/hooks/auth'
 import useSWR from 'swr'
 import axios from '@/lib/axios'
+import { useRouter } from 'next/router'
 
-export default function TokensDataTable() {
-  const auth = useAuth({ middleware: 'auth' })
+export default function TokensDataTable({ tokens = [], mutator }) {
   const [showActionPanel, setShowActionPanel] = useState(false)
   const [newToken, setNewToken] = useState('')
-  const { showAlert } = useAlertStore()
+  const { showAlert, serverErrorAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
-
-  const { data: tokens, mutate } = useSWR({ resource: '/tokens' })
+  const router = useRouter()
 
   const deleteToken = (id) => {
     setLoading(true)
@@ -24,16 +23,11 @@ export default function TokensDataTable() {
       .delete(`/tokens/${id}`)
       .then((res) => {
         if (!res.ok) {
-          showAlert(
-            'Something went wrong when performing this action. Please try again later',
-            'error',
-            true,
-            4000
-          )
+          serverErrorAlert()
         }
 
         showAlert('Token revoked successfully.', 'success', true, 4000)
-        mutate()
+        mutator()
       })
       .catch((error) => {
         console.log(error)
@@ -45,7 +39,7 @@ export default function TokensDataTable() {
   const new_token_created = (token) => {
     setNewToken(token)
     setShowActionPanel(true)
-    mutate()
+    mutator()
   }
 
   return (
@@ -65,7 +59,6 @@ export default function TokensDataTable() {
       </ActionPanel>
       <div className="sm:item-center sm:flex">
         <div className="sm:flex-auto">
-          <h1 className="text-xl font-semibold">Tokens</h1>
           <p className="mt-2 text-sm">
             A list of all tokens currently active for your organization.
           </p>
@@ -114,7 +107,7 @@ export default function TokensDataTable() {
                   </tr>
                 </thead>
                 <tbody className="not-prose divide-y divide-gray-200 bg-white dark:divide-zinc-500 dark:bg-zinc-700">
-                  {tokens ? (
+                  {tokens.length > 0 ? (
                     tokens.map((token) => (
                       <tr key={token.id}>
                         <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium sm:pl-6">

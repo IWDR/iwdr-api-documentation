@@ -2,8 +2,9 @@ import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { Transition, Dialog } from '@headlessui/react'
 import { useRouter } from 'next/router'
 import { Fragment, useEffect } from 'react'
+import Spinner from './Spinner'
 
-export default function LoadingOverlay({ children }) {
+export default function LoadingOverlay() {
   const { loading, setLoading } = useLoadingStore()
   const router = useRouter()
 
@@ -40,8 +41,7 @@ export default function LoadingOverlay({ children }) {
         </Transition.Child>
         <div className="fixed inset-0 z-50 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center sm:p-0">
-            {/* Spinner */}
-            <div id="loading-spinner" />
+            <Spinner />
             <span className="mt-40 text-xl font-medium text-white">
               Loading...
             </span>

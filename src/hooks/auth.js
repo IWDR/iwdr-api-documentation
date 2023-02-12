@@ -1,9 +1,9 @@
-import { useRouter } from 'next/router'
 import axios from '@/lib/axios'
 import useSWR from 'swr'
 import { useAlertStore } from '@/lib/stores/alertStore'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
 export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
   const router = useRouter()
@@ -15,15 +15,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     error,
     mutate,
   } = useSWR(`/user-info`, () =>
-    axios
-      .get('/user-info')
-      .then((res) => res.data?.data)
-      .catch((error) => {
-        if (error.response.status !== 409 && error.response.status !== 401) {
-          serverErrorAlert()
-          return
-        }
-      })
+    axios.get('/user-info').then((res) => res.data?.data)
   )
 
   const csrf = () => axios.get('/sanctum/csrf-cookie')
@@ -41,9 +33,11 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     axios
       .post('/login', form)
       .then(() => {
+        router
         // Mutate data
         mutate()
         showAlert('You are now signed in.', 'success', true, 6000)
+        router.push('/')
       })
       .catch((error) => {
         // Unknown error
@@ -71,21 +65,26 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     await axios
       .post('/logout')
       .then(() => {
-        mutate()
+        // Push router back to index and show log out alert
+        router.push('/')
         showAlert('You are now signed out.', 'success', true, 6000)
+
+        mutate({})
       })
       .catch((error) => {
         // Handle error
       })
       .finally(() => {
-        // Push router back to index and show log out alert
-        router.push('/')
         setLoading(false)
       })
   }
 
   useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && user) {
+    if (
+      middleware === 'guest' &&
+      redirectIfAuthenticated &&
+      Object.keys(user).length > 0
+    ) {
       router.push(redirectIfAuthenticated)
     }
 

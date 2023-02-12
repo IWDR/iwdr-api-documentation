@@ -4,7 +4,7 @@ import { useAuth } from '@/hooks/auth'
 export default function SignInOutButton({ className }) {
   const { user, logout } = useAuth()
 
-  if (user) {
+  if (Object.keys(user).length > 0) {
     return (
       <Button onClick={logout} className={className}>
         Sign out

@@ -7,7 +7,7 @@ export default function TokenLink({ className, listClass }) {
 
   return (
     <TopLevelNavItem
-      className={clsx(className, !user && 'hidden')}
+      className={clsx(className, !Object.keys(user).length > 0 && 'hidden')}
       listClass={listClass}
       href="/tokens"
     >

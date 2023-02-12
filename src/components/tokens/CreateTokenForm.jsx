@@ -39,7 +39,7 @@ export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
       })
       .then((res) => {
         reset()
-        onSubmit(res.data)
+        onSubmit(res.data.token)
       })
       .catch((err) => {
         if (err.response.status === 422) {

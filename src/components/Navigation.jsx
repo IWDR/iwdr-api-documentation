@@ -218,7 +218,7 @@ export default function Navigation(props) {
 
   const navList = () =>
     navigation.map((group, groupIndex) => {
-      if (group.is_restricted && !user) {
+      if (group.is_restricted && !Object.keys(user).length > 0) {
         return <li className="hidden" key={group.title}></li>
       }
 

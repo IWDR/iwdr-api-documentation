@@ -24,10 +24,9 @@ Router.events.on('routeChangeComplete', onRouteChange)
 Router.events.on('routeChangeError', onRouteChange)
 
 export default function App({ Component, pageProps }) {
-  let router = useRouter()
+  const router = useRouter()
   const { setLoading } = useLoadingStore()
-  const { serverErrorAlert } = useAlertStore()
-  const { logout } = useAuth()
+  const { serverErrorAlert, showAlert } = useAlertStore()
 
   return (
     <>
@@ -43,31 +42,10 @@ export default function App({ Component, pageProps }) {
         <SWRConfig
           value={{
             errorRetryCount: 2,
-            fallbackData: null,
+            fallbackData: [],
             onError: () => {},
-            fetcher: ({ resource, options, method = 'get' }) => {
-              setLoading(true)
-              axios[method](resource, options ?? null)
-                .then((res) => {
-                  if (res.status !== 200 || res.status !== 204) {
-                    serverErrorAlert()
-                    return null
-                  }
-
-                  return res.data
-                })
-                .catch((error) => {
-                  // All requests should be authenticated
-                  if (
-                    error.response?.status === 401 ||
-                    error.response?.status === 403
-                  ) {
-                    logout()
-                  }
-                  serverErrorAlert()
-                })
-                .finally(() => setLoading(false))
-            },
+            fetcher: ({ resource, options, method = 'get' }) =>
+              axios[method](resource, options ?? null).then((res) => res.data),
           }}
         >
           <Layout {...pageProps}>
