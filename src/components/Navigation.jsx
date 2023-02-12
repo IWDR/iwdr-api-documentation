@@ -214,7 +214,7 @@ export const navigation = [
 ]
 
 export default function Navigation(props) {
-  const { user } = useAuth()
+  const { user } = useAuth({ middleware: 'guest' })
 
   const navList = () =>
     navigation.map((group, groupIndex) => {

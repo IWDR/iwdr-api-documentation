@@ -6,18 +6,15 @@ import { useAlertStore } from '@/lib/stores/alertStore'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { useState } from 'react'
 
-export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
+export function CreateTokenForm({ onSubmit, id, user }) {
   const { setLoading } = useLoadingStore()
-  const { showAlert } = useAlertStore()
 
   const [token_name, setTokenName] = useState('')
   const [token_name_error, setTokenNameError] = useState('')
   const [token_abilities, setTokenAbilities] = useState([])
   const [abilities_error, setAbilitiesError] = useState('')
 
-  const { user } = useAuth({ middleware: 'auth' })
-
-  const availableAbilites = user.permissions.map((perm) => {
+  const abilities = user.permissions.map((perm) => {
     return { text: perm, value: perm }
   })
 
@@ -75,7 +72,7 @@ export function CreateTokenForm({ onSubmit, id, abilities = [] }) {
           name="abilities"
           id="abilities"
           placeholder="Select any number of abilities..."
-          options={availableAbilites}
+          options={abilities}
           value={token_abilities}
           onChange={setTokenAbilities}
           error={!!abilities_error}

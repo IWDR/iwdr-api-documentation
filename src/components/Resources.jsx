@@ -159,7 +159,7 @@ function Resource({ resource }) {
 }
 
 export function Resources() {
-  const { user } = useAuth()
+  const { user } = useAuth({ middleware: 'guest' })
 
   return (
     <div className="my-16 xl:max-w-none">

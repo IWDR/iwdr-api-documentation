@@ -1,7 +1,7 @@
-import LoadingOverlay from '@/components/LoadingOverlay'
 import Spinner from '@/components/Spinner'
 import TokensDataTable from '@/components/tokens/TokensDataTable'
 import useSWR from 'swr'
+import { useAuth } from '@/hooks/auth'
 
 export function getServerSideProps() {
   return {
@@ -12,6 +12,8 @@ export function getServerSideProps() {
 }
 
 export default function Tokens() {
+  const { user } = useAuth({ middleware: 'auth' })
+
   const {
     data: tokens,
     error,
@@ -20,7 +22,11 @@ export default function Tokens() {
   } = useSWR({ resource: '/tokens' })
 
   if (isLoading) {
-    return <Spinner />
+    return (
+      <div className='my-4'>
+        <Spinner />
+      </div>
+    )
   }
 
   if (error) {
@@ -30,7 +36,7 @@ export default function Tokens() {
   return (
     <>
       <h1>Tokens</h1>
-      <TokensDataTable tokens={tokens} mutator={mutate} />
+      <TokensDataTable tokens={tokens} mutator={mutate} user={user} />
     </>
   )
 }

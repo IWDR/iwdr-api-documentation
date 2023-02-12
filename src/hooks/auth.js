@@ -33,7 +33,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     axios
       .post('/login', form)
       .then(() => {
-        router
         // Mutate data
         mutate()
         showAlert('You are now signed in.', 'success', true, 6000)

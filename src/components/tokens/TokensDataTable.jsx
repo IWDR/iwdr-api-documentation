@@ -5,17 +5,13 @@ import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/lib/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
-import { useAuth } from '@/hooks/auth'
-import useSWR from 'swr'
 import axios from '@/lib/axios'
-import { useRouter } from 'next/router'
 
-export default function TokensDataTable({ tokens = [], mutator }) {
+export default function TokensDataTable({ tokens = [], mutator, user }) {
   const [showActionPanel, setShowActionPanel] = useState(false)
   const [newToken, setNewToken] = useState('')
   const { showAlert, serverErrorAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
-  const router = useRouter()
 
   const deleteToken = (id) => {
     setLoading(true)
@@ -64,7 +60,10 @@ export default function TokensDataTable({ tokens = [], mutator }) {
           </p>
         </div>
         <div className="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
-          <CreateTokenDialog onSubmit={(token) => new_token_created(token)} />
+          <CreateTokenDialog
+            onSubmit={(token) => new_token_created(token)}
+            user={user}
+          />
         </div>
       </div>
       <div className="mt-8 flex flex-col">

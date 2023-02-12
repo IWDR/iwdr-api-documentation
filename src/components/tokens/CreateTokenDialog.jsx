@@ -4,7 +4,7 @@ import { Modal } from '@/components/Modal'
 import { Dialog } from '@headlessui/react'
 import { CreateTokenForm } from './CreateTokenForm'
 
-export function CreateTokenDialog({ onSubmit }) {
+export function CreateTokenDialog({ onSubmit, user }) {
   const [open, setOpen] = useState(false)
 
   const submitted = (token_data) => {
@@ -29,6 +29,7 @@ export function CreateTokenDialog({ onSubmit }) {
             <CreateTokenForm
               id="create-token"
               onSubmit={(data) => submitted(data)}
+              user={user}
             />
           </div>
         </div>

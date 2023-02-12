@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useAuth } from '@/hooks/auth'
 
 export default function TokenLink({ className, listClass }) {
-  const { user } = useAuth()
+  const { user } = useAuth({ middleware: 'guest' })
 
   return (
     <TopLevelNavItem
