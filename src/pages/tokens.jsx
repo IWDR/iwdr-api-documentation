@@ -23,7 +23,7 @@ export default function Tokens() {
     isLoading,
   } = useSWR({ resource: '/tokens' })
 
-  if (!isLoading) {
+  if (isLoading) {
     return (
       <div className="not-prose">
         <div className="mb-24">
