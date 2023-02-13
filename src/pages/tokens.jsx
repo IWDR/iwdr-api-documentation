@@ -7,7 +7,8 @@ export function getServerSideProps() {
   return {
     props: {
       title: 'Tokens',
-      description: 'A list of currently active tokens in use by your organization.'
+      description:
+        'A list of currently active tokens in use by your organization.',
     },
   }
 }
@@ -22,10 +23,12 @@ export default function Tokens() {
     isLoading,
   } = useSWR({ resource: '/tokens' })
 
-  if (isLoading) {
+  if (!isLoading) {
     return (
-      <div className='my-4'>
-        <Spinner />
+      <div className="not-prose">
+        <div className="mb-24">
+          <Spinner />
+        </div>
       </div>
     )
   }
