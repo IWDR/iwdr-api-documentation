@@ -37,6 +37,21 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
         // Mutate data
         mutate()
         showAlert('You are now signed in.', 'success', true, 6000)
+
+        // Redirect the user to their desired destination
+        if (redirect) {
+          let hrefURL = new URL(`${process.env.NEXT_PUBLIC_APP_URL}${redirect}`)
+          let pageURL = new URL(window.location)
+
+          // Ensure the redirect will not leave host domain
+          if (redirect.startsWith('/') || hrefURL.host === pageURL.host) {
+            router.push(hrefURL)
+          } else {
+            router.push('/')
+          }
+        } else {
+          router.push('/')
+        }
       })
       .catch((error) => {
         console.log(error)
@@ -74,25 +89,6 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       .catch(() => serverErrorAlert())
       .finally(() => setLoading(false))
   }
-
-  useEffect(() => {
-    if (middleware === 'guest' && redirectIfAuthenticated && !error) {
-      let hrefURL = new URL(
-        `${process.env.NEXT_PUBLIC_APP_URL}${redirectIfAuthenticated}`
-      )
-      let pageURL = new URL(window.location)
-
-      // Ensure the redirect will not leave host domain
-      if (
-        redirectIfAuthenticated.startsWith('/') ||
-        hrefURL.host === pageURL.host
-      ) {
-        router.push(hrefURL)
-      } else {
-        router.push('/')
-      }
-    }
-  }, [user, error])
 
   return {
     user,

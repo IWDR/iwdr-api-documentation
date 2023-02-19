@@ -14,6 +14,18 @@ export async function middleware(request) {
       credentials: 'include',
     })
 
+    // Logic for login page only
+    if (request.nextUrl.pathname.startsWith('/login')) {
+      if (res.ok) {
+        return NextResponse.redirect(
+          new URL('/', process.env.NEXT_PUBLIC_APP_URL)
+        )
+      }
+
+      return NextResponse.next()
+    }
+
+    // Logic for all other pages matched with matcher config
     if (res.status > 400) {
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_APP_URL}/login?redirect=` +
@@ -33,5 +45,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ['/resources/:path*'],
+  matcher: ['/resources/:path*', '/login'],
 }

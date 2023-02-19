@@ -10,15 +10,12 @@ export default function LoginForm({ redirect }) {
   const [errors, setErrors] = useState({ email: null, password: null })
   const { setLoading } = useLoadingStore()
 
-  const { login } = useAuth({
-    middleware: 'guest',
-    redirectIfAuthenticated: redirect ?? '/',
-  })
+  const { login } = useAuth()
 
   const submit_form = async (e) => {
     e.preventDefault()
 
-    login({ setErrors, setLoading, ...{ email, password } })
+    login({ setErrors, setLoading, redirect, ...{ email, password } })
   }
 
   return (
