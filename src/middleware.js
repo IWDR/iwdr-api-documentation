@@ -14,7 +14,7 @@ export async function middleware(request) {
       credentials: 'include',
     })
 
-    if (!res.ok) {
+    if (res.status > 400) {
       return NextResponse.redirect(
         `${process.env.NEXT_PUBLIC_APP_URL}/login?redirect=` +
           encodeURIComponent(request.nextUrl.pathname)
@@ -27,11 +27,9 @@ export async function middleware(request) {
     return nextResponse
   } catch (err) {
     console.log(err)
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_APP_URL}/login?redirect=` +
-        encodeURIComponent(request.nextUrl.pathname)
-    )
   }
+
+  return NextResponse.next()
 }
 
 export const config = {
