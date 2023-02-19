@@ -1,4 +1,4 @@
-import { AuthProvider } from '@/components/mdx'
+import { SubStatusDataTable } from '@/components/SubStatusDataTable'
 
 export const description =
   'The dog model contains all the pertinent information on a given dog within IWDR.'
@@ -153,6 +153,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
   </Property>
   <Property name="dog_SubStatusCode" type="integer">
     The unique identifier for this dog's current sub status text.
+    <SubStatusDataTable />
   </Property>
   <Property name="dog_MilestoneCode" type="integer">
     The unique identifier for this dog's current milestone status.
