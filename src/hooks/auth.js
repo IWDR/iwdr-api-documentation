@@ -83,6 +83,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
       )
       let pageURL = new URL(window.location)
 
+      // Ensure the redirect will not leave host domain
       if (
         redirectIfAuthenticated.startsWith('/') ||
         hrefURL.host === pageURL.host
