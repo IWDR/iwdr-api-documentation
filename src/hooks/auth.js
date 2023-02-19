@@ -1,7 +1,6 @@
 import axios from '@/lib/axios'
 import useSWR from 'swr'
 import { useAlertStore } from '@/stores/alertStore'
-import { useLoadingStore } from '@/stores/loadingStore'
 import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
