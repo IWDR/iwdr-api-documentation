@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import { Transition } from '@headlessui/react'
-import { useAlertStore } from '@/lib/stores/alertStore'
+import { useAlertStore } from '@/stores/alertStore'
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,

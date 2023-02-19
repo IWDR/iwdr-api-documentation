@@ -15,7 +15,7 @@ import { TopLevelNavItem } from '@/components/TopLevelNavItem'
 import TokenLink from './TokenLink'
 import SignInOutButton from './SignInOutButton'
 
-export const Header = forwardRef(function Header({ className, user }, ref) {
+export const Header = forwardRef(function Header({ className }, ref) {
   let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
 
@@ -49,7 +49,7 @@ export const Header = forwardRef(function Header({ className, user }, ref) {
       />
       <Search />
       <div className="flex items-center gap-5 lg:hidden">
-        <MobileNavigation user={user} />
+        <MobileNavigation />
         <Link href="/" aria-label="Home">
           <IWDRLogo className="hidden lg:inline-block" />
         </Link>
@@ -57,7 +57,7 @@ export const Header = forwardRef(function Header({ className, user }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TokenLink className="text-sm leading-5" user={user} />
+            <TokenLink className="text-sm leading-5" />
             <TopLevelNavItem href="#" className="text-sm leading-5">
               Documentation
             </TopLevelNavItem>
@@ -72,7 +72,7 @@ export const Header = forwardRef(function Header({ className, user }, ref) {
           <ModeToggle />
         </div>
         <div className="hidden min-[416px]:contents">
-          <SignInOutButton user={user} />
+          <SignInOutButton />
         </div>
       </div>
     </motion.div>

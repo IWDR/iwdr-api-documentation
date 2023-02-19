@@ -1,13 +1,13 @@
 import { SelectField } from '@/components/SelectField'
 import { TextField } from '@/components/TextField'
-import { useAuth } from '@/hooks/auth'
 import axios from '@/lib/axios'
-import { useAlertStore } from '@/lib/stores/alertStore'
-import { useLoadingStore } from '@/lib/stores/loadingStore'
-import { useState } from 'react'
+import { useLoadingStore } from '@/stores/loadingStore'
+import { useContext, useState } from 'react'
+import { AuthContext } from '../AuthProvider'
 
-export function CreateTokenForm({ onSubmit, id, user }) {
+export function CreateTokenForm({ onSubmit, id }) {
   const { setLoading } = useLoadingStore()
+  const user = useContext(AuthContext)
 
   const [token_name, setTokenName] = useState('')
   const [token_name_error, setTokenNameError] = useState('')

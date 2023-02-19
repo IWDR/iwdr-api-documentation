@@ -9,6 +9,8 @@ import { EnvelopeIcon } from '@/components/icons/EnvelopeIcon'
 import { UserIcon } from '@/components/icons/UserIcon'
 import { UsersIcon } from '@/components/icons/UsersIcon'
 import { ServiceDogIcon } from './icons/ServiceDogIcon'
+import { useContext } from 'react'
+import { AuthContext } from './AuthProvider'
 
 const resources = [
   {
@@ -157,8 +159,8 @@ function Resource({ resource }) {
   )
 }
 
-export function Resources({ user }) {
-  const has_user = Object.keys(user).length > 0;
+export function Resources() {
+  const user = useContext(AuthContext)
 
   return (
     <div className="my-16 xl:max-w-none">
@@ -167,11 +169,11 @@ export function Resources({ user }) {
       </Heading>
       <div
         className={clsx(
-          has_user && 'sm:grid-cols-2 xl:grid-cols-4',
+          user && 'sm:grid-cols-2 xl:grid-cols-4',
           'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
         )}
       >
-        { has_user ? (
+        {user ? (
           resources.map((resource) => (
             <Resource key={resource.href} resource={resource} />
           ))

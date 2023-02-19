@@ -2,7 +2,6 @@ import { Guides } from '@/components/Guides'
 import { HeroPattern } from '@/components/HeroPattern'
 import { Button } from '@/components/Button'
 import { Resources } from '@/components/Resources'
-import { useAuth } from '@/hooks/auth'
 
 export function getServerSideProps() {
   return {
@@ -18,14 +17,10 @@ export function getServerSideProps() {
 }
 
 export default function Index() {
-  const { user } = useAuth({ middleware: 'guest' })
-
   return (
     <>
       <HeroPattern />
-
       <h1>API Documentation</h1>
-
       <p className="lead">
         Use the Protocol API to access contacts, conversations, group messages,
         and more and seamlessly integrate your product into the workflows of
@@ -50,7 +45,7 @@ export default function Index() {
         </Button>
       </div>
       <Guides />
-      <Resources user={user} />
+      <Resources />
     </>
   )
 }

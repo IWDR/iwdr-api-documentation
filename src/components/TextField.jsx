@@ -6,7 +6,7 @@ import {
 import { Button } from './Button'
 import { ClipboardIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import { useAlertStore } from '@/lib/stores/alertStore'
+import { useAlertStore } from '@/stores/alertStore'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
 

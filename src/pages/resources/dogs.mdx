@@ -1,12 +1,17 @@
-export const description = 'The dog model contains all the pertinent information on a given dog within IWDR.'
+import { AuthProvider } from '@/components/mdx'
+
+export const description =
+  'The dog model contains all the pertinent information on a given dog within IWDR.'
 
 # Dogs
-Dogs are the focal point of IWDR. When you input a dog into IWDR it becomes a part of 
-the global data set used to calculate Estimated Breeding Values on a variety of health 
-and behavior charecteristics. The more dogs input into our database the more accurate 
+
+Dogs are the focal point of IWDR. When you input a dog into IWDR it becomes a part of
+the global data set used to calculate Estimated Breeding Values on a variety of health
+and behavior charecteristics. The more dogs input into our database the more accurate
 the calculations become.
 
 ## The dog model
+
 The dog model contains all the pertinent information on a given dog within IWDR.
 
 ## Properties
@@ -37,27 +42,24 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     To be determined
   </Property>
   <Property name="dog_SearchName" type="string">
-    A calculated string which is commonly used for searching amongst a set of dogs.
-    Typically comprised of the dog_CallName and dog_LitterID
+    A calculated string which is commonly used for searching amongst a set of
+    dogs. Typically comprised of the dog_CallName and dog_LitterID
   </Property>
   <Property name="dog_DisplayName" type="string">
     A calculated string which is a combination of multiple points of a dogs
-    dataset. 
-    - Call name
-    - Owning organization 
-    - Kennel club designatino 
-    - Litter Designation 
-    - Breed 
-    - Date of Birth
+    dataset. - Call name - Owning organization - Kennel club designatino -
+    Litter Designation - Breed - Date of Birth
   </Property>
   <Property name="dog_CountryOfOriginCode" type="integer">
     A coded integer pertaining to the text for the country a dog was born in.
   </Property>
   <Property name="dog_BreederID" type="integer">
-    The unique identifier for the organization designated as the breeder of this dog.
+    The unique identifier for the organization designated as the breeder of this
+    dog.
   </Property>
   <Property name="dog_OwnerID" type="integer">
-    The unique identifier for the organization designated as the owner of this dog.
+    The unique identifier for the organization designated as the owner of this
+    dog.
   </Property>
   <Property name="dog_IFTRecallDate" type="date">
     The date of IFT recall.
@@ -117,13 +119,16 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     The date this dog's neuter procedure was allowed.
   </Property>
   <Property name="dog_PsnOKNeuter" type="integer">
-    The unique identifier for the person who allowed this dog's neuter procedure.
+    The unique identifier for the person who allowed this dog's neuter
+    procedure.
   </Property>
   <Property name="dog_CoopNeuterOKDate" type="date">
-    The date this dog's neuter procedure was allowed by it's managing breeding cooperative.
+    The date this dog's neuter procedure was allowed by it's managing breeding
+    cooperative.
   </Property>
   <Property name="dog_CoopWhoOkdNeuter" type="integer">
-    The persos from this dog's managing breeding cooperative who allowed the neuter procedure.
+    The persos from this dog's managing breeding cooperative who allowed the
+    neuter procedure.
   </Property>
   <Property name="dog_ColorCode" type="integer">
     The unique identifier for this dog's coat color text.

@@ -1,12 +1,17 @@
 import { Button } from '@/components/Button'
 import { useAuth } from '@/hooks/auth'
+import { useLoadingStore } from '@/stores/loadingStore'
+import { useContext } from 'react'
+import { AuthContext } from './AuthProvider'
 
-export default function SignInOutButton({ className, user }) {
+export default function SignInOutButton({ className }) {
   const { logout } = useAuth()
+  const user = useContext(AuthContext)
+  const { setLoading } = useLoadingStore()
 
-  if (Object.keys(user).length > 0) {
+  if (user) {
     return (
-      <Button onClick={logout} className={className}>
+      <Button onClick={() => logout({ setLoading })} className={className}>
         Sign out
       </Button>
     )

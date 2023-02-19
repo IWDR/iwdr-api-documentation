@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useContext, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import clsx from 'clsx'
@@ -11,6 +11,7 @@ import { remToPx } from '@/lib/remToPx'
 import { TopLevelNavItem } from './TopLevelNavItem'
 import SignInOutButton from './SignInOutButton'
 import TokenLink from './TokenLink'
+import { AuthContext } from './AuthProvider'
 
 function useInitialValue(value, condition = true) {
   let initialValue = useRef(value).current
@@ -207,10 +208,12 @@ export const navigation = [
   },
 ]
 
-export default function Navigation({ user, ...props }) {
+export default function Navigation({ ...props }) {
+  const user = useContext(AuthContext)
+
   const navList = () =>
     navigation.map((group, groupIndex) => {
-      if (group.is_restricted && !Object.keys(user).length > 0) {
+      if (group.is_restricted && !user) {
         return <li className="hidden" key={group.title}></li>
       }
 
@@ -226,7 +229,7 @@ export default function Navigation({ user, ...props }) {
   return (
     <nav {...props}>
       <ul role="list">
-        <TokenLink className="block py-1" listClass="md:hidden" user={user} />
+        <TokenLink className="block py-1" listClass="md:hidden" />
         <TopLevelNavItem href="#" className="block py-1" listClass="md:hidden">
           Documentation
         </TopLevelNavItem>
@@ -235,7 +238,7 @@ export default function Navigation({ user, ...props }) {
         </TopLevelNavItem>
         {navList()}
         <li className="mt-5 min-[416px]:hidden">
-          <SignInOutButton user={user} className="w-full" />
+          <SignInOutButton className="w-full" />
         </li>
       </ul>
     </nav>

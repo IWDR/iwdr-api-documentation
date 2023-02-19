@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Router, useRouter } from 'next/router'
+import { Router } from 'next/router'
 import { MDXProvider } from '@mdx-js/react'
 
 import { Layout } from '@/components/Layout'
@@ -20,7 +20,7 @@ Router.events.on('hashChangeStart', onRouteChange)
 Router.events.on('routeChangeComplete', onRouteChange)
 Router.events.on('routeChangeError', onRouteChange)
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, pageProps: { ...pageProps } }) {
   return (
     <>
       <Head>
@@ -37,8 +37,8 @@ export default function App({ Component, pageProps }) {
             errorRetryCount: 2,
             fallbackData: [],
             onError: () => {},
-            fetcher: ({ resource, options, method = 'get' }) =>
-              axios[method](resource, options ?? null).then((res) => res.data),
+            fetcher: ({ resource, options }) =>
+              axios.get(resource, options ?? null).then((res) => res.data),
           }}
         >
           <Layout {...pageProps}>
