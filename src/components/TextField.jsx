@@ -74,22 +74,23 @@ export function TextField({
             >
               <Transition
                 show={copied}
-                enter="ease-out duration-300 transform"
+                enter="ease-in duration-400 transform"
                 enterFrom="rotate-0 scale-0"
                 enterTo="rotate-360 scale-100"
-                leave="ease-in duration-300 transform"
-                leaveFrom="rotate-360 scale-100"
-                leaveTo="rotate-0 scale-0"
               >
                 <CheckCircleIcon
                   className="h-5 w-5 text-emerald-500"
                   aria-hidden="true"
                 />
               </Transition>
-              <ClipboardIcon
-                className={clsx(copied && 'hidden', 'h-6 w-6')}
-                aria-hidden="true"
-              />
+              <Transition
+                show={!copied}
+                leave="transition-opacity duration-0"
+                leaveFrom="opacity-100"
+                leaveTo="opacity-0"
+              >
+                <ClipboardIcon className="h-5 w-5" aria-hidden="true" />
+              </Transition>
               <span>{copied ? 'Copied!' : 'Copy'}</span>
             </Button>
           )}

@@ -2,6 +2,7 @@ import { Guides } from '@/components/Guides'
 import { HeroPattern } from '@/components/HeroPattern'
 import { Button } from '@/components/Button'
 import { Resources } from '@/components/Resources'
+import { Note } from '@/components/mdx'
 
 export function getServerSideProps() {
   return {
@@ -20,30 +21,25 @@ export default function Index() {
   return (
     <>
       <HeroPattern />
-      <h1>API Documentation</h1>
+      <h1>IWDR API Documentation</h1>
       <p className="lead">
-        Use the Protocol API to access contacts, conversations, group messages,
-        and more and seamlessly integrate your product into the workflows of
-        dozens of devoted Protocol users.
+        Use the IWDR API to access your organizations data stored within the
+        IWDR database. There are many data models retrievable from the IWDR API
+        such as, dogs, litters, health data, status histories, and much more.
       </p>
-      <div className="not-prose mb-16 mt-6 flex gap-3">
-        <Button href="/quickstart" arrow="right">
-          Get Started Now
-        </Button>
-      </div>
       <h2>Getting Started</h2>
+      <Note>
+        In order to use the IWDR API you must first acquire an authentication
+        token. You can apply for an authentication token <a href="#">here, </a>
+        if you do not already have one.
+      </Note>
       <p className="lead">
-        To get started, create a new token using the &quot;Create Token&quot;
-        button on the Tokens page. Remember to set the proper scopes for your
-        token! You can read more about scopes <a href="/scopes">here</a>. Then
-        visit the <a href="/authentication">Authentication</a> page for more in
-        depth information about using your newly created API token.
+        To get started, or, for an overview of the setup process, we highly
+        recommend reading the <a href="/quickstart">Quickstart</a> page. You can
+        also visit the <a href="/authentication">Authentication</a> page for
+        information about using your IWDR API token to make authenticated HTTP
+        requests.
       </p>
-      <div className="not-prose">
-        <Button href="/tokens" variant="text" arrow="right">
-          Visit Tokens Page
-        </Button>
-      </div>
       <Guides />
       <Resources />
     </>

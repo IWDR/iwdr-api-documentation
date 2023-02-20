@@ -57,12 +57,11 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TokenLink className="text-sm leading-5" />
             <TopLevelNavItem href="#" className="text-sm leading-5">
-              Documentation
+              Token Application
             </TopLevelNavItem>
             <TopLevelNavItem href="#" className="text-sm leading-5">
-              Support
+              API Support
             </TopLevelNavItem>
           </ul>
         </nav>

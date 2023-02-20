@@ -1,4 +1,4 @@
-import { CreateTokenDialog } from '@/components/tokens/CreateTokenDialog'
+import { CreateTokenDialog } from '@/components/dialogs/CreateTokenDialog'
 import { useState } from 'react'
 import { useAlertStore } from '@/stores/alertStore'
 import { Button } from '@/components/Button'
@@ -6,7 +6,7 @@ import { useLoadingStore } from '@/stores/loadingStore'
 import { ActionPanel } from '@/components/ActionPanel'
 import { TextField } from '@/components/TextField'
 import axios from '@/lib/axios'
-import { DataTable } from '../data_table/DataTable'
+import { DataTable } from '@/components/DataTable'
 
 export default function TokensDataTable({ tokens = [], mutator }) {
   const [showActionPanel, setShowActionPanel] = useState(false)

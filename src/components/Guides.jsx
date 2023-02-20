@@ -3,31 +3,27 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
-    href: '/scopes',
-    name: 'Scopes',
-    description: 'Learn how to choose the proper scopes for your API Tokens.',
+    href: '/mapping',
+    name: 'Mapping',
+    description:
+      'Learn how to accurately describe data mappings used by the IWDR API to ensure data integrity.',
   },
   {
     href: '/authentication',
     name: 'Authentication',
-    description: 'Learn how to authenticate your API requests.',
+    description: 'Learn how to authenticate your IWDR API requests.',
   },
   {
     href: '/pagination',
     name: 'Pagination',
-    description: 'Understand how to work with paginated responses.',
+    description:
+      'Understanding how to retrieve a simulated set of paginated data',
   },
   {
     href: '/errors',
     name: 'Errors',
     description:
-      'Read about the different types of errors returned by the API.',
-  },
-  {
-    href: '/webhooks',
-    name: 'Webhooks',
-    description:
-      'Learn how to programmatically configure webhooks for your app.',
+      'Read about the different types of errors returned by the IWDR API, and how to accurately handle them in a production environment.',
   },
 ]
 

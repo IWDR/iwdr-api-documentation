@@ -180,11 +180,9 @@ export const navigation = [
     links: [
       { title: 'Introduction', href: '/' },
       { title: 'Quickstart', href: '/quickstart' },
-      { title: 'Scopes', href: '/scopes' },
       { title: 'Authentication', href: '/authentication' },
       { title: 'Pagination', href: '/pagination' },
       { title: 'Errors', href: '/errors' },
-      { title: 'Webhooks', href: '/webhooks' },
     ],
     is_restricted: false,
   },
@@ -229,12 +227,11 @@ export default function Navigation({ ...props }) {
   return (
     <nav {...props}>
       <ul role="list">
-        <TokenLink className="block py-1" listClass="md:hidden" />
         <TopLevelNavItem href="#" className="block py-1" listClass="md:hidden">
-          Documentation
+          Token Application
         </TopLevelNavItem>
         <TopLevelNavItem href="#" className="block py-1" listClass="md:hidden">
-          Support
+          API Support
         </TopLevelNavItem>
         {navList()}
         <li className="mt-5 min-[416px]:hidden">

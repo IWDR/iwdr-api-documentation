@@ -1,5 +1,5 @@
 import Spinner from '@/components/Spinner'
-import TokensDataTable from '@/components/tokens/TokensDataTable'
+import TokensDataTable from '@/components/data-tables/TokensDataTable'
 import useSWR from 'swr'
 
 export function getServerSideProps() {

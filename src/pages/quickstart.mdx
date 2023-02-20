@@ -1,101 +1,46 @@
 export const description =
-  'This guide will get you all set up and ready to use the Protocol API. We\'ll cover how to get started an API client and how to make your first API request.'
+  "This guide will get you all set up and ready to use the Protocol API. We'll cover how to get started an API client and how to make your first API request."
 
 # Quickstart
 
-This guide will get you all set up and ready to use the Protocol API. We'll cover how to get started using one of our API clients and how to make your first API request. We'll also look at where to go next to find all the information you need to take full advantage of our powerful REST API. {{ className: 'lead' }}
+This guide is aimed to help an organization just getting started with using the IWDR API. It contains important information about mapping your organizations data, authenticating API requests, handling errors, and more.
 
-<Note>
-  Before you can make requests to the Protocol API, you will need to grab your
-  API key from your dashboard. You find it under [Settings &raquo; API](#).
-</Note>
+## Who is this for
 
-## Choose your client
+- IT staff with database experience, including import/export of data, mapping, and a good understanding of field names
+- Organizations with IT capability and sufficient data volume that strongly desire reducing dual entry
 
-Before making your first API request, you need to pick which API client you will use. In addition to good ol' cURL HTTP requests, Protocol offers clients for JavaScript, Python, and PHP. In the following example, you can see how to install each client.
+## What is required to begin
 
-<CodeGroup>
+API implementation is a time consuming process for both your own organization, and the IWDR staff.
 
-```bash {{ title: 'cURL' }}
-# cURL is most likely already installed on your machine
-curl --version
-```
+- **Your oganizations responsibilites**:
 
-```bash {{ language: 'js' }}
-# Install the Protocol JavaScript SDK
-npm install @example/protocol-api --save
-```
+  - If you are not already an IWDR subscriber, [you must enroll first](https://www.iwdr.org/enrollment-request/).
+  - You must then also apply your organization to become an IWDR API user in order to obtain an authentication token. You can apply
+    for access [here](#). You will need to confirm your specific requirements from this process so we can be sure your needs are met.
+  - Data cleansing your source data to ensure it is ready for entry into the IWDR. This includes reviewing ancestral dog records,
+    birthdates, litters etc (comprehensive list included later in this document). You may need staff familiar with your dogs/lines
+    to enter missing data. We will review data and send it back to you if we find errors.
+  - For your dogs, as well as their sire and dam, map their respective primary dog key to the matching IWDR DogID and store the IWDR
+    DogID in your database prior to API implementation.
+  - Maintain these data requirements moving forward - the API will not parse data where the IWDR DogID and owner ID do not match
+    between the source and receiving databases or when required data maps are missing. Additional data integrity checks are also made
+    depending on the data type. However, some types of bad data such as incorrect birth dates etc can not be detected. {{ className: 'text-red-500' }}
 
-```bash {{ language: 'python' }}
-# Install the Protocol Python SDK
-pip install protocol_api
-```
+- **IWDR will provide**:
 
-```bash {{ language: 'php' }}
-# Install the Protocol PHP SDK
-composer require protocol/sdk
-```
-
-</CodeGroup>
-
-<div className="not-prose">
-  <Button
-    href="/sdks"
-    variant="text"
-    arrow="right"
-    children="Check out our list of first-party SDKs"
-  />
-</div>
-
-## Making your first API request
-
-After picking your preferred client, you are ready to make your first call to the Protocol API. Below, you can see how to send a GET request to the Conversations endpoint to get a list of all your conversations. In the cURL example, results are limited to ten conversations, the default page length for each client.
-
-<CodeGroup tag="GET" label="/v1/conversations">
-
-```bash {{ title: 'cURL' }}
-curl -G https://api.protocol.chat/v1/conversations \
-  -H "Authorization: Bearer {token}" \
-  -d limit=10
-```
-
-```js
-import ApiClient from '@example/protocol-api'
-
-const client = new ApiClient(token)
-
-await client.conversations.list()
-```
-
-```python
-from protocol_api import ApiClient
-
-client = ApiClient(token)
-
-client.conversations.list()
-```
-
-```php
-$client = new \Protocol\ApiClient($token);
-
-$client->conversations->list();
-```
-
-</CodeGroup>
-
-<div className="not-prose">
-  <Button
-    href="/conversations"
-    variant="text"
-    arrow="right"
-    children="Read the docs for the Conversations endpoint"
-  />
-</div>
-
-## What's next?
-
-Great, you're now set up with an API client and have made your first request to the API. Here are a few links that might be handy as you venture further into the Protocol API:
-
-- [Grab your API key from the Protocol dashboard](#)
-- [Check out the Conversations endpoint](/conversations)
-- [Learn about the different error messages in Protocol](/errors)
+  - Use of the IWDR Connector middleware program. Written in python this program can aid your organization with data mapping and
+    transfer by using structured mapping files along side a Command Line Interface (CLI) to create a seamless connection between
+    your existing data set and the IWDR API. 
+    
+    **The currently supported data sources are**:
+    1. MySQL
+    2. Microsoft Access
+    3. Microsoft SQL Server
+    4. Salesforce
+  - An API data mapping interface within the IWDR interface's top level menu >> Manage our lists >> API Mappings.
+  - Template mapping structures for common data structures.
+  - Full use of this IWDR API documentation website's restricted content which has many examples of typical API tasks and data model structures.
+  - A sandbox environment for your organization to understand usage and structures without hurting the integrity of the live data set.
+  - Support with initial data migrations. This is typically requried for organizations with large pre-existing data sets. {{ className: 'text-red-500' }}
