@@ -10,7 +10,7 @@ export function SubStatusDataTable() {
     data: codes,
     isLoading,
     error,
-  } = useSWR({ resource: '/api/sub-status-codes' })
+  } = useSWR({ resource: '/api/references/sub-status' })
 
   const [display, setDisplay] = useState(false)
 

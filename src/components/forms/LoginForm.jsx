@@ -5,9 +5,9 @@ import { useAuth } from '@/hooks/auth'
 import { useLoadingStore } from '@/stores/loadingStore'
 
 export default function LoginForm({ redirect }) {
-  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState({ email: null, password: null })
+  const [errors, setErrors] = useState({ usr_UserID: null, password: null })
   const { setLoading } = useLoadingStore()
 
   const { login } = useAuth()
@@ -15,7 +15,7 @@ export default function LoginForm({ redirect }) {
   const submit_form = async (e) => {
     e.preventDefault()
 
-    login({ setErrors, setLoading, redirect, ...{ email, password } })
+    await login({setErrors, setLoading, redirect, ...{usr_UserID: username, password}})
   }
 
   return (
@@ -23,22 +23,22 @@ export default function LoginForm({ redirect }) {
       <form className="my-6" onSubmit={(e) => submit_form(e)}>
         <div>
           <TextField
-            type="email"
-            label="Email"
-            placeholder="Enter your email..."
-            name="email"
-            id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-            error={!!errors.email}
-            error_message={errors.email}
+            type="text"
+            label="Username"
+            placeholder="Enter your IWDR account's username..."
+            name="usr_UserID"
+            id="usr_UserID"
+            onChange={(e) => setUsername(e.target.value)}
+            value={username}
+            error={!!errors.usr_UserID}
+            error_message={errors.usr_UserID}
           />
         </div>
         <div className="mt-4">
           <TextField
             type="password"
             label="Password"
-            placeholder="Enter your account password..."
+            placeholder="Enter your IWDR account's password..."
             name="password"
             id="password"
             className="mt-2"

@@ -27,7 +27,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
     await csrf()
 
     // Reset errors
-    setErrors({ email: null, password: null })
+    setErrors({ usr_UserID: null, password: null })
 
     // Attempt login
     setLoading(true)
@@ -63,7 +63,7 @@ export const useAuth = ({ middleware, redirectIfAuthenticated } = {}) => {
 
         // Capture field errors
         setErrors(
-          error.response?.data?.errors ?? { email: null, password: null }
+          error.response?.data?.errors ?? { usr_UserID: null, password: null }
         )
       })
       .finally(() => setLoading(false))
