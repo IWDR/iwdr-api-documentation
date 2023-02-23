@@ -1,17 +1,9 @@
 import {useState} from 'react'
-import useSWR from 'swr'
 import {Button} from '../Button'
 import {DataTable} from '@/components/DataTable'
-import Spinner from '../Spinner'
 import {Transition} from '@headlessui/react'
 
 export function BreedDataTable() {
-    const {
-        data: codes,
-        isLoading,
-        error,
-    } = useSWR({resource: '/api/references/breed'})
-
     const [display, setDisplay] = useState(false)
 
     const headers = [
@@ -24,20 +16,6 @@ export function BreedDataTable() {
             key: 'dbc_DogBreedDescription',
         },
     ]
-
-    if (isLoading) {
-        return (
-            <div className="not-prose">
-                <div className="mb-24">
-                    <Spinner/>
-                </div>
-            </div>
-        )
-    }
-
-    if (error) {
-        return <p>There was an issue loading this page. Please contact support.</p>
-    }
 
     return (
         <>
@@ -56,9 +34,10 @@ export function BreedDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    items={codes.data}
+                    path='/api/references/breed'
                     noDataMsg={'Could not load data. Please contact support.'}
                     headers={headers}
+                    paginated
                     sticky
                 />
             </Transition>

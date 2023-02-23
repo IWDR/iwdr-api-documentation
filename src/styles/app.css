@@ -1,12 +1,5 @@
 /**===== nest5 =====*/
 #loading-spinner {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  height: 100px;
-  width: 100px;
-  margin: -50px 0 0 -50px;
   border: 0.2rem solid transparent;
   border-top-color: rgb(52 211 153 / var(--tw-bg-opacity));
   border-radius: 50%;
