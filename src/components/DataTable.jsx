@@ -3,13 +3,14 @@ import {Fragment, useState} from 'react'
 import {DataTablePagination} from "@/components/DataTablePagination";
 import useSWR from "swr";
 import Spinner from "@/components/Spinner";
+import {TextField} from "@/components/TextField";
+import {Button} from "@/components/Button";
 
 export function DataTable({
                               headers = [],
                               path = null,
                               searchable = false,
                               paginated = false,
-                              mutator,
                               noDataMsg,
                               className,
                               sticky = false,
@@ -17,6 +18,7 @@ export function DataTable({
 
     const [search, setSearch] = useState('')
     const [itemsUrl, setItemsURL] = useState(path)
+
     const {
         data: items,
         isLoading,
@@ -64,6 +66,17 @@ export function DataTable({
         )
     }
 
+    const doSearch = (e) => {
+        e.preventDefault()
+
+        setItemsURL(path + '?query=' + encodeURIComponent(search))
+    }
+
+    const reset = () => {
+        setItemsURL(path)
+        setSearch('')
+    }
+
     return (
         <div
             className={clsx(
@@ -72,14 +85,28 @@ export function DataTable({
                 'mt-8'
             )}
         >
-            <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+            <div className="-my-2 -mx-4 overflow-x-hidden sm:-mx-6 lg:-mx-8">
+                <div
+                    className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 shadow-md ring-1 ring-black ring-opacity-5">
                     <div
                         className={clsx(
-                            sticky ? 'max-h-96 overflow-scroll' : 'overflow-hidden',
-                            'shadow-md ring-1 ring-black ring-opacity-5 md:rounded-lg'
+                            sticky ? 'max-h-96 overflow-y-scroll' : 'overflow-hidden',
+                            'md:rounded-lg bg-slate-100 dark:bg-zinc-800'
                         )}
                     >
+                        {searchable &&
+                            <form
+                                className='flex flex-row items-end justify-between w-full px-4 py-4 border-b border-gray-300 dark:border-zinc-600'
+                                onSubmit={(e) => doSearch(e)}>
+                                <TextField value={search} onChange={(e) => setSearch(e.target.value)} label="Search"
+                                           placeholder='Need to find something...' className='w-8/12'/>
+                                <div className='flex justify-end max-sm:flex-col'>
+                                    <Button type='button' className={clsx(!search && 'hidden', 'sm:mr-2 max-sm:mb-2')}
+                                            onClick={() => reset()}>Reset</Button>
+                                    <Button type='submit'>Search</Button>
+                                </div>
+                            </form>
+                        }
                         <table className="min-w-full divide-y divide-gray-300 dark:divide-zinc-600">
                             <thead
                                 className={clsx(

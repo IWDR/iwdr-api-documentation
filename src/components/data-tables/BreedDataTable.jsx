@@ -38,7 +38,7 @@ export function BreedDataTable() {
                     noDataMsg={'Could not load data. Please contact support.'}
                     headers={headers}
                     paginated
-                    sticky
+                    searchable
                 />
             </Transition>
         </>
