@@ -28,7 +28,7 @@ export function Layout({ children, sections = [] }) {
             <div className="contents lg:pointer-events-auto lg:block lg:w-72 lg:overflow-y-auto lg:border-r lg:border-zinc-900/10 lg:px-6 lg:pt-4 lg:pb-8 lg:dark:border-white/10 xl:w-80">
               <div className="hidden lg:flex">
                 <Link href="/" aria-label="Home">
-                  <IWDRLogo className="h-12" />
+                  <IWDRLogo className="w-6/12 h-6/12 mx-auto"/>
                 </Link>
               </div>
               <Header />

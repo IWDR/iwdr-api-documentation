@@ -51,7 +51,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5 lg:hidden">
         <MobileNavigation />
         <Link href="/" aria-label="Home">
-          <IWDRLogo className="hidden lg:inline-block" />
+          <IWDRLogo className="w-16" />
         </Link>
       </div>
       <div className="flex items-center gap-5">

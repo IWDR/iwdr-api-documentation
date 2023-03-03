@@ -101,7 +101,7 @@ export function DataTable({
                                 <TextField value={search} onChange={(e) => setSearch(e.target.value)} label="Search"
                                            placeholder='Need to find something...' className='w-8/12'/>
                                 <div className='flex justify-end max-sm:flex-col'>
-                                    <Button type='button' className={clsx(!search && 'hidden', 'sm:mr-2 max-sm:mb-2')}
+                                    <Button type='button' className='sm:mr-2 max-sm:mb-2'
                                             onClick={() => reset()}>Reset</Button>
                                     <Button type='submit'>Search</Button>
                                 </div>
