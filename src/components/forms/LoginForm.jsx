@@ -32,6 +32,7 @@ export default function LoginForm({ redirect }) {
             value={username}
             error={!!errors.usr_UserID}
             error_message={errors.usr_UserID}
+            required
           />
         </div>
         <div className="mt-4">
@@ -46,6 +47,7 @@ export default function LoginForm({ redirect }) {
             onChange={(e) => setPassword(e.target.value)}
             error={!!errors.password}
             error_message={errors.password}
+            required
           />
         </div>
         <div className="mt-6">

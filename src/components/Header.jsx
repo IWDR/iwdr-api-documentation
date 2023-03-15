@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import {forwardRef, useContext} from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 import { motion, useScroll, useTransform } from 'framer-motion'
@@ -14,10 +14,12 @@ import { MobileSearch, Search } from '@/components/Search'
 import { TopLevelNavItem } from '@/components/TopLevelNavItem'
 import TokenLink from './TokenLink'
 import SignInOutButton from './SignInOutButton'
+import {AuthContext} from "@/components/AuthProvider";
 
 export const Header = forwardRef(function Header({ className }, ref) {
   let { isOpen: mobileNavIsOpen } = useMobileNavigationStore()
   let isInsideMobileNavigation = useIsInsideMobileNavigation()
+  const user = useContext(AuthContext)
 
   let { scrollY } = useScroll()
   let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9])
@@ -57,7 +59,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem href="#" className="text-sm leading-5">
+            <TopLevelNavItem href="/token-application" className={clsx("text-sm leading-5", Boolean(user) && 'hidden')}>
               Token Application
             </TopLevelNavItem>
             <TopLevelNavItem href="#" className="text-sm leading-5">

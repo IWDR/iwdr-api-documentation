@@ -1,6 +1,4 @@
 import {Button} from "@/components/Button";
-import {useState} from "react";
-import axios from "@/lib/axios";
 
 export function DataTablePagination({page_data, setPage}) {
     const fromPos = page_data.from

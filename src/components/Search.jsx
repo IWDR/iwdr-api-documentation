@@ -74,7 +74,6 @@ function useAutocomplete() {
 }
 
 function resolveResult(result) {
-    console.log(result)
     let allLevels = Object.keys(result.hierarchy)
     let hierarchy = Object.entries(result._highlightResult.hierarchy).filter(
         ([, {value}]) => Boolean(value)
