@@ -9,7 +9,7 @@ import {Fragment, useEffect, useState} from 'react'
 import useSWR from "swr";
 import {Listbox, Transition} from "@headlessui/react";
 import {useGeolocation} from "@/hooks/geolocation";
-import axios from "axios";
+import axios from "@/lib/axios";
 
 export function PhoneField({
                                name,
@@ -54,11 +54,11 @@ export function PhoneField({
 
             let lat = location.coords.latitude;
             let lng = location.coords.longitude;
-            let url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GEO_API_KEY}`;
-            axios.get(url)
+
+            axios.post('/api/geolocate', { lat, lng })
                 .then((res) => {
                     if (res.status !== 200) return;
-                    let data = res.data;
+                    let data = res.data.data;
                     let results = data.results;
 
                     if (!results) return;
