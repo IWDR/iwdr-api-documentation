@@ -17,7 +17,7 @@ export function DataTable({
                           }) {
 
     const [search, setSearch] = useState('')
-    const [itemsUrl, setItemsURL] = useState(path)
+    const [itemsUrl, setItemsURL] = useState(`${path}${paginated ? '?paginated=1' : ''}`)
 
     const {
         data: items,
@@ -29,7 +29,7 @@ export function DataTable({
         return <p>There was an issue loading this page. Please contact support.</p>
     }
 
-    const item_data = paginated ? items.data?.data : items;
+    const item_data = paginated ? items.data?.data : items.data;
     const item_as_description_list = (item) => {
         const list = headers.map((header, index) => {
             return (
@@ -69,11 +69,11 @@ export function DataTable({
     const doSearch = (e) => {
         e.preventDefault()
 
-        setItemsURL(path + '?query=' + encodeURIComponent(search))
+        setItemsURL(`${path}?query=${encodeURIComponent(search)}${paginated ? '&paginated=1' : ''}`)
     }
 
     const reset = () => {
-        setItemsURL(path)
+        setItemsURL(`${path}${paginated ? '?paginated=1' : ''}`)
         setSearch('')
     }
 

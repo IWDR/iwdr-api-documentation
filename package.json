@@ -8,7 +8,9 @@
     "start": "next start -H 0.0.0.0 -p 8080",
     "lint": "next lint"
   },
-  "browserslist": "defaults, not ie <= 11",
+  "browserslist": [
+    "defaults, not ie <= 11"
+  ],
   "dependencies": {
     "@algolia/autocomplete-core": "^1.7.3",
     "@algolia/autocomplete-preset-algolia": "^1.7.3",

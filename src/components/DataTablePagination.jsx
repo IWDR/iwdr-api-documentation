@@ -9,7 +9,7 @@ export function DataTablePagination({page_data, setPage}) {
 
     const getAPIUrlAsPath = (full_url) => {
         const url = new URL(full_url)
-        return url.pathname + url.search ?? ''
+        return url.pathname + url.search
     }
 
     const goToNext = () => {

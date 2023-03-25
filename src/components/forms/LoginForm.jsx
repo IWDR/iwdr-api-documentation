@@ -35,7 +35,7 @@ export default function LoginForm({redirect}) {
                         required
                     />
                 </div>
-                <div className="mt-4">
+                <div>
                     <TextField
                         type="password"
                         label="Password"
@@ -50,7 +50,7 @@ export default function LoginForm({redirect}) {
                         required
                     />
                 </div>
-                <div className="mt-6">
+                <div className="flex justify-start mt-3">
                     <Button type="submit">Sign in</Button>
                 </div>
             </form>

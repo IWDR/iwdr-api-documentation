@@ -19,16 +19,17 @@ export const useAlertStore = create((set, get) => ({
     }, 6000)
   },
   accessDeniedAlert: () => {
-    set({
-      open: true,
-      message: 'Please login to access this resource.',
-      variant: 'error',
-      isClosable: true,
-    })
+    get().errorAlert("Please login to access this resource.", true)
 
     setTimeout(() => {
       get().clearAlert()
     }, 6000)
+  },
+  errorAlert: (msg, isClosable = undefined, withTimeout = 0) => {
+      get().showAlert(msg, 'error', isClosable, withTimeout);
+  },
+  successAlert: (msg, isClosable = undefined, withTimeout = 0) => {
+      get().showAlert(msg, 'success', isClosable, withTimeout);
   },
   showAlert: (msg, variant, isClosable = undefined, withTimeout = 0) => {
     set({

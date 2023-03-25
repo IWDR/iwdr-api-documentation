@@ -153,8 +153,8 @@ module.exports = ({ theme }) => ({
           marginRight: `calc(-1 * ${theme('spacing.6')})`,
         },
         '@screen lg': {
-          marginLeft: `calc(-1 * ${theme('spacing.8')})`,
-          marginRight: `calc(-1 * ${theme('spacing.8')})`,
+          marginLeft: `calc(${theme('spacing.8')})`,
+          marginRight: `calc(${theme('spacing.8')})`,
         },
       },
 

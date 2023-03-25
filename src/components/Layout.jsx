@@ -11,6 +11,7 @@ import {Alert} from './Alert'
 import Navigation from './Navigation'
 import {useAuth} from '@/hooks/auth'
 import {AuthProvider} from '@/components/AuthProvider'
+import Banner from "@/components/Banner";
 
 export function Layout({children, sections = []}) {
     const {user} = useAuth({middleware: 'guest'})
@@ -37,9 +38,9 @@ export function Layout({children, sections = []}) {
                         </div>
                     </motion.header>
                     <div className="relative pt-14 px-5">
+                        <Banner />
                         <main className="py-16">
-                            <Prose as="article"
-                                   className="m-0 mx-auto max-w-2xl space-y-10 pb-16 lg:max-w-5xl">{children}</Prose>
+                            <Prose as="article">{children}</Prose>
                         </main>
                         <Footer/>
                     </div>

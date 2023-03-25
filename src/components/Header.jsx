@@ -59,8 +59,8 @@ export const Header = forwardRef(function Header({ className }, ref) {
       <div className="flex items-center gap-5">
         <nav className="hidden md:block">
           <ul role="list" className="flex items-center gap-8">
-            <TopLevelNavItem href="/token-application" className={clsx("text-sm leading-5", Boolean(user) && 'hidden')}>
-              Token Application
+            <TopLevelNavItem href="/token-application" className={clsx("text-sm leading-5", Boolean(!user) && 'hidden')}>
+              API Access Application
             </TopLevelNavItem>
             <TopLevelNavItem href="#" className="text-sm leading-5">
               API Support
