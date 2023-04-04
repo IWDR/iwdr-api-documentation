@@ -1,43 +1,27 @@
-import Spinner from '@/components/Spinner'
-import TokensDataTable from '@/components/data-tables/TokensDataTable'
-import useSWR from 'swr'
+import TokensDataTable from "@/components/data-tables/TokensDataTable";
+import {useAuth} from "@/hooks/auth";
+import {useRouter} from "next/router";
 
-export function getServerSideProps() {
-  return {
-    props: {
-      title: 'Tokens',
-      description:
-        'A list of currently active tokens in use by your organization.',
-    },
-  }
+export function getServerSideProps(){
+    return {
+        props: {
+            title: 'Tokens',
+            description: 'List and manage api tokens.'
+        }
+    }
 }
-
 export default function Tokens() {
-  const {
-    data: tokens,
-    error,
-    mutate,
-    isLoading,
-  } = useSWR({ resource: '/tokens' })
+    const user = useAuth();
+    if(user.usr_GroupID !== -1){
+        return (
+            <p>You are not authorized to view this content.</p>
+        )
+    }
 
-  if (isLoading) {
     return (
-      <div className="not-prose">
-        <div className="mb-24">
-          <Spinner />
-        </div>
-      </div>
+        <>
+            <h1>Tokens</h1>
+            <TokensDataTable />
+        </>
     )
-  }
-
-  if (error) {
-    return <p>There was an issue loading this page. Please contact support.</p>
-  }
-
-  return (
-    <>
-      <h1>Tokens</h1>
-      <TokensDataTable tokens={tokens} mutator={mutate} />
-    </>
-  )
 }

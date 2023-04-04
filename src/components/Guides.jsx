@@ -3,6 +3,11 @@ import { Heading } from '@/components/Heading'
 
 const guides = [
   {
+    href: '/quickstart',
+    name: 'Quickstart',
+    description: 'A quick intro for understanding who this API is designed for, and how to utilize it best.'
+  },
+  {
     href: '/mapping',
     name: 'Mapping',
     description:
@@ -12,12 +17,6 @@ const guides = [
     href: '/authentication',
     name: 'Authentication',
     description: 'Learn how to authenticate your IWDR API requests.',
-  },
-  {
-    href: '/pagination',
-    name: 'Pagination',
-    description:
-      'Understanding how to retrieve a simulated set of paginated data',
   },
   {
     href: '/errors',

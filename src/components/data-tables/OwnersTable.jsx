@@ -1,27 +1,19 @@
-import {useState} from 'react'
-import {Button} from '../Button'
-import {DataTable} from '@/components/DataTable'
-import {Transition} from '@headlessui/react'
+import {useState} from "react";
+import {Button} from "@/components/Button";
+import {Transition} from "@headlessui/react";
+import {DataTable} from "@/components/DataTable";
 
-export function SubStatusDataTable() {
+export function OwnersTable(){
     const [display, setDisplay] = useState(false)
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'dssc_SubstatusCode',
+            key: 'psn_PersonID',
         },
         {
-            text: 'Sub Status Text',
-            key: 'dssc_SubstatusText',
-        },
-        {
-            text: 'Description',
-            key: 'dssc_Description',
-        },
-        {
-            text: 'Requires End Reason',
-            component: (item) => (item['dssc_EndReasonRequired'] ? 'Yes' : 'No'),
+            text: 'Display Name',
+            key: 'psn_DisplayName',
         },
     ]
 
@@ -29,8 +21,8 @@ export function SubStatusDataTable() {
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Sub Status codes'
-                    : 'Show Available Sub Status codes'}
+                    ? 'Hide Available Public People'
+                    : 'Show Available Public People'}
             </Button>
             <Transition
                 show={display}
@@ -42,7 +34,7 @@ export function SubStatusDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/sub-status'
+                    path='/api/person'
                     headers={headers}
                     paginated
                     searchable

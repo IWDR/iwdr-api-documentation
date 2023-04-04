@@ -1,0 +1,715 @@
+import {Properties, Property} from "@/components/mdx";
+export const description = 'Describes the behavior checklist data model.';
+
+# Behavior Checklists
+
+The Behavior Checklist (BCL) is a behavior scoring system developed by Dr. James Serpell from the University of Pennsylvania, USA in collaboration with multiple guide dog organizations especially The Seeing Eye and Guiding Eyes for the Blind.
+The BCL provides a way to describe aspects of behavior important for guide and service dogs. Importantly the BCL has been validated and demonstrates the capacity to measure behavior in a consistent manner that lends itself to analysis.
+
+## The Behavior Checklist Model
+
+The behavior checklist model is IWDR's representation of the checklist originally developed by Dr. James Serpell.
+
+- **API Endpoint**: tblDogBehaviorChecklist
+- **Available Actions**: list, create, update
+
+## Properties
+
+<Properties>
+    <div className="pb-8">
+        ### General information
+        <Property name="bcl_BehaviorCkID" type="integer">
+            The primary unique identifier for the BCL record.
+        </Property>
+        <Property name="bcl_CurrentRaiser" type="integer">
+            The unique identifier for the person who is influecing the dog's training during the time period of this bcl.
+        </Property>
+        <Property name="bcl_Date" type="datetime">
+            The date and time for when this BCL was scored.
+        </Property>
+        <Property name="bcl_DogID" type="integer">
+            The unique identifier for the dog the BCL record pertains to.
+        </Property>
+        <Property name="bcl_DogTypeDescription" type="string">
+            Notes about the dog's overall behavior or specific important details.
+        </Property>
+        <Property name="bcl_Done" type="boolean">
+            A yes/no indicator for if this bcl record is complete and should be included into the EBV calculations for BCL items.
+        </Property>
+        <Property name="bcl_OrgIDWhereTest" type="integer">
+            The unique identifier within IWDR for the organization where this bcl was recorded.
+        </Property>
+        <Property name="bcl_Recommentdations" type="string">
+            Instructions about how to help the dog usually this is for the puppy raiser.
+        </Property>
+        <Property name="bcl_WhichChecklistCode" type="integer">
+            The unique identifier for the type of behavior checklist scored.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 1. Anxious new situations.
+        <Property name="bcl_FearNewPlacesSituations" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_FearNewPlacesSituationsNotes" type="string">
+            Notes for bcl question 1, fear new places situations.
+        </Property>
+        <Property name="bcl_FearNewPlacesSituationsRel" type="boolean">
+            A yes/no if the dog was released due to performance on bcl question 1.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 2. Noise Sensitivity
+        <Property name="bcl_LOCTrafficNoise" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_NoiseNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_LOCTrafficNoiseRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 3. Fear Objects
+        <Property name="bcl_FearObjects" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_FearObjectsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FearObjectsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 4. Fear of Underfootings
+        <Property name="bcl_Underfootings" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_Gratings" type="boolean">
+            A yes/no if dog has a fear of walking on grates.
+        </Property>
+        <Property name="bcl_SlipperyFloors" type="boolean">
+            A yes/no if dog has a fear of slippery floors.
+        </Property>
+        <Property name="bcl_UnderfootingNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_UnderfootingsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 5. Fear of Dogs
+        <Property name="bcl_FearDogs" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_FearDogsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FearDogsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 6. Fear of Stairs
+        <Property name="bcl_StairConcern" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_StairsUp" type="boolean">
+            A yes/no if dog has a fear of walking up stairs.
+        </Property>
+        <Property name="bcl_StairsOpen" type="boolean">
+            A yes/no if dog has a fear of using open back stairs.
+        </Property>
+        <Property name="bcl_StairsDown" type="boolean">
+            A yes/no if dog has a fear of walking down stairs.
+        </Property>
+        <Property name="bcl_StairConcernNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_StairConcernRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 7. Fear traffic
+        <Property name="bcl_FearTraffic" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_FearTrafficNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FearTrafficRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 8. Separation Anxiety
+        <Property name="bcl_SeparationAnxiety" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_CrateConcern" type="boolean">
+            A yes/no if dog is unsettled when in a crate (portable dog kennel).
+        </Property>
+        <Property name="bcl_SeparationAnxietyNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_SeparationAnxietyRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 9. Hyper-attachment
+        <Property name="bcl_HandlerAttachment" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_HandlerAttachmentNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_HandlerAttachmentRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 10. Fear of Strangers
+        <Property name="bcl_FearStrangers" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_FearStrangersNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FearStrangersRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 11. Body Handling Concern
+        <Property name="bcl_BodyHandling" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_HandlingNails" type="boolean">
+            A yes/no if dog is fearful and/or uncooperative when nails are cut or handled.
+        </Property>
+        <Property name="bcl_HandlingRestraint" type="boolean">
+            A yes/no if dog is fearful or difficult to manage when restrained.
+        </Property>
+        <Property name="bcl_BodyHandlingNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_BodyHandlingRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 12. Retreats reached for
+        <Property name="bcl_YieldsSpace" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_YieldsSpaceNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_YieldsSpaceRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 13. Harness Sensitivity
+        <Property name="bcl_SensitivityHarness" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_SensitivityHarnessNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_SensitivityHarnessRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 14. Avoids blowing fan
+        <Property name="bcl_FanExhaustFear" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_FanNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FanExhaustRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 15. Body Sensitivity
+        <Property name="bcl_BodyAwareness" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_TightSpaces" type="boolean">
+            A yes/no if dog is fearful or hesitant being in tight spaces.
+        </Property>
+        <Property name="bcl_BodyAwarenessNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_BodyAwarenessRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 16. Anxious riding in vehicles
+        <Property name="bcl_Riding" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_RidingNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_RidingRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 17. Inhibited by stress
+        <Property name="bcl_DropsRespPassive" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_DropsRespPassiveNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_DropsRespPassiveRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 18. Activated by stress
+        <Property name="bcl_DropsRespActive" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_DropsRespActiveNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_DropsRespActiveRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 19. Excitable
+        <Property name="bcl_Excitable" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_ExcitableNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ExcitableRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 20. Slow return to productive state
+        <Property name="bcl_SelfModulation" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_SelfModulationNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_SelfModRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 21. Fidgety when handler idle
+        <Property name="bcl_WillingnessSettle" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_DemandBark" type="boolean">
+             A yes/no if dog barks at handler for attention.
+        </Property>
+        <Property name="bcl_WillingnessSettleNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_WillingnessSettleRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 22. Fear elevated areas
+        <Property name="bcl_FearElevatedAreas" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_FearElevatedNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FearElevatedRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 23. Barks Excessively
+        <Property name="bcl_BarksExcessively" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_BarksExcessivelyNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_BarksExcessivelyRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 24. High energy level
+        <Property name="bcl_HighEnergy" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_HighEnergyNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_HighEnergyRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 25. Lacks focus
+        <Property name="bcl_AbilityFocusOnWork" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_FocusNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_FocusRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 26. Movement Excites
+        <Property name="bcl_MovementExcites" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_MovementExcitesNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_MovementExcitesRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 27. Chasing Animals
+        <Property name="bcl_ChaseAnimals" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_ChaseAnimalsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ChaseAnimalsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 28. Dog distraction
+        <Property name="bcl_DistractionDogs" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_DistractionDogsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_DistractionDogsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 29. Sniffing
+        <Property name="bcl_Olfactory" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_OlfactoryNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_OlfactoryRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 30. Scavenges
+        <Property name="bcl_Scavenges" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_ScavengeNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ScavengesRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 31. Inappropriate behavior at home
+        <Property name="bcl_HouseManners" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_HouseMannersNotes" type="string">
+            Notes about poor behavior around the home.
+        </Property>
+        <Property name="bcl_HouseMannersRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+        <Property name="bcl_SocialMannersNotes" type="string">
+            Notes about socially inappropriate behavior with people.
+        </Property>
+        <Property name="bcl_SocialMannersRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 32. Lack initiative to problem solve
+        <Property name="bcl_LackInitiative" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_LacksInitiativeNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_LackInitiativeRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 33. Not willing
+        <Property name="bcl_Unwilling" type="integer">
+            A unique identifier for the exact score.
+        </Property>
+        <Property name="bcl_LacksFoodDrive" type="boolean">
+            A yes/no if the dog still lacks drive after being tempted with food.
+        </Property>
+        <Property name="bcl_UnwillingNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_UnwillingRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 34. Resource guarding people
+        <Property name="bcl_PossessionAggressn" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_PossessionAggressnNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_PossessionAggressnRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 35. Aggression toward strangers
+        <Property name="bcl_StrangerAggressn" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_StrangerAggressnNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_StrangerAggressnRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 36. Aggression toward dogs
+        <Property name="bcl_DogAggressnLeash" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_DogAggressnNoLeash" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_DogAggressnNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_DogAggressnLeashRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+        <Property name="bcl_DogAggressnNoLeashRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 37. Resources guarding w dogs
+        <Property name="bcl_ResourceGuardDogs" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_ResourceGuardDogsHome" type="boolean">
+            A yes/no if dog resource guards in the home.
+        </Property>
+        <Property name="bcl_ResourceGuardDogsKennel" type="boolean">
+            A yes/no if dog resource guards in the kennel.
+        </Property>
+        <Property name="bcl_ResourceGuardDogsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ResourceGuardDogsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 38. Eliminates on route
+        <Property name="bcl_InappropriateElimination" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_EliminationNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_InappropriateEliminationRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 39. Socially Inappropriate with people
+        <Property name="bcl_SocialManners" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 40. Inconsistent
+        <Property name="bcl_Consistency" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_ConsistencyNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ConsistencyRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 41. Handler-Dog Team
+        <Property name="bcl_HandlerDogTeam" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_HandlerDogTeamNotes" type="string">
+            Notes for this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 42. Relationship Skills
+        <Property name="bcl_ComparisonRating" type="integer">
+            A rating of 1-9 for how this team of handler and dog work together. A score of 99 is considered a no score.
+        </Property>
+        <Property name="bcl_CommunicationUnclear" type="boolean">
+            A yes/no if person influencing dog's training provides confusing communication to the dogs such as incorrect, inconsistent commands, poor timing, or lacks communication.
+        </Property>
+        <Property name="bcl_PoorUseOfYou" type="boolean">
+            A yes/no if person influencing dog's training does not use voice inflection, smile, movement, energy to communicate during training.
+        </Property>
+        <Property name="bcl_LeashManages" type="boolean">
+            A yes/no if person influencing dog's training relies mostly on managing the dog by holding the leash tight and/or controlling the dog with leash movements rather than directing with commands for skills the dog knows.
+        </Property>
+        <Property name="bcl_PressuresDog" type="boolean">
+            A yes/no if person influencing dog's training is the source of stress for the dog due to the way they train of interact with the dog.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 43. 9 to 1 Overall
+        <Property name="bcl_ComparisonRating" type="integer">
+            A rating of 1-9 for how this dog compares to others. A score of 99 is considered a no score.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 44. Socially inappropriate with dogs.
+        <Property name="bcl_RudeWDogs" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_RudeWDogsNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_RudeWDogsRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 45. Thunder Reaction
+        <Property name="bcl_ThunderFear" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_ThunderNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_ThunderRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 46. Kennels Poorly
+        <Property name="bcl_KennelsPoorly" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_KennelsPoorlyNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_KennelsPoorlyRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 47. Working Speed
+        <Property name="bcl_WalkingSpeed" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 48. Gait
+        <Property name="bcl_Gait" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 49. Eliminates in house
+        <Property name="bcl_Housebreaking" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_HousebreakNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_HousebreakRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 50. Lacks innate desire to work
+        <Property name="bcl_Drive" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_DriveNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_DriveRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 51. Avoids car exhaust
+        <Property name="bcl_CarExhaust" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_CarExhaustNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_CarExhaustRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 52. Alert to noise from other dogs
+        <Property name="bcl_AlertNoise" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_AlertNoiseNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_AlertNoiseRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+    <div className="pb-8">
+        ### 53. Whines Excessively
+        <Property name="bcl_Whining" type="integer">
+            A unique identifier for the exact score of this question.
+        </Property>
+        <Property name="bcl_WhiningNotes" type="string">
+            Notes for this question.
+        </Property>
+        <Property name="bcl_WhiningRel" type="boolean">
+            A yes/no if the dog was released due to performance on this question.
+        </Property>
+    </div>
+</Properties>

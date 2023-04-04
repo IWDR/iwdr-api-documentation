@@ -1,7 +1,7 @@
 import {NextResponse} from 'next/server'
 import cookie from 'cookie'
 
-export async function middleware(request) {
+export default async function middleware(request) {
     // Initial status check
     try {
         const status_check = await fetch(process.env.NEXT_PUBLIC_API_URL + '/', {method: 'GET'});

@@ -85,13 +85,13 @@ export function DataTable({
                 'mt-8'
             )}
         >
-            <div className="-my-2 -mx-4 overflow-x-hidden sm:-mx-6 lg:-mx-8">
+            <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
                 <div
-                    className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 shadow-md ring-1 ring-black ring-opacity-5">
+                    className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8 ">
                     <div
                         className={clsx(
                             sticky ? 'max-h-96 overflow-y-scroll' : 'overflow-hidden',
-                            'md:rounded-lg bg-slate-100 dark:bg-zinc-800'
+                            'bg-slate-100 dark:bg-zinc-800 ring-1 ring-black ring-opacity-5 rounded-t-md shadow-md'
                         )}
                     >
                         {searchable &&

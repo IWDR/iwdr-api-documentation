@@ -17,14 +17,13 @@ export default function TokensDataTable({ tokens = [], mutator }) {
   const deleteToken = (id) => {
     setLoading(true)
     axios
-      .delete(`/tokens/${id}`)
+      .delete(`/api/tokens/${id}`)
       .then((res) => {
         if (!res.status === 204) {
           serverErrorAlert()
         }
 
         showAlert('Token revoked successfully.', 'success', true, 4000)
-        mutator()
       })
       .catch((error) => {
         console.log(error)
@@ -36,7 +35,6 @@ export default function TokensDataTable({ tokens = [], mutator }) {
   const new_token_created = (token) => {
     setNewToken(token)
     setShowActionPanel(true)
-    mutator()
   }
 
   const headers = [
@@ -97,7 +95,7 @@ export default function TokensDataTable({ tokens = [], mutator }) {
           <CreateTokenDialog onSubmit={(token) => new_token_created(token)} />
         </div>
       </div>
-      <DataTable headers={headers} noDataMsg={noDataMsg} items={tokens} />
+      <DataTable headers={headers} noDataMsg={noDataMsg} path="/api/tokens"/>
     </>
   )
 }

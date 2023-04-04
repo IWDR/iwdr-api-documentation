@@ -35,7 +35,6 @@ export function BreedDataTable() {
             >
                 <DataTable
                     path='/api/references/breed'
-                    noDataMsg={'Could not load data. Please contact support.'}
                     headers={headers}
                     paginated
                     searchable

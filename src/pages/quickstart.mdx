@@ -1,24 +1,27 @@
+import { Button } from '@/components/Button'
 export const description =
   "This guide will get you all set up and ready to use the Protocol API. We'll cover how to get started an API client and how to make your first API request."
 
 # Quickstart
 
-This guide is aimed to help an organization just getting started with using the IWDR API. It contains important information about mapping your organizations data, authenticating API requests, handling errors, and more.
+This guide is aimed to help an organization get started with using the IWDR API.
+It contains important information about mapping your organization data,
+authenticating API requests, handling errors, and more.
 
 ## Who is this for
 
 - IT staff with database experience, including import/export of data, mapping, and a good understanding of field names
-- Organizations with IT capability and sufficient data volume that strongly desire reducing dual entry
+- Organizations with IT capability and sufficient data volume that strongly desire to reduce dual entry
 
 ## What is required to begin
 
-API implementation is a time consuming process for both your own organization, and the IWDR staff.
+API implementation is a time-consuming process for both your own organization, and the IWDR staff.
 
 - **Your oganizations responsibilites**:
 
-  - If you are not already an IWDR subscriber, [you must enroll first](https://www.iwdr.org/enrollment-request/).
+  - If you are not already an IWDR subscriber,  <Button href="https://www.iwdr.org/enrollment-request/" target="_blank" variant="text" className="fill-emerald-500">you must enroll first</Button>.
   - You must then also apply your organization to become an IWDR API user in order to obtain an authentication token. You can apply
-    for access [here](#). You will need to confirm your specific requirements from this process so we can be sure your needs are met.
+    for access [here](/token-application). You will need to confirm your specific requirements from this process, so we can be sure your needs are met.
   - Data cleansing your source data to ensure it is ready for entry into the IWDR. This includes reviewing ancestral dog records,
     birthdates, litters etc (comprehensive list included later in this document). You may need staff familiar with your dogs/lines
     to enter missing data. We will review data and send it back to you if we find errors.
@@ -26,12 +29,12 @@ API implementation is a time consuming process for both your own organization, a
     DogID in your database prior to API implementation.
   - Maintain these data requirements moving forward - the API will not parse data where the IWDR DogID and owner ID do not match
     between the source and receiving databases or when required data maps are missing. Additional data integrity checks are also made
-    depending on the data type. However, some types of bad data such as incorrect birth dates etc can not be detected. {{ className: 'text-red-500' }}
+    depending on the data type. However, some types of bad data such as incorrect birthdates etc. can not be detected. {{ className: 'text-red-500' }}
 
 - **IWDR will provide**:
 
   - Use of the IWDR Connector middleware program. Written in python this program can aid your organization with data mapping and
-    transfer by using structured mapping files along side a Command Line Interface (CLI) to create a seamless connection between
+    transfer by using structured mapping files alongside a Command Line Interface (CLI) to create a seamless connection between
     your existing data set and the IWDR API. 
     
     **The currently supported data sources are**:

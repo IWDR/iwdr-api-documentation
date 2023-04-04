@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import clsx from 'clsx'
+import {LinkIcon} from "@heroicons/react/20/solid";
 
 function ArrowIcon(props) {
     return (
@@ -56,6 +57,10 @@ export function Button({
         />
     )
 
+    let linkIcon = (
+        <LinkIcon className="mt-0.5 h-4 w-4" />
+    )
+
     return (
         <Component
             className={clsx(
@@ -70,6 +75,7 @@ export function Button({
             {arrow === 'left' && arrowIcon}
             {children}
             {arrow === 'right' && arrowIcon}
+            {props.target === "_blank" && linkIcon}
         </Component>
     )
 }

@@ -14,9 +14,7 @@ export function CreateTokenForm({ onSubmit, id }) {
   const [token_abilities, setTokenAbilities] = useState([])
   const [abilities_error, setAbilitiesError] = useState('')
 
-  const abilities = user.permissions.map((perm) => {
-    return { text: perm, value: perm }
-  })
+  const abilities = [{text:"*", value:"*"}];
 
   const reset = () => {
     setTokenName('')
@@ -30,7 +28,7 @@ export function CreateTokenForm({ onSubmit, id }) {
 
     setLoading(true)
     axios
-      .post('/tokens', {
+      .post('/api/tokens', {
         token_name,
         abilities: token_abilities,
       })
@@ -77,6 +75,7 @@ export function CreateTokenForm({ onSubmit, id }) {
           onChange={setTokenAbilities}
           error={!!abilities_error}
           error_message={abilities_error}
+          multiple
         />
       </div>
     </form>

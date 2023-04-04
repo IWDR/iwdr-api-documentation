@@ -26,7 +26,7 @@ export function DataTablePagination({page_data, setPage}) {
 
     return (
         <nav
-            className="flex items-center justify-between border-t border-gray-300 dark:border-zinc-600 rounded-b-lg bg-slate-100 dark:bg-zinc-800 px-4 max-sm:py-3.5 sm:px-6"
+            className="flex items-center justify-between border-t border-gray-300 dark:border-zinc-600 rounded-b-lg bg-slate-100 dark:bg-zinc-800 px-4 max-sm:py-3.5 sm:px-6 shadow-md"
             aria-label="Pagination"
         >
             <div className="sm:block">

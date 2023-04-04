@@ -10,6 +10,7 @@ import useSWR from "swr";
 import {Listbox, Transition} from "@headlessui/react";
 import {useGeolocation} from "@/hooks/geolocation";
 import axios from "@/lib/axios";
+import {parsePhoneNumber} from "libphonenumber-js";
 
 export function PhoneField({
                                name,
@@ -41,11 +42,8 @@ export function PhoneField({
     const {
         data: country_codes,
         error: country_code_error,
-    } = useSWR('/api/country-codes', (url) => fetch(url).then((res) => res.json()));
-
-    const getDialCodeFromCountry = (country) => {
-        return country_codes?.filter((code) => code.code === country)[0]?.dial_code;
-    }
+        isLoading: isLoadingCountryCodes
+    } = useSWR({resource: '/api/references/country'});
 
     // Geolocate the phone code
     useEffect(() => {
@@ -55,7 +53,7 @@ export function PhoneField({
             let lat = location.coords.latitude;
             let lng = location.coords.longitude;
 
-            axios.post('/api/geolocate', { lat, lng })
+            axios.post('/api/geolocate', {lat, lng})
                 .then((res) => {
                     if (res.status !== 200) return;
                     let data = res.data.data;
@@ -75,16 +73,21 @@ export function PhoneField({
         }
     }, [location]);
 
-    // Update the parent value with country code as prefix to phone number
+    // Update as you type when country changes
     useEffect(() => {
-        const numberUpdated = () => {
-            let dial_code = getDialCodeFromCountry(country_code);
-            onChange(`${dial_code}${phone_number}`)
-        }
-        numberUpdated()
+        setPhoneNumber('');
+    }, [country_code])
 
-        return () => onChange(country_code)
-    }, [country_code, phone_number]);
+    // Update the parent value with country code as prefix to phone number
+    const updateNumber = (value) => {
+        setPhoneNumber(value)
+        try {
+            let num = parsePhoneNumber(value, country_code);
+            onChange(num.formatInternational());
+        } catch (error) {
+            // obsolete, phone number was invalid in some fashion
+        }
+    }
 
     return (
         <div className={clsx(className, horizontal && "sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5")}>
@@ -110,9 +113,9 @@ export function PhoneField({
                         {({open}) => (
                             <>
                                 <Listbox.Label className="sr-only">Country</Listbox.Label>
-                                <Listbox.Button className="absolute inset-y-0 left-0 flex items-center pl-3 w-28">
+                                <Listbox.Button className="absolute inset-y-0 left-0 flex items-center pl-3 w-12">
                                     <span className="block truncate">
-                                        {country_code + ` (${getDialCodeFromCountry(country_code)})`}
+                                        {country_code.toUpperCase()}
                                     </span>
                                     <span
                                         className="pointer-events-none absolute inset-y-0 left-3/4 flex items-center"
@@ -128,11 +131,11 @@ export function PhoneField({
                                     leaveTo="opacity-0"
                                 >
                                     <Listbox.Options
-                                        className="absolute z-10 mt-14 max-h-60 w-2/6 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:text-white sm:text-sm">
-                                        {!country_code_error && country_codes.sort((a, b) => a.code > b.code).map((code) =>
+                                        className="absolute z-10 mt-14 max-h-60 w-24 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:text-white sm:text-sm">
+                                        {!(country_code_error || isLoadingCountryCodes) && country_codes.data.map((code) =>
                                             <Listbox.Option
-                                                key={code.code}
-                                                value={code.code}
+                                                key={code['CountryAbbrev2']}
+                                                value={code['CountryAbbrev2']}
                                                 className={({active}) =>
                                                     clsx(
                                                         'relative cursor-default select-none py-2 px-3 min-w-full',
@@ -150,7 +153,7 @@ export function PhoneField({
                                                             selected && 'font-bold'
                                                         )}
                                                     >
-                                                    {code.code + ` (${code.dial_code})`}
+                                                    {code['CountryAbbrev2'].toUpperCase()}
                                                     </span>
 
                                                         {selected &&
@@ -160,11 +163,11 @@ export function PhoneField({
                                                                     active ? 'text-white' : ''
                                                                 )}
                                                             >
-                                                          <CheckIcon
-                                                              className="h-5 w-5"
-                                                              aria-hidden="true"
-                                                          />
-                                                        </span>
+                                                              <CheckIcon
+                                                                  className="h-5 w-5"
+                                                                  aria-hidden="true"
+                                                              />
+                                                            </span>
                                                         }
                                                     </Fragment>
                                                 )}
@@ -182,11 +185,11 @@ export function PhoneField({
                         id={id}
                         placeholder={placeholder}
                         value={phone_number}
-                        onChange={(e) => setPhoneNumber(e.target.value)}
+                        onChange={(e) => updateNumber(e.target.value)}
                         readOnly={readonly}
                         disabled={readonly || disabled}
                         className={clsx(
-                            'block w-full border py-3 pr-3 pl-28 shadow-sm focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:placeholder:text-zinc-400',
+                            'block w-full border py-3 pr-3 pl-14 shadow-sm focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:placeholder:text-zinc-400',
                             copyable ? 'cursor-pointer rounded-l-md border-r-0' : 'rounded-md',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style,
