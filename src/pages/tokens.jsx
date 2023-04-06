@@ -1,6 +1,7 @@
 import TokensDataTable from "@/components/data-tables/TokensDataTable";
 import {useAuth} from "@/hooks/auth";
 import {useRouter} from "next/router";
+import LoadingOverlay from "@/components/LoadingOverlay";
 
 export function getServerSideProps(){
     return {
@@ -11,8 +12,14 @@ export function getServerSideProps(){
     }
 }
 export default function Tokens() {
-    const user = useAuth();
+    const { user } = useAuth();
+
+    if(!user){
+        return <LoadingOverlay />
+    }
+
     if(user.usr_GroupID !== -1){
+        console.log(user);
         return (
             <p>You are not authorized to view this content.</p>
         )
