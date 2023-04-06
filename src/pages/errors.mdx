@@ -1,54 +1,49 @@
 export const description =
-  'In this guide, we will talk about what happens when something goes wrong while you work with the API.'
+  'In this guide, we will talk about what happens when something goes wrong while you&apos;re working with the IWDR API.'
 
 # Errors
 
-In this guide, we will talk about what happens when something goes wrong while you work with the API. Mistakes happen, and mostly they will be yours, not ours. Let's look at some status codes and error types you might encounter. {{ className: 'lead' }}
+In this guide, we will talk about what happens when something goes wrong while you&apos;re working with the IWDR API. {{ className: 'lead' }}
 
-You can tell if your request was successful by checking the status code when receiving an API response. If a response comes back unsuccessful, you can use the error type and error message to figure out what has gone wrong and do some rudimentary debugging (before contacting support).
-
-<Note>
-  Before reaching out to support with an error, please be aware that 99% of all
-  reported errors are, in fact, user errors. Therefore, please carefully check
-  your code before contacting IWDR support.
-</Note>
+You can tell if your request was successful by checking the "success" field when receiving an API response.
+If a response comes back unsuccessful, you will see the "success" field marked as the boolean value false,
+and the "error" field will contain the exact error message
+to figure out what has gone wrong in order to do some rudimentary debugging
+(before contacting support).
 
 ---
 
 ## Status codes
 
-Here is a list of the different categories of status codes returned by the IWDR API. Use these to understand if a request was successful.
+Here is a list of status codes returned by the IWDR API. Use these to understand if a request was successful.
 
 <Properties>
   <Property name="2xx">
-    A 2xx status code indicates a successful response.
+    A 2xx status code indicates a successful response from the IWDR api.
   </Property>
   <Property name="4xx">
-    A 4xx status code indicates a client error — this means it's a _you_
-    problem.
+    A 4xx status code indicates a client error - Generally authentication based.
   </Property>
   <Property name="5xx">
-    A 5xx status code indicates a server error — you won't be seeing these.
+    A 5xx status code indicates a server error - Something could possbily be wrong with your data.
   </Property>
 </Properties>
 
 ---
 
-## Error types
+## Error response definition
 
 <Row>
   <Col>
 
-    Whenever a request is unsuccessful, the IWDR API will return an error response with an error type and message. You can use this information to understand better what has gone wrong and how to fix it. Most of the error messages are pretty helpful and actionable.
-
-    Here is a list of the two error types supported by the IWDR API — use these to understand what you have done wrong.
+    Whenever a request is unsuccessful, the IWDR API will return an error response with a status code 500, success field valued false, and the error field containing the error message. You can use this information to understand better what has gone wrong and how to fix it.
 
     <Properties>
-      <Property name="api_error">
-        This means that we made an error, which is highly speculative and unlikely.
+      <Property name="success" type="boolean">
+        The boolean indicator of a requests success.
       </Property>
-      <Property name="invalid_request">
-        This means that you made an error, which is much more likely.
+      <Property name="error" type="string">
+        The error message string to help debugging.
       </Property>
     </Properties>
 
@@ -57,9 +52,8 @@ Here is a list of the different categories of status codes returned by the IWDR 
 
     ```bash {{ title: "Error response" }}
     {
-      "type": "api_error",
-      "message": "No way this is happening!?",
-      "documentation_url": "https://IWDR.chat/docs/errors/api_error"
+      "success": false,
+      "error": "No way this is happening!?"
     }
     ```
 
