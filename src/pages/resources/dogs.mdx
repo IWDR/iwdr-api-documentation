@@ -250,16 +250,17 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         ```json {{title: 'Response'}}
         {
             "success": true,
-            "data": {
+            "data":
+        {
             "dog_DogID": "...", // Integer redacted
             "dog_BreedCode": 2,
             "dog_CallName": "Example Dog Name",
             "dog_PedigreeName": "Dog's Pedigree Name",
             "dog_BreederID": 100, // Integer redacted
             "dog_OwnerID": 15, // Integer redacted
-            "dog_DOB": "2023-01-01",
+            "dog_DOB": "2023-01-01", // Date string
             "Current Age (mo)": "...", // Auto generated
-            "dog_ApproxBirthYr": "2023",
+            "dog_ApproxBirthYr": "2023", // Year string
             "dog_SireID": "...", // Integer redacted
             "dog_DamID": "...", // Integer redacted
             "dog_Sex": "M",
@@ -272,7 +273,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "dog_BreedWatchList": 0,
             "dog_StudList": 0,
             "dog_Parent": 0,
-            "dog_DateDied": null,
+            "dog_DateDied": null, // Date string
             "dog_InbreedingCoefficient": "...", // Auto generated
             "Gen Coef": "...", // Auto generated
             "GenClass": "...", // Auto generated
@@ -281,8 +282,8 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "dog_CountryOfOriginCode": 202,
             "dog_SearchName": "...", // Auto generated
             "dog_SchoolID": null,
-            "dog_NeuterOKDate": null,
-            "dog_NeuterDate": null,
+            "dog_NeuterOKDate": null, // Date string
+            "dog_NeuterDate": null, // Date string
             "AgeNeutered": null,
             "DeathAge": null,
             "dog_K9DataID": null,
@@ -306,11 +307,11 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "pedDogTx11": "",  // unused
             "pedDogTx12": "",  // unused
             "pedDogTx13": "",  // unused
-            "dog_LastUpdated": "...", // Today's date
+            "dog_LastUpdated": "...",// Date string
             "dog_LitterRecordID": null,
             "dog_KCPrimaryID": null,
             "dog_KCPrimaryNbr": "KC1234",
-            "dog_StatusChangeDate": "...", // Today's date
+            "dog_StatusChangeDate": "...", // Date String
             "dog_AdultWeight": null,
             "dog_AdultHeight": null,
             "dog_BirthWeight": null,
@@ -375,6 +376,8 @@ The dog model contains all the pertinent information on a given dog within IWDR.
 <Row>
     <Col>
         List all your owned dog data.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
         <Properties>
             <Property name="q" type="string">
                 A powerful query string to filter the returned data. The string format is as follows:
@@ -389,12 +392,18 @@ The dog model contains all the pertinent information on a given dog within IWDR.
                 - empty
                 - startswith
             </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
             <Property name="records" type="integer">
                 The number of records to be returned. If number is more than all dogs owned, then all dogs will be
                 returned.
                 <Note>
-                    By default, a maximum of 200 dogs are shown per request.
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
                 </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
             </Property>
         </Properties>
     </Col>
@@ -405,38 +414,38 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "data": [
         {
             "dog_DogID": "...", // Integer redacted
-            "dog_BreedCode": 33,
-            "dog_CallName": "...", // String redacted
-            "dog_PedigreeName": "",
-            "dog_BreederID": "...", // Integer redacted
-            "dog_OwnerID": "...", // Integer redacted
-            "dog_DOB": "2017-04-14",
-            "Current Age (mo)": 70.0984,
-            "dog_ApproxBirthYr": "2017",
+            "dog_BreedCode": 2,
+            "dog_CallName": "Example Dog Name",
+            "dog_PedigreeName": "Dog's Pedigree Name",
+            "dog_BreederID": 100, // Integer redacted
+            "dog_OwnerID": 15, // Integer redacted
+            "dog_DOB": "2023-01-01", // Date string
+            "Current Age (mo)": "...", // Auto generated
+            "dog_ApproxBirthYr": "2023", // Year string
             "dog_SireID": "...", // Integer redacted
             "dog_DamID": "...", // Integer redacted
             "dog_Sex": "M",
-            "dog_ColorCode": 131,
+            "dog_ColorCode": 18,
             "dog_ProgramCode": 6,
             "dog_StatusCode": 1,
-            "dog_SubStatusCode": 26,
-            "dog_WorkType": 7,
+            "dog_SubStatusCode": 127,
+            "dog_WorkType": 15,
             "dog_FrozenSemen": 0,
             "dog_BreedWatchList": 0,
             "dog_StudList": 0,
             "dog_Parent": 0,
-            "dog_DateDied": null,
-            "dog_InbreedingCoefficient": "...", // String redacted
-            "Gen Coef": 7.5,
-            "GenClass": 7,
-            "dog_EndReasonCode": 1,
+            "dog_DateDied": null, // Date string
+            "dog_InbreedingCoefficient": "...", // Auto generated
+            "Gen Coef": "...", // Auto generated
+            "GenClass": "...", // Auto generated
+            "dog_EndReasonCode": null,
             "dog_EndReasonCodeSecondary": null,
-            "dog_CountryOfOriginCode": 77,
-            "dog_SearchName": "...", // String redacted
-            "dog_SchoolID": "...", // String redacted
-            "dog_NeuterOKDate": null,
-            "dog_NeuterDate": "2018-05-16",
-            "AgeNeutered": 1.0869,
+            "dog_CountryOfOriginCode": 202,
+            "dog_SearchName": "...", // Auto generated
+            "dog_SchoolID": null,
+            "dog_NeuterOKDate": null, // Date string
+            "dog_NeuterDate": null, // Date string
+            "AgeNeutered": null,
             "DeathAge": null,
             "dog_K9DataID": null,
             "dog_DeathComments": "",
@@ -459,39 +468,39 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "pedDogTx11": "",  // unused
             "pedDogTx12": "",  // unused
             "pedDogTx13": "",  // unused
-            "dog_LastUpdated": "2019-10-08 01:39:03",
-            "dog_LitterRecordID": 361,
+            "dog_LastUpdated": "...",// Date string
+            "dog_LitterRecordID": null,
             "dog_KCPrimaryID": null,
-            "dog_KCPrimaryNbr": "",
-            "dog_StatusChangeDate": "2018-06-18",
+            "dog_KCPrimaryNbr": "KC1234",
+            "dog_StatusChangeDate": "...", // Date String
             "dog_AdultWeight": null,
             "dog_AdultHeight": null,
             "dog_BirthWeight": null,
-            "dog_UserIDEntering": 104,
+            "dog_UserIDEntering": "...", // User's id who entered
             "dog_StatusChangeComments": null,
             "dog_BirthWeightMetric": null,
             "dog_AdultWeightMetric": null,
             "dog_AdultHeightMetric": null,
-            "dog_DisplayName": "...", // String redacted
+            "dog_DisplayName": "...", // Auto generated
             "dog_PlacedWithID": null,
             "dog_PlacedWithRelationID": "0",
             "dog_SchoolIDBreeder": "",
             "dog_PlacementRelationCode": "8",
-            "dog_UserIDLast": 385,
+            "dog_UserIDLast": "...", // User's id who updated
             "dog_CoopRelationStatus": null,
             "dog_CoopBreedWatchList": "0",
             "dog_PedigreeLink": "0",
-            "ps2_HipEHRText": "...", // String redacted
-            "ps2_HipEHRAge": 13,
+            "ps2_HipEHRText": null,
+            "ps2_HipEHRAge": null,
             "ps2_HipLaxText": null,
-            "ps2_ElbowText": "...", // String redacted
-            "ps2_ElbAge": 13,
-            "ps2_SkinScore": 3,
-            "ps2_SkinAge": 14,
-            "ps2_EyeScore": 5,
-            "ps2_EyeAge": 14,
-            "ps2_HeartScore": 5,
-            "ps2_HeartAge": 14,
+            "ps2_ElbowText": null,
+            "ps2_ElbAge": null,
+            "ps2_SkinScore": null,
+            "ps2_SkinAge": null,
+            "ps2_EyeScore": null,
+            "ps2_EyeAge": null,
+            "ps2_HeartScore": null,
+            "ps2_HeartAge": null,
             "dog_PPRegionCode": null,
             "dog_LocationCode": null,
             "dog_GradRegion": null,
@@ -501,15 +510,15 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "dog_DateEntered": null,
             "dog_CoopNeuterOKDate": null,
             "dog_ABCRelation": 0,
-            "dog_AgeText": "5 yrs",
-            "lit_LitterID": "...", // String redacted
+            "dog_AgeText": "...", // Auto generated
+            "lit_LitterID": null,
             "dog_PPRegionDate": null,
             "dog_TrnRegionDate": null,
             "dog_GradRegionDate": null,
-            "MicrochipNumber": "...", // String redacted
-            "MicrochipType": "...", // String redacted
+            "MicrochipNumber": null,
+            "MicrochipType": null,
             "MicrochipDate": null,
-            "MicrochipSearchString": "...", // String redacted
+            "MicrochipSearchString": "",
             "dog_PsnResponsible": null,
             "dog_EBCRelation": 0,
             "dog_OBCRelation": 0,

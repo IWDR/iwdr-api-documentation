@@ -1,5 +1,5 @@
 import { CreateTokenDialog } from '@/components/dialogs/CreateTokenDialog'
-import { useState } from 'react'
+import {useRef, useState} from 'react'
 import { useAlertStore } from '@/stores/alertStore'
 import { Button } from '@/components/Button'
 import { useLoadingStore } from '@/stores/loadingStore'
@@ -8,12 +8,12 @@ import { TextField } from '@/components/TextField'
 import axios from '@/lib/axios'
 import { DataTable } from '@/components/DataTable'
 
-export default function TokensDataTable({ tokens = [], mutator }) {
+export default function TokensDataTable() {
   const [showActionPanel, setShowActionPanel] = useState(false)
   const [newToken, setNewToken] = useState('')
   const { showAlert, serverErrorAlert } = useAlertStore()
   const { setLoading } = useLoadingStore()
-
+  const dataRef = useRef();
   const deleteToken = (id) => {
     setLoading(true)
     axios
@@ -24,6 +24,7 @@ export default function TokensDataTable({ tokens = [], mutator }) {
         }
 
         showAlert('Token revoked successfully.', 'success', true, 4000)
+        dataRef.current.mutate();
       })
       .catch((error) => {
         console.log(error)
@@ -35,6 +36,7 @@ export default function TokensDataTable({ tokens = [], mutator }) {
   const new_token_created = (token) => {
     setNewToken(token)
     setShowActionPanel(true)
+    dataRef.current.mutate();
   }
 
   const headers = [
@@ -95,7 +97,7 @@ export default function TokensDataTable({ tokens = [], mutator }) {
           <CreateTokenDialog onSubmit={(token) => new_token_created(token)} />
         </div>
       </div>
-      <DataTable headers={headers} noDataMsg={noDataMsg} path="/api/tokens"/>
+      <DataTable headers={headers} noDataMsg={noDataMsg} path="/api/tokens" ref={dataRef} />
     </>
   )
 }

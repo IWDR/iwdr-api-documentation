@@ -1,20 +1,21 @@
 import clsx from 'clsx'
-import {Fragment, useState} from 'react'
+import {Fragment, useState, forwardRef, useImperativeHandle} from 'react'
 import {DataTablePagination} from "@/components/DataTablePagination";
 import useSWR from "swr";
 import Spinner from "@/components/Spinner";
 import {TextField} from "@/components/TextField";
 import {Button} from "@/components/Button";
 
-export function DataTable({
-                              headers = [],
-                              path = null,
-                              searchable = false,
-                              paginated = false,
-                              noDataMsg,
-                              className,
-                              sticky = false,
-                          }) {
+// eslint-disable-next-line react/display-name
+export const DataTable = forwardRef(({
+                                         headers = [],
+                                         path = null,
+                                         searchable = false,
+                                         paginated = false,
+                                         noDataMsg,
+                                         className,
+                                         sticky = false,
+                                     }, ref) => {
 
     const [search, setSearch] = useState('')
     const [itemsUrl, setItemsURL] = useState(`${path}${paginated ? '?paginated=1' : ''}`)
@@ -22,8 +23,11 @@ export function DataTable({
     const {
         data: items,
         isLoading,
-        error
+        error,
+        mutate
     } = useSWR({resource: itemsUrl})
+
+    useImperativeHandle(ref, () => ({ mutate }) )
 
     if (error) {
         return <p>There was an issue loading this page. Please contact support.</p>
@@ -91,7 +95,8 @@ export function DataTable({
                     <div
                         className={clsx(
                             sticky ? 'max-h-96 overflow-y-scroll' : 'overflow-hidden',
-                            'bg-slate-100 dark:bg-zinc-800 ring-1 ring-black ring-opacity-5 rounded-t-md shadow-md'
+                            'bg-slate-100 dark:bg-zinc-800 ring-1 ring-black ring-opacity-5 rounded-t-md shadow-md',
+                            item_data?.length === 0 && "rounded-b-lg"
                         )}
                     >
                         {searchable &&
@@ -107,7 +112,7 @@ export function DataTable({
                                 </div>
                             </form>
                         }
-                        <table className="min-w-full divide-y divide-gray-300 dark:divide-zinc-600">
+                        <table className={clsx("min-w-full divide-y divide-gray-300 dark:divide-zinc-600")}>
                             <thead
                                 className={clsx(
                                     sticky &&
@@ -131,7 +136,7 @@ export function DataTable({
                             </tr>
                             </thead>
                             <tbody
-                                className="not-prose divide-y divide-gray-200 bg-white dark:divide-zinc-500 dark:bg-zinc-700">
+                                className={clsx("not-prose divide-y divide-gray-200 bg-white dark:divide-zinc-500 dark:bg-zinc-700")}>
 
                             {item_data?.length > 0 ? (
                                 item_data.map((item, id) => (
@@ -161,4 +166,4 @@ export function DataTable({
             </div>
         </div>
     )
-}
+});

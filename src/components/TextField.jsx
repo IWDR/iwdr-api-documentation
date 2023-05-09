@@ -1,15 +1,66 @@
 import {InputError} from './InputError'
 import {
-    CheckCircleIcon,
     ExclamationCircleIcon,
 } from '@heroicons/react/20/solid'
-import {Button} from './Button'
-import {ClipboardIcon} from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import {useState} from 'react'
-import {Transition} from '@headlessui/react'
+import {useEffect, useState} from "react";
 import {useAlertStore} from "@/stores/alertStore";
+import {ClipboardIcon} from "@/components/icons/ClipboardIcon";
 
+function CopyButton({code}) {
+    let [copyCount, setCopyCount] = useState(0)
+    let copied = copyCount > 0
+
+    const showAlert = useAlertStore((state) => state.showAlert)
+
+    useEffect(() => {
+        if (copyCount > 0) {
+            let timeout = setTimeout(() => setCopyCount(0), 1000)
+            return () => {
+                clearTimeout(timeout)
+            }
+        }
+    }, [copyCount])
+
+    return (
+        <button
+            type="button"
+            className={clsx(
+                'group/button absolute top-2.5 right-4 py-1 pl-2 pr-3 text-2xs font-medium shadow-sm rounded-full transition hover:opacity-100 focus:opacity-100 group-hover:opacity-100',
+                copied
+                    ? 'bg-emerald-400/10 ring-1 ring-inset ring-emerald-400/20'
+                    : 'bg-emerald-600/10 text-emerald-800/90 ring-1 ring-emerald-600 hover:ring-emerald-400 hover:text-emerald-600/90 dark:bg-emerald-400/10 dark:text-emerald-300 dark:ring-emerald-400/60 dark:hover:ring-emerald-300 dark:hover:text-emerald-400'
+            )}
+            onClick={() => {
+                window.navigator.clipboard.writeText(code).then(() => {
+                    setCopyCount((count) => count + 1)
+                })
+                    .catch(() => showAlert("There was an issue copying the data to the clipboard. You may need to allow permission for this action.", 'error', true, 6000))
+            }}
+        >
+      <span
+          aria-hidden={copied}
+          className={clsx(
+              'pointer-events-none flex items-center gap-0.5 transition duration-300',
+              copied && '-translate-y-1.5 opacity-0'
+          )}
+      >
+        <ClipboardIcon
+            className="h-5 w-5 fill-emerald-800/90 stroke-emerald-800/90 hover:fill-emerald-600/90 hover:stroke-emerald-600/90"/>
+        Copy
+      </span>
+            <span
+                aria-hidden={!copied}
+                className={clsx(
+                    'pointer-events-none absolute inset-0 flex items-center justify-center text-emerald-400 transition duration-300',
+                    !copied && 'translate-y-1.5 opacity-0'
+                )}
+            >
+        Copied!
+      </span>
+        </button>
+    )
+}
 export function TextField({
                               name,
                               type,
@@ -35,14 +86,6 @@ export function TextField({
     const readonly_style =
         'disabled:cursor-text disabled:border-zinc-500 disabled:bg-zinc-100 disabled:text-zinc-500'
 
-    const [copied, setCopied] = useState(false)
-    const showAlert = useAlertStore((state) => state.showAlert)
-
-    const copy = () => {
-        navigator.clipboard.writeText(value).catch(() => showAlert("There was an issue copying the data to the clipboard. You may need to allow permission for this action.", 'error', true, 6000))
-        setCopied(true)
-    }
-
     return (
         <div className={clsx(className, horizontal && "sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5")}>
             <div>
@@ -58,7 +101,7 @@ export function TextField({
             </div>
             <div className={clsx(horizontal ? "mt-2 sm:col-span-2 sm:mt-0" : "mt-1 flex")}>
                 <div
-                    className="relative flex max-w-lg flex-grow items-stretch focus-within:z-10 rounded-md shadow-sm">
+                    className="relative flex max-w-lg flex-grow rounded-md shadow-sm">
                     <input
                         type={type}
                         name={name}
@@ -69,8 +112,8 @@ export function TextField({
                         readOnly={readonly}
                         disabled={readonly || disabled}
                         className={clsx(
-                            'block w-full border p-3 shadow-sm focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:placeholder:text-zinc-400',
-                            copyable ? 'cursor-pointer rounded-l-md border-r-0' : 'rounded-md',
+                            'block w-full border p-3 shadow-sm rounded-md focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:placeholder:text-zinc-400',
+                            copyable && 'cursor-pointer',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style,
                         )}
@@ -78,34 +121,7 @@ export function TextField({
                         aria-describedby={error_message ?? undefined}
                         required={required}
                     />
-                    {copyable && (
-                        <Button
-                            className="relative -ml-px inline-flex items-center rounded-l-none"
-                            variant="outline"
-                            onClick={() => copy()}
-                        >
-                            <Transition
-                                show={copied}
-                                enter="ease-in duration-400 transform"
-                                enterFrom="rotate-0 scale-0"
-                                enterTo="rotate-360 scale-100"
-                            >
-                                <CheckCircleIcon
-                                    className="h-5 w-5 text-emerald-500"
-                                    aria-hidden="true"
-                                />
-                            </Transition>
-                            <Transition
-                                show={!copied}
-                                leave="transition-opacity duration-0"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                            >
-                                <ClipboardIcon className="h-5 w-5" aria-hidden="true"/>
-                            </Transition>
-                            <span>{copied ? 'Copied!' : 'Copy'}</span>
-                        </Button>
-                    )}
+                    {copyable && <CopyButton code={value} />}
                     {error && (
                         <div
                             className={clsx(type === "date" ? "right-6" : "right-0", "pointer-events-none absolute inset-y-0 flex items-center pr-3")}>
