@@ -66,11 +66,11 @@ export const DataTable = forwardRef(({
                     'whitespace-nowrap py-4 text-sm font-medium'
                 )}
             >
-        <span className="hidden lg:table-cell">
-          {typeof header.component === 'function'
-              ? header.component(item)
-              : item[header.key]}
-        </span>
+                <span className="hidden lg:table-cell">
+                  {typeof header.component === 'function'
+                      ? header.component(item)
+                      : item[header.key]}
+                </span>
                 {index === 0 && item_as_description_list(item)}
             </td>
         )

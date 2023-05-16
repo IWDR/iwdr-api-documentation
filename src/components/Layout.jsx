@@ -40,9 +40,11 @@ export function Layout({children, sections = []}) {
                     <div className="relative pt-14 px-5">
                         <Banner />
                         <main className="py-16">
-                            <Prose as="article">{children}</Prose>
+                            <Prose as="article">
+                                {children}
+                                <Footer/>
+                            </Prose>
                         </main>
-                        <Footer/>
                     </div>
                 </div>
             </AuthProvider>

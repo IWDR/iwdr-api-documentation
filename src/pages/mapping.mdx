@@ -1,21 +1,107 @@
 import CustomLightbox from "@/components/CustomLightbox";
+import {Note} from "@/components/mdx";
+import Table from "@/components/Table";
+
+export const headers = [
+    {
+        key: 'head1',
+        text: 'IWDR Key'
+    },
+    {
+        key: 'head2',
+        text: 'Your outside key'
+    },
+    {
+        key: 'head3',
+        text: 'Notes'
+    },
+    {
+        key: 'head4',
+        text: 'IWDR Table Name'
+    },
+    {
+        key: 'head5',
+        text: 'IWDR Code'
+    }
+];
+
+export const values = [
+    {
+        head1: 'Golden Retriever',
+        head2: '4',
+        head3: 'Mapping of IWDR\'s golden retriever breed code 1 to your organizations breed code 4',
+        head4: 'trefDogBreedCodes',
+        head5: '1'
+    }
+]
+
+export const slides = [
+    {
+        src: "/images/mapping_screenshot.png",
+        alt: "Screenshot of mapping table for dog breed code.",
+        title: "Screenshot of mapping table for dog breed code.",
+        description: "This screenshot shows the mapping table for the dog breed field of the dog resource/menu item."
+    },
+    {
+        src: "/images/mapping_edit_multiple_screenshot.png",
+        alt: "Screenshot of editing multiple rows in the mapping table.",
+        title: "Edit multiple rows",
+        description: "Screenshot of editing multiple rows in the mapping table."
+    },
+    {
+        src: "/images/mapping_csv_rows_screenshot.png",
+        alt: "Screenshot of rows containing comma seperated mapping values.",
+        title: "Comma seperated values",
+        description: "Screenshot of rows containing comma seperated mapping values."
+    }
+]
 
 # Mapping
+Mapping is the process
+of translating your organization's values into a set of structured key/value pairs using the IWDR interface.
+Your organization will translate the coded values from within the iwdr interface to the appropriate cooresponding values
+being submitted by your organization's varying API requests.
 
-Mapping is the process of exporting your organization's data structures into a set of structured tables within the IWDR interface.
-This is accomplished by matching the values from iwdr to the appropriate values your organization is planning to
-send via API requests.
+## Responsibilites
 
-Each model available via the IWDR api will more likely than not require a multitude of mappings to be completed.
-Your team will need to review and manage its mapping records frequently to ensure there are no inaccuracies or
-anomalies.
+Each menu item/details tab,
+also known as "resource" throughout this documentation, has specific fields, or columns, that need to be mapped.
+These mappings will then be querired against whenever an API request is attempting to create/update a record
+in order to translate the received data into meaningful values for IWDR.
 
-The IWDR team will also periodically review your mapping records because we need mapping to be accurate
-(particularly the critical data fields) while your organization continues to use the IWDR API.
+<Note>
+    <span className="text-red-500">
+        Your team must populate, review, and update your own mappings. For the sake of data integrity,
+        your organization must update mapping changes as soon as they occur within your organization's database.
+        This will ensure that records being submitted via API requests remain synchronus to your organization's database.
+    </span>
+</Note>
 
-<CustomLightbox buttonLabel="Show screenshots" slides={[{
-    src: "/images/mapping_screenshot.png",
-    alt: "Screenshot of IWDR mapping interface.",
-    title: "IWDR Mapping Interface",
-    description: "Screenshot of the IWDR mapping interface."
-}]} />
+<Note>
+    The IWDR team will perform intitial, along with periodic, review of your organization's mappings,
+    so that we can better answer any API-related questions.
+</Note>
+
+
+## Example mappings from IWDR
+
+This table shows an example mapping row, from the IWDR interface,
+of the dog resource column **dog_BreedCode** value **"Golden Retriever"**
+to your organization's dog breed code value **"4"**.
+
+<CustomLightbox
+    slides={slides}
+    label="Click to see example screenshots"
+/>
+<Table headers={headers} values={values}/>
+<Note>
+    **Note**: Not all mapping records need to populated. You only need to supply a mapping for values which apply to
+    your organization's data.
+</Note>
+
+### Mapping Column Explanations
+1. **IWDR Key**: This column is a non-editable, exact display, of the text shown throughout the IWDR interface.
+2. **Your outside Key**: This column is editable, and it's where your organization must input the appropriate matching value(s) being passed in through API requests. You can input either a single value, or a comma seperated list of values.
+3. **Notes**: This editable column is used internally amongst your organization. It can be helpful specifying the meaning of certain coded values.
+4. **IWDR Table Name**: This column is non-editable, and used internally for IWDR's purposes.
+5. **IWDR Code**: This column is non-editable, and used internally for IWDR's purposes. It is the coded integer primary key of the **IWDR Key**.

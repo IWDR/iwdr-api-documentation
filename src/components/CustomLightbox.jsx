@@ -4,25 +4,41 @@ import {Captions, Counter, Inline, Fullscreen, Zoom} from "yet-another-react-lig
 import "yet-another-react-lightbox/plugins/counter.css";
 import "yet-another-react-lightbox/plugins/captions.css";
 import "yet-another-react-lightbox/styles.css";
+import {Button} from "@/components/Button";
 
 
-export default function CustomLightbox({slides}) {
+export default function CustomLightbox({ slides, inline, label }) {
     const [open, setOpen] = useState(false);
     const captionsRef = useRef(null);
     const fullscreenRef = useRef(null);
     const zoomRef = useRef(null);
 
+    if(inline) return (
+        <Lightbox
+            open={open}
+            close={() => setOpen(false)}
+            slides={slides}
+            plugins={[Captions, Counter, Inline, Fullscreen, Zoom]}
+            captions={{ref: captionsRef}}
+            fullscreen={{ ref: fullscreenRef }}
+            zoom={{ ref: zoomRef }}
+            counter={{ style: { top: "unset", bottom: 0, left: "49%" } }}
+            inline={{ style: { width: "100%", maxWidth: "900px", aspectRatio: "3 / 2" } }}
+        />
+    )
     return (
         <>
+            <Button onClick={() => setOpen(true)}>
+                {label}
+            </Button>
             <Lightbox
-                open={open} close={() => setOpen(false)}
+                open={open}
+                close={() => setOpen(false)}
                 slides={slides}
-                plugins={[Captions, Counter, Inline, Fullscreen, Zoom]}
+                plugins={[Captions, Counter, Zoom]}
                 captions={{ref: captionsRef}}
-                fullscreen={{ ref: fullscreenRef }}
                 zoom={{ ref: zoomRef }}
                 counter={{ style: { top: "unset", bottom: 0, left: "49%" } }}
-                inline={{ style: { width: "100%", maxWidth: "900px", aspectRatio: "3 / 2" } }}
             />
         </>
     )

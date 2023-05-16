@@ -209,7 +209,7 @@ export function Footer() {
   let router = useRouter()
 
   return (
-    <footer className="mx-auto max-w-2xl space-y-10 pb-16 lg:max-w-5xl">
+    <footer className="space-y-10 py-16 w-full">
       <PageNavigation />
       <SmallPrint />
     </footer>
