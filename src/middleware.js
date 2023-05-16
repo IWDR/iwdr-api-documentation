@@ -61,5 +61,5 @@ export default async function middleware(request) {
 }
 
 export const config = {
-    matcher: ['/resources/:path*', '/login', '/tokens', '/token-application'],
+    matcher: ['/resources/:path*', '/login', '/tokens', '/token-application', '/authentication', '/mapping', '/errors'],
 }
