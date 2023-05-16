@@ -8,6 +8,8 @@ import {
 } from "@/components/data-tables/BreedDataTable"; import CountryDataTable
     from "@/components/data-tables/CountryDataTable";
 import {OwnersTable} from "@/components/data-tables/OwnersTable";
+import MicrochipBrandDataTable from "@/components/data-tables/MicrochipBrandDataTable";
+import {LocationDataTable} from "@/components/data-tables/LocationDataTable";
 
 export const description =
     'The dog model contains all the pertinent information on a given dog within IWDR.'
@@ -36,6 +38,16 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         <Note>
             This field is auto-generated.
         </Note>
+    </Property>
+    <Property name="MicrochipNumber" type="string">
+        The microchip identifier for this dog.
+    </Property>
+    <Property name="MicrochipType" type="integer">
+        The brand/manufacturer of the dog's microchip.
+        <MicrochipBrandDataTable />
+    </Property>
+    <Property name="MicrochipDate" type="date">
+        The date the dog had it's microchip implanted.
     </Property>
     <Property name="dog_LitterID" type="string">
         The unique identifier for this dog amongst it's litter mates.
@@ -90,6 +102,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     <Property name="dog_BreederID" type="integer">
         The unique identifier for the organization designated as the breeder of this
         dog.
+        <OwnersTable />
     </Property>
     <Property name="dog_OwnerID" type="integer" required>
         The unique identifier for the organization designated as the owner of this
@@ -107,6 +120,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_LocationCode" type="integer">
         The unique identifier for this dog's current location.
+        <LocationDataTable />
     </Property>
     <Property name="dog_PPRegionCode" type="integer">
         The unique identifier for this dog's puppy program region.

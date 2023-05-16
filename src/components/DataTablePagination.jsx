@@ -7,21 +7,16 @@ export function DataTablePagination({page_data, setPage}) {
     const prevUrl = page_data.prev_page_url
     const nextUrl = page_data.next_page_url
 
-    const getAPIUrlAsPath = (full_url) => {
-        const url = new URL(full_url)
-        return url.pathname + url.search
-    }
-
     const goToNext = () => {
         if (!nextUrl) return
 
-        setPage(getAPIUrlAsPath(nextUrl))
+        setPage(nextUrl)
     }
 
     const goToPrev = () => {
         if (!prevUrl) return
 
-        setPage(getAPIUrlAsPath(prevUrl))
+        setPage(prevUrl)
     }
 
     return (

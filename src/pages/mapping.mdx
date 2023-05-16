@@ -1,1 +1,21 @@
+import CustomLightbox from "@/components/CustomLightbox";
+
 # Mapping
+
+Mapping is the process of exporting your organization's data structures into a set of structured tables within the IWDR interface.
+This is accomplished by matching the values from iwdr to the appropriate values your organization is planning to
+send via API requests.
+
+Each model available via the IWDR api will more likely than not require a multitude of mappings to be completed.
+Your team will need to review and manage its mapping records frequently to ensure there are no inaccuracies or
+anomalies.
+
+The IWDR team will also periodically review your mapping records because we need mapping to be accurate
+(particularly the critical data fields) while your organization continues to use the IWDR API.
+
+<CustomLightbox buttonLabel="Show screenshots" slides={[{
+    src: "/images/mapping_screenshot.png",
+    alt: "Screenshot of IWDR mapping interface.",
+    title: "IWDR Mapping Interface",
+    description: "Screenshot of the IWDR mapping interface."
+}]} />

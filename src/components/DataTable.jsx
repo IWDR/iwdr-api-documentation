@@ -17,8 +17,14 @@ export const DataTable = forwardRef(({
                                          sticky = false,
                                      }, ref) => {
 
+    const basePath = new URL(path, process.env.NEXT_PUBLIC_API_URL);
+
+    if(paginated){
+        basePath.searchParams.set('paginated', '1');
+    }
+
     const [search, setSearch] = useState('')
-    const [itemsUrl, setItemsURL] = useState(`${path}${paginated ? '?paginated=1' : ''}`)
+    const [itemsUrl, setItemsURL] = useState(basePath.href)
 
     const {
         data: items,
@@ -73,12 +79,26 @@ export const DataTable = forwardRef(({
     const doSearch = (e) => {
         e.preventDefault()
 
-        setItemsURL(`${path}?query=${encodeURIComponent(search)}${paginated ? '&paginated=1' : ''}`)
+        const currURL = new URL(itemsUrl);
+        currURL.searchParams.set('query', encodeURIComponent(search));
+        currURL.searchParams.set('paginated', '1');
+
+        setItemsURL(currURL.href);
     }
 
-    const reset = () => {
-        setItemsURL(`${path}${paginated ? '?paginated=1' : ''}`)
+    const reset = (e) => {
+        e.preventDefault()
         setSearch('')
+
+        const currURL = new URL(itemsUrl);
+        currURL.searchParams.set('query', '');
+
+        if(paginated) {
+            currURL.searchParams.set('paginated', '1');
+            currURL.searchParams.set('page', '1');
+        }
+
+        setItemsURL(currURL.href);
     }
 
     return (
@@ -107,7 +127,7 @@ export const DataTable = forwardRef(({
                                            placeholder='Need to find something...' className='w-8/12'/>
                                 <div className='flex justify-end max-sm:flex-col'>
                                     <Button type='button' className='sm:mr-2 max-sm:mb-2'
-                                            onClick={() => reset()}>Reset</Button>
+                                            onClick={(e) => {reset(e)}}>Reset</Button>
                                     <Button type='submit'>Search</Button>
                                 </div>
                             </form>

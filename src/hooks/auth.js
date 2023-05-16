@@ -1,7 +1,6 @@
 import axios from '@/lib/axios'
 import useSWR from 'swr'
 import {useAlertStore} from '@/stores/alertStore'
-import {useEffect} from 'react'
 import {useRouter} from 'next/router'
 
 export const useAuth = ({middleware, redirectIfAuthenticated} = {}) => {
@@ -44,7 +43,7 @@ export const useAuth = ({middleware, redirectIfAuthenticated} = {}) => {
                     let hrefURL = new URL(`${process.env.NEXT_PUBLIC_APP_URL}${redirect}`)
                     let pageURL = new URL(window.location)
 
-                    // Ensure the redirect will not leave host domain
+                    // Ensure the redirect will not leave the host domain
                     if (redirect.startsWith('/') || hrefURL.host === pageURL.host) {
                         router.push(hrefURL)
                     } else {
@@ -82,7 +81,7 @@ export const useAuth = ({middleware, redirectIfAuthenticated} = {}) => {
             .post('/logout')
             .then(() => {
                 mutate(null)
-                // Push back to index and show log out alert
+                // Push back to index and show log-out alert
                 router.push('/')
                 showAlert('You are now signed out.', 'success', true, 6000)
             })

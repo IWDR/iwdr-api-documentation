@@ -12,7 +12,6 @@ import 'focus-visible'
 import {SWRConfig} from 'swr'
 import axios from '@/lib/axios'
 import {useBannerStore} from "@/stores/bannerStore";
-import {Button} from "@/components/mdx";
 import Link from "next/link";
 import {ArrowRightIcon} from "@heroicons/react/20/solid";
 
