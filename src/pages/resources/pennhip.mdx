@@ -1,1 +1,28 @@
+import {Properties, Property} from "@/components/mdx";
+
 # PennHIP
+
+## Properties
+<Properties>
+    <Property name="pt_PhenoTraitRecordID" type="integer">
+        Primary unique identifier for the record.
+    </Property>
+    <Property name="pt_Date" type="datetime" required>
+        Date of diagnosis.
+    </Property>
+    <Property name="pt_TraitCodeID" type="integer" required>
+        IWDR code for this diagnosis.
+    </Property>
+    <Property name="pt_Measure1" type="integer" required>
+        Right measurement.
+    </Property>
+    <Property name="pt_Measure2" type="integer" required>
+        Left measurement.
+    </Property>
+    <Property name="pt_Cavitation" type="boolean">
+        A yes/no if the dog's hips contain cavitation.
+    </Property>
+    <Property name="pt_DetailsOfProblem" type="string">
+        Comments.
+    </Property>
+</Properties>
