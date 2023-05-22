@@ -10,6 +10,10 @@ import {
 import {OwnersTable} from "@/components/data-tables/OwnersTable";
 import MicrochipBrandDataTable from "@/components/data-tables/MicrochipBrandDataTable";
 import {LocationDataTable} from "@/components/data-tables/LocationDataTable";
+import PupProgamRegionDataTable from "@/components/data-tables/PupProgamRegionDataTable";
+import TrainingDataTable from "@/components/data-tables/TrainingRegionDataTable";
+import GradRegionDataTable from "@/components/data-tables/GradRegionDataTable";
+import WorkTypeDataTable from "@/components/data-tables/WorkTypeDataTable";
 
 export const description =
     'The dog model contains all the pertinent information on a given dog within IWDR.'
@@ -40,24 +44,26 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         </Note>
     </Property>
     <Property name="MicrochipNumber" type="string">
-        The microchip identifier for this dog.
+        The primary microchip identifier for this dog.
     </Property>
     <Property name="MicrochipType" type="integer">
-        The brand/manufacturer of the dog's microchip.
+        The brand/manufacturer of the dog's primary microchip.
         <MicrochipBrandDataTable />
     </Property>
     <Property name="MicrochipDate" type="date">
-        The date the dog had it's microchip implanted.
+        The date the dog had it's primary microchip implanted.
+    </Property>
+    <Property name="MicrochipSearchString" type="string">
+        The search string built by concatenating the dog's microchips.
+        <Note>
+            This field is auto-generated.
+        </Note>
     </Property>
     <Property name="dog_LitterID" type="string">
         The unique identifier for this dog amongst it's litter mates.
     </Property>
     <Property name="dog_LitterRecordID" type="integer">
         The unique identifier for the litter record of this dog, if assigned.
-        <Note>
-            This field is a cross reference to a Litter resource, should it's value be present.
-            You can view the litter model specification [here](#).
-        </Note>
     </Property>
     <Property name="dog_BreedCode" type="integer" required>
         The unique identifier for the breed of this dog.
@@ -124,18 +130,21 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_PPRegionCode" type="integer">
         The unique identifier for this dog's puppy program region.
+        <PupProgamRegionDataTable />
     </Property>
     <Property name="dog_PPRegionDate" type="date">
         The date this dog was placed at it's puppy program region.
     </Property>
     <Property name="dog_TrnRegionCode" type="integer">
         The unique identifier for this dog's training region.
+        <TrainingDataTable />
     </Property>
     <Property name="dog_TrnRegionDate" type="date">
         The date this dog was placed at it's training region.
     </Property>
     <Property name="dog_GradRegion" type="integer">
         The unique identifier for thid dog's graduation region.
+        <GradRegionDataTable />
     </Property>
     <Property name="dog_GradRegionDate" type="date">
         The date this dog was placed at it's graduation region.
@@ -160,12 +169,6 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_DamID" type="integer">
         The unique IWDR dog_DogID for this dog's dam.
-    </Property>
-    <Property name="dog_BirthWeight" type="float">
-        The birth weight for this dog in imperial pounds.
-    </Property>
-    <Property name="dog_BirthWeightMetric" type="float">
-        The birth weight for this dog in metric kilograms.
     </Property>
     <Property name="dog_Sex" type="string" required>
         The assigned sex of this dog. Either "M" or "F" for Male/Female.
@@ -216,14 +219,9 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             This field is auto-populated by selecting a dog_SubStatusCode.
         </Note>
     </Property>
-    <Property name="dog_MilestoneCode" type="integer">
-        The unique identifier for this dog's current milestone status.
-    </Property>
-    <Property name="dog_MilestoneRecID" type="integer">
-        The unique identifier for this dog's corresponding milestone record.
-    </Property>
     <Property name="dog_WorkType" type="integer" required>
         The unique identifier for this dog's designated work type.
+        <WorkTypeDataTable />
     </Property>
 </Properties>
 

@@ -156,7 +156,7 @@ export function Resources() {
     const user = useContext(AuthContext)
 
     return (
-        <div className="my-16 xl:max-w-none">
+        <div className="my-16">
             <Heading level={2} id="resources">
                 Common Resources
             </Heading>
