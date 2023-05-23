@@ -17,7 +17,7 @@ import {Properties, Property} from "@/components/mdx";
         IWDR code for this diagnosis.
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
-        Your mapped text or code for how it was measured.
+        Code for how it was measured.
     </Property>
     <Property name="pt_Measure1" type="string">
         Right measurement.
@@ -28,10 +28,19 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
     </Property>
+    <Property name="pt_BodyPartCode" type="integer">
+        Code that describes the specific body part.
+    </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
-    <Property name="pt_RecRelease" type="boolean">
-        A yes/no if this diagnosis caused the dog to fail from the program.
+    <Property name="dog_CertifAgencyCode" type="integer">
+        Code for the certifying or health registry organization.
+    </Property>
+    <Property name="pt_CertificationNumber" type="string">
+        Certification code assigned by the certifying agency.
+    </Property>
+    <Property name="pt_CauseofDeath" type="boolean">
+        A boolean value if the diagnosis was the cause of death.
     </Property>
 </Properties>

@@ -7,11 +7,11 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="local_dog_id" type="integer" required>
         The unique identifier for this dog.
     </Property>
-    <Property name="pt_DBImportKey" type="integer" required>
-        The primary unique identifier for for the PT record.
-    </Property>
     <Property name="pt_DogID" type="integer" required>
         The corresponding IWDRID for this dog.
+    </Property>
+    <Property name="pt_DBImportKey" type="integer" required>
+        The primary unique identifier for for the PT record.
     </Property>
     <Property name="pt_Date" type="datetime" required>
         Date of diagnosis.
@@ -19,8 +19,8 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
     </Property>
-    <Property name="pt_MeasureTypeCode" type="integer" required>
-        Your mapped text or code for how the elbows were measured.
+    <Property name="pt_MeasureTypeCode" type="integer">
+        Code for how the elbows were measured.
     </Property>
     <Property name="pt_Measure1" type="string">
         Right elbow measurement.
@@ -28,13 +28,19 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="pt_Measure2" type="string">
         Left elbow measurement.
     </Property>
-    <Property name="pt_EvaluatorID" type="integer" required>
+    <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the elbow measurements.
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
-    <Property name="pt_RecRelease" type="boolean">
-        A yes/no if this diagnosis caused the dog to fail from the program.
+    <Property name="dog_CertifAgencyCode" type="integer">
+        Code for the certifying or health registry organization.
+    </Property>
+    <Property name="pt_CertificationNumber" type="string">
+        Certification code assigned by the certifying agency.
+    </Property>
+    <Property name="pt_ConfidenceRatingCode" type="integer">
+        Level of confidence for diagnosis
     </Property>
 </Properties>

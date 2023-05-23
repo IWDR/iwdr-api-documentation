@@ -15,6 +15,7 @@ import TrainingDataTable from "@/components/data-tables/TrainingRegionDataTable"
 import GradRegionDataTable from "@/components/data-tables/GradRegionDataTable";
 import WorkTypeDataTable from "@/components/data-tables/WorkTypeDataTable";
 import CoatColorDataTable from "@/components/data-tables/CoatColorDataTable";
+import CoatLengthDataTable from "@/components/data-tables/CoatLengthDataTable";
 
 export const description =
     'The dog model contains all the pertinent information on a given dog within IWDR.'
@@ -195,6 +196,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_CoatLength" type="integer">
         The unique identifier for this dog's coat length text.
+        <CoatLengthDataTable />
     </Property>
     <Property name="dog_CoatType" type="integer">
         The unique identifier for this dog's coat type text.

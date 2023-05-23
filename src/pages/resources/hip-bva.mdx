@@ -13,22 +13,25 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="pt_Date" type="datetime" required>
         Date of diagnosis.
     </Property>
-    <Property name="pt_TraitCodeID" type="integer" required>
-        IWDR code for this diagnosis.
-    </Property>
-    <Property name="pt_Measure1" type="string">
+    <Property name="pt_Measure1" type="string" required>
         Right hip measurement.
     </Property>
-    <Property name="pt_Measure2" type="string">
+    <Property name="pt_Measure2" type="string" required>
         Left hip measurement.
     </Property>
-    <Property name="pt_EvaluatorID" type="integer" required>
+    <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the hip measurements.
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
-    <Property name="pt_RecRelease" type="boolean">
-        A yes/no if this diagnosis caused the dog to fail from the program.
+    <Property name="dog_CertifAgencyCode" type="integer">
+        Code for the certifying or health registry organization.
+    </Property>
+    <Property name="pt_CertificationNumber" type="string">
+        Certification code assigned by the certifying agency.
+    </Property>
+    <Property name="pt_ConfidenceRatingCode" type="integer">
+        Level of confidence for diagnosis
     </Property>
 </Properties>
