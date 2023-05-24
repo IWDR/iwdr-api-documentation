@@ -1,1 +1,44 @@
+import {Properties, Property} from "@/components/mdx";
+
 # Heart
+
+## Properties
+
+<Properties>
+    <Property name="local_dog_id" type="integer" required>
+        The unique identifier for this dog.
+    </Property>
+    <Property name="pt_DogID" type="integer" required>
+        The corresponding IWDRID for this dog.
+    </Property>
+    <Property name="pt_TraitCodeID" type="integer" required>
+        IWDR code for this diagnosis.
+    </Property>
+    <Property name="pt_Date" type="datetime" required>
+        Date of diagnosis.
+    </Property>
+    <Property name="pt_MeasureTypeCode" type="integer">
+        Code for how the body part were measured.
+    </Property>
+    <Property name="pt_Measure1" type="string">
+        Right measurement.
+    </Property>
+    <Property name="pt_Measure2" type="string">
+        Left measurement.
+    </Property>
+    <Property name="pt_EvaluatorID" type="integer">
+        Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
+    </Property>
+    <Property name="pt_DetailsOfProblem" type="string">
+        Comments.
+    </Property>
+    <Property name="dog_CertifAgencyCode" type="integer">
+        Code for the certifying or health registry organization.
+    </Property>
+    <Property name="pt_CertificationNumber" type="string">
+        Certification code assigned by the certifying agency.
+    </Property>
+    <Property name="pt_ConfidenceRatingCode" type="integer">
+        Level of confidence for diagnosis
+    </Property>
+</Properties>
