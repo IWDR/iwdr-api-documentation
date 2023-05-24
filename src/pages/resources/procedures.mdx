@@ -1,1 +1,41 @@
+import {Properties, Property} from "@/components/mdx";
+
 # Procedures
+
+## Properties
+
+<Properties>
+    <Property name="local_dog_id" type="integer" required>
+        The unique identifier for this dog.
+    </Property>
+    <Property name="pt_DogID" type="integer" required>
+        The corresponding IWDRID for this dog.
+    </Property>
+    <Property name="pt_Date" type="datetime" required>
+        Date of diagnosis.
+    </Property>
+    <Property name="act_ActivityCode" type="integer">
+        Code corresponding to the category of procedure done.
+    </Property>
+    <Property name="act_ActivitySubCode" type="integer">
+        Code corresponding to what procedure was done.
+    </Property>
+    <Property name="act_Normal" type="boolean">
+        A yes/no if the results are normal.
+    </Property>
+    <Property name="act_Notes" type="string">
+        Notes about the procedure.
+    </Property>
+    <Property name="act_Quantity" type="string">
+
+    </Property>
+    <Property name="act_DaysDueAgain" type="integer">
+        Number of days due again.
+    </Property>
+    <Property name="act_WeightKg" type="float">
+        Dog's weight in kilograms.
+    </Property>
+    <Property name="act_WeightLb" type="float">
+        Dog's weight in pounds.
+    </Property>
+</Properties>
