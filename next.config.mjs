@@ -14,72 +14,7 @@ const withMDX = nextMDX({
 
 const nextConfig = {
     reactStrictMode: true,
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md'],
-    headers: () => [
-        {
-            source: '/resources/:path*',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/login',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/tokens',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/token-application',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/authentication',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/mapping',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-        {
-            source: '/errors',
-            headers: [
-                {
-                    key: 'Cache-Control',
-                    value: 'no-store'
-                }
-            ]
-        },
-    ]
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md']
 }
 
 export default withMDX(nextConfig)
