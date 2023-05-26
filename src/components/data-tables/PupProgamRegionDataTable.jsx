@@ -21,8 +21,8 @@ export default function PupProgamRegionDataTable(){
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Pup Progam Regions'
-                    : 'Show Available Pup Progam Regions'}
+                    ? 'Hide Available Pup Program Regions'
+                    : 'Show Available Pup Program Regions'}
             </Button>
             <Transition
                 show={display}

@@ -3,17 +3,17 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export default function TrainingRegionDataTable() {
+export default function TraitCodeIDDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'reg_RegionID'
+            key: 'CodeID'
         },
         {
             text: 'Display Name',
-            key: 'reg_RegionName'
+            key: 'DiagnosisText'
         }
     ];
 
@@ -21,8 +21,8 @@ export default function TrainingRegionDataTable() {
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Training Regions'
-                    : 'Show Available Training Regions'}
+                    ? "Hide Available Trait Code ID's"
+                    : "Show Available Trait Code ID's"}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export default function TrainingRegionDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/region?training=1'
+                    path='/api/references/trait-code-id'
                     headers={headers}
                     paginated
                     searchable
