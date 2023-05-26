@@ -1,4 +1,6 @@
 import {Properties, Property} from "@/components/mdx";
+import SkinEyesTraitCodeIDDataTable from "@/components/data-tables/SkinEyesTraitCodeIDDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 
 # Eyes
 
@@ -16,9 +18,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
+        <SkinEyesTraitCodeIDDataTable />
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer" required>
         Code for how the eyes were measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Measure1" type="string" required>
         Right eye measurement.

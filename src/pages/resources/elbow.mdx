@@ -1,5 +1,7 @@
 import {Properties, Property} from "@/components/mdx";
-import TraitCodeIDDataTable from "@/components/data-tables/TraitCodeIDDataTable";
+import ElbowTraitCodeIDDataTable from "@/components/data-tables/ElbowTraitCodeIDDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
 
 # Elbow
 
@@ -20,10 +22,11 @@ import TraitCodeIDDataTable from "@/components/data-tables/TraitCodeIDDataTable"
     </Property>
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
-        <TraitCodeIDDataTable />
+        <ElbowTraitCodeIDDataTable />
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Code for how the elbows were measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Measure1" type="string">
         Right elbow measurement.
@@ -33,6 +36,7 @@ import TraitCodeIDDataTable from "@/components/data-tables/TraitCodeIDDataTable"
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the elbow measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
