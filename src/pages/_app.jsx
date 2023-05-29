@@ -19,7 +19,6 @@ import {useEffect} from "react";
 
 function onRouteChange() {
     useMobileNavigationStore.getState().close()
-    Fathom.trackPageview();
 }
 
 Router.events.on('hashChangeStart', onRouteChange)
@@ -30,10 +29,20 @@ export default function App({Component, pageProps: {...pageProps}}) {
     const showBanner = useBannerStore((state) => state.showBanner);
     const router = useRouter();
 
+    // Engage fathom analytics tracking
     useEffect(() => {
         Fathom.load(process.env.NEXT_PUBLIC_FATHOM_TRACKING_CODE, {
             includedDomains: [process.env.NEXT_PUBLIC_FATHOM_URL]
         })
+
+        function onRouteChangeComplete() {
+            Fathom.trackPageview();
+        }
+        router.events.on('routeChangeComplete', onRouteChangeComplete);
+
+        return () => {
+            router.events.off('routeChangeComplete', onRouteChangeComplete);
+        }
     })
 
     return (
