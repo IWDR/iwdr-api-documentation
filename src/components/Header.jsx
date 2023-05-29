@@ -62,7 +62,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
             <TopLevelNavItem href="/token-application" className={clsx("text-sm leading-5", Boolean(!user) && 'hidden')}>
               API Access Application
             </TopLevelNavItem>
-            <TopLevelNavItem href="#" className="text-sm leading-5">
+            <TopLevelNavItem href="/support" className="text-sm leading-5">
               API Support
             </TopLevelNavItem>
           </ul>
