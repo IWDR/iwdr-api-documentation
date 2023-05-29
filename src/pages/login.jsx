@@ -14,7 +14,7 @@ export default function Login({redirect}) {
         <div className="max-w-2xl pb-16 mx-auto">
             <h1>Sign In</h1>
             <p>Access user restricted pages and content.</p>
-            <div >
+            <div>
                 <LoginForm redirect={redirect}/>
             </div>
         </div>

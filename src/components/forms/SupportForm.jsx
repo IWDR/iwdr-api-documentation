@@ -1,10 +1,23 @@
 import {TextField} from "@/components/TextField";
-import {useState} from "react";
+import {useRef, useState} from "react";
 import {Button} from "@/components/Button";
+import {TextEditor} from "@/components/TextEditor";
 
 export function SupportForm() {
     const [reason, setReason] = useState('');
-    const [details, setDetails] = useState('');
+    const detailsRef = useRef(null);
+
+    const submit = (e) => {
+        e.preventDefault();
+
+        // TODO: Write the API submission to support ticket system
+        const form = {
+            reason,
+            details: detailsRef.current.getContent()
+        }
+
+        console.log(form);
+    }
 
     return (
         <>
@@ -21,21 +34,11 @@ export function SupportForm() {
                         required
                     />
                 </div>
-                <div>
-                    <TextField
-                        type={"text"}
-                        label={"Details"}
-                        placeholder={"Details..."}
-                        name={"ticket_details"}
-                        id={"ticket_details"}
-                        className="mt-2"
-                        value={details}
-                        onChange={(e) => setDetails(e.target.value)}
-                        required
-                    />
+                <div className="mt-2">
+                    <TextEditor height={500} ref={detailsRef} label={"Ticket details"} required id={"ticket-details"} />
                 </div>
                 <div className="flex justify-start mt-3">
-                    <Button type="submit">Submit Ticket</Button>
+                    <Button type="button" onClick={(e) => submit(e)}>Submit Ticket</Button>
                 </div>
             </form>
         </>

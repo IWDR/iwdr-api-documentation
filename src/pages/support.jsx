@@ -3,7 +3,7 @@ import {SupportForm} from "@/components/forms/SupportForm";
 export function getServerSideProps() {
     return {
         props: {
-            title: 'Support'
+            title: 'Support Ticket'
         }
     }
 }
@@ -11,10 +11,8 @@ export function getServerSideProps() {
 export default function Support() {
     return (
         <>
-            <h1>Support</h1>
-            <div>
-                <SupportForm />
-            </div>
+            <h1>Submit a support ticket</h1>
+            <SupportForm/>
         </>
     );
 }
