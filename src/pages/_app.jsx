@@ -54,6 +54,7 @@ export default function App({Component, pageProps: {...pageProps}}) {
                     } IWDR API Reference`}</title>
                 }
                 <meta name="description" content={pageProps.description}/>
+                <script src="https://cdn.usefathom.com/script.js" data-site="PHNRCMDF" defer></script>
             </Head>
             <MDXProvider components={mdxComponents}>
                 <SWRConfig
