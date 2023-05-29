@@ -12,7 +12,7 @@ export function getServerSideProps() {
         { title: 'Resources', id: 'resources' },
       ],
       description:
-        'Learn everything there is to know about the Protocol API and integrate Protocol into your product.',
+        'Learn everything there is to know about the IWDR API and how to integrate the IWDR API into your product.',
     },
   }
 }
