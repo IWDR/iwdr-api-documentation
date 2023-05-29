@@ -1,4 +1,6 @@
 import {Properties, Property} from "@/components/mdx";
+import SkinEyesTraitCodeIDDataTable from "@/components/data-tables/SkinEyesTraitCodeIDDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 
 # Skin
 
@@ -13,6 +15,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
+        <SkinEyesTraitCodeIDDataTable />
+    </Property>
+    <Property name="pt_MeasureTypeCode" type="integer">
+        Code for how the body part were measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Date" type="datetime" required>
         Date of diagnosis.
@@ -22,9 +29,6 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
-    </Property>
-    <Property name="pt_MeasureTypeCode" type="integer">
-        Code for how the body part were measured.
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
