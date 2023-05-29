@@ -3,7 +3,7 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export default function TraitCodeIDDataTable() {
+export default function HeartTraitCodeIDDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
@@ -34,7 +34,7 @@ export default function TraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/trait-code-id'
+                    path='/api/trait-code-id?heart=1'
                     headers={headers}
                     paginated
                     searchable
