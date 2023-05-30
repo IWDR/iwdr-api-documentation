@@ -239,7 +239,7 @@ export default function Navigation({ ...props }) {
         <TopLevelNavItem href="/token-application" className={clsx(Boolean(!user) && 'hidden', "block py-1")} listClass="md:hidden">
           API Access Application
         </TopLevelNavItem>
-        <TopLevelNavItem href="#" className="block py-1" listClass="md:hidden">
+        <TopLevelNavItem href="/support" className={clsx(Boolean(!user) && 'hidden', "block py-1")} listClass="md:hidden">
           API Support
         </TopLevelNavItem>
         {navList()}

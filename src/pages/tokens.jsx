@@ -1,6 +1,5 @@
 import TokensDataTable from "@/components/data-tables/TokensDataTable";
 import {useAuth} from "@/hooks/auth";
-import {useRouter} from "next/router";
 import LoadingOverlay from "@/components/LoadingOverlay";
 
 export function getServerSideProps(){
