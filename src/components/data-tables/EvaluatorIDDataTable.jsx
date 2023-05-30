@@ -34,7 +34,7 @@ export default function EvaluatorIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/evaluator-id'
+                    path='/api/person?private_people=1'
                     headers={headers}
                     paginated
                     searchable
