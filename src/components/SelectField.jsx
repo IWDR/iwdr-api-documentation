@@ -141,10 +141,10 @@ export function SelectField({
                                             key={option.value}
                                             className={({active}) =>
                                                 clsx(
-                                                'relative cursor-default select-none py-2 px-3 min-w-full',
-                                                active
-                                                ? 'bg-zinc-800/90 text-white dark:bg-emerald-500/90'
-                                                : ''
+                                                    'relative cursor-default select-none py-2 px-3 min-w-full',
+                                                    active
+                                                        ? 'bg-zinc-800/90 text-white dark:bg-emerald-500/90'
+                                                        : ''
                                                 )
                                             }
                                             value={option.value}
