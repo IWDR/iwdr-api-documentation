@@ -34,7 +34,7 @@ export default function SkinEyesTraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/trait-code-id?skin/eyes=1'
+                    path='/api/references/trait-code-id?skin/eyes=1'
                     headers={headers}
                     paginated
                     searchable
