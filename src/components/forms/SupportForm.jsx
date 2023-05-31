@@ -3,7 +3,6 @@ import {Button} from "@/components/Button";
 import {TextEditor} from "@/components/TextEditor";
 import {SelectField} from "@/components/SelectField";
 import useSWR from "swr";
-import {TextField} from "@/components/TextField";
 import FileUpload from "@/components/FileUpload";
 
 export function SupportForm() {
@@ -47,12 +46,22 @@ export function SupportForm() {
                     />
                 </div>
                 <div className="mt-2">
-                    <TextEditor height={500} ref={detailsRef} label={"Ticket details"} required id={"ticket-details"} />
+                    <TextEditor height={500}
+                                ref={detailsRef}
+                                label={"Ticket details"}
+                                required id={"ticket-details"}
+                    />
                 </div>
                 <div>
-                    <FileUpload id={"file-upload"} name={"file-upload"} type={"file"} placeholder={"Add attachments"} label={"Attachments"} multiple />
+                    <FileUpload id={"file-upload"}
+                                name={"file-upload"}
+                                type={"file"}
+                                placeholder={"Add attachments"}
+                                label={"Attachments"}
+                                multiple
+                    />
                 </div>
-                <div className="flex justify-start mt-3">
+                <div className="flex justify-start mt-5">
                     <Button type="button" onClick={(e) => submit(e)}>Submit Ticket</Button>
                 </div>
             </form>
