@@ -8,6 +8,7 @@ import FileUpload from "@/components/FileUpload";
 export function SupportForm() {
     const [reason, setReason] = useState([]);
     const detailsRef = useRef(null);
+    const [attachments, setAttachments] = useState([]);
 
     const error_option = [{text: "No options found.", value: ''}];
     const {
@@ -25,7 +26,8 @@ export function SupportForm() {
         // TODO: Write the API submission to support ticket system
         const form = {
             reason,
-            details: detailsRef.current.getContent()
+            details: detailsRef.current.getContent(),
+            attachments
         }
 
         console.log(form);
@@ -58,6 +60,8 @@ export function SupportForm() {
                                 type={"file"}
                                 placeholder={"Add attachments"}
                                 label={"Attachments"}
+                                onChange={(files) => setAttachments(files)}
+                                accept={"image/*"}
                                 multiple
                     />
                 </div>
