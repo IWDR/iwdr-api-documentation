@@ -52,6 +52,7 @@ export function SupportForm() {
                                 ref={detailsRef}
                                 label={"Ticket details"}
                                 required id={"ticket-details"}
+                                menubar={'false'}
                     />
                 </div>
                 <div>

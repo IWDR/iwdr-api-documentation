@@ -8,7 +8,7 @@ export default function FileUpload({id, name, multiple, accept, placeholder, err
 
     const handleFileUpload = (e) => {
         const uploadedFiles = [];
-        const text = document.getElementById('iwdr_fu-placeholder')
+        const text = document.getElementById('iwdr_fu-placeholder');
         const files = e.target.files;
 
         for (const file of files) {
@@ -16,7 +16,7 @@ export default function FileUpload({id, name, multiple, accept, placeholder, err
             const file_name = file.name;
 
             file_reader.addEventListener('load', () => {
-                const uploadedFile = {}
+                const uploadedFile = {};
                 uploadedFile[file_name] = file_reader.result;
                 uploadedFiles.push(uploadedFile);
             });
