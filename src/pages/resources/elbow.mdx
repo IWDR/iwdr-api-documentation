@@ -2,8 +2,13 @@ import {Properties, Property} from "@/components/mdx";
 import ElbowTraitCodeIDDataTable from "@/components/data-tables/ElbowTraitCodeIDDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 
 # Elbow
+
+## The elbow model
+- **API Table**: tblDogPhenoTrait
 
 ## Properties
 
@@ -43,11 +48,13 @@ import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable"
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
+        <ConfidenceRatingCodeDataTable />
     </Property>
 </Properties>

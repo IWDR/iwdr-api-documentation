@@ -1,4 +1,8 @@
 import {Properties, Property} from "@/components/mdx";
+import HealthDiagnosesTraitCodeIDDataTable from "@/components/data-tables/HealthDiagnosesTraitCodeIDDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 
 # Health Diagnoses
 
@@ -16,9 +20,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
+        <HealthDiagnosesTraitCodeIDDataTable />
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Code for how it was measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Measure1" type="string">
         Right measurement.
@@ -28,6 +34,7 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_BodyPartCode" type="integer">
         Code that describes the specific body part.
@@ -37,6 +44,7 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.

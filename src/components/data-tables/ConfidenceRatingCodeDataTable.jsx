@@ -3,17 +3,17 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export default function SkinEyesTraitCodeIDDataTable() {
+export default function ConfidenceRatingCodeDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'CodeID'
+            key: 'ConfidenceRatingCode'
         },
         {
             text: 'Display Name',
-            key: 'DiagnosisText'
+            key: 'ConfidenceText'
         }
     ];
 
@@ -21,8 +21,8 @@ export default function SkinEyesTraitCodeIDDataTable() {
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? "Hide Available Trait Code ID's"
-                    : "Show Available Trait Code ID's"}
+                    ? "Hide Available Confidence Rating Codes"
+                    : "Show Available Confidence Rating Codes"}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export default function SkinEyesTraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/trait-code-id?skin/eyes=1'
+                    path='/api/references/confidence-rating-code'
                     headers={headers}
                     paginated
                     searchable

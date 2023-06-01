@@ -1,5 +1,9 @@
 import {Properties, Property} from "@/components/mdx";
 import HeartTraitCodeIDDataTable from "@/components/data-tables/HeartTraitCodeIDDataTable";
+import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 
 # Heart
 
@@ -21,6 +25,7 @@ import HeartTraitCodeIDDataTable from "@/components/data-tables/HeartTraitCodeID
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Code for how the body part were measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Measure1" type="string">
         Right measurement.
@@ -30,17 +35,20 @@ import HeartTraitCodeIDDataTable from "@/components/data-tables/HeartTraitCodeID
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
+        <ConfidenceRatingCodeDataTable />
     </Property>
 </Properties>

@@ -1,6 +1,8 @@
 import {Properties, Property} from "@/components/mdx";
 import SkinEyesTraitCodeIDDataTable from "@/components/data-tables/SkinEyesTraitCodeIDDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
 
 # Skin
 
@@ -29,8 +31,10 @@ import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDa
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
+        <ConfidenceRatingCodeDataTable />
     </Property>
 </Properties>

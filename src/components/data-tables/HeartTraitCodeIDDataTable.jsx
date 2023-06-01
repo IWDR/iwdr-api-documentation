@@ -34,7 +34,7 @@ export default function HeartTraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/trait-code-id?heart=1'
+                    path='/api/references/trait-code-id?heart=1'
                     headers={headers}
                     paginated
                     searchable

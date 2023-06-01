@@ -3,7 +3,7 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export default function SkinEyesTraitCodeIDDataTable() {
+export default function HealthDiagnosesTraitCodeIDDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
@@ -34,7 +34,7 @@ export default function SkinEyesTraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/trait-code-id?skin/eyes=1'
+                    path='/api/references/trait-code-id'
                     headers={headers}
                     paginated
                     searchable

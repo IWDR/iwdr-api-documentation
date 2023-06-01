@@ -3,17 +3,17 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export default function SkinEyesTraitCodeIDDataTable() {
+export default function CertifAgencyCodeDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'CodeID'
+            key: 'psn_PersonID'
         },
         {
             text: 'Display Name',
-            key: 'DiagnosisText'
+            key: 'psn_DisplayName'
         }
     ];
 
@@ -21,8 +21,8 @@ export default function SkinEyesTraitCodeIDDataTable() {
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? "Hide Available Trait Code ID's"
-                    : "Show Available Trait Code ID's"}
+                    ? "Hide Available Registry Name Codes"
+                    : "Show Available Registry Name Codes"}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export default function SkinEyesTraitCodeIDDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/trait-code-id?skin/eyes=1'
+                    path='/api/person?registry_name=1'
                     headers={headers}
                     paginated
                     searchable

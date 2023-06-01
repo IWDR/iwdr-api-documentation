@@ -1,4 +1,7 @@
 import {Properties, Property} from "@/components/mdx";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 
 # PennHIP
 
@@ -24,12 +27,15 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Scoring criteria used.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the hip measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
