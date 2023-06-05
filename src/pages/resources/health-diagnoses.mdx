@@ -1,8 +1,9 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
 import HealthDiagnosesTraitCodeIDDataTable from "@/components/data-tables/HealthDiagnosesTraitCodeIDDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
 import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
+import BodyPartCodeDataTable from "@/components/data-tables/BodyPartCodeDataTable";
 
 # Health Diagnoses
 
@@ -38,6 +39,7 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
     </Property>
     <Property name="pt_BodyPartCode" type="integer">
         Code that describes the specific body part.
+        <BodyPartCodeDataTable />
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
@@ -48,6 +50,7 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
+        <Note>This field has a max length of 50 characters</Note>
     </Property>
     <Property name="pt_CauseofDeath" type="boolean">
         A boolean value if the diagnosis was the cause of death.

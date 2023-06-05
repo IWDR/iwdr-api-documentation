@@ -1,4 +1,5 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
 
 # Weight
 
@@ -7,6 +8,7 @@ import {Properties, Property} from "@/components/mdx";
 <Properties>
     <Property name={"act_ActivitySubCode"} type={"integer"} required>
         Code mapped what was done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Date"} type={"datetime"} required>
         Date for this question.

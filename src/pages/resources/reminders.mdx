@@ -1,4 +1,5 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
 
 # Reminders
 
@@ -7,6 +8,7 @@ import {Properties, Property} from "@/components/mdx";
 <Properties>
     <Property name={"act_ActivitySubCode"} type={"integer"}>
         Code mapped to what is to be done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Date"} type={"datetime"}>
         Date of reminder.

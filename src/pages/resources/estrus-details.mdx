@@ -1,4 +1,4 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
 
 # Estrus Details
 
@@ -22,13 +22,26 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="lit_BreedCode" type="integer">
         Unique identifier for this breed.
+        <Note>
+            This field is auto-generated and is determined based on the father and mother.
+        </Note>
+        <Note alert>
+            In case of multi-sire litters you must ensure that an insemination record has also been created for breed to be assigned properly.
+        </Note>
     </Property>
     <Property name="lit_BreederID" type="integer">
         Unique identifier for this breeder.
     </Property>
+    <Property name="lit_FYBreeder" type="integer">
+        Fiscal year for breeder.
+    </Property>
     <Property name="lit_LitterOwnerID" type="integer">
         Unique identifier for the litter owner.
     </Property>
+    <Property name="lit_FYOwner" type="integer">
+        Fiscal year of owner.
+    </Property>
+
     <Property name="lit_HeatStartDate" type="datetime">
         Date in which the heat started.
     </Property>
@@ -56,6 +69,7 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="lit_PregnancyCode" type="integer">
         Code mapped to pregnancy status.
     </Property>
+
     <Property name="lit_WhelpQualityCode" type="integer">
         Code mapped to whelp quality.
     </Property>
@@ -83,9 +97,11 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="lit_WhelpComments" type="string">
         Whelp comments.
     </Property>
+
     <Property name="lit_Comments" type="string">
         Estrus comments.
     </Property>
+
     <Property name="lit_DateOfBirth" type="datetime">
         Whelp date of birth.
     </Property>
