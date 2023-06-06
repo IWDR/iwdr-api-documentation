@@ -3,12 +3,12 @@ import {Button} from "@/components/Button";
 import {TextEditor} from "@/components/TextEditor";
 import {SelectField} from "@/components/SelectField";
 import useSWR from "swr";
-import {TextField} from "@/components/TextField";
 import FileUpload from "@/components/FileUpload";
 
 export function SupportForm() {
     const [reason, setReason] = useState([]);
     const detailsRef = useRef(null);
+    const [attachments, setAttachments] = useState([]);
 
     const error_option = [{text: "No options found.", value: ''}];
     const {
@@ -26,7 +26,8 @@ export function SupportForm() {
         // TODO: Write the API submission to support ticket system
         const form = {
             reason,
-            details: detailsRef.current.getContent()
+            details: detailsRef.current.getContent(),
+            attachments
         }
 
         console.log(form);
@@ -47,12 +48,25 @@ export function SupportForm() {
                     />
                 </div>
                 <div className="mt-2">
-                    <TextEditor height={500} ref={detailsRef} label={"Ticket details"} required id={"ticket-details"} />
+                    <TextEditor height={500}
+                                ref={detailsRef}
+                                label={"Ticket details"}
+                                required id={"ticket-details"}
+                                menubar={'false'}
+                    />
                 </div>
                 <div>
-                    <FileUpload id={"file-upload"} name={"file-upload"} type={"file"} placeholder={"Add attachments"} label={"Attachments"} multiple />
+                    <FileUpload id={"file-upload"}
+                                name={"file-upload"}
+                                type={"file"}
+                                placeholder={"Add attachments"}
+                                label={"Attachments"}
+                                onChange={(files) => setAttachments(files)}
+                                accept={"image/*"}
+                                multiple
+                    />
                 </div>
-                <div className="flex justify-start mt-3">
+                <div className="flex justify-start mt-5">
                     <Button type="button" onClick={(e) => submit(e)}>Submit Ticket</Button>
                 </div>
             </form>
