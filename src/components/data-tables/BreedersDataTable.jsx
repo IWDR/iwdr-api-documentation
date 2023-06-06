@@ -3,7 +3,7 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export function OwnersTable(){
+export function BreedersDataTable(){
     const [display, setDisplay] = useState(false)
 
     const headers = [
@@ -21,8 +21,8 @@ export function OwnersTable(){
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Owners'
-                    : 'Show Available Owners'}
+                    ? 'Hide Available Breeders'
+                    : 'Show Available Breeders'}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export function OwnersTable(){
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/person?owners=1'
+                    path='/api/person?breeders=1'
                     headers={headers}
                     paginated
                     searchable

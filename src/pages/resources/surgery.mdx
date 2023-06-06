@@ -1,5 +1,6 @@
 import {Properties, Property} from "@/components/mdx";
 import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
+import WhoDidItDataTable from "@/components/data-tables/WhoDidItDataTable";
 
 # Surgery
 
@@ -11,6 +12,7 @@ import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDa
     </Property>
     <Property name={"act_WhoDidIt"} type={"integer"}>
         Code mapped to who performed the surgery.
+        <WhoDidItDataTable />
     </Property>
     <Property name={"act_ActivitySubCode"} type={"integer"} required>
         Code mapped to what was done.

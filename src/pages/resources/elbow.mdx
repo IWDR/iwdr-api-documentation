@@ -1,4 +1,4 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
 import ElbowTraitCodeIDDataTable from "@/components/data-tables/ElbowTraitCodeIDDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
@@ -53,7 +53,9 @@ This is the data for entering diagnoses on elbows.
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
-        <Note>This field has a max length of 50 characters</Note>
+        <Note>
+            This field has a max length of 50 characters
+        </Note>
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
