@@ -16,6 +16,7 @@ export function SupportForm() {
         isLoading,
         error
     } = useSWR({resource: '/api/references/support-type-code'});
+
     const reasons = !isLoading && !error ? data.data.map((reason) => {
         return {text: reason.stc_Type, value: reason.stc_ID}
     }) : error_option;

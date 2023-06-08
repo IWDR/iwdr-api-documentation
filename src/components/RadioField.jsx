@@ -11,12 +11,14 @@ export default function RadioField({
                                        error,
                                        error_message,
                                        options = [],
+                                       disabled = false,
                                        defaultKey = null,
                                        required = false,
                                        horizontal = false,
                                    }) {
     const clean_style = "text-emerald-500 focus:ring-emerald-500 checked:bg-emerald-500 dark:checked:bg-emerald-500";
     const error_style = "text-red-500 ring-1 ring-red-500 focus:ring-red-500 checked:bg-red-500 dark:checked:bg-red-500";
+    const disabled_style = "disabled:bg-zinc-300 disabled:checked:bg-emerald-500";
 
     return (
         <div className={clsx(horizontal && 'sm:grid sm:grid-cols-3 sm:items-baseline sm:gap-4', className)}>
@@ -40,10 +42,14 @@ export default function RadioField({
                                 name={name}
                                 type="radio"
                                 defaultChecked={defaultKey ? option.value === defaultKey : false}
-                                className={clsx("h-4 w-4 rounded-full drop-shadow-sm border-zinc-300 dark:bg-zinc-400/50 focus:ring-1 focus:ring-offset-0 focus:outline-0", error ? error_style : clean_style)}
+                                className={clsx("h-4 w-4 rounded-full drop-shadow-sm border-zinc-300 dark:bg-zinc-400/50 focus:ring-1 focus:ring-offset-0 focus:outline-0",
+                                    error ? error_style : clean_style,
+                                    disabled ? disabled_style : null
+                                )}
                                 value={option.value}
                                 onChange={(e) => onChange(e)}
                                 required={required}
+                                disabled={disabled}
                             />
                             <label htmlFor={`radio-option-${option.value}`}
                                    className="ml-3 block text-sm font-medium leading-6">

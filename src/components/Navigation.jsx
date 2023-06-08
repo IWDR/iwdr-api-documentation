@@ -236,6 +236,9 @@ export default function Navigation({ ...props }) {
   return (
     <nav {...props}>
       <ul role="list">
+        <TopLevelNavItem href="/token-application-review-admin" className={clsx(Boolean(!user) && 'hidden', "block py-1")} listClass="md:hidden">
+          API Access Review
+        </TopLevelNavItem>
         <TopLevelNavItem href="/token-application" className={clsx(Boolean(!user) && 'hidden', "block py-1")} listClass="md:hidden">
           API Access Application
         </TopLevelNavItem>
