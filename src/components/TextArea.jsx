@@ -1,8 +1,7 @@
 import clsx from "clsx";
 
-export function TextFieldStyle2({
+export function TextArea({
                                     name,
-                                    type,
                                     id,
                                     label,
                                     value,
@@ -22,24 +21,22 @@ export function TextFieldStyle2({
         <div className="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5">
             <div>
                 <label
-                    htmlFor="organization_total_dogs_to_import"
+                    htmlFor={name}
                     className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white"
                 >
                     {label}
                 </label>
             </div>
             <div className="mt-2 sm:col-span-1 sm:mt-0">
-                <div
-                    className="relative flex max-w-lg flex-grow rounded-md">
-                    <input
-                        type={type}
+                <div className="relative flex max-w-lg flex-grow rounded-md">
+                    <textarea
                         name={name}
                         id={id}
                         value={value}
                         readOnly={readonly}
                         disabled={disabled}
                         className={clsx(
-                            'block w-full border p-3 rounded-md focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:placeholder:text-zinc-400',
+                            'block w-full min-h-fit resize-none border rounded-md focus-visible:outline-none dark:bg-zinc-900 sm:text-sm dark:text-zinc-400',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style
                         )}
