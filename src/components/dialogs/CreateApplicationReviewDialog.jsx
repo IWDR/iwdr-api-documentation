@@ -7,11 +7,16 @@ import useSWR from 'swr';
 import { TextArea } from '@/components/TextArea';
 import { TextTable } from '@/components/TextTable';
 import { SelectField } from '@/components/SelectField';
+import axios from '@/lib/axios';
+import { useAlertStore } from '@/stores/alertStore';
+import { useLoadingStore } from '@/stores/loadingStore';
 
-export function CreateApplicationReviewDialog({ app }) {
+export function CreateApplicationReviewDialog({ app, onSave }) {
     const [open, setOpen] = useState(false);
     const [appStatus, setAppStatus] = useState([]);
     const error_option = [{ label: 'Nothing', value: '' }];
+    const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
+    const { setLoading } = useLoadingStore();
 
     // Get the breeds as text not numbers
     const {
@@ -224,13 +229,33 @@ export function CreateApplicationReviewDialog({ app }) {
                   return { label: row.text, value: row.value };
               });
 
-    const submit = () => {
-        // TODO: update the status based on selection
+    const setErrors = () => {
+        errorAlert('Error occurred while saving', true, 6000);
     };
 
-    useEffect(() => {
-        // console.log(appData.data);
-    });
+    const submit = (e) => {
+        e.preventDefault();
+
+        setLoading(true);
+        axios
+            .patch(`/api/access-application/${appData.data.id}`, { application_progress_id: appStatus })
+            .then((res) => {
+                if (res.status !== 200) return;
+
+                successAlert('Application successfully saved', true, 6000);
+                onSave();
+                setOpen(false);
+            })
+            .catch((err) => {
+                if (err?.response?.status !== 422) {
+                    serverErrorAlert();
+                    return;
+                }
+
+                setErrors(err.response.data.errors);
+            })
+            .finally(() => setLoading(false));
+    };
 
     return (
         <>
@@ -239,7 +264,7 @@ export function CreateApplicationReviewDialog({ app }) {
             </Button>
             <Modal open={open} openModifier={setOpen}>
                 <Dialog.Title as="h1">API Access Review</Dialog.Title>
-                <form id="api-access-review" className="space-y-8">
+                <form id="api-access-review" className="space-y-8" onSubmit={(e) => submit(e)}>
                     <div className="pt-4">
                         <div className="border-b pb-2 text-lg font-semibold leading-6 dark:text-white">
                             Organization Information
@@ -343,7 +368,7 @@ export function CreateApplicationReviewDialog({ app }) {
                         />
                     </div>
                     <div className="flex flex-col justify-center space-y-3 border-t pt-4">
-                        <Button className="mr-2" onClick={() => submit()}>
+                        <Button className="mr-2" type="submit">
                             Save
                         </Button>
                     </div>

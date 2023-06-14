@@ -8,6 +8,7 @@ import { useAuth } from '@/hooks/auth';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import clsx from 'clsx';
 import useSWR from 'swr';
+import { useRef } from 'react';
 
 export async function getServerSideProps() {
     return {
@@ -64,6 +65,7 @@ function StatusIndicator({ app }) {
 
 export default function TokenApplicationReview() {
     const { user } = useAuth();
+    const ref = useRef();
 
     // TODO: make this a helper function since it is used multiple times on different pages
     if (!user) {
@@ -93,14 +95,14 @@ export default function TokenApplicationReview() {
         },
         {
             text: 'Actions',
-            component: (item) => <CreateApplicationReviewDialog app={item} />,
+            component: (item) => <CreateApplicationReviewDialog app={item} onSave={() => ref.current.mutate()} />,
         },
     ];
 
     return (
         <>
             <h1>API Application Review</h1>
-            <DataTable path="/api/access-application" headers={headers} />
+            <DataTable path="/api/access-application" headers={headers} ref={ref} />
         </>
     );
 }
