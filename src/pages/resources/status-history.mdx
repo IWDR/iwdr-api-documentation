@@ -1,1 +1,39 @@
+import {Properties, Property} from "@/components/mdx";
+
 # Status History
+
+## The Status History Model
+- **API Table**: tblDogStatusHistoryAPI
+- **Available Actions**: create, list
+
+## Properties
+
+<Properties>
+    <Property name="local_dog_id" type="integer" required>
+        The unique identifier for this dog.
+    </Property>
+    <Property name="dsc_DogID" type="integer">
+        The corresponding IWDRID for this dog.
+    </Property>
+    <Property name="dsc_DateBeginNewStatus" type="datetime">
+        Start date of recording the status.
+    </Property>
+    <Property name="dsc_SubStatusCode" type="integer">
+
+    </Property>
+    <Property name="dsc_Comments" type="string">
+        Comments.
+    </Property>
+    <Property name="dsc_UserIDLast" type="integer">
+
+    </Property>
+    <Property name="dsc_LastUpdated" type="datetime">
+
+    </Property>
+    <Property name="dog_EndReasonCode" type="">
+
+    </Property>
+    <Property name="dog_EndReasonCodeSecondary" type="">
+
+    </Property>
+</Properties>
