@@ -1,6 +1,12 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
+import WhoDidItDataTable from "@/components/data-tables/WhoDidItDataTable";
 
 # Surgery
+
+## The Surgery Model
+- **API Table**: VetSurgery
+- **Available Actions**: create, list, update
 
 ## Properties
 
@@ -10,9 +16,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name={"act_WhoDidIt"} type={"integer"}>
         Code mapped to who performed the surgery.
+        <WhoDidItDataTable />
     </Property>
     <Property name={"act_ActivitySubCode"} type={"integer"} required>
         Code mapped to what was done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Notes"} type={"string"}>
         Notes.

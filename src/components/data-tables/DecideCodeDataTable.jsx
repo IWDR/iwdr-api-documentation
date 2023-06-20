@@ -3,26 +3,26 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export function OwnersTable(){
-    const [display, setDisplay] = useState(false)
+export default function DecideCodeDataTable() {
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'psn_PersonID',
+            key: 'dec_DecideCode'
         },
         {
             text: 'Display Name',
-            key: 'psn_DisplayName',
-        },
-    ]
+            key: 'dec_DecideText'
+        }
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Owners'
-                    : 'Show Available Owners'}
+                    ? "Hide Available Decide Codes"
+                    : "Show Available Decide Codes"}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export function OwnersTable(){
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/person?owners=1'
+                    path='/api/references/decide-code'
                     headers={headers}
                     paginated
                     searchable

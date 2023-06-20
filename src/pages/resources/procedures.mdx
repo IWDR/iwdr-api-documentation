@@ -1,6 +1,12 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivityCodeDataTable from "@/components/data-tables/ActivityCodeDataTable";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
 
 # Procedures
+
+## The Procedures Model
+- **API Table**: tblDogActivities
+- **Available Actions**: create, list, update
 
 ## Properties
 
@@ -16,9 +22,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="act_ActivityCode" type="integer">
         Code corresponding to the category of procedure done.
+        <ActivityCodeDataTable />
     </Property>
     <Property name="act_ActivitySubCode" type="integer">
         Code corresponding to what procedure was done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name="act_Normal" type="boolean">
         A yes/no if the results are normal.
@@ -27,7 +35,6 @@ import {Properties, Property} from "@/components/mdx";
         Notes about the procedure.
     </Property>
     <Property name="act_Quantity" type="string">
-
     </Property>
     <Property name="act_DaysDueAgain" type="integer">
         Number of days due again.

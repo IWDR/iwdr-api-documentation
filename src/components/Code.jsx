@@ -1,17 +1,10 @@
-import {
-    Children,
-    createContext,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
-} from 'react'
-import {Tab} from '@headlessui/react'
-import clsx from 'clsx'
-import {create} from 'zustand'
+import { Children, createContext, useContext, useEffect, useRef, useState } from 'react';
+import { Tab } from '@headlessui/react';
+import clsx from 'clsx';
+import { create } from 'zustand';
 
-import {Tag} from '@/components/Tag'
-import {useAlertStore} from "@/stores/alertStore";
+import { Tag } from '@/components/Tag';
+import { useAlertStore } from '@/stores/alertStore';
 
 const languageNames = {
     js: 'JavaScript',
@@ -22,10 +15,10 @@ const languageNames = {
     python: 'Python',
     ruby: 'Ruby',
     go: 'Go',
-}
+};
 
-function getPanelTitle({title, language}) {
-    return title ?? languageNames[language] ?? 'Code'
+function getPanelTitle({ title, language }) {
+    return title ?? languageNames[language] ?? 'Code';
 }
 
 function ClipboardIcon(props) {
@@ -41,23 +34,23 @@ function ClipboardIcon(props) {
                 d="M12.5 6.5a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-5a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2m5 0-.447-.894a2 2 0 0 0-1.79-1.106h-.527a2 2 0 0 0-1.789 1.106L7.5 6.5m5 0-1 1h-3l-1-1"
             />
         </svg>
-    )
+    );
 }
 
-function CopyButton({code}) {
-    let [copyCount, setCopyCount] = useState(0)
-    let copied = copyCount > 0
+function CopyButton({ code }) {
+    let [copyCount, setCopyCount] = useState(0);
+    let copied = copyCount > 0;
 
-    const showAlert = useAlertStore((state) => state.showAlert)
+    const showAlert = useAlertStore((state) => state.showAlert);
 
     useEffect(() => {
         if (copyCount > 0) {
-            let timeout = setTimeout(() => setCopyCount(0), 1000)
+            let timeout = setTimeout(() => setCopyCount(0), 1000);
             return () => {
-                clearTimeout(timeout)
-            }
+                clearTimeout(timeout);
+            };
         }
-    }, [copyCount])
+    }, [copyCount]);
 
     return (
         <button
@@ -69,23 +62,31 @@ function CopyButton({code}) {
                     : 'bg-white/5 hover:bg-white/7.5 dark:bg-white/2.5 dark:hover:bg-white/5'
             )}
             onClick={() => {
-                window.navigator.clipboard.writeText(code).then(() => {
-                    setCopyCount((count) => count + 1)
-                })
-                    .catch(() => showAlert("There was an issue copying the data to the clipboard. You may need to allow permission for this action.", 'error', true, 6000))
+                window.navigator.clipboard
+                    .writeText(code)
+                    .then(() => {
+                        setCopyCount((count) => count + 1);
+                    })
+                    .catch(() =>
+                        showAlert(
+                            'There was an issue copying the data to the clipboard. You may need to allow permission for this action.',
+                            'error',
+                            true,
+                            6000
+                        )
+                    );
             }}
         >
-      <span
-          aria-hidden={copied}
-          className={clsx(
-              'pointer-events-none flex items-center gap-0.5 text-zinc-400 transition duration-300',
-              copied && '-translate-y-1.5 opacity-0'
-          )}
-      >
-        <ClipboardIcon
-            className="h-5 w-5 fill-zinc-500/20 stroke-zinc-500 transition-colors group-hover/button:stroke-zinc-400"/>
-        Copy
-      </span>
+            <span
+                aria-hidden={copied}
+                className={clsx(
+                    'pointer-events-none flex items-center gap-0.5 text-zinc-400 transition duration-300',
+                    copied && '-translate-y-1.5 opacity-0'
+                )}
+            >
+                <ClipboardIcon className="h-5 w-5 fill-zinc-500/20 stroke-zinc-500 transition-colors group-hover/button:stroke-zinc-400" />
+                Copy
+            </span>
             <span
                 aria-hidden={!copied}
                 className={clsx(
@@ -93,67 +94,54 @@ function CopyButton({code}) {
                     !copied && 'translate-y-1.5 opacity-0'
                 )}
             >
-        Copied!
-      </span>
+                Copied!
+            </span>
         </button>
-    )
+    );
 }
 
-function CodePanelHeader({tag, label}) {
+function CodePanelHeader({ tag, label }) {
     if (!tag && !label) {
-        return null
+        return null;
     }
 
     return (
-        <div
-            className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 bg-white/2.5 px-4 dark:border-b-white/5 dark:bg-white/1">
+        <div className="flex h-9 items-center gap-2 border-y border-t-transparent border-b-white/7.5 bg-zinc-900 bg-white/2.5 px-4 dark:border-b-white/5 dark:bg-white/1">
             {tag && (
                 <div className="dark flex">
                     <Tag variant="small">{tag}</Tag>
                 </div>
             )}
-            {tag && label && (
-                <span className="h-0.5 w-0.5 rounded-full bg-zinc-500"/>
-            )}
-            {label && (
-                <span className="font-mono text-xs text-zinc-400">{label}</span>
-            )}
+            {tag && label && <span className="h-0.5 w-0.5 rounded-full bg-zinc-500" />}
+            {label && <span className="font-mono text-xs text-zinc-400">{label}</span>}
         </div>
-    )
+    );
 }
 
-function CodePanel({tag, label, code, children}) {
-    let child = Children.only(children)
+function CodePanel({ tag, label, code, children, className }) {
+    let child = Children.only(children);
 
     return (
-        <div className="group dark:bg-white/2.5">
-            <CodePanelHeader
-                tag={child.props.tag ?? tag}
-                label={child.props.label ?? label}
-            />
+        <div className={clsx(className, 'group dark:bg-white/2.5')}>
+            <CodePanelHeader tag={child.props.tag ?? tag} label={child.props.label ?? label} />
             <div className="relative">
                 <pre className="overflow-x-auto p-4 text-xs text-white">{children}</pre>
-                <CopyButton code={child.props.code ?? code}/>
+                <CopyButton code={child.props.code ?? code} />
             </div>
         </div>
-    )
+    );
 }
 
-function CodeGroupHeader({title, children, selectedIndex}) {
-    let hasTabs = Children.count(children) > 1
+function CodeGroupHeader({ title, children, selectedIndex }) {
+    let hasTabs = Children.count(children) > 1;
 
     if (!title && !hasTabs) {
-        return null
+        return null;
     }
 
     return (
-        <div
-            className="flex min-h-[calc(theme(spacing.12)+1px)] flex-wrap items-start gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-transparent">
-            {title && (
-                <h3 className="mr-auto pt-3 text-xs font-semibold text-white">
-                    {title}
-                </h3>
-            )}
+        <div className="flex min-h-[calc(theme(spacing.12)+1px)] flex-wrap items-start gap-x-4 border-b border-zinc-700 bg-zinc-800 px-4 dark:border-zinc-800 dark:bg-transparent">
+            {title && <h3 className="mr-auto pt-3 text-xs font-semibold text-white">{title}</h3>}
             {hasTabs && (
                 <Tab.List className="-mb-px flex gap-4 text-xs font-medium">
                     {Children.map(children, (child, childIndex) => (
@@ -171,11 +159,11 @@ function CodeGroupHeader({title, children, selectedIndex}) {
                 </Tab.List>
             )}
         </div>
-    )
+    );
 }
 
-function CodeGroupPanels({children, ...props}) {
-    let hasTabs = Children.count(children) > 1
+function CodeGroupPanels({ children, ...props }) {
+    let hasTabs = Children.count(children) > 1;
 
     if (hasTabs) {
         return (
@@ -186,35 +174,35 @@ function CodeGroupPanels({children, ...props}) {
                     </Tab.Panel>
                 ))}
             </Tab.Panels>
-        )
+        );
     }
 
-    return <CodePanel {...props}>{children}</CodePanel>
+    return <CodePanel {...props}>{children}</CodePanel>;
 }
 
 function usePreventLayoutShift() {
-    let positionRef = useRef()
-    let rafRef = useRef()
+    let positionRef = useRef();
+    let rafRef = useRef();
 
     useEffect(() => {
         return () => {
-            window.cancelAnimationFrame(rafRef.current)
-        }
-    }, [])
+            window.cancelAnimationFrame(rafRef.current);
+        };
+    }, []);
 
     return {
         positionRef,
         preventLayoutShift(callback) {
-            let initialTop = positionRef.current.getBoundingClientRect().top
+            let initialTop = positionRef.current.getBoundingClientRect().top;
 
-            callback()
+            callback();
 
             rafRef.current = window.requestAnimationFrame(() => {
-                let newTop = positionRef.current.getBoundingClientRect().top
-                window.scrollBy(0, newTop - initialTop)
-            })
+                let newTop = positionRef.current.getBoundingClientRect().top;
+                window.scrollBy(0, newTop - initialTop);
+            });
         },
-    }
+    };
 }
 
 const usePreferredLanguageStore = create((set) => ({
@@ -222,51 +210,45 @@ const usePreferredLanguageStore = create((set) => ({
     addPreferredLanguage: (language) =>
         set((state) => ({
             preferredLanguages: [
-                ...state.preferredLanguages.filter(
-                    (preferredLanguage) => preferredLanguage !== language
-                ),
+                ...state.preferredLanguages.filter((preferredLanguage) => preferredLanguage !== language),
                 language,
             ],
         })),
-}))
+}));
 
 function useTabGroupProps(availableLanguages) {
-    let {preferredLanguages, addPreferredLanguage} = usePreferredLanguageStore()
-    let [selectedIndex, setSelectedIndex] = useState(0)
+    let { preferredLanguages, addPreferredLanguage } = usePreferredLanguageStore();
+    let [selectedIndex, setSelectedIndex] = useState(0);
     let activeLanguage = [...availableLanguages].sort(
         (a, z) => preferredLanguages.indexOf(z) - preferredLanguages.indexOf(a)
-    )[0]
-    let languageIndex = availableLanguages.indexOf(activeLanguage)
-    let newSelectedIndex = languageIndex === -1 ? selectedIndex : languageIndex
+    )[0];
+    let languageIndex = availableLanguages.indexOf(activeLanguage);
+    let newSelectedIndex = languageIndex === -1 ? selectedIndex : languageIndex;
     if (newSelectedIndex !== selectedIndex) {
-        setSelectedIndex(newSelectedIndex)
+        setSelectedIndex(newSelectedIndex);
     }
 
-    let {positionRef, preventLayoutShift} = usePreventLayoutShift()
+    let { positionRef, preventLayoutShift } = usePreventLayoutShift();
 
     return {
         as: 'div',
         ref: positionRef,
         selectedIndex,
         onChange: (newSelectedIndex) => {
-            preventLayoutShift(() =>
-                addPreferredLanguage(availableLanguages[newSelectedIndex])
-            )
+            preventLayoutShift(() => addPreferredLanguage(availableLanguages[newSelectedIndex]));
         },
-    }
+    };
 }
 
-const CodeGroupContext = createContext(false)
+const CodeGroupContext = createContext(false);
 
-export function CodeGroup({children, title, ...props}) {
-    let languages = Children.map(children, (child) => getPanelTitle(child.props))
-    let tabGroupProps = useTabGroupProps(languages)
-    let hasTabs = Children.count(children) > 1
-    let Container = hasTabs ? Tab.Group : 'div'
-    let containerProps = hasTabs ? tabGroupProps : {}
-    let headerProps = hasTabs
-        ? {selectedIndex: tabGroupProps.selectedIndex}
-        : {}
+export function CodeGroup({ children, title, ...props }) {
+    let languages = Children.map(children, (child) => getPanelTitle(child.props));
+    let tabGroupProps = useTabGroupProps(languages);
+    let hasTabs = Children.count(children) > 1;
+    let Container = hasTabs ? Tab.Group : 'div';
+    let containerProps = hasTabs ? tabGroupProps : {};
+    let headerProps = hasTabs ? { selectedIndex: tabGroupProps.selectedIndex } : {};
 
     return (
         <CodeGroupContext.Provider value={true}>
@@ -277,28 +259,30 @@ export function CodeGroup({children, title, ...props}) {
                 <CodeGroupHeader title={title} {...headerProps}>
                     {children}
                 </CodeGroupHeader>
-                <CodeGroupPanels {...props}>{children}</CodeGroupPanels>
+                <CodeGroupPanels {...props} className={clsx(props.className, 'max-h-[350px] overflow-y-scroll')}>
+                    {children}
+                </CodeGroupPanels>
             </Container>
         </CodeGroupContext.Provider>
-    )
+    );
 }
 
-export function Code({children, ...props}) {
-    let isGrouped = useContext(CodeGroupContext)
+export function Code({ children, ...props }) {
+    let isGrouped = useContext(CodeGroupContext);
 
     if (isGrouped) {
-        return <code {...props} dangerouslySetInnerHTML={{__html: children}}/>
+        return <code {...props} dangerouslySetInnerHTML={{ __html: children }} />;
     }
 
-    return <code {...props}>{children}</code>
+    return <code {...props}>{children}</code>;
 }
 
-export function Pre({children, ...props}) {
-    let isGrouped = useContext(CodeGroupContext)
+export function Pre({ children, ...props }) {
+    let isGrouped = useContext(CodeGroupContext);
 
     if (isGrouped) {
-        return children
+        return children;
     }
 
-    return <CodeGroup {...props}>{children}</CodeGroup>
+    return <CodeGroup {...props}>{children}</CodeGroup>;
 }

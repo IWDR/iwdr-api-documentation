@@ -1,5 +1,6 @@
 import {SubStatusDataTable} from '@/components/data-tables/SubStatusDataTable'
 import {
+    CodeGroup,
     Col, Note,
     Properties,
     Property, Row
@@ -39,8 +40,11 @@ The dog model contains all the pertinent information on a given dog within IWDR.
 ## Properties
 
 <Properties>
+    <Property name="local_dog_id" type="integer" required>
+        The unique identifier for this dog from your organizations data source.
+    </Property>
     <Property name="dog_DogID" type="integer">
-        Unique identifier for the dog.
+        IWDR&apos;s unique identifier for this dog.
         <Note>
             This field is auto-generated.
         </Note>
@@ -243,7 +247,8 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         </Note>
     </Col>
     <Col sticky>
-        ```json {{title: 'Request Body'}}
+        <CodeGroup title="Request Body">
+        ```json
         {
             "local_dog_id": 1234, // The primary key from your data source
             "dog_StatusChangeDate": "...", // Today's date
@@ -263,6 +268,9 @@ The dog model contains all the pertinent information on a given dog within IWDR.
             "dog_CountryOfOriginCode": 202
         }
         ```
+        </CodeGroup>
+
+        <CodeGroup title="Response">
         ```json {{title: 'Response'}}
         {
             "success": true,
@@ -382,6 +390,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         }
         }
         ```
+        </CodeGroup>
     </Col>
 </Row>
 

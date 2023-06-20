@@ -1,6 +1,13 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 
 # PennHIP
+
+## The PennHIP Model
+- **API Table**: HipPennHip
+- **Available Actions**: create, list, update
 
 ## Properties
 <Properties>
@@ -24,15 +31,21 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Scoring criteria used.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the hip measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
+        <Note>
+            This field has a max length of 50 characters
+        </Note>
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.

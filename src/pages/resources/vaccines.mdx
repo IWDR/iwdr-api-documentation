@@ -1,6 +1,11 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
 
 # Vaccines
+
+## The Vaccines Model
+- **API Table**: VetVaccines
+- **Available Actions**: create, list, update
 
 ## Properties
 
@@ -13,6 +18,7 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name={"act_ActivitySubCode"} type={"integer"} required>
         Code mapped to what was done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Notes"} type={"string"}>
         Notes.

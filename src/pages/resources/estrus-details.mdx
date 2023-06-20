@@ -1,6 +1,19 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
+import DecideCodeDataTable from "@/components/data-tables/DecideCodeDataTable";
+import {BreedersDataTable} from "@/components/data-tables/BreedersDataTable";
+import {OwnersTable} from "@/components/data-tables/OwnersTable";
+import SemenQualityCodeDataTable from "@/components/data-tables/SemenQualityCodeDataTable";
+import BroodBreedingBehaviorFDataTable from "@/components/data-tables/BroodBreedingBehaviorFDataTable";
+import PregnancyCodeDataTable from "@/components/data-tables/PregnancyCodeDataTable";
+import WhelpQualityCodeDataTable from "@/components/data-tables/WhelpQualityCodeDataTable";
+import WorkTypeDataTable from "@/components/data-tables/WorkTypeDataTable";
+import LibidoCodeDataTable from "@/components/data-tables/LibidoCodeDataTable";
 
 # Estrus Details
+
+## The Estrus Details Model
+- **API Table**: HeatsWhelpsChildTbl
+- **Available Actions**: create, list, update
 
 ## Properties
 
@@ -13,6 +26,7 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="lit_DecideCode" type="integer">
         Code mapped to reason for this question.
+        <DecideCodeDataTable />
     </Property>
     <Property name="lit_MultiSire" type="boolean">
         A yes/no for this question.
@@ -22,13 +36,28 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="lit_BreedCode" type="integer">
         Unique identifier for this breed.
+        <Note>
+            This field is auto-generated and is determined based on the father and mother.
+        </Note>
+        <Note alert>
+            In case of multi-sire litters you must ensure that an insemination record has also been created for breed to be assigned properly.
+        </Note>
     </Property>
     <Property name="lit_BreederID" type="integer">
         Unique identifier for this breeder.
+        <BreedersDataTable />
+    </Property>
+    <Property name="lit_FYBreeder" type="integer">
+        Fiscal year for breeder.
     </Property>
     <Property name="lit_LitterOwnerID" type="integer">
         Unique identifier for the litter owner.
+        <OwnersTable />
     </Property>
+    <Property name="lit_FYOwner" type="integer">
+        Fiscal year of owner.
+    </Property>
+
     <Property name="lit_HeatStartDate" type="datetime">
         Date in which the heat started.
     </Property>
@@ -46,18 +75,24 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="lit_SemenQualityCode" type="integer">
         Code mapped to the semen quality.
+        <SemenQualityCodeDataTable />
     </Property>
     <Property name="lit_LibidoCode" type="integer">
         Code mapped to libido description.
+        <LibidoCodeDataTable />
     </Property>
     <Property name="lit_BrdBehFCode" type="integer">
         Code mapped to brood breeding behavior.
+        <BroodBreedingBehaviorFDataTable />
     </Property>
     <Property name="lit_PregnancyCode" type="integer">
         Code mapped to pregnancy status.
+        <PregnancyCodeDataTable />
     </Property>
+
     <Property name="lit_WhelpQualityCode" type="integer">
         Code mapped to whelp quality.
+        <WhelpQualityCodeDataTable />
     </Property>
     <Property name="lit_CSectionDone" type="boolean">
         A yes/no if a c section was performed.
@@ -83,9 +118,11 @@ import {Properties, Property} from "@/components/mdx";
     <Property name="lit_WhelpComments" type="string">
         Whelp comments.
     </Property>
+
     <Property name="lit_Comments" type="string">
         Estrus comments.
     </Property>
+
     <Property name="lit_DateOfBirth" type="datetime">
         Whelp date of birth.
     </Property>
@@ -94,5 +131,6 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="lit_WorkType" type="integer">
         Code mapped to the type of work the dog was bred for.
+        <WorkTypeDataTable />
     </Property>
 </Properties>

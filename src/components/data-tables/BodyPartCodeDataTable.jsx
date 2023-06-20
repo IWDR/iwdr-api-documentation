@@ -3,26 +3,26 @@ import {Button} from "@/components/Button";
 import {Transition} from "@headlessui/react";
 import {DataTable} from "@/components/DataTable";
 
-export function OwnersTable(){
-    const [display, setDisplay] = useState(false)
+export default function BodyPartCodeDataTable(){
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
-            text: 'Unique Identifier',
-            key: 'psn_PersonID',
+            key: 'BodyPartCode',
+            text: 'Unique Identifier'
         },
         {
-            text: 'Display Name',
-            key: 'psn_DisplayName',
-        },
-    ]
+            key: 'BodyPartText',
+            text: 'Display Name'
+        }
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? 'Hide Available Owners'
-                    : 'Show Available Owners'}
+                    ? 'Hide Available Body Part Codes'
+                    : 'Show Available Body Part Codes'}
             </Button>
             <Transition
                 show={display}
@@ -34,7 +34,7 @@ export function OwnersTable(){
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/person?owners=1'
+                    path='/api/references/body-part-code'
                     headers={headers}
                     paginated
                     searchable

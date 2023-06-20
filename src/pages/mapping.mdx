@@ -69,12 +69,10 @@ also known as "resource" throughout this documentation, has specific fields, or 
 These mappings will then be querired against whenever an API request is attempting to create/update a record
 in order to translate the received data into meaningful values for IWDR.
 
-<Note>
-    <span className="text-red-500">
-        Your team must populate, review, and update your own mappings. For the sake of data integrity,
-        your organization must update mapping changes as soon as they occur within your organization's database.
-        This will ensure that records being submitted via API requests remain synchronus to your organization's database.
-    </span>
+<Note alert>
+    Your team must populate, review, and update your own mappings. For the sake of data integrity,
+    your organization must update mapping changes as soon as they occur within your organization's database.
+    This will ensure that records being submitted via API requests remain synchronus to your organization's database.
 </Note>
 
 <Note>
@@ -85,7 +83,7 @@ in order to translate the received data into meaningful values for IWDR.
 
 ## Example mappings from IWDR
 
-This table shows an example mapping row, from the IWDR interface,
+This table shows an example mapping row, [from the IWDR interface top level menu](https://iwdr.org/iwdr/login.php) (Admin -> Manage our lists -> API -> API Mappings),
 of the dog resource column **dog_BreedCode** value **"Golden Retriever"**
 to your organization's dog breed code value **"4"**.
 
@@ -93,9 +91,10 @@ to your organization's dog breed code value **"4"**.
     slides={slides}
     label="Click to see example screenshots"
 />
+
 <Table headers={headers} values={values}/>
 <Note>
-    **Note**: Not all mapping records need to populated. You only need to supply a mapping for values which apply to
+    Not all mapping records need to populated. You only need to supply a mapping for values which apply to
     your organization's data.
 </Note>
 

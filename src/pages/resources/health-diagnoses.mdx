@@ -1,6 +1,15 @@
-import {Properties, Property} from "@/components/mdx";
+import {Note, Properties, Property} from "@/components/mdx";
+import HealthDiagnosesTraitCodeIDDataTable from "@/components/data-tables/HealthDiagnosesTraitCodeIDDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
+import BodyPartCodeDataTable from "@/components/data-tables/BodyPartCodeDataTable";
 
 # Health Diagnoses
+
+## The Health Diagnoses Model
+- **API Table**: Health Diagnoses
+- **Available Actions**: create, list, update
 
 ## Properties
 
@@ -16,9 +25,11 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_TraitCodeID" type="integer" required>
         IWDR code for this diagnosis.
+        <HealthDiagnosesTraitCodeIDDataTable />
     </Property>
     <Property name="pt_MeasureTypeCode" type="integer">
         Code for how it was measured.
+        <MeasureTypeCodeDataTable />
     </Property>
     <Property name="pt_Measure1" type="string">
         Right measurement.
@@ -28,18 +39,24 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name="pt_EvaluatorID" type="integer">
         Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_BodyPartCode" type="integer">
         Code that describes the specific body part.
+        <BodyPartCodeDataTable />
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
     <Property name="dog_CertifAgencyCode" type="integer">
         Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
     </Property>
     <Property name="pt_CertificationNumber" type="string">
         Certification code assigned by the certifying agency.
+        <Note>
+            This field has a max length of 50 characters
+        </Note>
     </Property>
     <Property name="pt_CauseofDeath" type="boolean">
         A boolean value if the diagnosis was the cause of death.

@@ -1,12 +1,19 @@
 import {Properties, Property} from "@/components/mdx";
+import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
+import WhoDidItDataTable from "@/components/data-tables/WhoDidItDataTable";
 
 # Reminders
+
+## The Reminders Model
+- **API Table**: RemindersIndiv
+- **Available Actions**: create, list, update
 
 ## Properties
 
 <Properties>
     <Property name={"act_ActivitySubCode"} type={"integer"}>
         Code mapped to what is to be done.
+        <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Date"} type={"datetime"}>
         Date of reminder.
@@ -16,5 +23,6 @@ import {Properties, Property} from "@/components/mdx";
     </Property>
     <Property name={"act_WhoDidIt"} type={"integer"}>
         Code mapped to who will be doing the task.
+        <WhoDidItDataTable />
     </Property>
 </Properties>

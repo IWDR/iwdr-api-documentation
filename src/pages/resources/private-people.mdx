@@ -1,1 +1,94 @@
+import {Properties, Property} from "@/components/mdx";
+
 # Private People
+
+## The Private People Model
+- **API Table**: PersonPrivate
+- **Available Actions**: create, list, update
+
+## Properties
+
+<Properties>
+    <Property name="psn_First" type="string">
+        First Name
+    </Property>
+    <Property name="psn_Last" type="string" required>
+        Last Name
+    </Property>
+    <Property name="psn_Suffix" type="string">
+        Suffix
+    </Property>
+    <Property name="psn_Gender" type="integer">
+        Gender
+    </Property>
+    <Property name="psn_Phn1Number" type="string">
+        Work phone number
+    </Property>
+    <Property name="psn_Phn2Number" type="string">
+        Mobile phone number
+    </Property>
+    <Property name="psn_Phn3Number" type="string">
+        Home phone number
+    </Property>
+    <Property name="psn_PrefWork" type="boolean">
+        A yes/no if work phone number is preferred.
+    </Property>
+    <Property name="psn_PrefMobile" type="boolean">
+        A yes/no if mobile phone number is preferred.
+    </Property>
+    <Property name="psn_PrefHome" type="boolean">
+        A yes/no if home phone number is preferred.
+    </Property>
+    <Property name="psn_Email" type="string">
+        Email address
+    </Property>
+    <Property name="psn_Birthdate" type="datetime">
+        Dat of Birth
+    </Property>
+    <Property name="psn_FlagProblem" type="boolean">
+        A yes/no if this person has an alert note.
+    </Property>
+    <Property name="psn_AddressLine1" type="string">
+        Address Line 1
+    </Property>
+    <Property name="psn_AddressLine2" type="string">
+        Address Line 2
+    </Property>
+    <Property name="psn_City" type="string">
+        City
+    </Property>
+    <Property name="psn_Country" type="integer" required>
+        Country
+    </Property>
+    <Property name="psn_StateCode" type="integer">
+        Code corresponding to the state/province/prefecture,
+    </Property>
+    <Property name="psn_Zip" type="string">
+        Zip/Postal Code
+    </Property>
+    <Property name="psn_UserIDEditing" type="integer">
+
+    </Property>
+    <Property name="psn_UserIDEntering" type="integer">
+
+    </Property>
+    <Property name="psn_SearchName" type="string">
+        Name used for searching for this person.
+    </Property>
+    <Property name="psn_PrivateOrgID" type="integer" required>
+        Code corresponding to the private organization.
+    </Property>
+    <Property name="psn_FBProfileName" type="string">
+        Facebook profile username.
+    </Property>
+    <Property name="psn_ContactNote" type="string">
+        Additional person information.
+    </Property>
+    <Property name="psn_SpecialNotes" type="string">
+        Additional property information.
+    </Property>
+    <Property name="psn_BCLScorer" type="integer">
+        A yes/no if this person is a BCL scorer
+    </Property>
+</Properties>
+
