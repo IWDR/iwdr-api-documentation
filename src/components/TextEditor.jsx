@@ -21,7 +21,7 @@ export const TextEditor = forwardRef(function TextEditor(
     const mce_plugins =
         'anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount';
     const mce_toolbar =
-        'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat';
+        'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table | spellcheckdialog typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat';
 
     return (
         <div className="my-4">
