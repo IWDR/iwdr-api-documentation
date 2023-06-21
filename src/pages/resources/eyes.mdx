@@ -1,4 +1,4 @@
-import {Properties, Property} from "@/components/mdx";
+import {CodeGroup, Col, Properties, Property, Row} from "@/components/mdx";
 import SkinEyesTraitCodeIDDataTable from "@/components/data-tables/SkinEyesTraitCodeIDDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
@@ -9,13 +9,13 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
 
 ## The Eye Model
 - **API Table**: EyeQuick
-- **Available Actions**: create, list, update
+- **Available Actions**: [create](#create-a-record), [list](#list-records), update
 
 ## Properties
 
 <Properties>
     <Property name="local_dog_id" type="integer" required>
-        The unique identifier for this dog.
+        The unique identifier for this dog from your organizations data source.
     </Property>
     <Property name="pt_DogID" type="integer" required>
         The corresponding IWDRID for this dog.
@@ -57,3 +57,141 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
         <ConfidenceRatingCodeDataTable />
     </Property>
 </Properties>
+
+---
+
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=Elbow&action=insert' }}
+
+<Row>
+    <Col>
+        Insert a new eye diagnosis for a given dog.
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "local_dog_id": "1234",
+                "pt_DogID": "1234",
+                "pt_Date": "2023-06-21",
+                "pt_TraitCodeID": "1234", // Code for diagnosis from your database (NOT IWDR)
+                "pt_MeasureTypeCode": "1234",
+                "pt_Measure1": "Normal",
+                "pt_Measure2": "Normal",
+                "pt_DetailsOfProblem": "Test Data"
+            }
+            ```
+        </CodeGroup>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data":
+            {
+                "pt_DogID": "1234",
+                "pt_Date": "2023-06-21 00:00:00",
+                "pt_DetailsOfProblem": "Test Data",
+                "pt_TraitCodeID": "1234", // Mapped result from your key to the IWDR key
+                "pt_Measure1": "Normal",
+                "pt_Measure2": "Normal",
+                "pt_MeasureTypeCode": "1234",
+                "pt_DateImported": "2023-06-21 11:45:47",
+                "pt_Level1Code": "16",
+                "pt_Level2Code": "55",
+                "pt_PrivateOrgPersonID": "1234",
+                "pt_LastUpdated": "2023-06-21 11:45:47",
+                "pt_UserIDLast": "1234",
+                "pt_DateEnter": "2023-06-21 11:45:47",
+                "pt_UserEnter": "1234",
+                "pt_PhenoTraitRecordID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=Elbow&action=list' }}
+
+<Row>
+    <Col>
+        List all eye records for dogs owned by your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (pt_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "pt_PhenoTraitRecordID": "1234",
+                "pt_DogID": "1234",
+                "pt_Date": "2016-09-07",
+                "pt_DetailsOfProblem": "",
+                "pt_TraitCodeID": "1234",
+                "pt_Measure1": "Normal",
+                "pt_Measure2": "Normal",
+                "pt_ConfidenceRatingCode": "5",
+                "pt_EvaluatorID": null,
+                "dog_CertifAgencyCode": null,
+                "pt_CertificationNumber": "",
+                "pt_Level1Code": "16",
+                "pt_Level2Code": "64",
+                "pt_PrivateOrgPersonID": "1234",
+                "pt_LastUpdated": "2021-09-08 19:46:18",
+                "pt_UserIDLast": "1234",
+                "pt_DateEstimated": "0",
+                "pt_MeasureTypeCode": "1234",
+                "L1_Level1Code": "16",
+                "L2CodeID": "64",
+                "ps2_EyeScore": "4",
+                "ps2_EyeAge": "95",
+                "ps2_EyeDataQ": "0",
+                "pt_DateImported": "2019-10-15",
+                "pt_DBImportKey": "1234",
+                "pt_UserEnter": null,
+                "pt_DateEnter": "2016-09-07 00:00:00"
+            },
+            {
+                ...
+            },
+            {
+                ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
