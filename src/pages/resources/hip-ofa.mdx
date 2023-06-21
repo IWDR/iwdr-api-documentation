@@ -1,4 +1,4 @@
-import {Note, Properties, Property} from "@/components/mdx";
+import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
 import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
@@ -8,13 +8,13 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
 
 ## The Hip OFA Model
 - **API Table**: Hip Extended View
-- **Available Actions**: create, list, update
+- **Available Actions**: [create](#create-a-record), [list](#list-records), update
 
 ## Properties
 
 <Properties>
     <Property name="local_dog_id" type="integer" required>
-        The unique identifier for this dog.
+        The unique identifier for this dog from your organizations data source.
     </Property>
     <Property name="pt_DogID" type="integer" required>
         The corresponding IWDRID for this dog.
@@ -54,3 +54,135 @@ import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCode
         <ConfidenceRatingCodeDataTable />
     </Property>
 </Properties>
+
+---
+
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=Hip_Extended_View&action=insert' }}
+
+<Row>
+    <Col>
+        Insert a new hip record for a given dog.
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "local_dog_id": "1234",
+                "pt_DogID": "1234",
+                "pt_Date": "2023-06-21",
+                "pt_Measure1": "Good",
+                "pt_Measure2": "Good"
+            }
+            ```
+        </CodeGroup>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": {
+                "pt_DogID": "1234",
+                "pt_Date": "2023-06-21 00:00:00",
+                "pt_Measure1": "Good",
+                "pt_Measure2": "Good",
+                "pt_DateImported": "2023-06-21 14:26:10",
+                "pt_PrivateOrgPersonID": "1234",
+                "pt_Level1Code": 11,
+                "pt_Level2Code": 1,
+                "pt_TraitCodeID": "1234",
+                "pt_LastUpdated": "2023-06-21 14:26:10",
+                "pt_UserIDLast": "1234",
+                "pt_DateEnter": "2023-06-21 14:26:10",
+                "pt_UserEnter": "1234",
+                "pt_PhenoTraitRecordID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=Hip_Extended_view&action=list' }}
+
+<Row>
+    <Col>
+        List all hip records for dogs owned by your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (pt_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "pt_PhenoTraitRecordID": "1234",
+                "pt_DogID": "1234",
+                "pt_Date": "2018-06-21",
+                "pt_DetailsOfProblem": "...",
+                "pt_Level1Code": "11",
+                "pt_MeasureTypeCode": "100",
+                "pt_Measure1": "Fair",
+                "pt_Measure2": "Fair",
+                "pt_PhenoTraitCode": "1234",
+                "pt_CauseofDeath": "0",
+                "pt_ConfidenceRatingCode": "5",
+                "pt_DiseaseLevelCode": "0",
+                "pt_EvaluatorID": null,
+                "dog_CertifAgencyCode": "0",
+                "pt_CertificationNumber": null,
+                "pt_BodyPartCode": "0",
+                "pt_OpenYesNo": "0",
+                "pt_TraitCodeID": "1234",
+                "pt_PrivateOrgPersonID": "1234",
+                "L2Text": "...",
+                "pt_DateEstimated": "0",
+                "pt_DBImportKey": "1234",
+                "pt_DateImported": "2019-10-15",
+                "pt_UserEnter": null,
+                "pt_DateEnter": "2018-06-21 00:00:00",
+                "pt_LastUpdated": "2019-10-04 14:24:59",
+                "pt_UserIDLast": "1234"
+            },
+            {
+                ...
+            },
+            {
+                ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

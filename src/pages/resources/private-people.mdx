@@ -1,10 +1,10 @@
-import {Properties, Property} from "@/components/mdx";
+import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
 
 # Private People
 
 ## The Private People Model
 - **API Table**: PersonPrivate
-- **Available Actions**: create, list, update
+- **Available Actions**: [create](#create-a-record), [list](#list-records), update
 
 ## Properties
 
@@ -91,4 +91,104 @@ import {Properties, Property} from "@/components/mdx";
         A yes/no if this person is a BCL scorer
     </Property>
 </Properties>
+
+---
+
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=PersonPrivate&action=insert' }}
+
+<Row>
+    <Col>
+        Create a new private person in IWDR.
+    </Col>
+    <Col sticky>
+
+    </Col>
+</Row>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=PersonPrivate&action=list' }}
+
+<Row>
+    <Col>
+        List all private people in your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (pt_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "psn_First": "John",
+                "psn_Last": "Doe",
+                "psn_Suffix": "0",
+                "psn_StateCode": null,
+                "psn_ContactNote": "",
+                "psn_FlagProblem": "0",
+                "psn_Country": "202",
+                "psn_Email": "",
+                "psn_AddressLine1": "",
+                "psn_AddressLine2": "",
+                "psn_City": "",
+                "psn_Zip": "",
+                "psn_Phn1Number": "",
+                "psn_Phn2Number": "",
+                "psn_Phn3Number": "",
+                "psn_FBProfileName": null,
+                "psn_PrefWork": "0",
+                "psn_PrefMobile": "0",
+                "psn_PrefHome": "0",
+                "psn_SpecialNotes": null,
+                "psn_PersonID": "1234",
+                "psn_Gender": null,
+                "psn_UserIDEditing": "17",
+                "psn_UserIDEntering": null,
+                "psn_SearchName": "John Doe",
+                "psn_Birthdate": null,
+                "psn_PrivateOrgID": "1234",
+                "psn_BCLScorer": "1"
+            },
+            {
+            ...
+            },
+            {
+            ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
 

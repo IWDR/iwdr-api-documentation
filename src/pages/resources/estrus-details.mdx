@@ -1,4 +1,4 @@
-import {Note, Properties, Property} from "@/components/mdx";
+import {CodeGroup, Note, Properties, Property} from "@/components/mdx";
 import DecideCodeDataTable from "@/components/data-tables/DecideCodeDataTable";
 import {BreedersDataTable} from "@/components/data-tables/BreedersDataTable";
 import {OwnersTable} from "@/components/data-tables/OwnersTable";
@@ -13,13 +13,13 @@ import LibidoCodeDataTable from "@/components/data-tables/LibidoCodeDataTable";
 
 ## The Estrus Details Model
 - **API Table**: HeatsWhelpsChildTbl
-- **Available Actions**: create, list, update
+- **Available Actions**: [create](#create-a-record), [list](#list-records), update
 
 ## Properties
 
 <Properties>
     <Property name="local_dog_id" type="integer" required>
-        The unique identifier for this dog.
+        The unique identifier for this dog from your organizations data source.
     </Property>
     <Property name="lit_DamID" type="integer" required>
         The corresponding IWDRID for this dog.
@@ -134,3 +134,149 @@ import LibidoCodeDataTable from "@/components/data-tables/LibidoCodeDataTable";
         <WorkTypeDataTable />
     </Property>
 </Properties>
+
+---
+
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=HeatsWhelpsChildTbl&action=insert' }}
+
+<Row>
+    <Col>
+        Insert a new estrus record for a given dog.
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "local_dog_id": "1234",
+                "lit_DamID": "1234",
+                "lit_Comments": "Test data"
+            }
+            ```
+        </CodeGroup>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": {
+                "lit_DamID": "1234",
+                "lit_Comments": "Test data",
+                "lit_LastUpdated": "2023-06-21 12:11:07",
+                "lit_UserIDEntering": "1234",
+                "lit_UserIDLast": "1234",
+                "lit_RecordID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=HeatsWhelpsChildTbl&action=list' }}
+
+<Row>
+    <Col>
+        List all estrus records for dogs owned by your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (lit_DamID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "lit_RecordID": "1234",
+                "lit_LitterID": "",
+                "lit_HeatStartDate": "2016-12-25",
+                "lit_SireID": "1234",
+                "lit_DamID": "1234",
+                "lit_BreedCode": "4",
+                "lit_HeatAbnormal": "0",
+                "lit_InseminationMethodCode": "0",
+                "lit_PregnancyCode": "1",
+                "lit_ProgestInitialRiseDate": null,
+                "lit_DateOfBirth": null,
+                "lit_LitterOwnerID": null,
+                "lit_LitterSize": "0",
+                "lit_TotalLive": "0",
+                "lit_TotalStillborn": "0",
+                "lit_TotalDiedPostWhelp": "0",
+                "lit_WhelpQualityCode": null,
+                "lit_Comments": "",
+                "lit_ContractionsPoor": "0",
+                "lit_PUterineInertia": "0",
+                "lit_PoorMother": "0",
+                "lit_HoursWhelp": null,
+                "lit_WhelpSummaryComplete": "0",
+                "lit_SemenTypeCode": "0",
+                "lit_SemenQualityCode": null,
+                "lit_MultiSire": "0",
+                "lit_BreederID": "1234",
+                "lit_DecideCode": "8",
+                "lit_Mastitis": "0",
+                "lit_DueDateProg": null,
+                "lit_DueDateBreeding": null,
+                "lit_EstimatedHeatStart": "1",
+                "lit_CSectionDone": "0",
+                "DueDate65DaysFromLH0": null,
+                "lit_LastUpdated": "2021-11-17 02:13:32",
+                "lit_UserIDLast": "88",
+                "lit_UserIDEntering": "88",
+                "dec_Skip": "0",
+                "lit_WhelpComments": "",
+                "lit_WorkType": "1",
+                "lit_MalpositionPup": "0",
+                "Day of Heat": "2369",
+                "GestationDayFromLH0": null,
+                "lit_UltrasoundDue": null,
+                "lit_InitialHeatStartDateSplitHeat": null,
+                "lit_SplitHeatDate": null,
+                "lit_LibidoCode": null,
+                "lit_BrdBehFCode": null,
+                "dbs_BreedNextCode": "8",
+                "lit_FYBreeder": null,
+                "lit_FYOwner": null
+            },
+            {
+                ...
+            },
+            {
+                ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

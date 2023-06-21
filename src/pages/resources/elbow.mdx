@@ -88,22 +88,23 @@ The elbow model contains the information about a diagnoses for a dog's elbow.
             ```json
             {
                 "success": true,
-                "data": {
-                    "pt_DogID": "...",
-                    "pt_Date": "2023-06-20 00:00:00",
-                    "pt_DetailsOfProblem": "Test data",
-                    "pt_TraitCodeID": "1641", // Mapped result from your key to the IWDR key
-                    "pt_DBImportKey": "1234",
-                    "pt_DateImported": "2023-06-20 15:55:17",
-                    "pt_Level1Code": "12",
-                    "pt_Level2Code": "12",
-                    "pt_PrivateOrgPersonID": "...",
-                    "pt_LastUpdated": "2023-06-20 15:55:17",
-                    "pt_UserIDLast": "...",
-                    "pt_DateEnter": "2023-06-20 15:55:17",
-                    "pt_UserEnter": "...",
-                    "pt_PhenoTraitRecordID": 1234
-                }
+                "data":
+            {
+                "pt_DogID": "...",
+                "pt_Date": "2023-06-20 00:00:00",
+                "pt_DetailsOfProblem": "Test data",
+                "pt_TraitCodeID": "1641", // Mapped result from your key to the IWDR key
+                "pt_DBImportKey": "1234",
+                "pt_DateImported": "2023-06-20 15:55:17",
+                "pt_Level1Code": "12",
+                "pt_Level2Code": "12",
+                "pt_PrivateOrgPersonID": "...",
+                "pt_LastUpdated": "2023-06-20 15:55:17",
+                "pt_UserIDLast": "...",
+                "pt_DateEnter": "2023-06-20 15:55:17",
+                "pt_UserEnter": "...",
+                "pt_PhenoTraitRecordID": 1234
+            }
             }
             ```
         </CodeGroup>
@@ -122,7 +123,7 @@ The elbow model contains the information about a diagnoses for a dog's elbow.
         <Properties>
             <Property name="q" type="string">
                 A powerful query string to filter the returned data. The string format is as follows:
-                (field\~operator\~value). For example, (dog_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                (field\~operator\~value). For example, (pt_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
                 The available operators are as follows:
                 - equals
                 - notequal
@@ -154,35 +155,41 @@ The elbow model contains the information about a diagnoses for a dog's elbow.
             {
                 "success": true,
                 "data": [
-                    {
-                        "pt_PhenoTraitRecordID": "1234",
-                        "pt_DogID": "...",
-                        "pt_Date": "2023-06-20",
-                        "pt_DetailsOfProblem": "Test data",
-                        "pt_TraitCodeID": "1234",
-                        "pt_Measure1": null,
-                        "pt_Measure2": null,
-                        "pt_ConfidenceRatingCode": "0",
-                        "pt_EvaluatorID": null,
-                        "dog_CertifAgencyCode": null,
-                        "pt_CertificationNumber": null,
-                        "pt_Level1Code": "12",
-                        "pt_Level2Code": "12",
-                        "pt_PrivateOrgPersonID": "...",
-                        "pt_LastUpdated": "2023-06-20 15:55:17",
-                        "pt_UserIDLast": "...",
-                        "pt_DateEstimated": "0",
-                        "pt_MeasureTypeCode": null,
-                        "L1_Level1Code": "12",
-                        "L2CodeID": "12",
-                        "ps2_ElbowText": "Grade 3",
-                        "ps2_ElbAge": "95",
-                        "ps2_ElbowDataQ": "0",
-                        "pt_DateImported": "2023-06-20",
-                        "pt_DBImportKey": "1234",
-                        "pt_DateEnter": "2023-06-20 15:55:17",
-                        "pt_UserEnter": "..."
-                    }
+            {
+                "pt_PhenoTraitRecordID": "1234",
+                "pt_DogID": "...",
+                "pt_Date": "2023-06-20",
+                "pt_DetailsOfProblem": "Test data",
+                "pt_TraitCodeID": "1234",
+                "pt_Measure1": null,
+                "pt_Measure2": null,
+                "pt_ConfidenceRatingCode": "0",
+                "pt_EvaluatorID": null,
+                "dog_CertifAgencyCode": null,
+                "pt_CertificationNumber": null,
+                "pt_Level1Code": "12",
+                "pt_Level2Code": "12",
+                "pt_PrivateOrgPersonID": "...",
+                "pt_LastUpdated": "2023-06-20 15:55:17",
+                "pt_UserIDLast": "...",
+                "pt_DateEstimated": "0",
+                "pt_MeasureTypeCode": null,
+                "L1_Level1Code": "12",
+                "L2CodeID": "12",
+                "ps2_ElbowText": "Grade 3",
+                "ps2_ElbAge": "95",
+                "ps2_ElbowDataQ": "0",
+                "pt_DateImported": "2023-06-20",
+                "pt_DBImportKey": "1234",
+                "pt_DateEnter": "2023-06-20 15:55:17",
+                "pt_UserEnter": "..."
+            },
+            {
+                ...
+            },
+            {
+                ...
+            }
                 ]
             }
             ```
