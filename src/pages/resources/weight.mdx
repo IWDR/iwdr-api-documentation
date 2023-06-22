@@ -1,17 +1,23 @@
-import {Properties, Property} from "@/components/mdx";
+import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
 import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDataTable";
 
 # Weight
 
 ## The Weight Model
 - **API Table**: Weight
-- **Available Actions**: create, list
+- **Available Actions**: [create](#create-a-record), [list](#list-records)
 
 ## Properties
 
 <Properties>
+    <Property name="local_dog_id" type="integer" required>
+        The unique identifier for this dog from your organizations data source.
+    </Property>
+    <Property name="act_DogID" type="integer" required>
+        The corresponding IWDRID for this dog.
+    </Property>
     <Property name={"act_ActivitySubCode"} type={"integer"} required>
-        Code mapped what was done.
+        Code mapped to what was done.
         <ActivitySubCodeDataTable />
     </Property>
     <Property name={"act_Date"} type={"datetime"} required>
@@ -30,3 +36,120 @@ import ActivitySubCodeDataTable from "@/components/data-tables/ActivitySubCodeDa
         Number of days due again.
     </Property>
 </Properties>
+
+---
+
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=Weight&action=insert' }}
+
+<Row>
+    <Col>
+        Insert a new weight record.
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "local_dog_id": "1234",
+                "act_DogID": "1234",
+                "act_Date": "2023-06-22",
+                "act_ActivitySubCode": "1234",
+                "act_DaysDueAgain": "1",
+                "act_Notes": "Test Data"
+            }
+            ```
+        </CodeGroup>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": {
+                "act_DogID": "1234",
+                "act_ActivitySubCode": "1234",
+                "act_Date": "2023-06-22",
+                "act_Notes": "Test Data",
+                "act_DaysDueAgain": "1",
+                "act_AgeYrs": 7.916666666666667,
+                "act_ActivityCode": 3,
+                "act_PrivateOrgID": "1234",
+                "act_LastUpdated": "2023-06-22 15:45:49",
+                "act_UserEntering": "1234",
+                "act_RecordID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=Weight&action=list' }}
+
+<Row>
+    <Col>
+        List all weight records for your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (act_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "act_DogID": "1234",
+                "act_PrivateOrgID": "1234",
+                "act_ActivityCode": "3",
+                "act_ActivitySubCode": "1198",
+                "act_Date": "2015-06-28",
+                "act_WeightKg": "0.498866",
+                "act_WeightLb": "1.1",
+                "act_Notes": null,
+                "act_UserEntering": "1234",
+                "act_UserEditing": null,
+                "act_LastUpdated": "2020-01-27 00:42:46",
+                "act_RecordID": "1234",
+                "act_Normal": "1",
+                "act_DaysDueAgain": null,
+                "act_AgeYrs": null,
+                "act_LastActID": null,
+                "act_BodyCondKeyID": null
+            },
+            {
+                ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>

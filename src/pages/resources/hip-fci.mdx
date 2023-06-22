@@ -1,17 +1,17 @@
 import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
-import SkinEyesTraitCodeIDDataTable from "@/components/data-tables/SkinEyesTraitCodeIDDataTable";
-import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRatingCodeDataTable";
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
+import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
+import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
 
-# Skin
 
-## The Skin Model
-- **API Table**: SkinQuick
+# Hip FCI
+
+## The Hip FCI Model
+- **API Table**: Hip FCI
 - **Available Actions**: [create](#create-a-record), [list](#list-records), update
 
 ## Properties
-
 <Properties>
     <Property name="local_dog_id" type="integer" required>
         The unique identifier for this dog from your organizations data source.
@@ -19,23 +19,38 @@ import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable"
     <Property name="pt_DogID" type="integer" required>
         The corresponding IWDRID for this dog.
     </Property>
-    <Property name="pt_TraitCodeID" type="integer" required>
-        IWDR code for this diagnosis.
-        <SkinEyesTraitCodeIDDataTable />
+    <Property name="pt_Date" type="datetime">
+        Date of diagnosis.
     </Property>
-    <Property name="pt_MeasureTypeCode" type="integer">
-        Code for how the body part were measured.
+    <Property name="pt_DateEstimated" type="boolean">
+        A yes/no if this date was an estimation.
+    </Property>
+    <Property name="pt_Measure1" type="string" required>
+        Right hip measurement.
+    </Property>
+    <Property name="pt_Measure2" type="string" required>
+        Left hip measurement.
+    </Property>
+    <Property name="pt_MeasureTypeCode" type="integer" required>
+        Scoring criteria used.
         <MeasureTypeCodeDataTable />
     </Property>
-    <Property name="pt_Date" type="datetime" required>
-        Date of diagnosis.
+    <Property name="pt_EvaluatorID" type="integer">
+        Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the hip measurements.
+        <EvaluatorIDDataTable />
     </Property>
     <Property name="pt_DetailsOfProblem" type="string">
         Comments.
     </Property>
-    <Property name="pt_EvaluatorID" type="integer">
-        Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the measurements.
-        <EvaluatorIDDataTable />
+    <Property name="dog_CertifAgencyCode" type="integer">
+        Code for the certifying or health registry organization.
+        <CertifAgencyCodeDataTable />
+    </Property>
+    <Property name="pt_CertificationNumber" type="string">
+        Certification code assigned by the certifying agency.
+        <Note>
+            This field has a max length of 50 characters
+        </Note>
     </Property>
     <Property name="pt_ConfidenceRatingCode" type="integer">
         Level of confidence for diagnosis
@@ -45,11 +60,11 @@ import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable"
 
 ---
 
-## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=SkinQuick&action=insert' }}
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=HipFCI&action=insert' }}
 
 <Row>
     <Col>
-        Insert a new skin diagnosis for a given dog.
+        Insert a new hip record for a given dog.
     </Col>
     <Col sticky>
 
@@ -58,11 +73,11 @@ import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable"
 
 ---
 
-## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=SkinQuick&action=list' }}
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=HipFCI&action=list' }}
 
 <Row>
     <Col>
-        List all skin diagnoses for dogs owned by your organization.
+        List all hip records for dogs owned by your organization.
 
         **Query options** - Include these into the request URL as **GET** parameters.
         <Properties>
@@ -103,36 +118,32 @@ import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable"
             {
                 "pt_PhenoTraitRecordID": "1234",
                 "pt_DogID": "1234",
-                "pt_Date": "2016-08-02",
-                "pt_DetailsOfProblem": null,
-                "pt_TraitCodeID": "1234",
-                "pt_Measure1": null,
-                "pt_Measure2": null,
-                "pt_ConfidenceRatingCode": "5",
-                "pt_EvaluatorID": "1234",
+                "pt_Date": "2023-06-22",
+                "pt_DetailsOfProblem": "...",
+                "pt_Level1Code": "11",
+                "pt_MeasureTypeCode": "3",
+                "pt_Measure1": "A FCI",
+                "pt_Measure2": "A FCI",
+                "pt_PhenoTraitCode": null,
+                "pt_CauseofDeath": null,
+                "pt_ConfidenceRatingCode": null,
+                "pt_DiseaseLevelCode": null,
+                "pt_EvaluatorID": null,
                 "dog_CertifAgencyCode": null,
-                "pt_CertificationNumber": null,
-                "pt_Level1Code": "13",
-                "pt_Level2Code": "17",
+                "pt_CertificationNumber": "",
+                "pt_BodyPartCode": null,
+                "pt_OpenYesNo": "0",
+                "pt_TraitCodeID": "1234",
                 "pt_PrivateOrgPersonID": "1234",
-                "pt_LastUpdated": null,
-                "pt_UserIDLast": "1234",
+                "L2Text": "FCI ",
+                "pt_Level2Code": "3",
                 "pt_DateEstimated": "0",
-                "pt_MeasureTypeCode": null,
-                "ps2_SkinScore": "2",
-                "ps2_SkinAge": "60",
-                "SkinEBVScore": "3",
-                "pt_DateEnter": "2016-08-02 00:00:00",
-                "pt_UserEnter": null,
-                "pt_DateImported": "2016-08-11",
-                "pt_DBImportKey": "1234"
-            },
-            {
-                ...
-            },
-            {
-                ...
-            },
+                "pt_DBImportKey": null,
+                "pt_DateImported": null,
+                "pt_UserEnter": "1234",
+                "pt_DateEnter": "2023-06-22 16:33:22",
+                "pt_LastUpdated": "2023-06-22 16:33:22"
+            }
                 ]
             }
             ```
