@@ -1,5 +1,6 @@
 import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
 import {SubStatusDataTable} from "@/components/data-tables/SubStatusDataTable";
+import EndReasonCodeDataTable from "@/components/data-tables/EndReasonCodeDataTable";
 
 # Status History
 
@@ -34,9 +35,11 @@ import {SubStatusDataTable} from "@/components/data-tables/SubStatusDataTable";
     </Property>
     <Property name="dog_EndReasonCode" type="integer">
         Reason dog was removed from program.
+        <EndReasonCodeDataTable />
     </Property>
     <Property name="dog_EndReasonCodeSecondary" type="integer">
         Secondary reason dog was removed from program.
+        <EndReasonCodeDataTable />
     </Property>
 </Properties>
 

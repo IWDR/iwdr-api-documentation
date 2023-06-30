@@ -8,6 +8,7 @@
     "start": "next start -H 0.0.0.0 -p 8080",
     "lint": "next lint"
   },
+  "cacheDirectories": [".next/cache"],
   "browserslist": [
     "defaults, not ie <= 11"
   ],
