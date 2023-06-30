@@ -30,7 +30,9 @@ import WhoDidItDataTable from "@/components/data-tables/WhoDidItDataTable";
     <Property name="act_Notes" type="string">
         Notes about the procedure.
     </Property>
-    <Property name="act_Quantity" type="string" />
+    <Property name="act_Quantity" type="string">
+        Number of x-ray's reviewed.
+    </Property>
     <Property name="act_WhoDidIt" type="integer" required>
         Code mapped to who administered the vaccine.
         <WhoDidItDataTable />
