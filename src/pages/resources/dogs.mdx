@@ -54,7 +54,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="MicrochipType" type="integer">
         The brand/manufacturer of the dog's primary microchip.
-        <MicrochipBrandDataTable />
+        <MicrochipBrandDataTable/>
     </Property>
     <Property name="MicrochipDate" type="date">
         The date the dog had it's primary microchip implanted.
@@ -114,12 +114,12 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     <Property name="dog_BreederID" type="integer">
         The unique identifier for the organization designated as the breeder of this
         dog.
-        <OwnersTable />
+        <OwnersTable/>
     </Property>
     <Property name="dog_OwnerID" type="integer" required>
         The unique identifier for the organization designated as the owner of this
         dog.
-        <OwnersTable />
+        <OwnersTable/>
     </Property>
     <Property name="dog_IFTRecallDate" type="date">
         The date of IFT recall.
@@ -132,25 +132,25 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_LocationCode" type="integer">
         The unique identifier for this dog's current location.
-        <LocationDataTable />
+        <LocationDataTable/>
     </Property>
     <Property name="dog_PPRegionCode" type="integer">
         The unique identifier for this dog's puppy program region.
-        <PupProgamRegionDataTable />
+        <PupProgamRegionDataTable/>
     </Property>
     <Property name="dog_PPRegionDate" type="date">
         The date this dog was placed at it's puppy program region.
     </Property>
     <Property name="dog_TrnRegionCode" type="integer">
         The unique identifier for this dog's training region.
-        <TrainingRegionDataTable />
+        <TrainingRegionDataTable/>
     </Property>
     <Property name="dog_TrnRegionDate" type="date">
         The date this dog was placed at it's training region.
     </Property>
     <Property name="dog_GradRegion" type="integer">
         The unique identifier for thid dog's graduation region.
-        <GradRegionDataTable />
+        <GradRegionDataTable/>
     </Property>
     <Property name="dog_GradRegionDate" type="date">
         The date this dog was placed at it's graduation region.
@@ -196,11 +196,11 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_ColorCode" type="integer">
         The unique identifier for this dog's coat color text.
-        <CoatColorDataTable />
+        <CoatColorDataTable/>
     </Property>
     <Property name="dog_CoatLength" type="integer">
         The unique identifier for this dog's coat length text.
-        <CoatLengthDataTable />
+        <CoatLengthDataTable/>
     </Property>
     <Property name="dog_CoatType" type="integer">
         The unique identifier for this dog's coat type text.
@@ -229,7 +229,7 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Property>
     <Property name="dog_WorkType" type="integer" required>
         The unique identifier for this dog's designated work type.
-        <WorkTypeDataTable />
+        <WorkTypeDataTable/>
     </Property>
 </Properties>
 
@@ -248,148 +248,148 @@ The dog model contains all the pertinent information on a given dog within IWDR.
     </Col>
     <Col sticky>
         <CodeGroup title="Request Body">
-        ```json
-        {
-            "local_dog_id": 1234, // The primary key from your data source
-            "dog_StatusChangeDate": "...", // Today's date
-            "dog_SubStatusCode": 127,
-            "dog_Sex": "M",
-            "dog_DOB": "2023-01-01",
-            "dog_BreedCode": 2,
-            "dog_ColorCode": 18,
-            "dog_CoatLength": "Short",
-            "dog_WorkType": 15,
-            "dog_BreedWatchList": 0,
-            "dog_CallName": "Example Dog Name",
-            "dog_KCPrimaryNbr": "KC1234",
-            "dog_PedigreeName": "Dog's pedigree name",
-            "dog_OwnerID": 15,
-            "dog_BreederID": 100,
-            "dog_CountryOfOriginCode": 202
-        }
-        ```
+            ```json
+            {
+                "local_dog_id": 1234, // The primary key from your data source
+                "dog_StatusChangeDate": "...", // Today's date
+                "dog_SubStatusCode": 127,
+                "dog_Sex": "M",
+                "dog_DOB": "2023-01-01",
+                "dog_BreedCode": 2,
+                "dog_ColorCode": 18,
+                "dog_CoatLength": "Short",
+                "dog_WorkType": 15,
+                "dog_BreedWatchList": 0,
+                "dog_CallName": "Example Dog Name",
+                "dog_KCPrimaryNbr": "KC1234",
+                "dog_PedigreeName": "Dog's pedigree name",
+                "dog_OwnerID": 15,
+                "dog_BreederID": 100,
+                "dog_CountryOfOriginCode": 202
+            }
+            ```
         </CodeGroup>
 
         <CodeGroup title="Response">
-        ```json {{title: 'Response'}}
-        {
-            "success": true,
-            "data":
-        {
-            "dog_DogID": "...", // Integer redacted
-            "dog_BreedCode": 2,
-            "dog_CallName": "Example Dog Name",
-            "dog_PedigreeName": "Dog's Pedigree Name",
-            "dog_BreederID": 100, // Integer redacted
-            "dog_OwnerID": 15, // Integer redacted
-            "dog_DOB": "2023-01-01", // Date string
-            "Current Age (mo)": "...", // Auto generated
-            "dog_ApproxBirthYr": "2023", // Year string
-            "dog_SireID": "...", // Integer redacted
-            "dog_DamID": "...", // Integer redacted
-            "dog_Sex": "M",
-            "dog_ColorCode": 18,
-            "dog_ProgramCode": 6,
-            "dog_StatusCode": 1,
-            "dog_SubStatusCode": 127,
-            "dog_WorkType": 15,
-            "dog_FrozenSemen": 0,
-            "dog_BreedWatchList": 0,
-            "dog_StudList": 0,
-            "dog_Parent": 0,
-            "dog_DateDied": null, // Date string
-            "dog_InbreedingCoefficient": "...", // Auto generated
-            "Gen Coef": "...", // Auto generated
-            "GenClass": "...", // Auto generated
-            "dog_EndReasonCode": null,
-            "dog_EndReasonCodeSecondary": null,
-            "dog_CountryOfOriginCode": 202,
-            "dog_SearchName": "...", // Auto generated
-            "dog_SchoolID": null,
-            "dog_NeuterOKDate": null, // Date string
-            "dog_NeuterDate": null, // Date string
-            "AgeNeutered": null,
-            "DeathAge": null,
-            "dog_K9DataID": null,
-            "dog_DeathComments": "",
-            "dog_TemperamentNotes": "",
-            "dog_PsnOKNeuter": "",
-            "dog_CoatLength": null,
-            "pedDogID01": "0", // unused
-            "pedDogTx01": "",  // unused
-            "pedDogTx02": "",  // unused
-            "pedDogTx14": "",  // unused
-            "pedDogTx15": "",  // unused
-            "pedDogTx03": "",  // unused
-            "pedDogTx04": "",  // unused
-            "pedDogTx05": "",  // unused
-            "pedDogTx06": "",  // unused
-            "pedDogTx07": "",  // unused
-            "pedDogTx08": "",  // unused
-            "pedDogTx09": "",  // unused
-            "pedDogTx10": "",  // unused
-            "pedDogTx11": "",  // unused
-            "pedDogTx12": "",  // unused
-            "pedDogTx13": "",  // unused
-            "dog_LastUpdated": "...",// Date string
-            "dog_LitterRecordID": null,
-            "dog_KCPrimaryID": null,
-            "dog_KCPrimaryNbr": "KC1234",
-            "dog_StatusChangeDate": "...", // Date String
-            "dog_AdultWeight": null,
-            "dog_AdultHeight": null,
-            "dog_BirthWeight": null,
-            "dog_UserIDEntering": "...", // User's id who entered
-            "dog_StatusChangeComments": null,
-            "dog_BirthWeightMetric": null,
-            "dog_AdultWeightMetric": null,
-            "dog_AdultHeightMetric": null,
-            "dog_DisplayName": "...", // Auto generated
-            "dog_PlacedWithID": null,
-            "dog_PlacedWithRelationID": "0",
-            "dog_SchoolIDBreeder": "",
-            "dog_PlacementRelationCode": "8",
-            "dog_UserIDLast": "...", // User's id who updated
-            "dog_CoopRelationStatus": null,
-            "dog_CoopBreedWatchList": "0",
-            "dog_PedigreeLink": "0",
-            "ps2_HipEHRText": null,
-            "ps2_HipEHRAge": null,
-            "ps2_HipLaxText": null,
-            "ps2_ElbowText": null,
-            "ps2_ElbAge": null,
-            "ps2_SkinScore": null,
-            "ps2_SkinAge": null,
-            "ps2_EyeScore": null,
-            "ps2_EyeAge": null,
-            "ps2_HeartScore": null,
-            "ps2_HeartAge": null,
-            "dog_PPRegionCode": null,
-            "dog_LocationCode": null,
-            "dog_GradRegion": null,
-            "dog_TrnRegionCode": null,
-            "dog_LocationStartDt": null,
-            "dog_CoatType": null,
-            "dog_DateEntered": null,
-            "dog_CoopNeuterOKDate": null,
-            "dog_ABCRelation": 0,
-            "dog_AgeText": "...", // Auto generated
-            "lit_LitterID": null,
-            "dog_PPRegionDate": null,
-            "dog_TrnRegionDate": null,
-            "dog_GradRegionDate": null,
-            "MicrochipNumber": null,
-            "MicrochipType": null,
-            "MicrochipDate": null,
-            "MicrochipSearchString": "",
-            "dog_PsnResponsible": null,
-            "dog_EBCRelation": 0,
-            "dog_OBCRelation": 0,
-            "dog_OldDogID": 0,
-            "dog_RankPhenotype": 0
-        }
-        }
-        ```
+            ```json {{title: 'Response'}}
+            {
+                "success": true,
+                "data":
+            {
+                "dog_DogID": "...", // Integer redacted
+                "dog_BreedCode": 2,
+                "dog_CallName": "Example Dog Name",
+                "dog_PedigreeName": "Dog's Pedigree Name",
+                "dog_BreederID": 100, // Integer redacted
+                "dog_OwnerID": 15, // Integer redacted
+                "dog_DOB": "2023-01-01", // Date string
+                "Current Age (mo)": "...", // Auto generated
+                "dog_ApproxBirthYr": "2023", // Year string
+                "dog_SireID": "...", // Integer redacted
+                "dog_DamID": "...", // Integer redacted
+                "dog_Sex": "M",
+                "dog_ColorCode": 18,
+                "dog_ProgramCode": 6,
+                "dog_StatusCode": 1,
+                "dog_SubStatusCode": 127,
+                "dog_WorkType": 15,
+                "dog_FrozenSemen": 0,
+                "dog_BreedWatchList": 0,
+                "dog_StudList": 0,
+                "dog_Parent": 0,
+                "dog_DateDied": null, // Date string
+                "dog_InbreedingCoefficient": "...", // Auto generated
+                "Gen Coef": "...", // Auto generated
+                "GenClass": "...", // Auto generated
+                "dog_EndReasonCode": null,
+                "dog_EndReasonCodeSecondary": null,
+                "dog_CountryOfOriginCode": 202,
+                "dog_SearchName": "...", // Auto generated
+                "dog_SchoolID": null,
+                "dog_NeuterOKDate": null, // Date string
+                "dog_NeuterDate": null, // Date string
+                "AgeNeutered": null,
+                "DeathAge": null,
+                "dog_K9DataID": null,
+                "dog_DeathComments": "",
+                "dog_TemperamentNotes": "",
+                "dog_PsnOKNeuter": "",
+                "dog_CoatLength": null,
+                "pedDogID01": "0", // unused
+                "pedDogTx01": "",  // unused
+                "pedDogTx02": "",  // unused
+                "pedDogTx14": "",  // unused
+                "pedDogTx15": "",  // unused
+                "pedDogTx03": "",  // unused
+                "pedDogTx04": "",  // unused
+                "pedDogTx05": "",  // unused
+                "pedDogTx06": "",  // unused
+                "pedDogTx07": "",  // unused
+                "pedDogTx08": "",  // unused
+                "pedDogTx09": "",  // unused
+                "pedDogTx10": "",  // unused
+                "pedDogTx11": "",  // unused
+                "pedDogTx12": "",  // unused
+                "pedDogTx13": "",  // unused
+                "dog_LastUpdated": "...",// Date string
+                "dog_LitterRecordID": null,
+                "dog_KCPrimaryID": null,
+                "dog_KCPrimaryNbr": "KC1234",
+                "dog_StatusChangeDate": "...", // Date String
+                "dog_AdultWeight": null,
+                "dog_AdultHeight": null,
+                "dog_BirthWeight": null,
+                "dog_UserIDEntering": "...", // User's id who entered
+                "dog_StatusChangeComments": null,
+                "dog_BirthWeightMetric": null,
+                "dog_AdultWeightMetric": null,
+                "dog_AdultHeightMetric": null,
+                "dog_DisplayName": "...", // Auto generated
+                "dog_PlacedWithID": null,
+                "dog_PlacedWithRelationID": "0",
+                "dog_SchoolIDBreeder": "",
+                "dog_PlacementRelationCode": "8",
+                "dog_UserIDLast": "...", // User's id who updated
+                "dog_CoopRelationStatus": null,
+                "dog_CoopBreedWatchList": "0",
+                "dog_PedigreeLink": "0",
+                "ps2_HipEHRText": null,
+                "ps2_HipEHRAge": null,
+                "ps2_HipLaxText": null,
+                "ps2_ElbowText": null,
+                "ps2_ElbAge": null,
+                "ps2_SkinScore": null,
+                "ps2_SkinAge": null,
+                "ps2_EyeScore": null,
+                "ps2_EyeAge": null,
+                "ps2_HeartScore": null,
+                "ps2_HeartAge": null,
+                "dog_PPRegionCode": null,
+                "dog_LocationCode": null,
+                "dog_GradRegion": null,
+                "dog_TrnRegionCode": null,
+                "dog_LocationStartDt": null,
+                "dog_CoatType": null,
+                "dog_DateEntered": null,
+                "dog_CoopNeuterOKDate": null,
+                "dog_ABCRelation": 0,
+                "dog_AgeText": "...", // Auto generated
+                "lit_LitterID": null,
+                "dog_PPRegionDate": null,
+                "dog_TrnRegionDate": null,
+                "dog_GradRegionDate": null,
+                "MicrochipNumber": null,
+                "MicrochipType": null,
+                "MicrochipDate": null,
+                "MicrochipSearchString": "",
+                "dog_PsnResponsible": null,
+                "dog_EBCRelation": 0,
+                "dog_OBCRelation": 0,
+                "dog_OldDogID": 0,
+                "dog_RankPhenotype": 0
+            }
+            }
+            ```
         </CodeGroup>
     </Col>
 </Row>
@@ -406,7 +406,8 @@ The dog model contains all the pertinent information on a given dog within IWDR.
         <Properties>
             <Property name="q" type="string">
                 A powerful query string to filter the returned data. The string format is as follows:
-                (field\~operator\~value). For example, (dog_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                (field\~operator\~value). For example, (dog_DogID\~equals\~1). To search using multiple fields just add
+                another query set. For example (field1\~equals\~4)(field2\~equals\~6).
                 The available operators are as follows:
                 - equals
                 - notequal
@@ -424,11 +425,13 @@ The dog model contains all the pertinent information on a given dog within IWDR.
                 The number of records to be returned. If number is more than all dogs owned, then all dogs will be
                 returned.
                 <Note>
-                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this
+                    parameter must be adjusted.
                 </Note>
             </Property>
             <Property name="skip" type="integer">
-                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used
+                to simulate a simple pagination functionality.
             </Property>
         </Properties>
     </Col>

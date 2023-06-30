@@ -1,0 +1,100 @@
+import {CodeGroup, Note} from '@/components/mdx'
+
+# Testing
+It is important to test your data and environment before importing data to the live database.
+
+## Environments
+There are two environments currently in use, the sandbox/dev environment and the live environment.
+
+### Sandbox/Dev
+The [sandbox environment](https://dev.iwdr.org/sandbox/) is a place to test your data and ensure you are getting the correct responses. The data in this
+environment is periodically refreshed and updated to reflect the data in the live environment. Any data that is
+imported in to the sandbox environment and not in the live environment will be deleted when this refresh happens.
+
+<Note alert>
+    The data in this environment will periodically be refreshed and any data not in the live environment will be lost.
+</Note>
+
+### Live
+The [live environment](https://iwdr.org/iwdr/) contains the real data that has already been tested in the sandbox.
+
+## How to Test
+Testing requests can be done using any program that can make http requests, Postman, Insomnia, Advanced, etc..., and
+providing it with your API key.
+
+<CodeGroup title="Examples">
+    ```php
+    <?php
+    // This example is done using PHP-cURL
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://dev.iwdr.org/sandbox/api/v1.php?table=Elbow&action=insert',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>
+        'local_dog_id=1234&pt_DogID=1234&pt_DBImportKey=1234&pt_Date=2023-06-20&pt_TraitCodeID=1234&pt_DetailsOfProblem=Test%20data',
+        CURLOPT_HTTPHEADER => array(
+            'Content-Type: application/x-www-form-urlencoded',
+            'X-Auth-Token: abcdefg1234567',
+            'Cookie: runnerSession=abc1234; abcdefg1234567'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    echo $response;
+    ```
+
+    ```js
+    // This example is done using JavaScript-Fetch
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    myHeaders.append("X-Auth-Token", "abcdefg1234567");
+    myHeaders.append("Cookie", "runnerSession=abc1234; abcdefg1234567");
+
+    var urlencoded = new URLSearchParams();
+    urlencoded.append("local_dog_id", "1234");
+    urlencoded.append("pt_DogID", "1234");
+    urlencoded.append("pt_DBImportKey", "1234");
+    urlencoded.append("pt_Date", "2023-06-20");
+    urlencoded.append("pt_TraitCodeID", "1234");
+    urlencoded.append("pt_DetailsOfProblem", "Test data");
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+
+    fetch("https://dev.iwdr.org/sandbox/api/v1.php?table=Elbow&action=insert", requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+    ```
+
+    ```java
+    // This example was done using Java-OkHttp
+
+    OkHttpClient client = new OkHttpClient().newBuilder().build();
+    MediaType mediaType = MediaType.parse("application/x-www-form-urlencoded");
+    RequestBody body = RequestBody.create(mediaType, "local_dog_id=1234&pt_DogID=1234&pt_DBImportKey=1234&pt_Date=2023-06-20&pt_TraitCodeID=1234&pt_DetailsOfProblem=Test data");
+    Request request = new Request.Builder()
+        .url("https://dev.iwdr.org/sandbox/api/v1.php?table=Elbow&action=insert")
+        .method("POST", body)
+        .addHeader("Content-Type", "application/x-www-form-urlencoded")
+        .addHeader("X-Auth-Token", "abcdefg1234567")
+        .addHeader("Cookie", "runnerSession=abc1234; abcdefg1234567")
+        .build();
+    Response response = client.newCall(request).execute();
+    ```
+</CodeGroup>
