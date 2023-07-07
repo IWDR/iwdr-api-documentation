@@ -115,7 +115,7 @@ export function TextField({
                         readOnly={readonly}
                         disabled={readonly || disabled}
                         className={clsx(
-                            'block w-full rounded-md border p-3 shadow-sm focus-visible:outline-none dark:bg-zinc-900 dark:placeholder:text-zinc-400 sm:text-sm',
+                            'bg-transparent block w-full rounded-md border p-3 shadow-sm focus-visible:outline-none dark:bg-zinc-900 dark:placeholder:text-zinc-400 sm:text-sm',
                             copyable && 'cursor-pointer',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Modal } from '@/components/Modal';
 import { Dialog } from '@headlessui/react';
 import { Button } from '@/components/mdx';
@@ -10,6 +10,7 @@ import { SelectField } from '@/components/SelectField';
 import axios from '@/lib/axios';
 import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
+import {TextField} from "@/components/TextField";
 
 export function CreateApplicationReviewDialog({ app, onSave }) {
     const [open, setOpen] = useState(false);
@@ -19,6 +20,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     
     const [appStatus, setAppStatus] = useState(app.application_progress_id);
     const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
+    const [interviewDateTime, setInterviewDateTime] = useState(app.interview_date_time);
 
     // Get the breeds as text not numbers
     const {
@@ -244,6 +246,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
             .patch(`/api/access-application/${appData.data.id}`, {
                 application_progress_id: appStatus,
                 application_progress_notes: application_progress_notes,
+                interview_date_time: interviewDateTime,
             })
             .then((res) => {
                 if (res.status !== 200) return;
@@ -262,14 +265,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
             })
             .finally(() => setLoading(false));
     };
-    
-    useEffect(() => {
-       // console.log(application_progress_options);
-    });
 
     return (
         <>
-            <Button variant="text" onClick={() => setOpen(true)} className="ml-2">
+            <Button variant="" onClick={() => setOpen(true)} className="bg-transparent">
                 View
             </Button>
             <Modal open={open} openModifier={setOpen}>
@@ -382,6 +381,16 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             onChange={setAppStatus}
                             value={appStatus}
                         />
+                        
+                        <TextField
+                            type="datetime-local"
+                            id="interview-time"
+                            name="interview-time"
+                            label="Interview Date/Time"
+                            value={interviewDateTime}
+                            onChange={setInterviewDateTime}
+                            horizontal
+                        />
 
                         <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5">
                             <div>
@@ -400,7 +409,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                         rows="4"
                                         value={application_progress_notes}
                                         onChange={(e) => setAppProgressNotes(e.target.value)}
-                                        className="dark:text-whiteblock min-h-fit w-full resize-none rounded-md border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-zinc-400 sm:text-sm"
+                                        className="block min-h-fit w-full rounded-md bg-gray-50 border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-white sm:text-sm"
                                     />
                                 </div>
                             </div>
