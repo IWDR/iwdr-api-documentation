@@ -9,7 +9,6 @@ import LoadingOverlay from '@/components/LoadingOverlay';
 import clsx from 'clsx';
 import useSWR from 'swr';
 import { useRef } from 'react';
-import {TextField} from "@/components/TextField";
 
 export async function getServerSideProps() {
     return {
@@ -66,7 +65,7 @@ function StatusIndicator({ app }) {
 
 function Comments({ notes }) {
     return (
-        <div className="w-60 whitespace-normal">
+        <div className="w-52 whitespace-normal">
             {notes}
         </div>
     );

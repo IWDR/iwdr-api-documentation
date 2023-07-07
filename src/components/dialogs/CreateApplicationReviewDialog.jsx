@@ -226,7 +226,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
-                  return { text: row.apc_ProgressText, value: row.apc_AppProgressCode };
+                  return { text: row.sort_order + "-" + row.apc_ProgressText, value: row.apc_AppProgressCode };
               })
             : error_option.map((row) => {
                   return { label: row.text, value: row.value };
@@ -262,6 +262,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
             })
             .finally(() => setLoading(false));
     };
+    
+    useEffect(() => {
+       // console.log(application_progress_options);
+    });
 
     return (
         <>
