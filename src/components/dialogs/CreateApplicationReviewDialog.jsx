@@ -13,10 +13,12 @@ import { useLoadingStore } from '@/stores/loadingStore';
 
 export function CreateApplicationReviewDialog({ app, onSave }) {
     const [open, setOpen] = useState(false);
-    const [appStatus, setAppStatus] = useState([]);
     const error_option = [{ label: 'Nothing', value: '' }];
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
+    
+    const [appStatus, setAppStatus] = useState(app.application_progress_id);
+    const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
 
     // Get the breeds as text not numbers
     const {
@@ -215,6 +217,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         ],
     };
 
+    // Get the application status options for the dropdown
     const {
         data: appProgressData,
         error: appProgressError,
@@ -223,7 +226,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
-                  return { text: row.apc_ProgressText, value: row.apc_AppProgressCode };
+                  return { text: row.sort_order + "-" + row.apc_ProgressText, value: row.apc_AppProgressCode };
               })
             : error_option.map((row) => {
                   return { label: row.text, value: row.value };
@@ -235,10 +238,13 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
 
     const submit = (e) => {
         e.preventDefault();
-
+        
         setLoading(true);
         axios
-            .patch(`/api/access-application/${appData.data.id}`, { application_progress_id: appStatus })
+            .patch(`/api/access-application/${appData.data.id}`, {
+                application_progress_id: appStatus,
+                application_progress_notes: application_progress_notes,
+            })
             .then((res) => {
                 if (res.status !== 200) return;
 
@@ -256,11 +262,15 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
             })
             .finally(() => setLoading(false));
     };
+    
+    useEffect(() => {
+       // console.log(application_progress_options);
+    });
 
     return (
         <>
-            <Button variant="text" onClick={() => setOpen(true)}>
-                View Application
+            <Button variant="text" onClick={() => setOpen(true)} className="ml-2">
+                View
             </Button>
             <Modal open={open} openModifier={setOpen}>
                 <Dialog.Title as="h1">API Access Review</Dialog.Title>
@@ -314,6 +324,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <TextArea
                             name="project_leader_email"
                             id="project_leader_email"
@@ -323,6 +334,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <TextArea
                             name="project_leader_phone"
                             id="project_leader_phone"
@@ -332,6 +344,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <TextArea
                             name="project_desired_start_date"
                             id="project_desired_start_date"
@@ -341,6 +354,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <TextTable
                             name="project_current_storage_solution"
                             id="project_current_storage_solution"
@@ -349,6 +363,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <TextTable
                             name="project_desired_api_usage"
                             id="project_desired_api_usage"
@@ -357,6 +372,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             readonly
                             disabled
                         />
+
                         <SelectField
                             label="Application Status"
                             id="application-status"
@@ -366,6 +382,29 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             onChange={setAppStatus}
                             value={appStatus}
                         />
+
+                        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5">
+                            <div>
+                                <label
+                                    htmlFor="application_progress_notes"
+                                    className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white"
+                                >
+                                    Additional Comments
+                                </label>
+                            </div>
+                            <div className="mt-2 sm:col-span-2 sm:mt-0">
+                                <div className="relative flex max-w-lg flex-grow rounded-md">
+                                    <textarea
+                                        name="application_progress_notes"
+                                        id="application_progress_notes"
+                                        rows="4"
+                                        value={application_progress_notes}
+                                        onChange={(e) => setAppProgressNotes(e.target.value)}
+                                        className="dark:text-whiteblock min-h-fit w-full resize-none rounded-md border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-zinc-400 sm:text-sm"
+                                    />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div className="flex flex-col justify-center space-y-3 border-t pt-4">
                         <Button className="mr-2" type="submit">

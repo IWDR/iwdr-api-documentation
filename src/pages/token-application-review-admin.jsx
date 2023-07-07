@@ -63,11 +63,18 @@ function StatusIndicator({ app }) {
     );
 }
 
+function Comments({ notes }) {
+    return (
+        <div className="w-52 whitespace-normal">
+            {notes}
+        </div>
+    );
+}
+
 export default function TokenApplicationReview() {
     const { user } = useAuth();
     const ref = useRef();
 
-    // TODO: make this a helper function since it is used multiple times on different pages
     if (!user) {
         return <LoadingOverlay />;
     }
@@ -92,6 +99,10 @@ export default function TokenApplicationReview() {
         {
             text: 'Status',
             component: (item) => <StatusIndicator app={item} />,
+        },
+        {
+            text: 'Comments',
+            component: (item) => <Comments notes={item.application_progress_notes} />,
         },
         {
             text: 'Actions',
