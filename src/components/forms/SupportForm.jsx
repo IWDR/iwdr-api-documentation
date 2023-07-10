@@ -43,21 +43,17 @@ export function SupportForm() {
             name: user.usr_FirstName + " " + user.usr_LastName,
             subject: reason,
             message: detailsRef.current.getContent(),
-            alert: true,
-            autorespond: false,
             attachments: attachments,
-            source: 'API',
         };
         console.log(ticket);
 
         setLoading(true);
         axios
-            .post('api/support', ticket)
+            .post('/api/support', ticket)
             .then((res) => {
-                if (res.status !== 200) return;
+                if (res.status !== 204) return;
 
-                let ticketID = res.data.data.ticket;
-                successAlert('Support ticket submitted, your ticket id is #' + ticketID, true, 6000);
+                successAlert('Support ticket submitted successfully', true, 6000);
                 reset();
             })
             .catch((err) => {
