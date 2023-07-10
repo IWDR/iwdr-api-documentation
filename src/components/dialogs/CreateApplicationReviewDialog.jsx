@@ -20,7 +20,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     
     const [appStatus, setAppStatus] = useState(app.application_progress_id);
     const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
-    const [interviewDateTime, setInterviewDateTime] = useState(app.interview_date_time);
+    const [interviewDateTime, setInterviewDateTime] = useState(null);
 
     // Get the breeds as text not numbers
     const {
@@ -387,8 +387,8 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             id="interview-time"
                             name="interview-time"
                             label="Interview Date/Time"
+                            onChange={(e) => setInterviewDateTime(e.target.value)}
                             value={interviewDateTime}
-                            onChange={setInterviewDateTime}
                             horizontal
                         />
 
