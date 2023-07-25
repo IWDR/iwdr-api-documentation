@@ -76,7 +76,6 @@ export default function TokenApplication(props) {
         return {text: row.label, value: row.id}
     }) : error_option;
 
-
     const {
         data: current_storage_vals,
         isLoading: isLoadingCurrentStorageVals,
@@ -105,15 +104,15 @@ export default function TokenApplication(props) {
             {
                 label: "Basic Dog Information",
                 help: "(breed, date of birth, name, sex, sire, dam, etc...)",
-                field: "project_current_storage_breed_info"
+                field: "project_current_storage_breed_info",
             },
             {
                 label: "Diagnoses",
-                field: "project_current_storage_diagnoses"
+                field: "project_current_storage_diagnoses",
             },
             {
                 label: "Behavior Checklists",
-                field: "project_current_storage_bcls"
+                field: "project_current_storage_bcls",
             }
         ]
     };
@@ -121,93 +120,65 @@ export default function TokenApplication(props) {
         headers: api_usage_headers,
         rows: [
             {
-                label: "Basic Dog Information- New puppies as born",
-                field: "api_usage_dog_info_puppies"
+                label: "Dog Record Created For - New puppies as born",
+                field: "api_usage_dog_info_puppies",
+                readonly: [1,0,0]
             },
             {
-                label: "Basic Dog Information- Updates on dog's names, status, death dates, etc",
-                field: "api_usage_dog_info_ancestors"
+                label: "Basic Dog Information (Status, Names, Dates)",
+                field: "api_usage_dog_info_ancestors",
+                readonly: [1,0,0]
             },
             {
                 label: "Dog's Status History",
-                field: "api_usage_status_history"
-            },
-            {
-                label: "Annual Health Survey",
-                field: "api_usage_health_survey"
+                field: "api_usage_status_history",
+                readonly: [1,0,1]
             },
             {
                 label: "Behavior Checklists",
-                field: "api_usage_bcls"
-            },
-            {
-                label: "Elbow",
-                field: "api_usage_elbows"
-            },
-            {
-                label: "PennHIP",
-                field: "api_usage_pennhip"
-            },
-            {
-                label: "Hip OFA",
-                field: "api_usage_hip_extended_view"
-            },
-            {
-                label: "Hip BVA",
-                field: "api_usage_hip_bva"
-            },
-            {
-                label: "Hip FCI",
-                field: "api_usage_hip_fci"
-            },
-            {
-                label: "Eye",
-                field: "api_usage_eye"
-            },
-            {
-                label: "Heart",
-                field: "api_usage_heart"
-            },
-            {
-                label: "Skin",
-                field: "api_usage_skin_quick"
+                field: "api_usage_bcls",
+                readonly: [1,0,0]
             },
             {
                 label: "General Health Diagnoses",
-                field: "api_usage_health_diagnoses"
+                field: "api_usage_health_diagnoses",
+                readonly: [1,0,0]
             },
             {
                 label: "Genetic Test Results",
-                field: "api_usage_genetic_test_results"
+                field: "api_usage_genetic_test_results",
+                readonly: [1,0,1]
             },
             {
                 label: "Weight",
-                field: "api_usage_weights"
+                field: "api_usage_weights",
+                readonly: [1,0,0]
             },
             {
                 label: "Estrus's and Litter's",
-                field: "api_usage_estrus_litter"
+                field: "api_usage_estrus_litter",
+                readonly: [1,0,1]
             },
             {
                 label: "Estrus Details",
-                field: "api_usage_estrus_details"
+                field: "api_usage_estrus_details",
+                readonly: [1,0,0]
             },
             {
                 label: "Laboratory Tests",
-                field: "api_usage_lab_tests"
-            },
-            {
-                label: "Surgery",
-                field: "api_usage_surgery"
+                field: "api_usage_lab_tests",
+                readonly: [1,0,1]
             },
             {
                 label: "Vaccines",
-                field: "api_usage_vaccines"
+                field: "api_usage_vaccines",
+                readonly: [1,0,1]
             },
             {
-                label: "X-Ray Imaging",
-                field: "api_usage_xray"
-            }
+                label: "Annual Health Survey",
+                field: "api_usage_health_survey",
+                readonly: [0,1,1]
+            },
         ]
     };
 
@@ -348,19 +319,30 @@ export default function TokenApplication(props) {
                             horizontal
                             className="max-sm:pt-3"
                         />
-                        <RadioField
-                            name="organization_data_accuracy_impression"
-                            id="organization_data_accuracy_impression"
-                            label="Import's data accuracy"
-                            help="Your impression of data accuracy within your database? i.e duplicates, data completeness &amp; correctness, data rigidity."
-                            options={data_accuracy_options}
-                            onChange={(e) => setOrganizationDataAccuracyImpression(e.target.checked ? e.target.value : null)}
-                            error={!!organization_data_accuracy_impression_error}
-                            error_message={organization_data_accuracy_impression_error}
-                            horizontal
-                            required
-                            className="max-sm:pt-3"
-                        />
+                        
+                        <div>
+                            <RadioField
+                                name="organization_data_accuracy_impression"
+                                id="organization_data_accuracy_impression"
+                                label="Import's data accuracy"
+                                help="Do you have data on all of your dogs in IWDR or your own database or spreadsheet? Can you identify that you are the managing owner of the dogs? For dogs existing in both IWDR and your own database/spreadsheet, can you match your dogs with their IWDR Dog IDs? How accurate are your birthdates and pedigrees?"
+                                options={data_accuracy_options}
+                                onChange={(e) => setOrganizationDataAccuracyImpression(e.target.checked ? e.target.value : null)}
+                                error={!!organization_data_accuracy_impression_error}
+                                error_message={organization_data_accuracy_impression_error}
+                                required
+                                className="max-sm:pt-3 sm:grid grid-cols-1 sm:gap-4 sm:pt-5"
+                            />
+                            <div className="text-xs mt-5">
+                                <b>Excellent</b>: All birthdates are accurate, IWDR Dog IDs are matched for both existing dogs and ancestors, and where external breeding dogs have been used we know who owns them.
+                                <br />
+                                <b>Needs some clean up</b>: Generally birthdates are accurate and dog IDs are matched appropriately, however some ancestral data may be missing or we might need to research where external breeding dogs came from.
+                                <br />
+                                <b>Needs lots of clean up</b>: There are some gaps in our data, not all birthdates are accurate, and some ancestors owners are unknown
+                                <br />
+                                <b>I don't know</b>: IWDR can meet with your team to review the data you have and advise.
+                            </div>
+                        </div>
                     </div>
                     <div className="divide-y divide-zinc-200 dark:divide-zinc-600 space-y-8">
                         {/* PROJECT INFO */}
