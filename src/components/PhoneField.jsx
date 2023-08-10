@@ -82,7 +82,7 @@ export function PhoneField({
     };
 
     return (
-        <div className={clsx(className, horizontal && 'sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5')}>
+        <div className={clsx(className, horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5')}>
             <div>
                 <label htmlFor={name} className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white">
                     {label}
@@ -95,7 +95,7 @@ export function PhoneField({
                 </label>
                 {error && <InputError error_message={error_message} id={id} />}
             </div>
-            <div className={clsx(horizontal ? 'mt-2 sm:col-span-2 sm:mt-0' : 'mt-1 flex')}>
+            <div className={clsx(horizontal ? 'mt-2 sm:mt-0' : 'mt-1 flex')}>
                 <div className="not-prose relative flex max-w-lg flex-grow items-stretch rounded-md shadow-sm focus-within:z-10">
                     <Listbox value={country_code} onChange={setCountryCode} defaultValue={country_code}>
                         {({ open }) => (

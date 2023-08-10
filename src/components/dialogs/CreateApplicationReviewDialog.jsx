@@ -1,56 +1,54 @@
-import { useState } from 'react';
-import { Modal } from '@/components/Modal';
-import { Dialog } from '@headlessui/react';
-import { Button } from '@/components/mdx';
+import {useState} from 'react';
+import {Modal} from '@/components/Modal';
+import {Dialog} from '@headlessui/react';
+import {Button} from '@/components/mdx';
 import RadioField from '@/components/RadioField';
 import useSWR from 'swr';
-import { TextArea } from '@/components/TextArea';
-import { TextTable } from '@/components/TextTable';
-import { SelectField } from '@/components/SelectField';
+import {TextArea} from '@/components/TextArea';
+import {TextTable} from '@/components/TextTable';
+import {SelectField} from '@/components/SelectField';
 import axios from '@/lib/axios';
-import { useAlertStore } from '@/stores/alertStore';
-import { useLoadingStore } from '@/stores/loadingStore';
-import { TextField } from '@/components/TextField';
+import {useAlertStore} from '@/stores/alertStore';
+import {useLoadingStore} from '@/stores/loadingStore';
+import {TextField} from '@/components/TextField';
 import CheckboxField from '@/components/CheckboxField';
+import clsx from "clsx";
+import {ComboboxField} from "@/components/ComboboxField";
 
-export function CreateApplicationReviewDialog({ app, onSave }) {
+export function CreateApplicationReviewDialog({app, onSave}) {
     const [open, setOpen] = useState(false);
-    const error_option = [{ label: 'Nothing', value: '' }];
-    const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
-    const { setLoading } = useLoadingStore();
+    const error_option = [{label: 'Nothing', value: ''}];
+    const {successAlert, errorAlert, serverErrorAlert} = useAlertStore();
+    const {setLoading} = useLoadingStore();
 
     const [appStatus, setAppStatus] = useState(app.application_progress_id);
-    const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
-    const [interviewDateTime, setInterviewDateTime] = useState(null);
+    const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes ?? '');
+    const [interviewDateTime, setInterviewDateTime] = useState('');
+    const [interviewDateTimeError, setInterviewDateTimeError] = useState(null);
+    const [username, setUsername] = useState('');
+    const [usernameError, setUsernameError] = useState(null);
+    const [permissionLevel, setPermissionLevel] = useState('');
+    const [permissionLevelError, setPermissionLevelError] = useState(null);
 
     // Get the breeds as text not numbers
     const {
         data: appData,
         isLoading: isLoadingApp,
         error: errorApp,
-    } = useSWR({ resource: `/api/access-application/${app.id}` });
-    const organization_breeds_to_import =
-        !errorApp && !isLoadingApp ? appData.data.organization_breeds_to_import : error_option;
-    let breeds = '';
-    for (let i = 0; i < organization_breeds_to_import.length; i++) {
-        if (i === organization_breeds_to_import.length - 1) {
-            breeds += organization_breeds_to_import[i];
-        } else {
-            breeds += organization_breeds_to_import[i] + ', ';
-        }
-    }
+    } = useSWR({resource: `/api/access-application/${app.id}`});
+    const organization_breeds_to_import = !isLoadingApp && !errorApp ? appData.data.organization_breeds_to_import : error_option;
 
     // Get the options for data accuracy
     const {
         data: data_accuracy_types,
         isLoading: isLoadingDataAccuracyTypes,
         error: loadingDataAccuracyTypesError,
-    } = useSWR({ resource: '/api/references/data-accuracy-impression' });
+    } = useSWR({resource: '/api/references/data-accuracy-impression'});
     const data_accuracy_options =
         !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
             ? data_accuracy_types.data.map((row) => {
-                  return { text: row.label, value: row.id };
-              })
+                return {text: row.label, value: row.id};
+            })
             : error_option;
 
     // Get current storage options
@@ -58,15 +56,15 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: current_storage_vals,
         isLoading: isLoadingCurrentStorageVals,
         error: loadingCurrentStorageValuesError,
-    } = useSWR({ resource: '/api/references/current-storage-solution' });
+    } = useSWR({resource: '/api/references/current-storage-solution'});
     const current_storage_values =
         !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError
             ? current_storage_vals.data.map((row) => {
-                  return { label: row.label, value: row.id };
-              })
+                return {label: row.label, value: row.id};
+            })
             : error_option.map((row) => {
-                  return { label: row.text, value: row.value };
-              });
+                return {label: row.text, value: row.value};
+            });
 
     const current_storage_options = {
         headers: current_storage_values,
@@ -94,15 +92,15 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: api_usage_vals,
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
-    } = useSWR({ resource: '/api/references/application-usage' });
+    } = useSWR({resource: '/api/references/application-usage'});
     const api_usage_headers =
         !isLoadingAPIUsageVals && !loadingAPIUsageValsError
             ? api_usage_vals.data.map((row) => {
-                  return { label: row.label, value: row.id };
-              })
+                return {label: row.label, value: row.id};
+            })
             : error_option.map((row) => {
-                  return { label: row.text, value: row.value };
-              });
+                return {label: row.text, value: row.value};
+            });
 
     const api_usage_options = {
         headers: api_usage_headers,
@@ -175,19 +173,27 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: appProgressData,
         error: appProgressError,
         isLoading: appProgressIsLoading,
-    } = useSWR({ resource: '/api/references/application-progress?api=1' });
+    } = useSWR({resource: '/api/references/application-progress?api=1'});
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
-                  return { text: row.sort_order + '-' + row.apc_ProgressText, value: row.apc_AppProgressCode };
-              })
+                return {text: row.sort_order + '-' + row.apc_ProgressText, value: row.apc_AppProgressCode};
+            })
             : error_option.map((row) => {
-                  return { label: row.text, value: row.value };
-              });
+                return {label: row.text, value: row.value};
+            });
 
-    const setErrors = () => {
-        errorAlert('Error occurred while saving', true, 6000);
-    };
+    const {
+        data: permission_groups,
+        isLoading: isLoadingPermissionGroups,
+        error: errorLoadingPermissionGroups,
+    } = useSWR({resource: '/api/permission-groups'});
+    const permission_group_options =
+        !isLoadingPermissionGroups && !errorLoadingPermissionGroups
+            ? permission_groups.data?.map((row) => {
+                return {text: row.Label, value: row.GroupID};
+            })
+            : error_option;
 
     const submit = (e) => {
         e.preventDefault();
@@ -198,6 +204,8 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                 application_progress_id: appStatus,
                 application_progress_notes: application_progress_notes,
                 interview_date_time: interviewDateTime,
+                username: username,
+                permission_group: permissionLevel
             })
             .then((res) => {
                 if (res.status !== 200) return;
@@ -212,7 +220,13 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                     return;
                 }
 
-                setErrors(err.response.data.errors);
+
+                if(err?.response?.data?.errors){
+                    errorAlert(err.response.data.message, true, 6000);
+                    setPermissionLevelError(err.response.data.errors.permission_group ?? null);
+                    setUsernameError(err.response.data.errors.username ?? null);
+                    setInterviewDateTimeError(err.response.data.errors.interview_date_time ?? null);
+                }
             })
             .finally(() => setLoading(false));
     };
@@ -230,23 +244,24 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             Organization Information
                         </div>
 
-                        <TextArea
+                        <TextField
                             name="organization_total_dogs_to_import"
                             id="organization_total_dogs_to_import"
-                            value={app.organization_total_dogs_to_import}
+                            value={app.organization_total_dogs_to_import ?? undefined}
                             label="Total number of dogs in your database that need importing to IWDR"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <ComboboxField
                             name="organization_breeds_to_import"
                             id="organization_breeds_to_import"
-                            value={breeds}
+                            value={organization_breeds_to_import.map(val => val.value)}
                             label="Total number of dogs in your database that need importing to IWDR"
+                            options={organization_breeds_to_import}
+                            multiple
                             horizontal
-                            readonly
                             disabled
                         />
 
@@ -265,40 +280,40 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             Project Information
                         </div>
 
-                        <TextArea
+                        <TextField
                             name="project_leader_name"
                             id="project_leader_name"
-                            value={app.project_leader_name}
+                            value={app.project_leader_name ?? undefined}
                             label="Project leader's name"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_leader_email"
                             id="project_leader_email"
-                            value={app.project_leader_email}
+                            value={app.project_leader_email ?? undefined}
                             label="Project leader's email"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_leader_phone"
                             id="project_leader_phone"
-                            value={app.project_leader_phone}
+                            value={app.project_leader_phone ?? undefined}
                             label="Project leader's phone number"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_desired_start_date"
                             id="project_desired_start_date"
-                            value={app.project_desired_start_date}
+                            value={app.project_desired_start_date ?? undefined}
                             label="Project desired start data"
                             horizontal
                             readonly
@@ -334,15 +349,15 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             />
                         </div>
 
-                        <TextArea
+                        {app.custom_development_request ? <TextArea
                             name="custom_development_request_comments"
                             id="custom_development_request_comments"
                             label="Details about custom development request"
-                            value={app.custom_development_request_comments}
+                            value={app.custom_development_request_comments ?? "N/A"}
                             readonly
                             disabled
                             rows={4}
-                        />
+                        /> : <></>}
 
                         <SelectField
                             label="Application Status"
@@ -354,17 +369,46 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             value={appStatus}
                         />
 
-                        <TextField
-                            type="datetime-local"
-                            id="interview-time"
-                            name="interview-time"
-                            label="Interview Date/Time"
-                            onChange={(e) => setInterviewDateTime(e.target.value)}
-                            value={interviewDateTime}
-                            horizontal
-                        />
+                        <div className={clsx(!(appStatus === 9 || appStatus === 10) && "hidden")}>
+                            <TextField
+                                type="datetime-local"
+                                id="interview-time"
+                                name="interview-time"
+                                label="Interview Date/Time"
+                                readonly={appStatus === 10}
+                                onChange={(e) => setInterviewDateTime(e.target.value)}
+                                error={!!interviewDateTimeError}
+                                error_message={interviewDateTimeError}
+                                value={interviewDateTime}
+                                horizontal
+                            />
+                        </div>
 
-                        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5">
+                        <div className={clsx(appStatus !== 12 && "hidden")}>
+                            <TextField
+                                type={"text"}
+                                id={"api-user-username"}
+                                name={"api-user-username"}
+                                label={"API User's Username"}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                horizontal
+                                error={!!usernameError}
+                                error_message={usernameError}
+                            />
+                            <SelectField
+                                label={"Assign Permission Group"}
+                                id={"api-user-permission-lvl"}
+                                options={permission_group_options}
+                                value={permissionLevel}
+                                onChange={setPermissionLevel}
+                                horizontal
+                                error={!!permissionLevelError}
+                                error_message={permissionLevelError}
+                            />
+                        </div>
+
+                        <div className="sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5">
                             <div>
                                 <label
                                     htmlFor="application_progress_notes"
@@ -373,7 +417,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                     Additional Comments
                                 </label>
                             </div>
-                            <div className="mt-2 sm:col-span-2 sm:mt-0">
+                            <div className="mt-2 sm:mt-0">
                                 <div className="relative flex max-w-lg flex-grow rounded-md">
                                     <textarea
                                         name="application_progress_notes"

@@ -35,7 +35,7 @@ export function TextArea({
                         readOnly={readonly}
                         disabled={disabled}
                         className={clsx(
-                            'block min-h-fit w-full resize-none rounded-md border focus-visible:outline-none dark:bg-zinc-900 dark:text-zinc-400 sm:text-sm',
+                            'block min-h-fit w-full resize-none rounded-md border focus-visible:outline-none dark:bg-zinc-900 dark:text-zinc-400 sm:text-sm p-0',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style
                         )}

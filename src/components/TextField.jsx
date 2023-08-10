@@ -90,7 +90,7 @@ export function TextField({
     const readonly_style = 'disabled:cursor-text disabled:border-zinc-500 disabled:bg-zinc-100 disabled:text-zinc-500';
 
     return (
-        <div className={clsx(className, horizontal && 'sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5')}>
+        <div className={clsx(className, horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5')}>
             <div>
                 <label htmlFor={name} className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white">
                     {label}
@@ -103,7 +103,7 @@ export function TextField({
                 </label>
                 {error && <InputError error_message={error_message} id={id} />}
             </div>
-            <div className={clsx(horizontal ? 'mt-2 sm:col-span-2 sm:mt-0' : 'mt-1 flex')}>
+            <div className={clsx(horizontal ? 'mt-2 sm:mt-0' : 'mt-1 flex')}>
                 <div className="relative flex max-w-lg flex-grow rounded-md shadow-sm">
                     <input
                         type={type}

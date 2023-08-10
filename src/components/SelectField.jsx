@@ -63,7 +63,7 @@ export function SelectField({
                 {({ open }) => (
                     <div
                         className={clsx(
-                            horizontal && 'sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5',
+                            horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5',
                             className
                         )}
                     >
@@ -79,7 +79,7 @@ export function SelectField({
                             </Listbox.Label>
                             {error && <InputError error_message={error_message} id={id} />}
                         </div>
-                        <div className="not-prose relative mt-2 block max-w-lg sm:col-span-2 sm:mt-0">
+                        <div className="not-prose relative mt-2 block max-w-lg sm:mt-0">
                             <Listbox.Button
                                 className={clsx(
                                     error ? error_style : clean_style,
