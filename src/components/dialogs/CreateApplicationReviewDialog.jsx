@@ -10,14 +10,15 @@ import { SelectField } from '@/components/SelectField';
 import axios from '@/lib/axios';
 import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
-import {TextField} from "@/components/TextField";
+import { TextField } from '@/components/TextField';
+import CheckboxField from '@/components/CheckboxField';
 
 export function CreateApplicationReviewDialog({ app, onSave }) {
     const [open, setOpen] = useState(false);
     const error_option = [{ label: 'Nothing', value: '' }];
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
-    
+
     const [appStatus, setAppStatus] = useState(app.application_progress_id);
     const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
     const [interviewDateTime, setInterviewDateTime] = useState(null);
@@ -122,54 +123,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                 value: appData.data?.api_usage_status_history[0]?.label ?? '',
             },
             {
-                label: 'Annual Health Survey',
-                field: 'api_usage_health_survey',
-                value: appData.data?.api_usage_health_survey[0]?.label ?? '',
-            },
-            {
                 label: 'Behavior Checklists',
                 field: 'api_usage_bcls',
                 value: appData.data?.api_usage_bcls[0]?.label ?? '',
-            },
-            {
-                label: 'Elbow',
-                field: 'api_usage_elbows',
-                value: appData.data?.api_usage_elbows[0]?.label ?? '',
-            },
-            {
-                label: 'PennHIP',
-                field: 'api_usage_pennhip',
-                value: appData.data?.api_usage_pennhip[0]?.label ?? '',
-            },
-            {
-                label: 'Hip OFA',
-                field: 'api_usage_hip_extended_view',
-                value: appData.data?.api_usage_hip_extended_view[0]?.label ?? '',
-            },
-            {
-                label: 'Hip BVA',
-                field: 'api_usage_hip_bva',
-                value: appData.data?.api_usage_hip_bva[0]?.label ?? '',
-            },
-            {
-                label: 'Hip FCI',
-                field: 'api_usage_hip_fci',
-                value: appData.data?.api_usage_hip_fci[0]?.label ?? '',
-            },
-            {
-                label: 'Eye',
-                field: 'api_usage_eye',
-                value: appData.data?.api_usage_eye[0]?.label ?? '',
-            },
-            {
-                label: 'Heart',
-                field: 'api_usage_heart',
-                value: appData.data?.api_usage_heart[0]?.label ?? '',
-            },
-            {
-                label: 'Skin',
-                field: 'api_usage_skin_quick',
-                value: appData.data?.api_usage_skin_quick[0]?.label ?? '',
             },
             {
                 label: 'General Health Diagnoses',
@@ -202,19 +158,14 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                 value: appData.data?.api_usage_lab_tests[0]?.label ?? '',
             },
             {
-                label: 'Surgery',
-                field: 'api_usage_surgery',
-                value: appData.data?.api_usage_surgery[0]?.label ?? '',
-            },
-            {
                 label: 'Vaccines',
                 field: 'api_usage_vaccines',
                 value: appData.data?.api_usage_vaccines[0]?.label ?? '',
             },
             {
-                label: 'X-Ray Imaging',
-                field: 'api_usage_xray',
-                value: appData.data?.api_usage_xray[0]?.label ?? '',
+                label: 'Annual Health Survey',
+                field: 'api_usage_health_survey',
+                value: appData.data?.api_usage_health_survey[0]?.label ?? '',
             },
         ],
     };
@@ -228,7 +179,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
-                  return { text: row.sort_order + "-" + row.apc_ProgressText, value: row.apc_AppProgressCode };
+                  return { text: row.sort_order + '-' + row.apc_ProgressText, value: row.apc_AppProgressCode };
               })
             : error_option.map((row) => {
                   return { label: row.text, value: row.value };
@@ -240,7 +191,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
 
     const submit = (e) => {
         e.preventDefault();
-        
+
         setLoading(true);
         axios
             .patch(`/api/access-application/${appData.data.id}`, {
@@ -372,6 +323,27 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             disabled
                         />
 
+                        <div className="pt-3">
+                            <CheckboxField
+                                name="custom_developmnent_request"
+                                id="custom_development_request"
+                                label="Custom Development Request"
+                                value={app.custom_development_request}
+                                readonly
+                                disabled
+                            />
+                        </div>
+
+                        <TextArea
+                            name="custom_development_request_comments"
+                            id="custom_development_request_comments"
+                            label="Details about custom development request"
+                            value={app.custom_development_request_comments}
+                            readonly
+                            disabled
+                            rows={4}
+                        />
+
                         <SelectField
                             label="Application Status"
                             id="application-status"
@@ -381,7 +353,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             onChange={setAppStatus}
                             value={appStatus}
                         />
-                        
+
                         <TextField
                             type="datetime-local"
                             id="interview-time"
@@ -409,7 +381,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                         rows="4"
                                         value={application_progress_notes}
                                         onChange={(e) => setAppProgressNotes(e.target.value)}
-                                        className="block min-h-fit w-full rounded-md bg-gray-50 border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-white sm:text-sm"
+                                        className="block min-h-fit w-full rounded-md border border-zinc-500 bg-gray-50 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-white sm:text-sm"
                                     />
                                 </div>
                             </div>
