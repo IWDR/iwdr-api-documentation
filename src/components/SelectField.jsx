@@ -45,7 +45,7 @@ export function SelectField({
     const error_style =
         'border-red-500 text-red-500 placeholder-red-500 focus:border-red-900 focus:outline-none focus:ring-red-900';
     const clean_style =
-        'border-gray-500 text-zinc-900 hover:border-emerald-300 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white focus:outline-none';
+        'border-gray-500 text-zinc-900 bg-zinc-100 hover:border-emerald-300 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white focus:outline-none';
 
     const remove = (val_to_remove) => {
         onChange(() => value.filter((val) => val !== val_to_remove));

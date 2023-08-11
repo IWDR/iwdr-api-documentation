@@ -16,7 +16,8 @@ import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
 import MailSentIcon from '@/components/icons/MailSentIcon';
 import { Note } from '@/components/mdx';
-import clsx from "clsx";
+import clsx from 'clsx';
+import { TextArea } from '@/components/TextArea';
 
 export async function getServerSideProps() {
     return {
@@ -59,6 +60,8 @@ export default function TokenApplication(props) {
 
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
+
+    const [visible, setVisible] = useState(false);
 
     // Listbox options
     const error_option = [{ text: 'No options found.', value: '' }];
@@ -370,8 +373,8 @@ export default function TokenApplication(props) {
                                     <b>Needs lots of clean up</b>: There are some gaps in our data, not all birthdates
                                     are accurate, and some ancestors owners are unknown
                                     <br />
-                                    <b>I don&apos;t know</b>: IWDR can meet with your team to review the data you have and
-                                    advise.
+                                    <b>I don&apos;t know</b>: IWDR can meet with your team to review the data you have
+                                    and advise.
                                 </div>
                             </Note>
                         </div>
@@ -463,33 +466,24 @@ export default function TokenApplication(props) {
                                 id="custom_development_request"
                                 label="Custom Development Request"
                                 help="If you are a large organization who wishes to discuss custom API development (any work that falls outside what you have indicated in the table above OR have chosen options that require additional customization on our part), including importing dogs from your own database into the IWDR, check this box and we can discuss your needs at our scoping meeting. Note that additional fees and longer timeframes apply for this option."
-                                onChange={(e) => setCustomDevelopmentRequest(e.target.checked)}
+                                onChange={(e) => {
+                                    setCustomDevelopmentRequest(e.target.checked);
+                                    setVisible(!visible);
+                                }}
                             />
-                            <div className={clsx(custom_development_request ? "sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5" : "hidden")}>
-                                <div>
-                                    <label
-                                        htmlFor="application_progress_notes"
-                                        className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white"
-                                    >
-                                        Reason for custom development request
-                                    </label>
-                                </div>
-                                <div className="mt-2 sm:col-span-2 sm:mt-0">
-                                    <div className="relative flex max-w-lg flex-grow rounded-md">
-                                    <textarea
-                                        name="application_progress_notes"
-                                        id="application_progress_notes"
-                                        rows="4"
-                                        value={custom_development_request_comments}
-                                        onChange={(e) => setCustomDevelopmentRequestComments(e.target.value)}
-                                        placeholder="Enter details about request..."
-                                        className="block min-h-fit w-full rounded-md border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-white sm:text-sm"
-                                    />
-                                    </div>
-                                </div>
+                            <div className={clsx(!custom_development_request && 'hidden')}>
+                                <TextArea
+                                    name="custom_development_request_comments"
+                                    id="custom_development_request_comments"
+                                    label="Reason for custom development request"
+                                    rows="4"
+                                    value={custom_development_request_comments}
+                                    onChange={(e) => setCustomDevelopmentRequestComments(e.target.value)}
+                                    placeholder="Enter details about request..."
+                                    isVisible={visible}
+                                />
                             </div>
                         </div>
-
                     </div>
                     {/* USAGE AGREEMENTS */}
                     <div className="space-y-1 text-left">
