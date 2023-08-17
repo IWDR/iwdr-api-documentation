@@ -257,7 +257,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             name="organization_breeds_to_import"
                             id="organization_breeds_to_import"
                             value={organization_breeds_to_import.map((val) => val.value)}
-                            label="Total number of dogs in your database that need importing to IWDR"
+                            label="Breed(s) of dog to import"
                             options={organization_breeds_to_import}
                             multiple
                             horizontal
