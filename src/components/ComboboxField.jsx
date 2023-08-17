@@ -1,7 +1,7 @@
 import clsx from 'clsx';
 import { InputError } from './InputError';
 import { ExclamationCircleIcon, ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
-import { Combobox, Listbox, Transition } from '@headlessui/react';
+import { Combobox, Transition } from '@headlessui/react';
 import { Fragment, useState } from 'react';
 
 function RemovableChip({ label, srText, onClick }) {
@@ -41,12 +41,15 @@ export function ComboboxField({
     defaultValue,
     required = false,
     horizontal = false,
+    disabled = false,
     multiple = false,
+    readonly = false,
 }) {
     const error_style =
         'border-red-500 text-red-500 placeholder-red-500 focus:border-red-900 focus:outline-none focus:ring-red-900';
     const clean_style =
         'border-gray-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white focus:outline-none';
+    const readonly_style = 'bg-zinc-100';
 
     const [query, setQuery] = useState('');
 
@@ -77,11 +80,12 @@ export function ComboboxField({
                 multiple={multiple && options}
                 name={name}
                 defaultValue={defaultValue}
+                disabled={disabled}
             >
                 {({ open }) => (
                     <div
                         className={clsx(
-                            horizontal && 'sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5',
+                            horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5',
                             className
                         )}
                     >
@@ -97,19 +101,22 @@ export function ComboboxField({
                             </Combobox.Label>
                             {error && <InputError error_message={error_message} id={id} />}
                         </div>
-                        <div className="not-prose relative mt-2 block max-w-lg sm:col-span-2 sm:mt-0">
+                        <div className="not-prose relative mt-2 block max-w-lg sm:mt-0">
                             <Combobox.Button
                                 className={clsx(
                                     error ? error_style : clean_style,
+                                    (readonly || disabled) && readonly_style,
                                     'relative flex w-full cursor-default flex-col rounded-md border py-3 pl-3 pr-10 text-left shadow-sm dark:bg-zinc-900 sm:text-sm'
                                 )}
                             >
-                                <Combobox.Input
-                                    onChange={(e) => setQuery(e.target.value)}
-                                    className="w-full border-0 bg-transparent p-0 text-sm placeholder:text-sm focus:outline-0 focus:outline-offset-0 focus:ring-0 dark:placeholder:text-zinc-400"
-                                    placeholder={placeholder ?? 'Search for some options...'}
-                                    displayValue={(value) => (!multiple ? getTextFromVal(value) : '')}
-                                />
+                                {!disabled && (
+                                    <Combobox.Input
+                                        onChange={(e) => setQuery(e.target.value)}
+                                        className="w-full border-0 bg-transparent p-0 text-sm placeholder:text-sm focus:outline-0 focus:outline-offset-0 focus:ring-0 dark:placeholder:text-zinc-400"
+                                        placeholder={placeholder ?? 'Search for some options...'}
+                                        displayValue={(value) => (!multiple ? getTextFromVal(value) : '')}
+                                    />
+                                )}
 
                                 {multiple && typeof value.map !== 'undefined' ? (
                                     <span className="block truncate whitespace-normal">
@@ -120,7 +127,7 @@ export function ComboboxField({
                                                 label={getTextFromVal(val)}
                                                 srText={`Remove chip labeled ${getTextFromVal(val)}`}
                                             />
-                                        ))}
+                                        )) ?? ''}
                                     </span>
                                 ) : (
                                     <></>
@@ -134,51 +141,55 @@ export function ComboboxField({
                                     <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                 </span>
                             </Combobox.Button>
-                            <Transition
-                                show={open}
-                                as={Fragment}
-                                leave="transition ease-in duration-100"
-                                leaveFrom="opacity-100"
-                                leaveTo="opacity-0"
-                            >
-                                <Combobox.Options
-                                    aria-required={required}
-                                    className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:text-white sm:text-sm"
-                                    static
+                            {!disabled && (
+                                <Transition
+                                    show={open}
+                                    as={Fragment}
+                                    leave="transition ease-in duration-100"
+                                    leaveFrom="opacity-100"
+                                    leaveTo="opacity-0"
                                 >
-                                    {filteredOptions.map((option) => (
-                                        <Combobox.Option
-                                            key={option.value}
-                                            className={({ active }) =>
-                                                clsx(
-                                                    'relative min-w-full cursor-default select-none py-2 px-3',
-                                                    active ? 'bg-zinc-800/90 text-white dark:bg-emerald-500/90' : ''
-                                                )
-                                            }
-                                            value={option.value}
-                                        >
-                                            {({ selected, active }) => (
-                                                <Fragment>
-                                                    <span className={clsx('block truncate', selected && 'font-bold')}>
-                                                        {option.text}
-                                                    </span>
-
-                                                    {selected && (
+                                    <Combobox.Options
+                                        aria-required={required}
+                                        className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:text-white sm:text-sm"
+                                        static
+                                    >
+                                        {filteredOptions.map((option) => (
+                                            <Combobox.Option
+                                                key={option.value}
+                                                className={({ active }) =>
+                                                    clsx(
+                                                        'relative min-w-full cursor-default select-none py-2 px-3',
+                                                        active ? 'bg-zinc-800/90 text-white dark:bg-emerald-500/90' : ''
+                                                    )
+                                                }
+                                                value={option.value}
+                                            >
+                                                {({ selected, active }) => (
+                                                    <Fragment>
                                                         <span
-                                                            className={clsx(
-                                                                'absolute inset-y-0 right-0 flex items-center pr-4',
-                                                                active ? 'text-white' : ''
-                                                            )}
+                                                            className={clsx('block truncate', selected && 'font-bold')}
                                                         >
-                                                            <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                            {option.text}
                                                         </span>
-                                                    )}
-                                                </Fragment>
-                                            )}
-                                        </Combobox.Option>
-                                    ))}
-                                </Combobox.Options>
-                            </Transition>
+
+                                                        {selected && (
+                                                            <span
+                                                                className={clsx(
+                                                                    'absolute inset-y-0 right-0 flex items-center pr-4',
+                                                                    active ? 'text-white' : ''
+                                                                )}
+                                                            >
+                                                                <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                            </span>
+                                                        )}
+                                                    </Fragment>
+                                                )}
+                                            </Combobox.Option>
+                                        ))}
+                                    </Combobox.Options>
+                                </Transition>
+                            )}
                         </div>
                     </div>
                 )}

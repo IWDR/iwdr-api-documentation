@@ -22,7 +22,7 @@ export default function FlyoutMenuSimple({ className, label, menuItems }) {
                     leaveTo="opacity-0 translate-y-1"
                 >
                     <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen max-w-min -translate-x-1/2 px-4">
-                        <div className="w-56 shrink rounded-xl p-4 text-sm leading-6 shadow-lg ring-1 ring-gray-900/5">
+                        <div className="w-56 shrink rounded-xl bg-white p-4 text-sm leading-6 shadow-lg ring-1 ring-gray-900/5 dark:bg-zinc-800">
                             {menuItems.map((item) => (
                                 <a
                                     key={item.name}

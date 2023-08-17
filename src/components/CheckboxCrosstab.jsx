@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 function SimpleCheckbox({ id, name, error, label, field, dataValue, onChange, disabled = false }) {
     const clean_style = 'text-emerald-500 focus:ring-emerald-500 checked:bg-emerald-500 dark:checked:bg-emerald-500';
     const error_style = 'text-red-500 focus:ring-red-500 checked:bg-red-500 dark:checked:bg-red-500';
+    const disabled_style = 'disabled:bg-zinc-300';
 
     return (
         <>
@@ -13,12 +14,14 @@ function SimpleCheckbox({ id, name, error, label, field, dataValue, onChange, di
                 name={name}
                 className={clsx(
                     error ? error_style : clean_style,
+                    disabled ? disabled_style : null,
                     'h-4 w-4 rounded border-zinc-300 drop-shadow-sm focus:outline-0 focus:ring-1 focus:ring-offset-0 dark:bg-zinc-400/50'
                 )}
                 type="checkbox"
                 onChange={(e) => onChange(e)}
                 data-field={field}
                 data-value={dataValue}
+                disabled={disabled}
             />
             <label htmlFor={id} className="sr-only">
                 {label}
@@ -91,7 +94,7 @@ export default function CheckboxCrossTab({
             </div>
             <fieldset
                 className={clsx(
-                    horizontal ? 'max-w-lg max-sm:py-3 sm:col-span-2 md:px-3' : 'max-w-md py-6',
+                    horizontal ? 'max-w-2xl max-sm:py-3 sm:col-span-2 md:px-3' : 'max-w-md py-6',
                     'flow-root'
                 )}
             >
@@ -134,7 +137,7 @@ export default function CheckboxCrossTab({
                                                     dataValue={header.value}
                                                     label={`Choose ${row.label} as ${header.label}`}
                                                     onChange={(e) => updateSelected(e)}
-                                                    disabled={disabled}
+                                                    disabled={row.hasOwnProperty('readonly') ? row.readonly[index] : disabled}
                                                 />
                                             );
 

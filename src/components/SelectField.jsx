@@ -45,7 +45,7 @@ export function SelectField({
     const error_style =
         'border-red-500 text-red-500 placeholder-red-500 focus:border-red-900 focus:outline-none focus:ring-red-900';
     const clean_style =
-        'border-gray-500 text-zinc-900 hover:border-emerald-300 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white focus:outline-none';
+        'border-gray-500 text-zinc-900 bg-zinc-100 hover:border-emerald-300 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white focus:outline-none';
 
     const remove = (val_to_remove) => {
         onChange(() => value.filter((val) => val !== val_to_remove));
@@ -63,7 +63,7 @@ export function SelectField({
                 {({ open }) => (
                     <div
                         className={clsx(
-                            horizontal && 'sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5',
+                            horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5',
                             className
                         )}
                     >
@@ -79,7 +79,7 @@ export function SelectField({
                             </Listbox.Label>
                             {error && <InputError error_message={error_message} id={id} />}
                         </div>
-                        <div className="not-prose relative mt-2 block max-w-lg sm:col-span-2 sm:mt-0">
+                        <div className="not-prose relative mt-2 block max-w-lg sm:mt-0">
                             <Listbox.Button
                                 className={clsx(
                                     error ? error_style : clean_style,

@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Modal } from '@/components/Modal';
 import { Dialog } from '@headlessui/react';
 import { Button } from '@/components/mdx';
-import RadioField from '@/components/RadioField';
 import useSWR from 'swr';
 import { TextArea } from '@/components/TextArea';
 import { TextTable } from '@/components/TextTable';
@@ -10,17 +9,25 @@ import { SelectField } from '@/components/SelectField';
 import axios from '@/lib/axios';
 import { useAlertStore } from '@/stores/alertStore';
 import { useLoadingStore } from '@/stores/loadingStore';
-import {TextField} from "@/components/TextField";
+import { TextField } from '@/components/TextField';
+import CheckboxField from '@/components/CheckboxField';
+import clsx from 'clsx';
+import { ComboboxField } from '@/components/ComboboxField';
 
 export function CreateApplicationReviewDialog({ app, onSave }) {
     const [open, setOpen] = useState(false);
     const error_option = [{ label: 'Nothing', value: '' }];
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
-    
+
     const [appStatus, setAppStatus] = useState(app.application_progress_id);
-    const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes);
-    const [interviewDateTime, setInterviewDateTime] = useState(null);
+    const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes ?? '');
+    const [interviewDateTime, setInterviewDateTime] = useState('');
+    const [interviewDateTimeError, setInterviewDateTimeError] = useState(null);
+    const [username, setUsername] = useState('');
+    const [usernameError, setUsernameError] = useState(null);
+    const [permissionLevel, setPermissionLevel] = useState('');
+    const [permissionLevelError, setPermissionLevelError] = useState(null);
 
     // Get the breeds as text not numbers
     const {
@@ -29,15 +36,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         error: errorApp,
     } = useSWR({ resource: `/api/access-application/${app.id}` });
     const organization_breeds_to_import =
-        !errorApp && !isLoadingApp ? appData.data.organization_breeds_to_import : error_option;
-    let breeds = '';
-    for (let i = 0; i < organization_breeds_to_import.length; i++) {
-        if (i === organization_breeds_to_import.length - 1) {
-            breeds += organization_breeds_to_import[i];
-        } else {
-            breeds += organization_breeds_to_import[i] + ', ';
-        }
-    }
+        !isLoadingApp && !errorApp ? appData.data.organization_breeds_to_import : error_option;
 
     // Get the options for data accuracy
     const {
@@ -45,12 +44,12 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         isLoading: isLoadingDataAccuracyTypes,
         error: loadingDataAccuracyTypesError,
     } = useSWR({ resource: '/api/references/data-accuracy-impression' });
-    const data_accuracy_options =
-        !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
-            ? data_accuracy_types.data.map((row) => {
-                  return { text: row.label, value: row.id };
-              })
-            : error_option;
+    // const data_accuracy_options =
+    //     !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
+    //         ? data_accuracy_types.data.map((row) => {
+    //               return { text: row.label, value: row.id };
+    //           })
+    //         : error_option;
 
     // Get current storage options
     const {
@@ -122,54 +121,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                 value: appData.data?.api_usage_status_history[0]?.label ?? '',
             },
             {
-                label: 'Annual Health Survey',
-                field: 'api_usage_health_survey',
-                value: appData.data?.api_usage_health_survey[0]?.label ?? '',
-            },
-            {
                 label: 'Behavior Checklists',
                 field: 'api_usage_bcls',
                 value: appData.data?.api_usage_bcls[0]?.label ?? '',
-            },
-            {
-                label: 'Elbow',
-                field: 'api_usage_elbows',
-                value: appData.data?.api_usage_elbows[0]?.label ?? '',
-            },
-            {
-                label: 'PennHIP',
-                field: 'api_usage_pennhip',
-                value: appData.data?.api_usage_pennhip[0]?.label ?? '',
-            },
-            {
-                label: 'Hip OFA',
-                field: 'api_usage_hip_extended_view',
-                value: appData.data?.api_usage_hip_extended_view[0]?.label ?? '',
-            },
-            {
-                label: 'Hip BVA',
-                field: 'api_usage_hip_bva',
-                value: appData.data?.api_usage_hip_bva[0]?.label ?? '',
-            },
-            {
-                label: 'Hip FCI',
-                field: 'api_usage_hip_fci',
-                value: appData.data?.api_usage_hip_fci[0]?.label ?? '',
-            },
-            {
-                label: 'Eye',
-                field: 'api_usage_eye',
-                value: appData.data?.api_usage_eye[0]?.label ?? '',
-            },
-            {
-                label: 'Heart',
-                field: 'api_usage_heart',
-                value: appData.data?.api_usage_heart[0]?.label ?? '',
-            },
-            {
-                label: 'Skin',
-                field: 'api_usage_skin_quick',
-                value: appData.data?.api_usage_skin_quick[0]?.label ?? '',
             },
             {
                 label: 'General Health Diagnoses',
@@ -202,19 +156,14 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                 value: appData.data?.api_usage_lab_tests[0]?.label ?? '',
             },
             {
-                label: 'Surgery',
-                field: 'api_usage_surgery',
-                value: appData.data?.api_usage_surgery[0]?.label ?? '',
-            },
-            {
                 label: 'Vaccines',
                 field: 'api_usage_vaccines',
                 value: appData.data?.api_usage_vaccines[0]?.label ?? '',
             },
             {
-                label: 'X-Ray Imaging',
-                field: 'api_usage_xray',
-                value: appData.data?.api_usage_xray[0]?.label ?? '',
+                label: 'Annual Health Survey',
+                field: 'api_usage_health_survey',
+                value: appData.data?.api_usage_health_survey[0]?.label ?? '',
             },
         ],
     };
@@ -228,25 +177,35 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
-                  return { text: row.sort_order + "-" + row.apc_ProgressText, value: row.apc_AppProgressCode };
+                  return { text: row.sort_order + '-' + row.apc_ProgressText, value: row.apc_AppProgressCode };
               })
             : error_option.map((row) => {
                   return { label: row.text, value: row.value };
               });
 
-    const setErrors = () => {
-        errorAlert('Error occurred while saving', true, 6000);
-    };
+    const {
+        data: permission_groups,
+        isLoading: isLoadingPermissionGroups,
+        error: errorLoadingPermissionGroups,
+    } = useSWR({ resource: '/api/permission-groups' });
+    const permission_group_options =
+        !isLoadingPermissionGroups && !errorLoadingPermissionGroups
+            ? permission_groups.data?.map((row) => {
+                  return { text: row.Label, value: row.GroupID };
+              })
+            : error_option;
 
     const submit = (e) => {
         e.preventDefault();
-        
+
         setLoading(true);
         axios
             .patch(`/api/access-application/${appData.data.id}`, {
                 application_progress_id: appStatus,
                 application_progress_notes: application_progress_notes,
                 interview_date_time: interviewDateTime,
+                username: username,
+                permission_group: permissionLevel,
             })
             .then((res) => {
                 if (res.status !== 200) return;
@@ -261,7 +220,12 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                     return;
                 }
 
-                setErrors(err.response.data.errors);
+                if (err?.response?.data?.errors) {
+                    errorAlert(err.response.data.message, true, 6000);
+                    setPermissionLevelError(err.response.data.errors.permission_group ?? null);
+                    setUsernameError(err.response.data.errors.username ?? null);
+                    setInterviewDateTimeError(err.response.data.errors.interview_date_time ?? null);
+                }
             })
             .finally(() => setLoading(false));
     };
@@ -279,34 +243,35 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             Organization Information
                         </div>
 
-                        <TextArea
+                        <TextField
                             name="organization_total_dogs_to_import"
                             id="organization_total_dogs_to_import"
-                            value={app.organization_total_dogs_to_import}
+                            value={app.organization_total_dogs_to_import ?? undefined}
                             label="Total number of dogs in your database that need importing to IWDR"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <ComboboxField
                             name="organization_breeds_to_import"
                             id="organization_breeds_to_import"
-                            value={breeds}
+                            value={organization_breeds_to_import.map((val) => val.value)}
                             label="Total number of dogs in your database that need importing to IWDR"
+                            options={organization_breeds_to_import}
+                            multiple
                             horizontal
-                            readonly
                             disabled
                         />
 
-                        <RadioField
+                        <TextField
                             name="organization_data_accuracy_impression"
                             id="organization_data_accuracy_impression"
                             label="Import's data accuracy"
-                            options={data_accuracy_options}
-                            defaultKey={app.data_accuracy_impression_id}
+                            value={appData.data?.data_accuracy_impression_id[0]?.label ?? ''}
                             horizontal
                             disabled
+                            readonly
                         />
                     </div>
                     <div className="pt-4">
@@ -314,40 +279,40 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             Project Information
                         </div>
 
-                        <TextArea
+                        <TextField
                             name="project_leader_name"
                             id="project_leader_name"
-                            value={app.project_leader_name}
+                            value={app.project_leader_name ?? undefined}
                             label="Project leader's name"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_leader_email"
                             id="project_leader_email"
-                            value={app.project_leader_email}
+                            value={app.project_leader_email ?? undefined}
                             label="Project leader's email"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_leader_phone"
                             id="project_leader_phone"
-                            value={app.project_leader_phone}
+                            value={app.project_leader_phone ?? undefined}
                             label="Project leader's phone number"
                             horizontal
                             readonly
                             disabled
                         />
 
-                        <TextArea
+                        <TextField
                             name="project_desired_start_date"
                             id="project_desired_start_date"
-                            value={app.project_desired_start_date}
+                            value={app.project_desired_start_date ?? undefined}
                             label="Project desired start data"
                             horizontal
                             readonly
@@ -372,6 +337,30 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             disabled
                         />
 
+                        <div className="pt-3">
+                            <CheckboxField
+                                name="custom_developmnent_request"
+                                id="custom_development_request"
+                                label="Custom Development Request"
+                                value={app.custom_development_request}
+                                readonly
+                                disabled
+                            />
+                        </div>
+
+                        {app.custom_development_request ? (
+                            <TextArea
+                                name="custom_development_request_comments"
+                                id="custom_development_request_comments"
+                                label="Details about custom development request"
+                                value={app.custom_development_request_comments ?? 'N/A'}
+                                readonly
+                                disabled
+                            />
+                        ) : (
+                            <></>
+                        )}
+
                         <SelectField
                             label="Application Status"
                             id="application-status"
@@ -381,39 +370,55 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                             onChange={setAppStatus}
                             value={appStatus}
                         />
-                        
-                        <TextField
-                            type="datetime-local"
-                            id="interview-time"
-                            name="interview-time"
-                            label="Interview Date/Time"
-                            onChange={(e) => setInterviewDateTime(e.target.value)}
-                            value={interviewDateTime}
-                            horizontal
-                        />
 
-                        <div className="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:pt-5">
-                            <div>
-                                <label
-                                    htmlFor="application_progress_notes"
-                                    className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white"
-                                >
-                                    Additional Comments
-                                </label>
-                            </div>
-                            <div className="mt-2 sm:col-span-2 sm:mt-0">
-                                <div className="relative flex max-w-lg flex-grow rounded-md">
-                                    <textarea
-                                        name="application_progress_notes"
-                                        id="application_progress_notes"
-                                        rows="4"
-                                        value={application_progress_notes}
-                                        onChange={(e) => setAppProgressNotes(e.target.value)}
-                                        className="block min-h-fit w-full rounded-md bg-gray-50 border border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 focus-visible:outline-none dark:bg-zinc-900 dark:text-white sm:text-sm"
-                                    />
-                                </div>
-                            </div>
+                        <div className={clsx(!(appStatus === 9 || appStatus === 10) && 'hidden')}>
+                            <TextField
+                                type="datetime-local"
+                                id="interview-time"
+                                name="interview-time"
+                                label="Interview Date/Time"
+                                readonly={appStatus === 10}
+                                onChange={(e) => setInterviewDateTime(e.target.value)}
+                                error={!!interviewDateTimeError}
+                                error_message={interviewDateTimeError}
+                                value={interviewDateTime}
+                                horizontal
+                            />
                         </div>
+
+                        <div className={clsx(appStatus !== 12 && 'hidden')}>
+                            <TextField
+                                type={'text'}
+                                id={'api-user-username'}
+                                name={'api-user-username'}
+                                label={"API User's Username"}
+                                value={username}
+                                onChange={(e) => setUsername(e.target.value)}
+                                horizontal
+                                error={!!usernameError}
+                                error_message={usernameError}
+                            />
+                            <SelectField
+                                label={'Assign Permission Group'}
+                                id={'api-user-permission-lvl'}
+                                options={permission_group_options}
+                                value={permissionLevel}
+                                onChange={setPermissionLevel}
+                                horizontal
+                                error={!!permissionLevelError}
+                                error_message={permissionLevelError}
+                            />
+                        </div>
+
+                        <TextArea
+                            name="application_progress_notes"
+                            id="application_progress_notes"
+                            label="Application Progress Notes"
+                            rows="4"
+                            value={application_progress_notes}
+                            onChange={(e) => setAppProgressNotes(e.target.value)}
+                            className="bg-zinc-100"
+                        />
                     </div>
                     <div className="flex flex-col justify-center space-y-3 border-t pt-4">
                         <Button className="mr-2" type="submit">

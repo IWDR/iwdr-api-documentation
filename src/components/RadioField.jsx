@@ -15,6 +15,7 @@ export default function RadioField({
     defaultKey = null,
     required = false,
     horizontal = false,
+    verticalOptions = false,
 }) {
     const clean_style = 'text-emerald-500 focus:ring-emerald-500 checked:bg-emerald-500 dark:checked:bg-emerald-500';
     const error_style =
@@ -28,7 +29,7 @@ export default function RadioField({
                     {label}
                     {required && <span className="ml-0.5 text-red-600">*</span>}
                     {help && (
-                        <p className="my-0.5 max-w-sm text-sm font-normal text-zinc-500 dark:text-zinc-300/80">
+                        <p className="my-0.5 text-sm font-normal text-zinc-500 dark:text-zinc-300/80">
                             {help}
                         </p>
                     )}
@@ -37,7 +38,7 @@ export default function RadioField({
             </div>
             <fieldset className="mt-4 min-h-full max-w-lg p-3 sm:col-span-2">
                 <legend className="sr-only">{help}</legend>
-                <div className="flex flex-row max-sm:flex-col max-sm:space-y-1 md:space-x-8">
+                <div className={clsx(verticalOptions ? "space-y-4" : "flex max-sm:flex-col max-sm:space-y-1 md:space-x-8")}>
                     {options.map((option) => (
                         <div key={option.value} className="flex items-center">
                             <input

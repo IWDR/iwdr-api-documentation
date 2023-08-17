@@ -1,29 +1,31 @@
-import {TextField} from "@/components/TextField";
-import {useState} from "react";
-import {PhoneField} from "@/components/PhoneField";
-import useSWR from "swr";
-import RadioField from "@/components/RadioField";
-import {Button} from "@/components/Button";
-import CheckboxField from "@/components/CheckboxField";
-import {Modal} from "@/components/Modal";
-import {ComboboxField} from "@/components/ComboboxField";
-import CheckboxFieldset from "@/components/CheckboxFieldset";
-import MigrationAgreement from "@/components/modal-content/MigrationAgreement";
-import DataMappingAgreement from "@/components/modal-content/MappingAgreement";
-import APIUsageAgreement from "@/components/modal-content/APIUsageAgreement";
-import CheckboxCrossTab from "@/components/CheckboxCrosstab";
-import axios from "@/lib/axios";
-import {useAlertStore} from "@/stores/alertStore";
-import {useLoadingStore} from "@/stores/loadingStore";
-import MailSentIcon from "@/components/icons/MailSentIcon";
+import { TextField } from '@/components/TextField';
+import { useState } from 'react';
+import { PhoneField } from '@/components/PhoneField';
+import useSWR from 'swr';
+import RadioField from '@/components/RadioField';
+import { Button } from '@/components/Button';
+import CheckboxField from '@/components/CheckboxField';
+import { Modal } from '@/components/Modal';
+import { ComboboxField } from '@/components/ComboboxField';
+import MigrationAgreement from '@/components/modal-content/MigrationAgreement';
+import DataMappingAgreement from '@/components/modal-content/MappingAgreement';
+import APIUsageAgreement from '@/components/modal-content/APIUsageAgreement';
+import CheckboxCrossTab from '@/components/CheckboxCrosstab';
+import axios from '@/lib/axios';
+import { useAlertStore } from '@/stores/alertStore';
+import { useLoadingStore } from '@/stores/loadingStore';
+import MailSentIcon from '@/components/icons/MailSentIcon';
+import { Note } from '@/components/mdx';
+import clsx from 'clsx';
+import { TextArea } from '@/components/TextArea';
 
 export async function getServerSideProps() {
     return {
         props: {
             title: 'API Access Application',
-            description: 'Apply for access to the IWDR API.'
+            description: 'Apply for access to the IWDR API.',
         },
-    }
+    };
 }
 
 export default function TokenApplication(props) {
@@ -53,162 +55,150 @@ export default function TokenApplication(props) {
     const [api_usage_agreement, setAPIUsageAgreement] = useState(false);
     const [api_usage_agreement_error, setAPIUsageAgreementError] = useState('');
 
-    const {successAlert, errorAlert, serverErrorAlert} = useAlertStore();
-    const {setLoading} = useLoadingStore();
+    const [custom_development_request, setCustomDevelopmentRequest] = useState(false);
+    const [custom_development_request_comments, setCustomDevelopmentRequestComments] = useState('');
+
+    const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
+    const { setLoading } = useLoadingStore();
+
+    const [visible, setVisible] = useState(false);
 
     // Listbox options
-    const error_option = [{text: "No options found.", value: ''}];
+    const error_option = [{ text: 'No options found.', value: '' }];
     const {
         data: breeds,
         isLoading: isLoadingBreeds,
-        error: loadingBreedsError
-    } = useSWR({resource: '/api/references/breed'});
-    const breed_options = !isLoadingBreeds && !loadingBreedsError ? breeds.data.map((breed) => {
-        return {text: breed.dbc_DogBreedDescription, value: breed.dbc_DogBreedCode}
-    }) : error_option;
+        error: loadingBreedsError,
+    } = useSWR({ resource: '/api/references/breed' });
+    const breed_options =
+        !isLoadingBreeds && !loadingBreedsError
+            ? breeds.data.map((breed) => {
+                  return { text: breed.dbc_DogBreedDescription, value: breed.dbc_DogBreedCode };
+              })
+            : error_option;
 
     const {
         data: data_accuracy_types,
         isLoading: isLoadingDataAccuracyTypes,
-        error: loadingDataAccuracyTypesError
-    } = useSWR({resource: '/api/references/data-accuracy-impression'});
-    const data_accuracy_options = !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError ? data_accuracy_types.data.map((row) => {
-        return {text: row.label, value: row.id}
-    }) : error_option;
-
+        error: loadingDataAccuracyTypesError,
+    } = useSWR({ resource: '/api/references/data-accuracy-impression' });
+    const data_accuracy_options =
+        !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
+            ? data_accuracy_types.data.map((row) => {
+                  return { text: row.label, value: row.id };
+              })
+            : error_option;
 
     const {
         data: current_storage_vals,
         isLoading: isLoadingCurrentStorageVals,
-        error: loadingCurrentStorageValuesError
-    } = useSWR({resource: '/api/references/current-storage-solution'});
-    const current_storage_values = !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError ? current_storage_vals.data.map((row) => {
-        return {label: row.label, value: row.id}
-    }) : error_option.map((row) => {
-        return {label: row.text, value: row.value}
-    });
+        error: loadingCurrentStorageValuesError,
+    } = useSWR({ resource: '/api/references/current-storage-solution' });
+    const current_storage_values =
+        !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError
+            ? current_storage_vals.data.map((row) => {
+                  return { label: row.label, value: row.id };
+              })
+            : error_option.map((row) => {
+                  return { label: row.text, value: row.value };
+              });
 
     const {
         data: api_usage_vals,
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
-    } = useSWR({resource: '/api/references/application-usage'});
-    const api_usage_headers = !isLoadingAPIUsageVals && !loadingAPIUsageValsError ? api_usage_vals.data.map((row) => {
-        return {label: row.label, value: row.id}
-    }) : error_option.map((row) => {
-        return {label: row.text, value: row.value}
-    });
+    } = useSWR({ resource: '/api/references/application-usage' });
+    const api_usage_headers =
+        !isLoadingAPIUsageVals && !loadingAPIUsageValsError
+            ? api_usage_vals.data.map((row) => {
+                  return { label: row.label, value: row.id };
+              })
+            : error_option.map((row) => {
+                  return { label: row.text, value: row.value };
+              });
 
     const current_storage_options = {
         headers: current_storage_values,
         rows: [
             {
-                label: "Basic Dog Information",
-                help: "(breed, date of birth, name, sex, sire, dam, etc...)",
-                field: "project_current_storage_breed_info"
+                label: 'Basic Dog Information',
+                help: '(breed, date of birth, name, sex, sire, dam, etc...)',
+                field: 'project_current_storage_breed_info',
             },
             {
-                label: "Diagnoses",
-                field: "project_current_storage_diagnoses"
+                label: 'Diagnoses',
+                field: 'project_current_storage_diagnoses',
             },
             {
-                label: "Behavior Checklists",
-                field: "project_current_storage_bcls"
-            }
-        ]
+                label: 'Behavior Checklists',
+                field: 'project_current_storage_bcls',
+            },
+        ],
     };
     const api_usage_options = {
         headers: api_usage_headers,
         rows: [
             {
-                label: "Basic Dog Information- New puppies as born",
-                field: "api_usage_dog_info_puppies"
+                label: 'Dog Record Created For - New puppies as born',
+                field: 'api_usage_dog_info_puppies',
+                readonly: [1, 0, 0],
             },
             {
-                label: "Basic Dog Information- Updates on dog's names, status, death dates, etc",
-                field: "api_usage_dog_info_ancestors"
+                label: 'Basic Dog Information (Status, Names, Dates)',
+                field: 'api_usage_dog_info_ancestors',
+                readonly: [1, 0, 0],
             },
             {
                 label: "Dog's Status History",
-                field: "api_usage_status_history"
+                field: 'api_usage_status_history',
+                readonly: [1, 0, 1],
             },
             {
-                label: "Annual Health Survey",
-                field: "api_usage_health_survey"
+                label: 'Behavior Checklists',
+                field: 'api_usage_bcls',
+                readonly: [1, 0, 0],
             },
             {
-                label: "Behavior Checklists",
-                field: "api_usage_bcls"
+                label: 'General Health Diagnoses',
+                field: 'api_usage_health_diagnoses',
+                readonly: [1, 0, 0],
             },
             {
-                label: "Elbow",
-                field: "api_usage_elbows"
+                label: 'Genetic Test Results',
+                field: 'api_usage_genetic_test_results',
+                readonly: [1, 0, 1],
             },
             {
-                label: "PennHIP",
-                field: "api_usage_pennhip"
-            },
-            {
-                label: "Hip OFA",
-                field: "api_usage_hip_extended_view"
-            },
-            {
-                label: "Hip BVA",
-                field: "api_usage_hip_bva"
-            },
-            {
-                label: "Hip FCI",
-                field: "api_usage_hip_fci"
-            },
-            {
-                label: "Eye",
-                field: "api_usage_eye"
-            },
-            {
-                label: "Heart",
-                field: "api_usage_heart"
-            },
-            {
-                label: "Skin",
-                field: "api_usage_skin_quick"
-            },
-            {
-                label: "General Health Diagnoses",
-                field: "api_usage_health_diagnoses"
-            },
-            {
-                label: "Genetic Test Results",
-                field: "api_usage_genetic_test_results"
-            },
-            {
-                label: "Weight",
-                field: "api_usage_weights"
+                label: 'Weight',
+                field: 'api_usage_weights',
+                readonly: [1, 0, 0],
             },
             {
                 label: "Estrus's and Litter's",
-                field: "api_usage_estrus_litter"
+                field: 'api_usage_estrus_litter',
+                readonly: [1, 0, 1],
             },
             {
-                label: "Estrus Details",
-                field: "api_usage_estrus_details"
+                label: 'Estrus Details',
+                field: 'api_usage_estrus_details',
+                readonly: [1, 0, 0],
             },
             {
-                label: "Laboratory Tests",
-                field: "api_usage_lab_tests"
+                label: 'Laboratory Tests',
+                field: 'api_usage_lab_tests',
+                readonly: [1, 0, 1],
             },
             {
-                label: "Surgery",
-                field: "api_usage_surgery"
+                label: 'Vaccines',
+                field: 'api_usage_vaccines',
+                readonly: [1, 0, 1],
             },
             {
-                label: "Vaccines",
-                field: "api_usage_vaccines"
+                label: 'Annual Health Survey',
+                field: 'api_usage_health_survey',
+                readonly: [0, 1, 1],
             },
-            {
-                label: "X-Ray Imaging",
-                field: "api_usage_xray"
-            }
-        ]
+        ],
     };
 
     // Modal states
@@ -217,40 +207,42 @@ export default function TokenApplication(props) {
     const [api_modal_open, setAPIModalOpen] = useState(false);
 
     const reset = () => {
-        setOrganizationTotalDogsToImport('')
-        setOrganizationBreedsToImport([])
-        setOrganizationDataAccuracyImpression('')
-        setProjectLeaderName('')
-        setProjectLeaderEmail('')
-        setProjectLeaderPhone('')
-        setProjectDesiredStartDate('')
-        setProjectCurrentStorageSetup({})
-        setProjectDesiredAPIUsage({})
-        setMigrationAgreement(false)
-        setDataMappingAgreement(false)
-        setAPIUsageAgreement(false)
-    }
+        setOrganizationTotalDogsToImport('');
+        setOrganizationBreedsToImport([]);
+        setOrganizationDataAccuracyImpression('');
+        setProjectLeaderName('');
+        setProjectLeaderEmail('');
+        setProjectLeaderPhone('');
+        setProjectDesiredStartDate('');
+        setProjectCurrentStorageSetup({});
+        setProjectDesiredAPIUsage({});
+        setMigrationAgreement(false);
+        setDataMappingAgreement(false);
+        setAPIUsageAgreement(false);
+        setCustomDevelopmentRequest(false);
+        setCustomDevelopmentRequestComments('');
+    };
 
     const setErrors = (error_list) => {
-        setOrganizationTotalDogsToImportError(error_list.organization_total_dogs_to_import ?? '')
-        setOrganizationBreedsToImportError(error_list.organization_breeds_to_import ?? '')
-        setOrganizationDataAccuracyImpressionError(error_list.organization_data_accuracy_impression ?? '')
-        setProjectLeaderNameError(error_list.project_leader_name ?? '')
-        setProjectLeaderEmailError(error_list.project_leader_email ?? '')
-        setProjectLeaderPhoneError(error_list.project_leader_phone ?? '')
-        setProjectDesiredStartDateError(error_list.project_desired_start_date ?? '')
-        setMigrationAgreementError(error_list.migration_agreement ?? '')
-        setDataMappingAgreementError(error_list.data_map_agreement ?? '')
-        setAPIUsageAgreementError(error_list.api_usage_agreement ?? '')
+        setOrganizationTotalDogsToImportError(error_list.organization_total_dogs_to_import ?? '');
+        setOrganizationBreedsToImportError(error_list.organization_breeds_to_import ?? '');
+        setOrganizationDataAccuracyImpressionError(error_list.organization_data_accuracy_impression ?? '');
+        setProjectLeaderNameError(error_list.project_leader_name ?? '');
+        setProjectLeaderEmailError(error_list.project_leader_email ?? '');
+        setProjectLeaderPhoneError(error_list.project_leader_phone ?? '');
+        setProjectDesiredStartDateError(error_list.project_desired_start_date ?? '');
+        setMigrationAgreementError(error_list.migration_agreement ?? '');
+        setDataMappingAgreementError(error_list.data_map_agreement ?? '');
+        setAPIUsageAgreementError(error_list.api_usage_agreement ?? '');
 
-        errorAlert("Your submission contains errors. Please review your inputs and try again.", true, 6000);
-        window.scrollTo({top: 0, left: 0});
-    }
+        errorAlert('Your submission contains errors. Please review your inputs and try again.', true, 6000);
+        window.scrollTo({ top: 0, left: 0 });
+    };
 
     const [submitted, setSubmitted] = useState(false);
 
     const submit = (e) => {
-        e.preventDefault()
+        e.preventDefault();
         let form = {
             organization_total_dogs_to_import,
             organization_breeds_to_import,
@@ -263,53 +255,57 @@ export default function TokenApplication(props) {
             ...project_desired_api_usage,
             migration_agreement,
             data_map_agreement,
-            api_usage_agreement
-        }
+            api_usage_agreement,
+            custom_development_request,
+            custom_development_request_comments,
+        };
 
         setLoading(true);
-        axios.post('/api/access-application', form)
+        axios
+            .post('/api/access-application', form)
             .then((res) => {
                 console.log(res);
                 if (res.status !== 200) return;
 
-                successAlert("Application successfully submitted!", true, 6000);
+                successAlert('Application successfully submitted!', true, 6000);
                 reset();
                 setSubmitted(true);
             })
             .catch((err) => {
                 if (err?.response?.status !== 422) {
+                    console.log(err);
                     serverErrorAlert();
                     return;
                 }
 
-                setErrors(err.response.data.errors)
+                setErrors(err.response.data.errors);
             })
-            .finally(() => setLoading(false))
-    }
+            .finally(() => setLoading(false));
+    };
 
     // Render submission success insteand
     if (submitted) {
         return (
-            <div className="flex justify-center flex-col items-center text-center">
-                <MailSentIcon className="h-36 w-36 mx-auto"/>
+            <div className="flex flex-col items-center justify-center text-center">
+                <MailSentIcon className="mx-auto h-36 w-36" />
                 <h1>Your application has been received!</h1>
                 <p className="text-sm">
-                    Thank you for submitting an application to gain access to the IWDR API. We will
-                    review your submission and afterwards you should receive an email with the outcome of your
-                    application.
+                    Thank you for submitting an application to gain access to the IWDR API. We will review your
+                    submission and afterwards you should receive an email with the outcome of your application.
                 </p>
-                <Button variant="primary" arrow="right" href="/">Return to home</Button>
+                <Button variant="primary" arrow="right" href="/">
+                    Return to home
+                </Button>
             </div>
-        )
+        );
     }
 
     return (
         <>
             <h1>API Access Application</h1>
             <div className="m-0 mx-auto max-w-2xl lg:max-w-5xl">
-                <form id="token-applicaiton" className="space-y-8"
-                      onSubmit={(e) => submit(e)}>
-                    <div className="divide-y divide-zinc-200 dark:divide-zinc-600 space-y-8">
+                <form id="token-applicaiton" className="space-y-8" onSubmit={(e) => submit(e)}>
+                    <div className="space-y-8 divide-y divide-zinc-200 dark:divide-zinc-600">
                         {/* ORGANIZATION INFO */}
                         <div className="pt-4">
                             <span className="text-lg font-semibold leading-6 dark:text-white">
@@ -348,30 +344,48 @@ export default function TokenApplication(props) {
                             horizontal
                             className="max-sm:pt-3"
                         />
-                        <RadioField
-                            name="organization_data_accuracy_impression"
-                            id="organization_data_accuracy_impression"
-                            label="Import's data accuracy"
-                            help="Your impression of data accuracy within your database? i.e duplicates, data completeness &amp; correctness, data rigidity."
-                            options={data_accuracy_options}
-                            onChange={(e) => setOrganizationDataAccuracyImpression(e.target.checked ? e.target.value : null)}
-                            error={!!organization_data_accuracy_impression_error}
-                            error_message={organization_data_accuracy_impression_error}
-                            horizontal
-                            required
-                            className="max-sm:pt-3"
-                        />
+
+                        <div>
+                            <RadioField
+                                name="organization_data_accuracy_impression"
+                                id="organization_data_accuracy_impression"
+                                label="Import's data accuracy"
+                                help="Do you have data on all of your dogs in IWDR or your own database or spreadsheet? Can you identify that you are the managing owner of the dogs? For dogs existing in both IWDR and your own database/spreadsheet, can you match your dogs with their IWDR Dog IDs? How accurate are your birthdates and pedigrees?"
+                                options={data_accuracy_options}
+                                onChange={(e) =>
+                                    setOrganizationDataAccuracyImpression(e.target.checked ? e.target.value : null)
+                                }
+                                error={!!organization_data_accuracy_impression_error}
+                                error_message={organization_data_accuracy_impression_error}
+                                required
+                                className="grid-cols-1 max-sm:pt-3 sm:grid sm:gap-4 sm:pt-5"
+                            />
+                            <Note>
+                                <div className="mt-5 text-xs">
+                                    <b>Excellent</b>: All birthdates are accurate, IWDR Dog IDs are matched for both
+                                    existing dogs and ancestors, and where external breeding dogs have been used we know
+                                    who owns them.
+                                    <br />
+                                    <b>Needs some clean up</b>: Generally birthdates are accurate and dog IDs are
+                                    matched appropriately, however some ancestral data may be missing or we might need
+                                    to research where external breeding dogs came from.
+                                    <br />
+                                    <b>Needs lots of clean up</b>: There are some gaps in our data, not all birthdates
+                                    are accurate, and some ancestors owners are unknown
+                                    <br />
+                                    <b>I don&apos;t know</b>: IWDR can meet with your team to review the data you have
+                                    and advise.
+                                </div>
+                            </Note>
+                        </div>
                     </div>
-                    <div className="divide-y divide-zinc-200 dark:divide-zinc-600 space-y-8">
+                    <div className="space-y-8 divide-y divide-zinc-200 dark:divide-zinc-600">
                         {/* PROJECT INFO */}
                         <div className="pt-4">
-                            <span className="text-lg font-semibold leading-6 dark:text-white">
-                                Project Information
-                            </span>
+                            <span className="text-lg font-semibold leading-6 dark:text-white">Project Information</span>
                             <p className="mt-1 max-w-2xl text-sm dark:text-white">
                                 We would like to know some more about the project that you&apos;re intending to use the
-                                IWDR
-                                API for.
+                                IWDR API for.
                             </p>
                         </div>
                         <TextField
@@ -447,13 +461,34 @@ export default function TokenApplication(props) {
                             horizontal
                             required
                         />
+                        <div className="pt-3.5">
+                            <CheckboxField
+                                id="custom_development_request"
+                                label="Custom Development Request"
+                                help="If you are a large organization who wishes to discuss custom API development (any work that falls outside what you have indicated in the table above OR have chosen options that require additional customization on our part), including importing dogs from your own database into the IWDR, check this box and we can discuss your needs at our scoping meeting. Note that additional fees and longer timeframes apply for this option."
+                                onChange={(e) => {
+                                    setCustomDevelopmentRequest(e.target.checked);
+                                    setVisible(!visible);
+                                }}
+                            />
+                            <div className={clsx(!custom_development_request && 'hidden')}>
+                                <TextArea
+                                    name="custom_development_request_comments"
+                                    id="custom_development_request_comments"
+                                    label="Reason for custom development request"
+                                    rows="4"
+                                    value={custom_development_request_comments}
+                                    onChange={(e) => setCustomDevelopmentRequestComments(e.target.value)}
+                                    placeholder="Enter details about request..."
+                                    isVisible={visible}
+                                />
+                            </div>
+                        </div>
                     </div>
                     {/* USAGE AGREEMENTS */}
                     <div className="space-y-1 text-left">
                         <div className="mb-4 border-b border-zinc-200 dark:border-zinc-600">
-                            <span className="text-lg font-semibold leading-6 dark:text-white">
-                                Usage Agreements
-                            </span>
+                            <span className="text-lg font-semibold leading-6 dark:text-white">Usage Agreements</span>
                             <p className="mt-1 max-w-2xl text-sm dark:text-white">
                                 You must agree to all of the following to begin usage with the IWDR API. (click text to
                                 read more)
@@ -468,15 +503,19 @@ export default function TokenApplication(props) {
                             error_message={migration_agreement_error}
                             required
                         >
-                            <Button type="button" variant='text' onClick={() => setMigrationModalOpen(true)}>
+                            <Button type="button" variant="text" onClick={() => setMigrationModalOpen(true)}>
                                 I understand and agree to all of the following concerning data migration of dogs and
-                                other
-                                data from our database to IWDR.
+                                other data from our database to IWDR.
                             </Button>
                             <Modal open={migration_modal_open} openModifier={setMigrationModalOpen}>
-                                <MigrationAgreement/>
-                                <Button variant="primary" className="w-full"
-                                        onClick={() => setMigrationModalOpen(false)}>Close</Button>
+                                <MigrationAgreement />
+                                <Button
+                                    variant="primary"
+                                    className="w-full"
+                                    onClick={() => setMigrationModalOpen(false)}
+                                >
+                                    Close
+                                </Button>
                             </Modal>
                         </CheckboxField>
                         <CheckboxField
@@ -488,14 +527,15 @@ export default function TokenApplication(props) {
                             error_message={data_map_agreement_error}
                             required
                         >
-                            <Button type="button" variant='text' onClick={() => setMappingModalOpen(true)}>
+                            <Button type="button" variant="text" onClick={() => setMappingModalOpen(true)}>
                                 I read and agree to the following concerning mapping data fields and drop down pick
                                 choices.
                             </Button>
                             <Modal open={mapping_modal_open} openModifier={setMappingModalOpen}>
-                                <DataMappingAgreement/>
-                                <Button variant="primary" className="w-full"
-                                        onClick={() => setMappingModalOpen(false)}>Close</Button>
+                                <DataMappingAgreement />
+                                <Button variant="primary" className="w-full" onClick={() => setMappingModalOpen(false)}>
+                                    Close
+                                </Button>
                             </Modal>
                         </CheckboxField>
                         <CheckboxField
@@ -507,19 +547,22 @@ export default function TokenApplication(props) {
                             error_message={api_usage_agreement_error}
                             required
                         >
-                            <Button type="button" variant='text' onClick={() => setAPIModalOpen(true)}>
+                            <Button type="button" variant="text" onClick={() => setAPIModalOpen(true)}>
                                 Use of the API requires you adhere to, and maintain, these criteria in a timely manner.
                             </Button>
                             <Modal open={api_modal_open} openModifier={setAPIModalOpen}>
-                                <APIUsageAgreement/>
-                                <Button variant="primary" className="w-full"
-                                        onClick={() => setAPIModalOpen(false)}>Close</Button>
+                                <APIUsageAgreement />
+                                <Button variant="primary" className="w-full" onClick={() => setAPIModalOpen(false)}>
+                                    Close
+                                </Button>
                             </Modal>
                         </CheckboxField>
                     </div>
-                    <Button variant='primary' className="w-full" type="submit">Submit</Button>
+                    <Button variant="primary" className="w-full" type="submit">
+                        Submit
+                    </Button>
                 </form>
             </div>
         </>
-    )
+    );
 }
