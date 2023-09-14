@@ -28,17 +28,17 @@ export default function RadioField({
                 <label className="block text-sm font-semibold leading-6 text-zinc-900 dark:text-white" id={id}>
                     {label}
                     {required && <span className="ml-0.5 text-red-600">*</span>}
-                    {help && (
-                        <p className="my-0.5 text-sm font-normal text-zinc-500 dark:text-zinc-300/80">
-                            {help}
-                        </p>
-                    )}
+                    {help && <p className="my-0.5 text-sm font-normal text-zinc-500 dark:text-zinc-300/80">{help}</p>}
                 </label>
                 {error && <InputError error_message={error_message} id={`${id}-error`} />}
             </div>
             <fieldset className="mt-4 min-h-full max-w-lg p-3 sm:col-span-2">
                 <legend className="sr-only">{help}</legend>
-                <div className={clsx(verticalOptions ? "space-y-4" : "flex max-sm:flex-col max-sm:space-y-1 md:space-x-8")}>
+                <div
+                    className={clsx(
+                        verticalOptions ? 'space-y-4' : 'flex max-sm:flex-col max-sm:space-y-1 md:space-x-8'
+                    )}
+                >
                     {options.map((option) => (
                         <div key={option.value} className="flex items-center">
                             <input
@@ -58,7 +58,7 @@ export default function RadioField({
                             />
                             <label
                                 htmlFor={`radio-option-${option.value}`}
-                                className="ml-3 block text-sm font-medium leading-6"
+                                className="ml-3 block text-sm font-medium leading-6 dark:text-white"
                             >
                                 {option.text}
                             </label>

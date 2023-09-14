@@ -1,0 +1,95 @@
+{
+  "properties": [
+    {
+      "name": "local_dog_id",
+      "type": "integer",
+      "desc": "The unique identifier for this dog from your organizations data source.",
+      "required": true,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_DogID",
+      "type": "integer",
+      "desc": "The corresponding IWDRID for this dog.",
+      "required": true,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_DBImportKey",
+      "type": "integer",
+      "desc": "The primary unique identifier for for the PT record.",
+      "required": true,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_Date",
+      "type": "datetime",
+      "desc": "Date of diagnosis.",
+      "required": true,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_TraitCodeID",
+      "type": "integer",
+      "desc": "IWDR code for this diagnosis.",
+      "required": true,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_MeasureTypeCode",
+      "type": "integer",
+      "desc": "Code for how the elbows were measured.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_Measure1",
+      "type": "string",
+      "desc": "Right elbow measurement.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_Measure2",
+      "type": "string",
+      "desc": "Left elbow measurement.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_EvaluatorID",
+      "type": "integer",
+      "desc": "Code for veterinarian, veterinarian hospital, or certifying agency that interpreted the elbow measurements.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_DetailsOfProblem",
+      "type": "string",
+      "desc": "Comments.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "dog_CertifAgencyCode",
+      "type": "integer",
+      "desc": "Code for the certifying or health registry organization.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_CertificationNumber",
+      "type": "string",
+      "desc": "Certification code assigned by the certifying agency.",
+      "required": false,
+      "dataTable": ""
+    },
+    {
+      "name": "pt_ConfidenceRatingCode",
+      "type": "integer",
+      "desc": "",
+      "required": false,
+      "dataTable": ""
+    }
+  ]
+}

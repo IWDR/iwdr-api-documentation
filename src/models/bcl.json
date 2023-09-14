@@ -1,0 +1,1813 @@
+{
+  "tableName": "tblDogBehaviorChecklist",
+  "properties": [
+    {
+      "name": "bcl_BehaviorCkID",
+      "type": "integer",
+      "desc": "The primary unique identifier for the BCL record.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_CurrentRaiser",
+      "type": "integer",
+      "desc": "The unique identifier for the person who is influecing the dog's training during the time period of this bcl.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_Date",
+      "type": "datetime",
+      "desc": "The date and time for when this BCL was scored.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_DogID",
+      "type": "integer",
+      "desc": "The unique identifier for the dog the BCL record pertains to.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_DogTypeDescription",
+      "type": "string",
+      "desc": "Notes about the dog's overall behavior or specific important details.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_Done",
+      "type": "boolean",
+      "desc": "A yes/no indicator for if this bcl record is complete and should be included into the EBV calculations for BCL items.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_OrgIDWhereTest",
+      "type": "integer",
+      "desc": "The unique identifier within IWDR for the organization where this bcl was recorded.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_Recommentdations",
+      "type": "string",
+      "desc": "Instructions about how to help the dog usually this is for the puppy raiser.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_WhichChecklistCode",
+      "type": "integer",
+      "desc": "The unique identifier for the type of behavior checklist scored.",
+      "required": false,
+      "dataTable": "",
+      "note": null
+    },
+    {
+      "name": "bcl_FearNewPlacesSituations",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 1
+    },
+    {
+      "name": "bcl_FearNewPlacesSituationsNotes",
+      "type": "string",
+      "desc": "Notes for bcl question 1, fear new places situations.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 1
+    },
+    {
+      "name": "bcl_FearNewPlacesSituationsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on bcl question 1.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 1
+    },
+    {
+      "name": "bcl_LOCTrafficNoise",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 2
+    },
+    {
+      "name": "bcl_NoiseNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 2
+    },
+    {
+      "name": "bcl_LOCTrafficNoiseRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 2
+    },
+    {
+      "name": "bcl_FearObjects",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 3
+    },
+    {
+      "name": "bcl_FearObjectsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 3
+    },
+    {
+      "name": "bcl_FearObjectsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 3
+    },
+    {
+      "name": "bcl_Underfootings",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 4
+    },
+    {
+      "name": "bcl_Gratings",
+      "type": "boolean",
+      "desc": "A yes/no if dog has a fear of walking on grates.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 4
+    },
+    {
+      "name": "bcl_SlipperyFloors",
+      "type": "boolean",
+      "desc": "A yes/no if dog has a fear of slippery floors.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 4
+    },
+    {
+      "name": "bcl_UnderfootingNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 4
+    },
+    {
+      "name": "bcl_UnderfootingsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 4
+    },
+    {
+      "name": "bcl_FearDogs",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 5
+    },
+    {
+      "name": "bcl_FearDogsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 5
+    },
+    {
+      "name": "bcl_FearDogsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 5
+    },
+    {
+      "name": "bcl_StairConcern",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_StairsUp",
+      "type": "boolean",
+      "desc": "A yes/no if dog has a fear of walking up stairs.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_StairsOpen",
+      "type": "boolean",
+      "desc": "A yes/no if dog has a fear of using open back stairs.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_StairsDown",
+      "type": "boolean",
+      "desc": "A yes/no if dog has a fear of walking down stairs.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_StairConcernNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_StairConcernRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 6
+    },
+    {
+      "name": "bcl_FearTraffic",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 7
+    },
+    {
+      "name": "bcl_FearTrafficNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 7
+    },
+    {
+      "name": "bcl_FearTrafficRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 7
+    },
+    {
+      "name": "bcl_SeparationAnxiety",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 8
+    },
+    {
+      "name": "bcl_CrateConcern",
+      "type": "boolean",
+      "desc": "A yes/no if dog is unsettled when in a crate (portable dog kennel).",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 8
+    },
+    {
+      "name": "bcl_SeparationAnxietyNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 8
+    },
+    {
+      "name": "bcl_SeparationAnxietyRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 8
+    },
+    {
+      "name": "bcl_HandlerAttachment",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 9
+    },
+    {
+      "name": "bcl_HandlerAttachmentNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 9
+    },
+    {
+      "name": "bcl_HandlerAttachmentRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 9
+    },
+    {
+      "name": "bcl_FearStrangers",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 10
+    },
+    {
+      "name": "bcl_FearStrangersNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 10
+    },
+    {
+      "name": "bcl_FearStrangersRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 10
+    },
+    {
+      "name": "bcl_BodyHandling",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 11
+
+    },
+    {
+      "name": "bcl_HandlingNails",
+      "type": "boolean",
+      "desc": "A yes/no if dog is fearful and/or uncooperative when nails are cut or handled.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 11
+    },
+    {
+      "name": "bcl_HandlingRestraint",
+      "type": "boolean",
+      "desc": "A yes/no if dog is fearful or difficult to manage when restrained.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 11
+    },
+    {
+      "name": "bcl_BodyHandlingNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 11
+    },
+    {
+      "name": "bcl_BodyHandlingRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 11
+    },
+    {
+      "name": "bcl_YieldsSpace",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 12
+    },
+    {
+      "name": "bcl_YieldsSpaceNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 12
+    },
+    {
+      "name": "bcl_YieldsSpaceRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 12
+    },
+    {
+      "name": "bcl_SensitivityHarness",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 13
+    },
+    {
+      "name": "bcl_SensitivityHarnessNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 13
+    },
+    {
+      "name": "bcl_SensitivityHarnessRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 13
+    },
+    {
+      "name": "bcl_FanExhaustFear",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 14
+    },
+    {
+      "name": "bcl_FanNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 14
+    },
+    {
+      "name": "bcl_FanExhaustRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 14
+    },
+    {
+      "name": "bcl_BodyAwareness",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 15
+    },
+    {
+      "name": "bcl_TightSpaces",
+      "type": "boolean",
+      "desc": "A yes/no if dog is fearful or hesitant being in tight spaces.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 15
+    },
+    {
+      "name": "bcl_BodyAwarenessNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 15
+    },
+    {
+      "name": "bcl_BodyAwarenessRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 15
+    },
+    {
+      "name": "bcl_Riding",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 16
+    },
+    {
+      "name": "bcl_RidingNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 16
+    },
+    {
+      "name": "bcl_RidingRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 16
+    },
+    {
+      "name": "bcl_DropsRespPassive",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 17
+    },
+    {
+      "name": "bcl_DropsRespPassiveNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 17
+    },
+    {
+      "name": "bcl_DropsRespPassiveRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 17
+    },
+    {
+      "name": "bcl_DropsRespActive",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 18
+    },
+    {
+      "name": "bcl_DropsRespActiveNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 18
+    },
+    {
+      "name": "bcl_DropsRespActiveRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 18
+    },
+    {
+      "name": "bcl_Excitable",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 19
+    },
+    {
+      "name": "bcl_ExcitableNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 19
+    },
+    {
+      "name": "bcl_ExcitableRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 19
+    },
+    {
+      "name": "bcl_SelfModulation",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 20
+    },
+    {
+      "name": "bcl_SelfModulationNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 20
+    },
+    {
+      "name": "bcl_SelfModRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 20
+    },
+    {
+      "name": "bcl_WillingnessSettle",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 21
+    },
+    {
+      "name": "bcl_DemandBark",
+      "type": "boolean",
+      "desc": "A yes/no if dog barks at handler for attention.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 21
+    },
+    {
+      "name": "bcl_WillingnessSettleNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 21
+    },
+    {
+      "name": "bcl_WillingnessSettleRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 21
+    },
+    {
+      "name": "bcl_FearElevatedAreas",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 22
+    },
+    {
+      "name": "bcl_FearElevatedNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 22
+    },
+    {
+      "name": "bcl_FearElevatedRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 22
+    },
+    {
+      "name": "bcl_BarksExcessively",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 23
+    },
+    {
+      "name": "bcl_BarksExcessivelyNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 23
+    },
+    {
+      "name": "bcl_BarksExcessivelyRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 23
+    },
+    {
+      "name": "bcl_HighEnergy",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 24
+    },
+    {
+      "name": "bcl_HighEnergyNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 24
+    },
+    {
+      "name": "bcl_HighEnergyRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 24
+    },
+    {
+      "name": "bcl_AbilityFocusOnWork",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 25
+    },
+    {
+      "name": "bcl_FocusNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 25
+    },
+    {
+      "name": "bcl_FocusRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 25
+    },
+    {
+      "name": "bcl_MovementExcites",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 26
+    },
+    {
+      "name": "bcl_MovementExcitesNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 26
+    },
+    {
+      "name": "bcl_MovementExcitesRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 26
+    },
+    {
+      "name": "bcl_ChaseAnimals",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 27
+    },
+    {
+      "name": "bcl_ChaseAnimalsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 27
+    },
+    {
+      "name": "bcl_ChaseAnimalsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 27
+    },
+    {
+      "name": "bcl_DistractionDogs",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 28
+    },
+    {
+      "name": "bcl_DistractionDogsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 28
+    },
+    {
+      "name": "bcl_DistractionDogsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 28
+    },
+    {
+      "name": "bcl_Olfactory",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 29
+    },
+    {
+      "name": "bcl_OlfactoryNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 29
+    },
+    {
+      "name": "bcl_OlfactoryRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 29
+    },
+    {
+      "name": "bcl_Scavenges",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 30
+    },
+    {
+      "name": "bcl_ScavengeNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 30
+    },
+    {
+      "name": "bcl_ScavengesRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 30
+    },
+    {
+      "name": "bcl_HouseManners",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 31
+    },
+    {
+      "name": "bcl_HouseMannersNotes",
+      "type": "string",
+      "desc": "Notes about poor behavior around the home.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 31
+    },
+    {
+      "name": "bcl_HouseMannersRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 31
+    },
+    {
+      "name": "bcl_SocialMannersNotes",
+      "type": "string",
+      "desc": "Notes about socially inappropriate behavior with people.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 31
+    },
+    {
+      "name": "bcl_SocialMannersRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 31
+    },
+    {
+      "name": "bcl_LackInitiative",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 32
+    },
+    {
+      "name": "bcl_LacksInitiativeNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 32
+    },
+    {
+      "name": "bcl_LackInitiativeRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 32
+    },
+    {
+      "name": "bcl_Unwilling",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 33
+    },
+    {
+      "name": "bcl_LacksFoodDrive",
+      "type": "boolean",
+      "desc": "A yes/no if the dog still lacks drive after being tempted with food.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 33
+    },
+    {
+      "name": "bcl_UnwillingNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 33
+    },
+    {
+      "name": "bcl_UnwillingRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 33
+    },
+    {
+      "name": "bcl_PossessionAggressn",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 34
+    },
+    {
+      "name": "bcl_PossessionAggressnNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 34
+    },
+    {
+      "name": "bcl_PossessionAggressnRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 34
+    },
+    {
+      "name": "bcl_StrangerAggressn",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 35
+    },
+    {
+      "name": "bcl_StrangerAggressnNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 35
+    },
+    {
+      "name": "bcl_StrangerAggressnRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 35
+    },
+    {
+      "name": "bcl_DogAggressnLeash",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 36
+    },
+    {
+      "name": "bcl_DogAggressnNoLeash",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 36
+    },
+    {
+      "name": "bcl_DogAggressnNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 36
+    },
+    {
+      "name": "bcl_DogAggressnLeashRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 36
+    },
+    {
+      "name": "bcl_DogAggressnNoLeashRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 36
+    },
+    {
+      "name": "bcl_ResourceGuardDogs",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 37
+    },
+    {
+      "name": "bcl_ResourceGuardDogsHome",
+      "type": "boolean",
+      "desc": "A yes/no if dog resource guards in the home.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 37
+    },
+    {
+      "name": "bcl_ResourceGuardDogsKennel",
+      "type": "boolean",
+      "desc": "A yes/no if dog resource guards in the kennel.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 37
+    },
+    {
+      "name": "bcl_ResourceGuardDogsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 37
+    },
+    {
+      "name": "bcl_ResourceGuardDogsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 37
+    },
+    {
+      "name": "bcl_InappropriateElimination",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 38
+    },
+    {
+      "name": "bcl_EliminationNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 38
+    },
+    {
+      "name": "bcl_InappropriateEliminationRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 38
+    },
+    {
+      "name": "bcl_SocialManners",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 39
+    },
+    {
+      "name": "bcl_Consistency",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 40
+    },
+    {
+      "name": "bcl_ConsistencyNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 40
+    },
+    {
+      "name": "bcl_ConsistencyRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 40
+    },
+    {
+      "name": "bcl_HandlerDogTeam",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 41
+    },
+    {
+      "name": "bcl_HandlerDogTeamNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 41
+    },
+    {
+      "name": "bcl_RelationshipSkill",
+      "type": "integer",
+      "desc": "Handler’s ability to help team work well together and/or advance the dog's confidence and/or skills",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 42
+    },
+    {
+      "name": "bcl_CommunicationUnclear",
+      "type": "boolean",
+      "desc": "A yes/no if person influencing dog's training provides confusing communication to the dogs such as incorrect, inconsistent commands, poor timing, or lacks communication.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 42
+    },
+    {
+      "name": "bcl_PoorUseOfYou",
+      "type": "boolean",
+      "desc": "A yes/no if person influencing dog's training does not use voice inflection, smile, movement, energy to communicate during training.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 42
+    },
+    {
+      "name": "bcl_LeashManages",
+      "type": "boolean",
+      "desc": "A yes/no if person influencing dog's training relies mostly on managing the dog by holding the leash tight and/or controlling the dog with leash movements rather than directing with commands for skills the dog knows.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 42
+    },
+    {
+      "name": "bcl_PressuresDog",
+      "type": "boolean",
+      "desc": "A yes/no if person influencing dog's training is the source of stress for the dog due to the way they train of interact with the dog.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 42
+    },
+    {
+      "name": "bcl_ComparisonRating",
+      "type": "integer",
+      "desc": "A rating of 1-9 for how this dog compares to others. A score of 99 is considered a no score.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 43
+    },
+    {
+      "name": "bcl_RudeWDogs",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 44
+    },
+    {
+      "name": "bcl_RudeWDogsNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 44
+    },
+    {
+      "name": "bcl_RudeWDogsRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 44
+    },
+    {
+      "name": "bcl_ThunderFear",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 45
+    },
+    {
+      "name": "bcl_ThunderNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 45
+    },
+    {
+      "name": "bcl_ThunderRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 45
+    },
+    {
+      "name": "bcl_KennelsPoorly",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 46
+    },
+    {
+      "name": "bcl_KennelsPoorlyNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 46
+    },
+    {
+      "name": "bcl_KennelsPoorlyRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 46
+    },
+    {
+      "name": "bcl_WalkingSpeed",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 47
+    },
+    {
+      "name": "bcl_Gait",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 48
+    },
+    {
+      "name": "bcl_Housebreaking",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 49
+    },
+    {
+      "name": "bcl_HousebreakNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 49
+    },
+    {
+      "name": "bcl_HousebreakRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 49
+    },
+    {
+      "name": "bcl_Drive",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 50
+    },
+    {
+      "name": "bcl_DriveNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 50
+    },
+    {
+      "name": "bcl_DriveRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 50
+    },
+    {
+      "name": "bcl_CarExhaust",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 51
+    },
+    {
+      "name": "bcl_CarExhaustNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 51
+    },
+    {
+      "name": "bcl_CarExhaustRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 51
+    },
+    {
+      "name": "bcl_AlertNoise",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 52
+    },
+    {
+      "name": "bcl_AlertNoiseNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 52
+    },
+    {
+      "name": "bcl_AlertNoiseRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 52
+    },
+    {
+      "name": "bcl_Whining",
+      "type": "integer",
+      "desc": "A unique identifier for the exact score of this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 53
+    },
+    {
+      "name": "bcl_WhiningNotes",
+      "type": "string",
+      "desc": "Notes for this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 53
+    },
+    {
+      "name": "bcl_WhiningRel",
+      "type": "boolean",
+      "desc": "A yes/no if the dog was released due to performance on this question.",
+      "required": false,
+      "dataTable": "",
+      "note": null,
+      "groupKey": 53
+    }
+  ],
+  "groupLabels": [
+    {
+      "key": 1,
+      "label": "Anxious new situations"
+    },
+    {
+      "key": 2,
+      "label": "Noise Sensitivity"
+    },
+    {
+      "key": 3,
+      "label": "Fear Objects"
+    },
+    {
+      "key": 4,
+      "label": "Fear of Underfootings"
+    },
+    {
+      "key": 5,
+      "label": "Fear of Dogs"
+    },
+    {
+      "key": 6,
+      "label": "Fear of Stairs"
+    },
+    {
+      "key": 7,
+      "label": "Fear of Traffic"
+    },
+    {
+      "key": 8,
+      "label": "Separation Anxiety"
+    },
+    {
+      "key": 9,
+      "label": "Hyper-attachment"
+    },
+    {
+      "key": 10,
+      "label": "Fear of Strangers"
+    },
+    {
+      "key": 11,
+      "label": "Body Handling Concern"
+    },
+    {
+      "key": 12,
+      "label": "Retreats reached for"
+    },
+    {
+      "key": 13,
+      "label": "Harness Sensitivity"
+    },
+    {
+      "key": 14,
+      "label": "Avoids blowing fan"
+    },
+    {
+      "key": 15,
+      "label": "Body Sensitivity"
+    },
+    {
+      "key": 16,
+      "label": "Anxious riding in vehicles"
+    },
+    {
+      "key": 17,
+      "label": "Inhibited by stress"
+    },
+    {
+      "key": 18,
+      "label": "Activated by stress"
+    },
+    {
+      "key": 19,
+      "label": "Excitable"
+    },
+    {
+      "key": 20,
+      "label": "Slow return to productive state"
+    },
+    {
+      "key": 21,
+      "label": "Fidgert when handler idle"
+    },
+    {
+      "key": 22,
+      "label": "Fear elevated areas"
+    },
+    {
+      "key": 23,
+      "label": "Barks Excessively"
+    },
+    {
+      "key": 24,
+      "label": "High energy level"
+    },
+    {
+      "key": 25,
+      "label": "Lacks focus"
+    },
+    {
+      "key": 26,
+      "label": "Movement Excites"
+    },
+    {
+      "key": 27,
+      "label": "Chasing Animals"
+    },
+    {
+      "key": 28,
+      "label": "Dog distraction"
+    },
+    {
+      "key": 29,
+      "label": "Sniffing"
+    },
+    {
+      "key": 30,
+      "label": "Scavenges"
+    },
+    {
+      "key": 31,
+      "label": "Inappropriate behavior at home"
+    },
+    {
+      "key": 32,
+      "label": "Lack initiative to problem solve"
+    },
+    {
+      "key": 33,
+      "label": "Not willing"
+    },
+    {
+      "key": 34,
+      "label": "Resource gruarding people"
+    },
+    {
+      "key": 35,
+      "label": "Aggression toward strangers"
+    },
+    {
+      "key": 36,
+      "label": "Aggress toward dogs"
+    },
+    {
+      "key": 37,
+      "label": "Resources guarding dogs"
+    },
+    {
+      "key": 38,
+      "label": "Eliminates on route"
+    },
+    {
+      "key": 39,
+      "label": "Socially inapproprate with people"
+    },
+    {
+      "key": 40,
+      "label": "Inconsistent"
+    },
+    {
+      "key": 41,
+      "label": "Hander-Dog Team"
+    },
+    {
+      "key": 42,
+      "label": "Relationship Skills"
+    },
+    {
+      "key": 43,
+      "label": "9 to 1 Overall"
+    },
+    {
+      "key": 44,
+      "label": "Socially inappropriate with dogs"
+    },
+    {
+      "key": 45,
+      "label": "Thunder Reaction"
+    },
+    {
+      "key": 46,
+      "label": "Kennels Poorly"
+    },
+    {
+      "key": 47,
+      "label": "Working Speed"
+    },
+    {
+      "key": 48,
+      "label": "Gait"
+    },
+    {
+      "key": 49,
+      "label": "Eliminates in house"
+    },
+    {
+      "key": 50,
+      "label": "Lacks innate desire to work"
+    },
+    {
+      "key": 51,
+      "label": "Avoids car exhaust"
+    },
+    {
+      "key": 52,
+      "label": "Alert to noise from other dogs"
+    },
+    {
+      "key": 53,
+      "label": "Whines Excessively"
+    }
+  ]
+}

@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 function SimpleCheckbox({ id, name, error, label, field, dataValue, onChange, disabled = false }) {
     const clean_style = 'text-emerald-500 focus:ring-emerald-500 checked:bg-emerald-500 dark:checked:bg-emerald-500';
     const error_style = 'text-red-500 focus:ring-red-500 checked:bg-red-500 dark:checked:bg-red-500';
-    const disabled_style = 'disabled:bg-zinc-300';
+    const disabled_style = 'disabled:bg-zinc-300 disabled:dark:bg-zinc-400';
 
     return (
         <>
@@ -137,7 +137,9 @@ export default function CheckboxCrossTab({
                                                     dataValue={header.value}
                                                     label={`Choose ${row.label} as ${header.label}`}
                                                     onChange={(e) => updateSelected(e)}
-                                                    disabled={row.hasOwnProperty('readonly') ? row.readonly[index] : disabled}
+                                                    disabled={
+                                                        row.hasOwnProperty('readonly') ? row.readonly[index] : disabled
+                                                    }
                                                 />
                                             );
 

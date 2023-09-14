@@ -1,4 +1,5 @@
 import {Properties, Property} from "@/components/mdx";
+import {ApiConnectorGeneratorDialog} from "@/components/dialogs/ApiConnectorGeneratorDialog";
 export const description = 'Describes the behavior checklist data model.';
 
 # Behavior Checklists
@@ -12,6 +13,8 @@ The behavior checklist model is IWDR's representation of the checklist originall
 
 - **API Endpoint**: tblDogBehaviorChecklist
 - **Available Actions**: list, create, update
+
+<ApiConnectorGeneratorDialog buttonText="Generate Connector Map" />
 
 ## Properties
 
@@ -582,8 +585,8 @@ The behavior checklist model is IWDR's representation of the checklist originall
     </div>
     <div className="pb-8">
         ### 42. Relationship Skills
-        <Property name="bcl_ComparisonRating" type="integer">
-            A rating of 1-9 for how this team of handler and dog work together. A score of 99 is considered a no score.
+        <Property name="bcl_RelationshipSkill" type="integer">
+            Handler’s ability to help team work well together and/or advance the dog's confidence and/or skills
         </Property>
         <Property name="bcl_CommunicationUnclear" type="boolean">
             A yes/no if person influencing dog's training provides confusing communication to the dogs such as incorrect, inconsistent commands, poor timing, or lacks communication.
