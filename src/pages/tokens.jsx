@@ -5,8 +5,7 @@ import { AuthContext } from '@/lib/contexts/AuthProvider';
 export default function Tokens() {
     const { user } = useContext(AuthContext);
 
-    if (user.usr_GroupID !== -1) {
-        console.log(user);
+    if (user?.usr_GroupID !== -1) {
         return <p>You are not authorized to view this content.</p>;
     }
 
