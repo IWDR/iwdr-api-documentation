@@ -10,8 +10,7 @@ import { Tag } from '@/components/Tag';
 import { remToPx } from '@/lib/remToPx';
 import { TopLevelNavItem } from './TopLevelNavItem';
 import SignInOutButton from './SignInOutButton';
-import TokenLink from './TokenLink';
-import { AuthContext } from './AuthProvider';
+import { AuthContext } from '@/lib/contexts/AuthProvider';
 
 function useInitialValue(value, condition = true) {
     let initialValue = useRef(value).current;
@@ -199,7 +198,7 @@ export const navigation = [
 ];
 
 export default function Navigation({ ...props }) {
-    const user = useContext(AuthContext);
+    const { user } = useContext(AuthContext);
 
     const navList = () =>
         navigation.map((group, groupIndex) => {

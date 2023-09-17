@@ -4,20 +4,11 @@
 
 import { DataTable } from '@/components/DataTable';
 import { CreateApplicationReviewDialog } from '@/components/dialogs/CreateApplicationReviewDialog';
-import { useAuth } from '@/hooks/auth';
 import LoadingOverlay from '@/components/LoadingOverlay';
 import clsx from 'clsx';
 import useSWR from 'swr';
-import { useRef } from 'react';
-
-export async function getServerSideProps() {
-    return {
-        props: {
-            title: 'API Application Review',
-            description: 'Admin review of applications for API access.',
-        },
-    };
-}
+import { useContext, useRef } from 'react';
+import { AuthContext } from '@/lib/contexts/AuthProvider';
 
 function StatusIndicator({ app }) {
     const error_option = [{ text: 'Nothing', value: '' }];
@@ -64,7 +55,7 @@ function StatusIndicator({ app }) {
 }
 
 export default function TokenApplicationReview() {
-    const { user } = useAuth();
+    const { user } = useContext(AuthContext);
     const ref = useRef();
 
     if (!user) {

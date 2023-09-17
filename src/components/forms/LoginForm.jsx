@@ -1,22 +1,24 @@
-import {TextField} from '@/components/TextField'
-import {Button} from '@/components/Button'
-import {useState} from 'react'
-import {useAuth} from '@/hooks/auth'
-import {useLoadingStore} from '@/stores/loadingStore'
+import { TextField } from '@/components/TextField';
+import { Button } from '@/components/Button';
+import { useState } from 'react';
+import { useAuth } from '@/hooks/auth';
+import { useLoadingStore } from '@/stores/loadingStore';
 
-export default function LoginForm({redirect}) {
-    const [username, setUsername] = useState('')
-    const [password, setPassword] = useState('')
-    const [errors, setErrors] = useState({usr_UserID: null, password: null})
-    const {setLoading} = useLoadingStore()
+export default function LoginForm({ redirect }) {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({ usr_UserID: null, password: null });
+    const { setLoading } = useLoadingStore();
 
-    const {login} = useAuth()
+    const { login } = useAuth();
 
     const submit_form = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
 
-        await login({setErrors, setLoading, redirect, ...{usr_UserID: username, password}})
-    }
+        setLoading(true);
+        await login({ setErrors, successRedirect: redirect, form: { usr_UserID: username, password } });
+        setLoading(false);
+    };
 
     return (
         <>
@@ -50,10 +52,10 @@ export default function LoginForm({redirect}) {
                         required
                     />
                 </div>
-                <div className="flex justify-start mt-3">
+                <div className="mt-3 flex justify-start">
                     <Button type="submit">Sign in</Button>
                 </div>
             </form>
         </>
-    )
+    );
 }

@@ -1,10 +1,15 @@
 import {Properties, Property} from "@/components/mdx";
+
 export const description = 'Describes the behavior checklist data model.';
 
 # Behavior Checklists
 
-The Behavior Checklist (BCL) is a behavior scoring system developed by Dr. James Serpell from the University of Pennsylvania, USA in collaboration with multiple guide dog organizations especially The Seeing Eye and Guiding Eyes for the Blind.
-The BCL provides a way to describe aspects of behavior important for guide and service dogs. Importantly the BCL has been validated and demonstrates the capacity to measure behavior in a consistent manner that lends itself to analysis.
+The Behavior Checklist (BCL) is a behavior scoring system developed by Dr. James Serpell from the University of
+Pennsylvania, USA in collaboration with multiple guide dog organizations especially The Seeing Eye and Guiding Eyes
+for the Blind.
+The BCL provides a way to describe aspects of behavior important for guide and service dogs. Importantly the BCL has
+been validated and demonstrates the capacity to measure behavior in a consistent manner that lends itself to
+analysis.
 
 ## The Behavior Checklist Model
 
@@ -22,7 +27,8 @@ The behavior checklist model is IWDR's representation of the checklist originall
             The primary unique identifier for the BCL record.
         </Property>
         <Property name="bcl_CurrentRaiser" type="integer">
-            The unique identifier for the person who is influecing the dog's training during the time period of this bcl.
+            The unique identifier for the person who is influecing the dog's training during the time period of this
+            bcl.
         </Property>
         <Property name="bcl_Date" type="datetime">
             The date and time for when this BCL was scored.
@@ -34,7 +40,8 @@ The behavior checklist model is IWDR's representation of the checklist originall
             Notes about the dog's overall behavior or specific important details.
         </Property>
         <Property name="bcl_Done" type="boolean">
-            A yes/no indicator for if this bcl record is complete and should be included into the EBV calculations for BCL items.
+            A yes/no indicator for if this bcl record is complete and should be included into the EBV calculations
+            for BCL items.
         </Property>
         <Property name="bcl_OrgIDWhereTest" type="integer">
             The unique identifier within IWDR for the organization where this bcl was recorded.
@@ -319,7 +326,7 @@ The behavior checklist model is IWDR's representation of the checklist originall
             A unique identifier for the exact score.
         </Property>
         <Property name="bcl_DemandBark" type="boolean">
-             A yes/no if dog barks at handler for attention.
+            A yes/no if dog barks at handler for attention.
         </Property>
         <Property name="bcl_WillingnessSettleNotes" type="string">
             Notes for this question.
@@ -583,19 +590,25 @@ The behavior checklist model is IWDR's representation of the checklist originall
     <div className="pb-8">
         ### 42. Relationship Skills
         <Property name="bcl_ComparisonRating" type="integer">
-            A rating of 1-9 for how this team of handler and dog work together. A score of 99 is considered a no score.
+            A rating of 1-9 for how this team of handler and dog work together. A score of 99 is considered a no
+            score.
         </Property>
         <Property name="bcl_CommunicationUnclear" type="boolean">
-            A yes/no if person influencing dog's training provides confusing communication to the dogs such as incorrect, inconsistent commands, poor timing, or lacks communication.
+            A yes/no if person influencing dog's training provides confusing communication to the dogs such as
+            incorrect, inconsistent commands, poor timing, or lacks communication.
         </Property>
         <Property name="bcl_PoorUseOfYou" type="boolean">
-            A yes/no if person influencing dog's training does not use voice inflection, smile, movement, energy to communicate during training.
+            A yes/no if person influencing dog's training does not use voice inflection, smile, movement, energy to
+            communicate during training.
         </Property>
         <Property name="bcl_LeashManages" type="boolean">
-            A yes/no if person influencing dog's training relies mostly on managing the dog by holding the leash tight and/or controlling the dog with leash movements rather than directing with commands for skills the dog knows.
+            A yes/no if person influencing dog's training relies mostly on managing the dog by holding the leash
+            tight and/or controlling the dog with leash movements rather than directing with commands for skills the
+            dog knows.
         </Property>
         <Property name="bcl_PressuresDog" type="boolean">
-            A yes/no if person influencing dog's training is the source of stress for the dog due to the way they train of interact with the dog.
+            A yes/no if person influencing dog's training is the source of stress for the dog due to the way they
+            train of interact with the dog.
         </Property>
     </div>
     <div className="pb-8">
