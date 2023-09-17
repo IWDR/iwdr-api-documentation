@@ -1,24 +1,23 @@
-import { Note } from '@/components/mdx'
-
-export const description =
-  "In this guide, we'll look at how authentication works. Currently there is only one method of authentication for the IWDR API. Token based authentication."
+import {Note} from '@/components/mdx'
 
 # Authentication
 
-You'll need to authenticate your requests to access any of the IWDR API endpoints. Currently there is only one method of authentication for the IWDR API, and that is Token based authentication. {{ className: 'lead' }}
+You'll need to authenticate your requests to access any of the IWDR API endpoints. Currently there is only one
+method of authentication for the IWDR API, and that is Token based authentication. {{className: 'lead'}}
 
 ## Using token authentication
 
-The token authentication system is fairly simple, you will use a securely generated string passed as an HTTP header value to authenticate your HTTP requests. Here's an example of how to authenticate using cURL:
+The token authentication system is fairly simple, you will use a securely generated string passed as an HTTP header
+value to authenticate your HTTP requests. Here's an example of how to authenticate using cURL:
 
-```bash {{ title: 'Example request with token auth header' }}
+```bash {{title: 'Example request with token auth header'}}
 curl https://iwdr.org/iwdr/api/v1.php?table=table&action=action \
-  -H "X-Auth-Token: assigned_api_token"
+-H "X-Auth-Token: assigned_api_token"
 ```
 
 <Note>
-  Please ensure that you don't commit your assigned IWDR API Token to GitHub, or
-  any other similar repository sharing platform! This will compromise the tokens
-  identity, and could result in your organizations data becoming publicly
-  available.
+    Please ensure that you don't commit your assigned IWDR API Token to GitHub, or
+    any other similar repository sharing platform! This will compromise the tokens
+    identity, and could result in your organizations data becoming publicly
+    available.
 </Note>

@@ -1,97 +1,118 @@
-import axios from '@/lib/axios'
-import useSWR from 'swr'
-import {useAlertStore} from '@/stores/alertStore'
-import {useRouter} from 'next/router'
+import axios from '@/lib/axios';
+import { useRouter } from 'next/router';
+import { useAlertStore } from '@/stores/alertStore';
+import { useContext } from 'react';
+import { AuthContext } from '@/lib/contexts/AuthProvider';
 
-export const useAuth = ({middleware, redirectIfAuthenticated} = {}) => {
-    const router = useRouter()
-    const {showAlert, serverErrorAlert} = useAlertStore()
+export const getUserServerSide = async (request) => {
+    const user_url = new URL('/user-info', process.env.NEXT_PUBLIC_API_URL);
+    const res = await fetch(user_url, {
+        headers: new Headers({
+            Cookie: request.headers.cookie ?? '',
+            'X-XSRF-TOKEN': request.cookies['XSRF-TOKEN'] ?? '',
+            'X-Requested-With': 'XMLHttpRequest',
+        }),
+        credentials: 'include',
+    });
 
-    const {
-        data: user,
-        error,
-        mutate,
-    } = useSWR(
-        `/user-info`,
-        () => axios.get('/user-info').then((res) => res.data?.data),
-        {
-            fallbackData: null,
-            onError: () => {},
-        }
-    )
+    if (res.status !== 200) return null;
 
-    const csrf = () => axios.get('/sanctum/csrf-cookie')
+    const data = await res.json();
+    return data.data;
+};
 
-    const login = async ({setErrors, setLoading, redirect, ...form}) => {
+export const getUserWithTitleProps = async (title, context) => {
+    const user = await getUserServerSide(context.req);
+
+    return {
+        title,
+        user,
+    };
+};
+
+export const useAuth = () => {
+    const router = useRouter();
+    const { setUser, revalidate } = useContext(AuthContext);
+    const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
+
+    const csrf = async () => await axios.get('/sanctum/csrf-cookie');
+
+    const login = async ({ setErrors, successRedirect, form }) => {
         // Retrieve CSRF token
-        await csrf()
+        await csrf();
 
         // Reset errors
-        setErrors({usr_UserID: null, password: null})
+        setErrors({ usr_UserID: null, password: null });
 
         // Attempt login
-        setLoading(true)
-        axios
+        await axios
             .post('/login', form)
-            .then(() => {
-                // Mutate data
-                mutate()
-                showAlert('You are now signed in.', 'success', true, 6000)
+            .then((res) => {
+                if (res.status !== 200) {
+                    console.log(res);
+                    return;
+                }
+
+                revalidate();
+                setUser({});
+                // Check for two factor being enabled
+                // if (res.data?.two_factor) {
+                //     const two_factor_url = new URL('/auth/two-factor-challenge', process.env.NEXT_PUBLIC_APP_URL);
+                //
+                //     // Forward redirect to 2fa page
+                //     if (successRedirect) {
+                //         two_factor_url.searchParams.set('redirect', successRedirect);
+                //     }
+                //
+                //     router.push(two_factor_url);
+                //     return;
+                // }
 
                 // Redirect the user to their desired destination
-                if (redirect) {
-                    let hrefURL = new URL(`${process.env.NEXT_PUBLIC_APP_URL}${redirect}`)
-                    let pageURL = new URL(window.location)
-
-                    // Ensure the redirect will not leave the host domain
-                    if (redirect.startsWith('/') || hrefURL.host === pageURL.host) {
-                        router.push(hrefURL)
-                    } else {
-                        router.push('/')
-                    }
+                if (successRedirect) {
+                    let redirectURL = new URL(decodeURIComponent(successRedirect), process.env.NEXT_PUBLIC_APP_URL);
+                    router.push(redirectURL);
                 } else {
-                    router.push('/')
+                    router.push('/');
                 }
+
+                // Show success
+                successAlert('You have been signed in.', true, 6000);
             })
             .catch((error) => {
                 // Unknown error
                 if (error.response?.status !== 422) {
-                    serverErrorAlert()
-                    return
+                    serverErrorAlert();
+                    return;
                 }
 
                 // Capture field errors
-                setErrors(
-                    error.response?.data?.errors ?? {usr_UserID: null, password: null}
-                )
-            })
-            .finally(() => setLoading(false))
-    }
+                errorAlert('There was an issue with your submission. Please review and try again.', true, 6000);
+                setErrors(error.response?.data?.errors ?? { usr_UserID: null, password: null });
+            });
+    };
 
-    const logout = async ({setLoading}) => {
-        // There is no user so do not attempt logout
-        if (error) {
-            serverErrorAlert()
-            return
-        }
-
+    const logout = async () => {
         // Perform logout
-        setLoading(true)
         await axios
             .post('/logout')
             .then(() => {
-                mutate(null)
-                // Push back to index and show log-out alert
-                router.push('/')
-                showAlert('You are now signed out.', 'success', true, 6000)
+                revalidate();
+                setUser(null);
+                // Show log-out alert
+                router.push('/login').then(() => {
+                    successAlert('You have been signed out.', true, 6000);
+                });
             })
-            .catch(() => serverErrorAlert())
-            .finally(() => setLoading(false))
-    }
+            .catch((err) => {
+                console.log(err);
+                // An issue was encountered attempting to sign out the user
+                serverErrorAlert();
+            });
+    };
 
     return {
-        user,
         login,
         logout,
-    }
-}
+    };
+};

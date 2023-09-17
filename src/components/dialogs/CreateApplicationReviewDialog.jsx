@@ -24,6 +24,8 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes ?? '');
     const [interviewDateTime, setInterviewDateTime] = useState('');
     const [interviewDateTimeError, setInterviewDateTimeError] = useState(null);
+    const [mappingLabelType, setMappingLabelType] = useState('');
+    const [mappingLabelTypeError, setMappingLabelTypeError] = useState(null);
     const [username, setUsername] = useState('');
     const [usernameError, setUsernameError] = useState(null);
     const [permissionLevel, setPermissionLevel] = useState('');
@@ -387,6 +389,22 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                         </div>
 
                         <div className={clsx(appStatus !== 12 && 'hidden')}>
+                            <SelectField
+                                label={'Select Mapping Label Types'}
+                                id={'api-mapping-label-types'}
+                                options={[
+                                    { text: 'Guide/Service Dogs', value: 'guide-service' },
+                                    {
+                                        text: 'Detection',
+                                        value: 'detection',
+                                    },
+                                ]}
+                                value={mappingLabelType}
+                                onChange={setMappingLabelType}
+                                error={!!mappingLabelTypeError}
+                                error_message={mappingLabelTypeError}
+                                horizontal
+                            />
                             <TextField
                                 type={'text'}
                                 id={'api-user-username'}
@@ -394,9 +412,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                 label={"API User's Username"}
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                horizontal
                                 error={!!usernameError}
                                 error_message={usernameError}
+                                horizontal
                             />
                             <SelectField
                                 label={'Assign Permission Group'}
@@ -404,9 +422,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                 options={permission_group_options}
                                 value={permissionLevel}
                                 onChange={setPermissionLevel}
-                                horizontal
                                 error={!!permissionLevelError}
                                 error_message={permissionLevelError}
+                                horizontal
                             />
                         </div>
 

@@ -1,18 +1,14 @@
-import { TopLevelNavItem } from './TopLevelNavItem'
-import clsx from 'clsx'
-import { useContext } from 'react'
-import { AuthContext } from './AuthProvider'
+import { TopLevelNavItem } from './TopLevelNavItem';
+import clsx from 'clsx';
+import { useContext } from 'react';
+import { AuthContext } from '@/lib/contexts/AuthProvider';
 
 export default function TokenLink({ className, listClass }) {
-  const user = useContext(AuthContext)
+    const { user } = useContext(AuthContext);
 
-  return (
-    <TopLevelNavItem
-      className={clsx(className, !user && 'hidden')}
-      listClass={listClass}
-      href="/tokens"
-    >
-      Tokens
-    </TopLevelNavItem>
-  )
+    return (
+        <TopLevelNavItem className={clsx(className, !user && 'hidden')} listClass={listClass} href="/tokens">
+            Tokens
+        </TopLevelNavItem>
+    );
 }

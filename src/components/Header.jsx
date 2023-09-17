@@ -8,15 +8,14 @@ import { useMobileNavigationStore, useIsInsideMobileNavigation, MobileNavigation
 import { ModeToggle } from '@/components/ModeToggle';
 import { MobileSearch, Search } from '@/components/Search';
 import { TopLevelNavItem } from '@/components/TopLevelNavItem';
-import TokenLink from './TokenLink';
 import SignInOutButton from './SignInOutButton';
-import { AuthContext } from '@/components/AuthProvider';
 import FlyoutMenuSimple from '@/components/FlyoutMenuSimple';
+import { AuthContext } from '@/lib/contexts/AuthProvider';
 
 export const Header = forwardRef(function Header({ className }, ref) {
+    const { user } = useContext(AuthContext);
     let { isOpen: mobileNavIsOpen } = useMobileNavigationStore();
     let isInsideMobileNavigation = useIsInsideMobileNavigation();
-    const user = useContext(AuthContext);
 
     let { scrollY } = useScroll();
     let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9]);
@@ -58,13 +57,13 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     <ul role="list" className="flex items-center gap-8">
                         <TopLevelNavItem
                             href="/token-application"
-                            className={clsx('text-sm leading-5', Boolean(!user) && 'hidden')}
+                            className={clsx('text-sm leading-5', !Boolean(user) && 'hidden')}
                         >
                             API Access Application
                         </TopLevelNavItem>
                         <TopLevelNavItem
                             href="/support"
-                            className={clsx('text-sm leading-5', Boolean(!user) && 'hidden')}
+                            className={clsx('text-sm leading-5', !Boolean(user) && 'hidden')}
                         >
                             API Support
                         </TopLevelNavItem>
@@ -81,7 +80,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     <ModeToggle />
                 </div>
                 <div className="hidden min-[416px]:contents">
-                    <SignInOutButton />
+                    <SignInOutButton user={user} />
                 </div>
             </div>
         </motion.div>
