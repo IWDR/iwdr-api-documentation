@@ -11,7 +11,8 @@ export const AuthContext = createContext({
 export default function AuthProvider({ value, children }) {
     const { data: client_side_user, mutate } = useSWR(
         '/user-info',
-        () => axios.get('/user-info').then((r) => r?.data?.data),
+        async () =>
+            await axios.get('/user-info', { headers: { 'Cache-Control': 'no-cache' } }).then((r) => r?.data?.data),
         {
             fallbackData: null,
             onError: () => {},
