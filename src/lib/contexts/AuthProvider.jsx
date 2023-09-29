@@ -1,6 +1,4 @@
 import { createContext, useEffect } from 'react';
-import useSWR from 'swr';
-import axios from '@/lib/axios';
 
 export const AuthContext = createContext({
     user: null,
@@ -9,15 +7,17 @@ export const AuthContext = createContext({
 });
 
 export default function AuthProvider({ value, children }) {
-    const { data: client_side_user, mutate } = useSWR(
-        '/user-info',
-        async () =>
-            await axios.get('/user-info', { headers: { 'Cache-Control': 'no-cache' } }).then((r) => r?.data?.data),
-        {
-            fallbackData: null,
-            onError: () => {},
-        }
-    );
+    const client_side_user = null;
+    const mutate = () => {};
+    // const { data: client_side_user, mutate } = useSWR(
+    //     '/user-info',
+    //     async () =>
+    //         await axios.get('/user-info', { headers: { 'Cache-Control': 'no-cache' } }).then((r) => r?.data?.data),
+    //     {
+    //         fallbackData: null,
+    //         onError: () => {},
+    //     }
+    // );
 
     useEffect(() => {
         value.setUser(client_side_user);

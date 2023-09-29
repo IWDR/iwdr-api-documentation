@@ -1,10 +1,10 @@
-import {useRef, useState} from "react";
-import Lightbox from "yet-another-react-lightbox";
-import {Captions, Counter, Inline, Fullscreen, Zoom} from "yet-another-react-lightbox/plugins";
-import "yet-another-react-lightbox/plugins/counter.css";
-import "yet-another-react-lightbox/plugins/captions.css";
-import "yet-another-react-lightbox/styles.css";
-import {Button} from "@/components/Button";
+import { useRef, useState } from 'react';
+import Lightbox from 'yet-another-react-lightbox';
+import { Captions, Counter, Fullscreen, Inline, Zoom } from 'yet-another-react-lightbox/plugins';
+import 'yet-another-react-lightbox/plugins/counter.css';
+import 'yet-another-react-lightbox/plugins/captions.css';
+import 'yet-another-react-lightbox/styles.css';
+import { Button } from '@/components/Button';
 
 
 export default function CustomLightbox({ slides, inline, label }) {

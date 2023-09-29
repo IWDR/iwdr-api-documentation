@@ -1,11 +1,10 @@
 import TokensDataTable from '@/components/data-tables/TokensDataTable';
-import { useContext } from 'react';
-import { AuthContext } from '@/lib/contexts/AuthProvider';
+import { useSession } from 'next-auth/react';
 
 export default function Tokens() {
-    const { user } = useContext(AuthContext);
+    const { data: session } = useSession({ required: true });
 
-    if (user?.usr_GroupID !== -1) {
+    if (session?.user?.usr_GroupID !== -1) {
         return <p>You are not authorized to view this content.</p>;
     }
 

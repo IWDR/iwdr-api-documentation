@@ -5,11 +5,10 @@ import clsx from 'clsx';
 import { GridPattern } from '@/components/GridPattern';
 import { Heading } from '@/components/Heading';
 import { ServiceDogIcon } from './icons/ServiceDogIcon';
-import { useContext } from 'react';
 import { ClipboardIcon } from '@/components/icons/ClipboardIcon';
 import { FolderIcon } from '@/components/icons/FolderIcon';
 import { BeakerIcon } from '@heroicons/react/24/solid';
-import { AuthContext } from '@/lib/contexts/AuthProvider';
+import { useSession } from 'next-auth/react';
 
 const resources = [
     {
@@ -143,7 +142,7 @@ function Resource({ resource }) {
 }
 
 export function Resources() {
-    const { user } = useContext(AuthContext);
+    const { data: session } = useSession();
 
     return (
         <div className="my-16">
@@ -152,11 +151,11 @@ export function Resources() {
             </Heading>
             <div
                 className={clsx(
-                    user && 'sm:grid-cols-2 xl:grid-cols-4',
+                    !!session?.user && 'sm:grid-cols-2 xl:grid-cols-4',
                     'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
                 )}
             >
-                {user ? (
+                {!!session?.user ? (
                     resources.map((resource) => <Resource key={resource.href} resource={resource} />)
                 ) : (
                     <p className="font-medium dark:text-gray-200">

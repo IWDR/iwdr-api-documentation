@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export function BreedersDataTable(){
-    const [display, setDisplay] = useState(false)
+export function BreedersDataTable() {
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
@@ -15,14 +15,12 @@ export function BreedersDataTable(){
             text: 'Display Name',
             key: 'psn_DisplayName',
         },
-    ]
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Breeders'
-                    : 'Show Available Breeders'}
+                {display ? 'Hide Available Breeders' : 'Show Available Breeders'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export function BreedersDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/person?breeders=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/person?breeders=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function BroodBreedingBehaviorFDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,20 @@ export default function BroodBreedingBehaviorFDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'bbf_BrdBehFCode'
+            key: 'bbf_BrdBehFCode',
         },
         {
             text: 'Display Name',
-            key: 'bbf_Text'
-        }
+            key: 'bbf_Text',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
                 {display
-                    ? "Hide Available Brood Breeding Behavior Codes"
-                    : "Show Available Brood Breeding Behavior Codes"}
+                    ? 'Hide Available Brood Breeding Behavior Codes'
+                    : 'Show Available Brood Breeding Behavior Codes'}
             </Button>
             <Transition
                 show={display}
@@ -34,12 +34,12 @@ export default function BroodBreedingBehaviorFDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path='/api/references/brood-breeding-behavior-female'
+                    path="/api/references/brood-breeding-behavior-female"
                     headers={headers}
                     paginated
                     searchable
                 />
             </Transition>
         </>
-    )
+    );
 }

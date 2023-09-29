@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function ElbowTraitCodeIDDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function ElbowTraitCodeIDDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'CodeID'
+            key: 'CodeID',
         },
         {
             text: 'Display Name',
-            key: 'DiagnosisText'
-        }
+            key: 'DiagnosisText',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? "Hide Available Trait Code ID's"
-                    : "Show Available Trait Code ID's"}
+                {display ? "Hide Available Trait Code ID's" : "Show Available Trait Code ID's"}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function ElbowTraitCodeIDDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/trait-code-id?elbow=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/trait-code-id?elbow=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

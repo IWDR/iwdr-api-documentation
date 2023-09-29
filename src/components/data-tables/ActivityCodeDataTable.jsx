@@ -1,28 +1,26 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export default function ActivityCodeDataTable(){
+export default function ActivityCodeDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             key: 'dac_ActivityCode',
-            text: 'Unique Identifier'
+            text: 'Unique Identifier',
         },
         {
             key: 'dac_ActivityText',
-            text: 'Display Name'
-        }
+            text: 'Display Name',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Activity Codes'
-                    : 'Show Available Activity Codes'}
+                {display ? 'Hide Available Activity Codes' : 'Show Available Activity Codes'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function ActivityCodeDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/activity-code'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/activity-code" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

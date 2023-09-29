@@ -7,6 +7,7 @@ import { Listbox, Transition } from '@headlessui/react';
 import { useGeolocation } from '@/hooks/geolocation';
 import axios from '@/lib/axios';
 import { parsePhoneNumber } from 'libphonenumber-js';
+import { useSession } from 'next-auth/react';
 
 export function PhoneField({
     name,
@@ -24,6 +25,7 @@ export function PhoneField({
     horizontal = false,
     copyable,
 }) {
+    const { data: session, status } = useSession();
     const { location } = useGeolocation();
     const error_style = 'border-red-500 text-red-500 focus:border-red-900 focus:outline-none focus:ring-red-900';
     const clean_style = 'border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white';
@@ -36,7 +38,10 @@ export function PhoneField({
         data: country_codes,
         error: country_code_error,
         isLoading: isLoadingCountryCodes,
-    } = useSWR({ resource: '/api/references/country' });
+    } = useSWR({
+        resource: '/api/references/country',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
 
     // Geolocate the phone code
     useEffect(() => {
@@ -46,22 +51,31 @@ export function PhoneField({
             let lat = location.coords.latitude;
             let lng = location.coords.longitude;
 
-            axios.post('/api/geolocate', { lat, lng }).then((res) => {
-                if (res.status !== 200) return;
-                let data = res.data.data;
-                let results = data.results;
+            axios
+                .post(
+                    '/api/geolocate',
+                    {
+                        lat,
+                        lng,
+                    },
+                    { headers: { Authorization: 'Bearer ' + session?.user?.access_token } }
+                )
+                .then((res) => {
+                    if (res.status !== 200) return;
+                    let data = res.data.data;
+                    let results = data.results;
 
-                if (!results) return;
-                for (const add of results) {
-                    let components = add.address_components;
-                    components.forEach((piece) => {
-                        let types = piece.types;
-                        if (types.findIndex((val) => val === 'country') > -1) {
-                            setCountryCode(piece.short_name);
-                        }
-                    });
-                }
-            });
+                    if (!results) return;
+                    for (const add of results) {
+                        let components = add.address_components;
+                        components.forEach((piece) => {
+                            let types = piece.types;
+                            if (types.findIndex((val) => val === 'country') > -1) {
+                                setCountryCode(piece.short_name);
+                            }
+                        });
+                    }
+                });
         }
     }, [location]);
 
@@ -80,6 +94,8 @@ export function PhoneField({
             // obsolete, phone number was invalid in some fashion
         }
     };
+
+    if (status === 'loading') return <p>Loading...</p>;
 
     return (
         <div className={clsx(className, horizontal && 'sm:grid sm:grid-cols-2 sm:items-start sm:gap-4 sm:pt-5')}>
