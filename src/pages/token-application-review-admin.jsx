@@ -4,13 +4,13 @@
 
 import { DataTable } from '@/components/DataTable';
 import { CreateApplicationReviewDialog } from '@/components/dialogs/CreateApplicationReviewDialog';
-import LoadingOverlay from '@/components/LoadingOverlay';
 import clsx from 'clsx';
 import useSWR from 'swr';
-import { useContext, useRef } from 'react';
-import { AuthContext } from '@/lib/contexts/AuthProvider';
+import { useRef } from 'react';
+import { useSession } from 'next-auth/react';
 
 function StatusIndicator({ app }) {
+    const { data: session, status } = useSession();
     const error_option = [{ text: 'Nothing', value: '' }];
 
     const statuses = {
@@ -24,7 +24,10 @@ function StatusIndicator({ app }) {
         data: appProgressData,
         error: appProgressError,
         isLoading: appProgressIsLoading,
-    } = useSWR({ resource: '/api/references/application-progress?api=1' });
+    } = useSWR({
+        resource: '/api/references/application-progress?api=1',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
 
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
@@ -44,6 +47,8 @@ function StatusIndicator({ app }) {
         return statuses.reviewing;
     };
 
+    if (status === 'loading') return <p>Loading...</p>;
+
     return (
         <div className="flex items-center justify-end gap-x-2 sm:justify-start">
             <div className={clsx(mapIndicator(app.application_progress_id), 'flex-none rounded-full p-1')}>
@@ -55,14 +60,14 @@ function StatusIndicator({ app }) {
 }
 
 export default function TokenApplicationReview() {
-    const { user } = useContext(AuthContext);
+    const { data: session, status } = useSession();
     const ref = useRef();
 
-    if (!user) {
-        return <LoadingOverlay />;
+    if (status === 'loading') {
+        return <p>Loading...</p>;
     }
-    if (user.usr_GroupID !== -1) {
-        console.log(user);
+
+    if (session?.user?.usr_GroupID !== -1) {
         return <p>You are not authorized to view this content.</p>;
     }
 

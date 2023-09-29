@@ -1,5 +1,3 @@
-import clsx from 'clsx';
-
 export function TextTable({ name, id, label, options }) {
     const rows = options?.rows ?? [];
 

@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function TrainingRegionDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function TrainingRegionDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'reg_RegionID'
+            key: 'reg_RegionID',
         },
         {
             text: 'Display Name',
-            key: 'reg_RegionName'
-        }
+            key: 'reg_RegionName',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Training Regions'
-                    : 'Show Available Training Regions'}
+                {display ? 'Hide Available Training Regions' : 'Show Available Training Regions'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function TrainingRegionDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/region?training=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/region?training=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

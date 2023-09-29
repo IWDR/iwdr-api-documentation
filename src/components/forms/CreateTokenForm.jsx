@@ -26,10 +26,14 @@ export function CreateTokenForm({ onSubmit, id }) {
 
         setLoading(true);
         await axios
-            .post('/api/tokens', {
-                token_name,
-                abilities: token_abilities,
-            })
+            .post(
+                '/api/tokens',
+                {
+                    token_name,
+                    abilities: token_abilities,
+                },
+                { headers: { Authorization: 'Bearer ' + session?.user?.access_token } }
+            )
             .then((res) => {
                 reset();
                 onSubmit(res.data.token);

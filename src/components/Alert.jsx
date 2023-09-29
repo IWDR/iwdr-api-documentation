@@ -1,16 +1,9 @@
-import {Fragment} from 'react'
-import {Transition} from '@headlessui/react'
-import {useAlertStore} from '@/stores/alertStore'
-import {
-    CheckCircleIcon,
-    ExclamationCircleIcon,
-    ExclamationTriangleIcon,
-    InformationCircleIcon,
-    XMarkIcon,
-} from '@heroicons/react/20/solid'
-import clsx from 'clsx'
-import VariantIcon from "@/components/icons/VariantIcon";
-import CloseIcon from "@/components/icons/CloseIcon";
+import { Fragment } from 'react';
+import { Transition } from '@headlessui/react';
+import { useAlertStore } from '@/stores/alertStore';
+import clsx from 'clsx';
+import VariantIcon from '@/components/icons/VariantIcon';
+import CloseIcon from '@/components/icons/CloseIcon';
 
 const variantStyles = {
     success: 'ring-1 ring-emerald-500/40 bg-emerald-300/90',

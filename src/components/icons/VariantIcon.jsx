@@ -2,9 +2,9 @@ import {
     CheckCircleIcon,
     ExclamationCircleIcon,
     ExclamationTriangleIcon,
-    InformationCircleIcon
-} from "@heroicons/react/20/solid";
-import clsx from "clsx";
+    InformationCircleIcon,
+} from '@heroicons/react/20/solid';
+import clsx from 'clsx';
 
 export default function VariantIcon({ variant }) {
     let classes = 'w-6'

@@ -1,8 +1,8 @@
-import { useLoadingStore } from '@/stores/loadingStore'
-import { Transition, Dialog } from '@headlessui/react'
-import { useRouter } from 'next/router'
-import { Fragment, useEffect } from 'react'
-import Spinner from './Spinner'
+import { useLoadingStore } from '@/stores/loadingStore';
+import { Dialog, Transition } from '@headlessui/react';
+import { useRouter } from 'next/router';
+import { Fragment, useEffect } from 'react';
+import Spinner from './Spinner';
 
 export default function LoadingOverlay() {
   const { setLoading } = useLoadingStore()

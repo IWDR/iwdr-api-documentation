@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function PregnancyCodeDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function PregnancyCodeDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'prc_PregnancyCode'
+            key: 'prc_PregnancyCode',
         },
         {
             text: 'Display Name',
-            key: 'prc_PregnancyText'
-        }
+            key: 'prc_PregnancyText',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? "Hide Available Pregnancy Codes"
-                    : "Show Available Pregnancy Codes"}
+                {display ? 'Hide Available Pregnancy Codes' : 'Show Available Pregnancy Codes'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function PregnancyCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/pregnancy-code'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/pregnancy-code" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

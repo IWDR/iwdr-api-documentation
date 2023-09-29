@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export function OwnersTable(){
-    const [display, setDisplay] = useState(false)
+export function OwnersTable() {
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
@@ -15,14 +15,12 @@ export function OwnersTable(){
             text: 'Display Name',
             key: 'psn_DisplayName',
         },
-    ]
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Owners'
-                    : 'Show Available Owners'}
+                {display ? 'Hide Available Owners' : 'Show Available Owners'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export function OwnersTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/person?owners=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/person?owners=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

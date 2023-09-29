@@ -1,28 +1,26 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export default function BodyPartCodeDataTable(){
+export default function BodyPartCodeDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             key: 'BodyPartCode',
-            text: 'Unique Identifier'
+            text: 'Unique Identifier',
         },
         {
             key: 'BodyPartText',
-            text: 'Display Name'
-        }
+            text: 'Display Name',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Body Part Codes'
-                    : 'Show Available Body Part Codes'}
+                {display ? 'Hide Available Body Part Codes' : 'Show Available Body Part Codes'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function BodyPartCodeDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/body-part-code'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/body-part-code" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

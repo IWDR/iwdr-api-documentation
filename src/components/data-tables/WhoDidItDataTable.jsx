@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function WhoDidItDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function WhoDidItDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'psn_PersonID'
+            key: 'psn_PersonID',
         },
         {
             text: 'Display Name',
-            key: 'psn_Last'
-        }
+            key: 'psn_Last',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? "Hide Available ID's"
-                    : "Show Available ID's"}
+                {display ? "Hide Available ID's" : "Show Available ID's"}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function WhoDidItDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/person?who_did_it=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/person?who_did_it=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

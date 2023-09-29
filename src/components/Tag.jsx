@@ -1,8 +1,8 @@
-import clsx from 'clsx'
+import clsx from 'clsx';
 
 const variantStyles = {
-  medium: 'rounded-lg px-1.5 ring-1 ring-inset',
-}
+    medium: 'rounded-lg px-1.5 ring-1 ring-inset',
+};
 
 const colorStyles = {
   emerald: {

@@ -1,10 +1,10 @@
-import {useState} from 'react'
-import {Button} from '../Button'
-import {DataTable} from '@/components/DataTable'
-import {Transition} from '@headlessui/react'
+import { useState } from 'react';
+import { Button } from '../Button';
+import { DataTable } from '@/components/DataTable';
+import { Transition } from '@headlessui/react';
 
 export function SubStatusDataTable() {
-    const [display, setDisplay] = useState(false)
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
@@ -23,14 +23,12 @@ export function SubStatusDataTable() {
             text: 'Requires End Reason',
             component: (item) => (item['dssc_EndReasonRequired'] ? 'Yes' : 'No'),
         },
-    ]
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Sub Status codes'
-                    : 'Show Available Sub Status codes'}
+                {display ? 'Hide Available Sub Status codes' : 'Show Available Sub Status codes'}
             </Button>
             <Transition
                 show={display}
@@ -41,13 +39,8 @@ export function SubStatusDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/sub-status'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/sub-status" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

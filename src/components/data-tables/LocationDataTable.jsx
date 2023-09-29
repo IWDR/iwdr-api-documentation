@@ -1,10 +1,10 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export function LocationDataTable(){
-    const [display, setDisplay] = useState(false)
+export function LocationDataTable() {
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
@@ -15,14 +15,12 @@ export function LocationDataTable(){
             text: 'Display Name',
             key: 'loc_Text',
         },
-    ]
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Locations'
-                    : 'Show Available Locations'}
+                {display ? 'Hide Available Locations' : 'Show Available Locations'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export function LocationDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/locations'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/locations" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

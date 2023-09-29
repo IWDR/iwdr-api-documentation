@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function MeasureTypeCodeDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function MeasureTypeCodeDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'mtc_MeasureTypeCode'
+            key: 'mtc_MeasureTypeCode',
         },
         {
             text: 'Display Name',
-            key: 'mtc_MeasureText'
-        }
+            key: 'mtc_MeasureText',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? "Hide Available Measure Type Code's"
-                    : "Show Available Measure Type Code's"}
+                {display ? "Hide Available Measure Type Code's" : "Show Available Measure Type Code's"}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function MeasureTypeCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/measure-type-code'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/measure-type-code" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }
