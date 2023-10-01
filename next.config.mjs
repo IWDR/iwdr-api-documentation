@@ -10,14 +10,7 @@ const withMDX = nextMDX({
         rehypePlugins,
         recmaPlugins,
     },
-})
-
-const noCacheHeaders = [
-    {
-        key: 'Cache-Control',
-        value: 'no-store'
-    }
-]
+});
 
 const nextConfig = {
     reactStrictMode: true,
@@ -32,42 +25,6 @@ const nextConfig = {
                     {key: "Access-Control-Allow-Methods", value: "GET, DELETE, PATCH, POST, PUT"},
                 ]
             },
-            {
-                source: "/resources/:path*",
-                headers: noCacheHeaders
-            },
-            {
-                source: '/authentication',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/errors',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/mapping',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/support',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/testing',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/tokens',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/token-application',
-                headers: noCacheHeaders
-            },
-            {
-                source: '/token-application-review',
-                headers: noCacheHeaders
-            }
         ]
     }
 }
