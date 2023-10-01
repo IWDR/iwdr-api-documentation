@@ -66,7 +66,7 @@ export function Button({ variant = 'primary', color = 'success', size = 'sm', cl
                 sizeStyles[variant === 'text' ? 'txt' : size],
                 className
             )}
-            prefetch={!!props.href}
+            prefetch={!!props.href ? false : undefined}
             {...props}
         >
             {arrow === 'left' && arrowIcon}
