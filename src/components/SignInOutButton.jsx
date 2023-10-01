@@ -7,7 +7,7 @@ export default function SignInOutButton({ className }) {
     return (
         <>
             {!!session?.user ? (
-                <Button onClick={() => signOut({ redirect: true, callbackUrl: '/' })} className={className}>
+                <Button onClick={() => signOut()} className={className}>
                     Sign out
                 </Button>
             ) : (
