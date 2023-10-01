@@ -40,15 +40,7 @@ const sizeStyles = {
     xl: 'px-6 py-3 text-base leading-7',
 };
 
-export function Button({
-    variant = 'primary',
-    color = 'success',
-    size = 'sm',
-    className,
-    children,
-    arrow,
-    ...props
-}) {
+export function Button({ variant = 'primary', color = 'success', size = 'sm', className, children, arrow, ...props }) {
     let Component = props.href ? Link : 'button';
 
     let arrowIcon = (
@@ -68,13 +60,13 @@ export function Button({
         <Component
             className={clsx(
                 'inline-flex items-center justify-center gap-0.5 overflow-hidden font-medium transition',
-                props.disabled &&
-                    'cursor-not-allowed focus:outline-none disabled:opacity-70',
+                props.disabled && 'cursor-not-allowed focus:outline-none disabled:opacity-70',
                 variantStyles[variant],
                 variantColors[variant === 'text' ? null : color],
                 sizeStyles[variant === 'text' ? 'txt' : size],
                 className
             )}
+            prefetch={!!props.href}
             {...props}
         >
             {arrow === 'left' && arrowIcon}
