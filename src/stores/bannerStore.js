@@ -1,4 +1,4 @@
-import {create} from "zustand";
+import { create } from 'zustand';
 
 export const useBannerStore = create((set, get) => ({
     open: false,
@@ -11,12 +11,12 @@ export const useBannerStore = create((set, get) => ({
             message: msg,
             variant: variant,
             isClosable: isClosable ?? false,
-        })
+        });
 
         if (withTimeout > 0) {
             setTimeout(() => {
-                get().clearBanner()
-            }, withTimeout)
+                get().clearBanner();
+            }, withTimeout);
         }
     },
     clearBanner: () => set({ open: false, message: null, variant: 'plain' }),

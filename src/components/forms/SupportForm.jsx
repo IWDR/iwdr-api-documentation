@@ -1,31 +1,34 @@
-import {useRef, useState} from 'react';
-import {Button} from '@/components/Button';
-import {TextEditor} from '@/components/TextEditor';
-import {SelectField} from '@/components/SelectField';
+import { useRef, useState } from 'react';
+import { Button } from '@/components/Button';
+import { TextEditor } from '@/components/TextEditor';
+import { SelectField } from '@/components/SelectField';
 import useSWR from 'swr';
-import {FileUpload} from '@/components/FileUpload';
-import {useAuth} from '@/hooks/auth';
+import { FileUpload } from '@/components/FileUpload';
 import axios from '@/lib/axios';
-import {useAlertStore} from '@/stores/alertStore';
-import {useLoadingStore} from '@/stores/loadingStore';
+import { useAlertStore } from '@/stores/alertStore';
+import { useLoadingStore } from '@/stores/loadingStore';
+import { useSession } from 'next-auth/react';
 
 export function SupportForm() {
     const [reason, setReason] = useState([]);
     const detailsRef = useRef(null);
     const [attachments, setAttachments] = useState([]);
     const attachmentRef = useRef();
-    const {user} = useAuth();
-    const {successAlert, serverErrorAlert} = useAlertStore();
-    const {setLoading} = useLoadingStore();
+    const { successAlert, serverErrorAlert } = useAlertStore();
+    const { setLoading } = useLoadingStore();
+    const { data: session, status } = useSession();
 
-    const error_option = [{text: 'No options found.', value: ''}];
-    const {data, isLoading, error} = useSWR({resource: '/api/references/support-type-code'});
+    const error_option = [{ text: 'No options found.', value: '' }];
+    const { data, isLoading, error } = useSWR({
+        resource: '/api/references/support-type-code',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
 
     const reasons =
         !isLoading && !error
             ? data.data.map((reason) => {
-                return {text: reason.stc_Type, value: reason.stc_ID};
-            })
+                  return { text: reason.stc_Type, value: reason.stc_ID };
+              })
             : error_option;
 
     const reset = () => {
@@ -40,7 +43,7 @@ export function SupportForm() {
 
         const ticket = {
             email: user.usr_Email,
-            name: user.usr_FirstName + " " + user.usr_LastName,
+            name: user.usr_FirstName + ' ' + user.usr_LastName,
             subject: reason,
             message: detailsRef.current.getContent(),
             attachments: attachments,
@@ -49,7 +52,7 @@ export function SupportForm() {
 
         setLoading(true);
         axios
-            .post('/api/support', ticket)
+            .post('/api/support', ticket, { headers: { Authorization: 'Bearer ' + session?.user?.access_token } })
             .then((res) => {
                 if (res.status !== 204) return;
 
@@ -63,6 +66,8 @@ export function SupportForm() {
             })
             .finally(() => setLoading(false));
     };
+
+    if (status === 'loading') return <p>Loading...</p>;
 
     return (
         <>

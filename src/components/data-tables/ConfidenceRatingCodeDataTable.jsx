@@ -1,7 +1,7 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
 export default function ConfidenceRatingCodeDataTable() {
     const [display, setDisplay] = useState(false);
@@ -9,20 +9,18 @@ export default function ConfidenceRatingCodeDataTable() {
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'ConfidenceRatingCode'
+            key: 'ConfidenceRatingCode',
         },
         {
             text: 'Display Name',
-            key: 'ConfidenceText'
-        }
+            key: 'ConfidenceText',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? "Hide Available Confidence Rating Codes"
-                    : "Show Available Confidence Rating Codes"}
+                {display ? 'Hide Available Confidence Rating Codes' : 'Show Available Confidence Rating Codes'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function ConfidenceRatingCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/confidence-rating-code'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/confidence-rating-code" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

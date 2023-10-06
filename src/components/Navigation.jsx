@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import clsx from 'clsx';
@@ -10,8 +10,7 @@ import { Tag } from '@/components/Tag';
 import { remToPx } from '@/lib/remToPx';
 import { TopLevelNavItem } from './TopLevelNavItem';
 import SignInOutButton from './SignInOutButton';
-import TokenLink from './TokenLink';
-import { AuthContext } from './AuthProvider';
+import { useSession } from 'next-auth/react';
 
 function useInitialValue(value, condition = true) {
     let initialValue = useRef(value).current;
@@ -199,11 +198,11 @@ export const navigation = [
 ];
 
 export default function Navigation({ ...props }) {
-    const user = useContext(AuthContext);
+    const { data: session } = useSession();
 
     const navList = () =>
         navigation.map((group, groupIndex) => {
-            if (group.is_restricted && !user) {
+            if (group.is_restricted && !session?.user) {
                 return <li className="hidden" key={group.title}></li>;
             }
 
@@ -215,21 +214,21 @@ export default function Navigation({ ...props }) {
             <ul role="list">
                 <TopLevelNavItem
                     href="/token-application-review-admin"
-                    className={clsx(Boolean(!user) && 'hidden', 'block py-1')}
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
                     listClass="md:hidden"
                 >
                     API Access Review
                 </TopLevelNavItem>
                 <TopLevelNavItem
                     href="/token-application"
-                    className={clsx(Boolean(!user) && 'hidden', 'block py-1')}
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
                     listClass="md:hidden"
                 >
                     API Access Application
                 </TopLevelNavItem>
                 <TopLevelNavItem
                     href="/support"
-                    className={clsx(Boolean(!user) && 'hidden', 'block py-1')}
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
                     listClass="md:hidden"
                 >
                     API Support

@@ -1,28 +1,26 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export default function GradRegionDataTable(){
+export default function GradRegionDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'reg_RegionID'
+            key: 'reg_RegionID',
         },
         {
             text: 'Display Name',
-            key: 'reg_RegionName'
-        }
+            key: 'reg_RegionName',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Grad Regions'
-                    : 'Show Available Grad Regions'}
+                {display ? 'Hide Available Grad Regions' : 'Show Available Grad Regions'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function GradRegionDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/region?grad=1'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/region?grad=1" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

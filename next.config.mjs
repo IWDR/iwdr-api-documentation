@@ -10,11 +10,24 @@ const withMDX = nextMDX({
         rehypePlugins,
         recmaPlugins,
     },
-})
+});
 
 const nextConfig = {
     reactStrictMode: true,
-    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md']
+    pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdx', 'md'],
+    headers() {
+        return [
+            {
+                source: "/api/auth/:path*",
+                headers: [
+                    {key: "Access-Control-Allow-Credentials", value: "true"},
+                    {key: "Access-Control-Allow-Origin", value: process.env.NEXTAUTH_URL},
+                    {key: "Access-Control-Allow-Origin", value: process.env.NEXT_PUBLIC_API_URL},
+                    {key: "Access-Control-Allow-Methods", value: "GET, DELETE, PATCH, POST, PUT"},
+                ]
+            },
+        ]
+    }
 }
 
 export default withMDX(nextConfig)

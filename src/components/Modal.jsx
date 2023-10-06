@@ -1,8 +1,8 @@
-import {Transition, Dialog} from '@headlessui/react'
-import {Fragment} from 'react'
-import clsx from 'clsx'
-import CloseIcon from "@/components/icons/CloseIcon";
-import {Prose} from "@/components/Prose";
+import { Dialog, Transition } from '@headlessui/react';
+import { Fragment } from 'react';
+import clsx from 'clsx';
+import CloseIcon from '@/components/icons/CloseIcon';
+import { Prose } from '@/components/Prose';
 
 export function Modal({open, openModifier, closable, children, className}) {
     return (

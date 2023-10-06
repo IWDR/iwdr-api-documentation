@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 import { InputError } from './InputError';
-import { ExclamationCircleIcon, ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid';
+import { CheckIcon, ChevronUpDownIcon, ExclamationCircleIcon } from '@heroicons/react/20/solid';
 import { Listbox, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
 

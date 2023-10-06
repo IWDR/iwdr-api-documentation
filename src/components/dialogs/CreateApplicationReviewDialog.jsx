@@ -13,8 +13,10 @@ import { TextField } from '@/components/TextField';
 import CheckboxField from '@/components/CheckboxField';
 import clsx from 'clsx';
 import { ComboboxField } from '@/components/ComboboxField';
+import { useSession } from 'next-auth/react';
 
 export function CreateApplicationReviewDialog({ app, onSave }) {
+    const { data: session, status } = useSession();
     const [open, setOpen] = useState(false);
     const error_option = [{ label: 'Nothing', value: '' }];
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
@@ -24,6 +26,8 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
     const [application_progress_notes, setAppProgressNotes] = useState(app.application_progress_notes ?? '');
     const [interviewDateTime, setInterviewDateTime] = useState('');
     const [interviewDateTimeError, setInterviewDateTimeError] = useState(null);
+    const [mappingLabelType, setMappingLabelType] = useState('');
+    const [mappingLabelTypeError, setMappingLabelTypeError] = useState(null);
     const [username, setUsername] = useState('');
     const [usernameError, setUsernameError] = useState(null);
     const [permissionLevel, setPermissionLevel] = useState('');
@@ -34,7 +38,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: appData,
         isLoading: isLoadingApp,
         error: errorApp,
-    } = useSWR({ resource: `/api/access-application/${app.id}` });
+    } = useSWR({
+        resource: `/api/access-application/${app.id}`,
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const organization_breeds_to_import =
         !isLoadingApp && !errorApp ? appData.data.organization_breeds_to_import : error_option;
 
@@ -43,20 +50,20 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: data_accuracy_types,
         isLoading: isLoadingDataAccuracyTypes,
         error: loadingDataAccuracyTypesError,
-    } = useSWR({ resource: '/api/references/data-accuracy-impression' });
-    // const data_accuracy_options =
-    //     !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
-    //         ? data_accuracy_types.data.map((row) => {
-    //               return { text: row.label, value: row.id };
-    //           })
-    //         : error_option;
+    } = useSWR({
+        resource: '/api/references/data-accuracy-impression',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
 
     // Get current storage options
     const {
         data: current_storage_vals,
         isLoading: isLoadingCurrentStorageVals,
         error: loadingCurrentStorageValuesError,
-    } = useSWR({ resource: '/api/references/current-storage-solution' });
+    } = useSWR({
+        resource: '/api/references/current-storage-solution',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const current_storage_values =
         !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError
             ? current_storage_vals.data.map((row) => {
@@ -92,7 +99,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: api_usage_vals,
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
-    } = useSWR({ resource: '/api/references/application-usage' });
+    } = useSWR({
+        resource: '/api/references/application-usage',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const api_usage_headers =
         !isLoadingAPIUsageVals && !loadingAPIUsageValsError
             ? api_usage_vals.data.map((row) => {
@@ -173,7 +183,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: appProgressData,
         error: appProgressError,
         isLoading: appProgressIsLoading,
-    } = useSWR({ resource: '/api/references/application-progress?api=1' });
+    } = useSWR({
+        resource: '/api/references/application-progress?api=1',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const application_progress_options =
         !appProgressIsLoading && !appProgressError
             ? appProgressData.data?.map((row) => {
@@ -187,7 +200,10 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         data: permission_groups,
         isLoading: isLoadingPermissionGroups,
         error: errorLoadingPermissionGroups,
-    } = useSWR({ resource: '/api/permission-groups' });
+    } = useSWR({
+        resource: '/api/permission-groups',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const permission_group_options =
         !isLoadingPermissionGroups && !errorLoadingPermissionGroups
             ? permission_groups.data?.map((row) => {
@@ -195,18 +211,26 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
               })
             : error_option;
 
+    if (status === 'loading') {
+        return <p>Loading...</p>;
+    }
+
     const submit = (e) => {
         e.preventDefault();
 
         setLoading(true);
         axios
-            .patch(`/api/access-application/${appData.data.id}`, {
-                application_progress_id: appStatus,
-                application_progress_notes: application_progress_notes,
-                interview_date_time: interviewDateTime,
-                username: username,
-                permission_group: permissionLevel,
-            })
+            .patch(
+                `/api/access-application/${appData.data.id}`,
+                {
+                    application_progress_id: appStatus,
+                    application_progress_notes: application_progress_notes,
+                    interview_date_time: interviewDateTime,
+                    username: username,
+                    permission_group: permissionLevel,
+                },
+                { headers: { Authorization: 'Bearer ' + session?.user?.access_token } }
+            )
             .then((res) => {
                 if (res.status !== 200) return;
 
@@ -387,6 +411,22 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                         </div>
 
                         <div className={clsx(appStatus !== 12 && 'hidden')}>
+                            <SelectField
+                                label={'Select Mapping Label Types'}
+                                id={'api-mapping-label-types'}
+                                options={[
+                                    { text: 'Guide/Service Dogs', value: 'guide-service' },
+                                    {
+                                        text: 'Detection',
+                                        value: 'detection',
+                                    },
+                                ]}
+                                value={mappingLabelType}
+                                onChange={setMappingLabelType}
+                                error={!!mappingLabelTypeError}
+                                error_message={mappingLabelTypeError}
+                                horizontal
+                            />
                             <TextField
                                 type={'text'}
                                 id={'api-user-username'}
@@ -394,9 +434,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                 label={"API User's Username"}
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
-                                horizontal
                                 error={!!usernameError}
                                 error_message={usernameError}
+                                horizontal
                             />
                             <SelectField
                                 label={'Assign Permission Group'}
@@ -404,9 +444,9 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
                                 options={permission_group_options}
                                 value={permissionLevel}
                                 onChange={setPermissionLevel}
-                                horizontal
                                 error={!!permissionLevelError}
                                 error_message={permissionLevelError}
+                                horizontal
                             />
                         </div>
 

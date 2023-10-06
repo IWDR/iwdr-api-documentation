@@ -1,18 +1,17 @@
-import { TopLevelNavItem } from './TopLevelNavItem'
-import clsx from 'clsx'
-import { useContext } from 'react'
-import { AuthContext } from './AuthProvider'
+import { TopLevelNavItem } from './TopLevelNavItem';
+import clsx from 'clsx';
+import { useSession } from 'next-auth/react';
 
 export default function TokenLink({ className, listClass }) {
-  const user = useContext(AuthContext)
+    const { data: session } = useSession();
 
-  return (
-    <TopLevelNavItem
-      className={clsx(className, !user && 'hidden')}
-      listClass={listClass}
-      href="/tokens"
-    >
-      Tokens
-    </TopLevelNavItem>
-  )
+    return (
+        <TopLevelNavItem
+            className={clsx(className, !Boolean(session?.user) && 'hidden')}
+            listClass={listClass}
+            href="/tokens"
+        >
+            Tokens
+        </TopLevelNavItem>
+    );
 }

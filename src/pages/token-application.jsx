@@ -18,6 +18,7 @@ import MailSentIcon from '@/components/icons/MailSentIcon';
 import { Note } from '@/components/mdx';
 import clsx from 'clsx';
 import { TextArea } from '@/components/TextArea';
+import { useSession } from 'next-auth/react';
 
 export async function getServerSideProps() {
     return {
@@ -58,6 +59,7 @@ export default function TokenApplication(props) {
     const [custom_development_request, setCustomDevelopmentRequest] = useState(false);
     const [custom_development_request_comments, setCustomDevelopmentRequestComments] = useState('');
 
+    const { data: session, status } = useSession();
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
 
@@ -69,7 +71,10 @@ export default function TokenApplication(props) {
         data: breeds,
         isLoading: isLoadingBreeds,
         error: loadingBreedsError,
-    } = useSWR({ resource: '/api/references/breed' });
+    } = useSWR({
+        resource: '/api/references/breed',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const breed_options =
         !isLoadingBreeds && !loadingBreedsError
             ? breeds.data.map((breed) => {
@@ -81,7 +86,10 @@ export default function TokenApplication(props) {
         data: data_accuracy_types,
         isLoading: isLoadingDataAccuracyTypes,
         error: loadingDataAccuracyTypesError,
-    } = useSWR({ resource: '/api/references/data-accuracy-impression' });
+    } = useSWR({
+        resource: '/api/references/data-accuracy-impression',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const data_accuracy_options =
         !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
             ? data_accuracy_types.data.map((row) => {
@@ -93,7 +101,10 @@ export default function TokenApplication(props) {
         data: current_storage_vals,
         isLoading: isLoadingCurrentStorageVals,
         error: loadingCurrentStorageValuesError,
-    } = useSWR({ resource: '/api/references/current-storage-solution' });
+    } = useSWR({
+        resource: '/api/references/current-storage-solution',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const current_storage_values =
         !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError
             ? current_storage_vals.data.map((row) => {
@@ -107,7 +118,10 @@ export default function TokenApplication(props) {
         data: api_usage_vals,
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
-    } = useSWR({ resource: '/api/references/application-usage' });
+    } = useSWR({
+        resource: '/api/references/application-usage',
+        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+    });
     const api_usage_headers =
         !isLoadingAPIUsageVals && !loadingAPIUsageValsError
             ? api_usage_vals.data.map((row) => {
@@ -262,7 +276,9 @@ export default function TokenApplication(props) {
 
         setLoading(true);
         axios
-            .post('/api/access-application', form)
+            .post('/api/access-application', form, {
+                headers: { Authorization: 'Bearer ' + session?.user?.access_token },
+            })
             .then((res) => {
                 console.log(res);
                 if (res.status !== 200) return;
@@ -283,7 +299,9 @@ export default function TokenApplication(props) {
             .finally(() => setLoading(false));
     };
 
-    // Render submission success insteand
+    if (status === 'loading') return <p>Loading...</p>;
+
+    // Render submission success instead
     if (submitted) {
         return (
             <div className="flex flex-col items-center justify-center text-center">

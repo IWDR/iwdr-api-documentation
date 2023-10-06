@@ -1,28 +1,26 @@
-import {useState} from "react";
-import {Button} from "@/components/Button";
-import {Transition} from "@headlessui/react";
-import {DataTable} from "@/components/DataTable";
+import { useState } from 'react';
+import { Button } from '@/components/Button';
+import { Transition } from '@headlessui/react';
+import { DataTable } from '@/components/DataTable';
 
-export default function WorkTypeDataTable(){
+export default function WorkTypeDataTable() {
     const [display, setDisplay] = useState(false);
 
     const headers = [
         {
             text: 'Unique Identifier',
-            key: 'wkt_WorktypeCode'
+            key: 'wkt_WorktypeCode',
         },
         {
             text: 'Display Name',
-            key: 'wkt_WorkTypeText'
-        }
+            key: 'wkt_WorkTypeText',
+        },
     ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Work Types'
-                    : 'Show Available Work Types'}
+                {display ? 'Hide Available Work Types' : 'Show Available Work Types'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export default function WorkTypeDataTable(){
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/work-type'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/work-type" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

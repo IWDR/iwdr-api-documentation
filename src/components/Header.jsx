@@ -1,28 +1,33 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef, useEffect } from 'react';
 import Link from 'next/link';
 import clsx from 'clsx';
 import { motion, useScroll, useTransform } from 'framer-motion';
 
 import { IWDRLogo } from '@/components/IWDRLogo';
-import { useMobileNavigationStore, useIsInsideMobileNavigation, MobileNavigation } from '@/components/MobileNavigation';
+import { MobileNavigation, useIsInsideMobileNavigation, useMobileNavigationStore } from '@/components/MobileNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
 import { MobileSearch, Search } from '@/components/Search';
 import { TopLevelNavItem } from '@/components/TopLevelNavItem';
-import TokenLink from './TokenLink';
 import SignInOutButton from './SignInOutButton';
-import { AuthContext } from '@/components/AuthProvider';
 import FlyoutMenuSimple from '@/components/FlyoutMenuSimple';
+import { useSession } from 'next-auth/react';
 
 export const Header = forwardRef(function Header({ className }, ref) {
+    const { data: session, status } = useSession();
     let { isOpen: mobileNavIsOpen } = useMobileNavigationStore();
     let isInsideMobileNavigation = useIsInsideMobileNavigation();
-    const user = useContext(AuthContext);
 
     let { scrollY } = useScroll();
     let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9]);
     let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8]);
 
     const adminMenuItems = [{ name: 'API Applications', href: '/token-application-review-admin' }];
+
+    useEffect(() => {
+        console.log(session);
+    }, [session, status]);
+
+    if (status === 'loading') return <p>Loading...</p>;
 
     return (
         <motion.div
@@ -58,18 +63,18 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     <ul role="list" className="flex items-center gap-8">
                         <TopLevelNavItem
                             href="/token-application"
-                            className={clsx('text-sm leading-5', Boolean(!user) && 'hidden')}
+                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
                         >
                             API Access Application
                         </TopLevelNavItem>
                         <TopLevelNavItem
                             href="/support"
-                            className={clsx('text-sm leading-5', Boolean(!user) && 'hidden')}
+                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
                         >
                             API Support
                         </TopLevelNavItem>
                         <FlyoutMenuSimple
-                            className={clsx(Boolean(!user || user.usr_GroupID !== -1) && 'hidden')}
+                            className={clsx(session?.user.usr_GroupID !== -1 && 'hidden')}
                             label="Admin Items"
                             menuItems={adminMenuItems}
                         />

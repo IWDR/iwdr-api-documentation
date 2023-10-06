@@ -1,30 +1,29 @@
-import { Button } from '@/components/Button'
-import { Heading } from '@/components/Heading'
+import { Button } from '@/components/Button';
+import { Heading } from '@/components/Heading';
 
 const guides = [
-  {
-    href: '/quickstart',
-    name: 'Quickstart',
-    description: 'A quick intro for understanding who this API is designed for, and how to utilize it best.'
-  },
-  {
-    href: '/mapping',
-    name: 'Mapping',
-    description:
-      'Learn how to accurately describe data mappings used by the IWDR API to ensure data integrity.',
-  },
-  {
-    href: '/authentication',
-    name: 'Authentication',
-    description: 'Learn how to authenticate your IWDR API requests.',
-  },
-  {
-    href: '/errors',
-    name: 'Errors',
-    description:
-      'Read about the different types of errors returned by the IWDR API, and how to accurately handle them in a production environment.',
-  },
-]
+    {
+        href: '/quickstart',
+        name: 'Quickstart',
+        description: 'A quick intro for understanding who this API is designed for, and how to utilize it best.',
+    },
+    {
+        href: '/mapping',
+        name: 'Mapping',
+        description: 'Learn how to accurately describe data mappings used by the IWDR API to ensure data integrity.',
+    },
+    {
+        href: '/authentication',
+        name: 'Authentication',
+        description: 'Learn how to authenticate your IWDR API requests.',
+    },
+    {
+        href: '/errors',
+        name: 'Errors',
+        description:
+            'Read about the different types of errors returned by the IWDR API, and how to accurately handle them in a production environment.',
+    },
+];
 
 export function Guides() {
   return (

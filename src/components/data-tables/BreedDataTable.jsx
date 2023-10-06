@@ -1,10 +1,10 @@
-import {useState} from 'react'
-import {Button} from '../Button'
-import {DataTable} from '@/components/DataTable'
-import {Transition} from '@headlessui/react'
+import { useState } from 'react';
+import { Button } from '../Button';
+import { DataTable } from '@/components/DataTable';
+import { Transition } from '@headlessui/react';
 
 export function BreedDataTable() {
-    const [display, setDisplay] = useState(false)
+    const [display, setDisplay] = useState(false);
 
     const headers = [
         {
@@ -15,14 +15,12 @@ export function BreedDataTable() {
             text: 'Breed Text',
             key: 'dbc_DogBreedDescription',
         },
-    ]
+    ];
 
     return (
         <>
             <Button onClick={() => setDisplay(!display)}>
-                {display
-                    ? 'Hide Available Breed codes'
-                    : 'Show Available Breed codes'}
+                {display ? 'Hide Available Breed codes' : 'Show Available Breed codes'}
             </Button>
             <Transition
                 show={display}
@@ -33,13 +31,8 @@ export function BreedDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable
-                    path='/api/references/breed'
-                    headers={headers}
-                    paginated
-                    searchable
-                />
+                <DataTable path="/api/references/breed" headers={headers} paginated searchable />
             </Transition>
         </>
-    )
+    );
 }

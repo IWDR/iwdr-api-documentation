@@ -1,10 +1,11 @@
 import clsx from 'clsx';
-import { Fragment, useState, forwardRef, useImperativeHandle } from 'react';
+import { forwardRef, Fragment, useImperativeHandle, useState } from 'react';
 import { DataTablePagination } from '@/components/DataTablePagination';
 import useSWR from 'swr';
 import Spinner from '@/components/Spinner';
 import { TextField } from '@/components/TextField';
 import { Button } from '@/components/Button';
+import { useSession } from 'next-auth/react';
 
 // eslint-disable-next-line react/display-name
 export const DataTable = forwardRef(
@@ -12,19 +13,27 @@ export const DataTable = forwardRef(
         { headers = [], path = null, searchable = false, paginated = false, noDataMsg, className, sticky = false },
         ref
     ) => {
+        const { data: session, status } = useSession({ required: true });
         const basePath = new URL(path, process.env.NEXT_PUBLIC_API_URL);
-
-        if (paginated) {
-            basePath.searchParams.set('paginated', '1');
-        }
+        basePath.searchParams.set('paginated', paginated ? '1' : '0');
 
         const [search, setSearch] = useState('');
         const [itemsUrl, setItemsURL] = useState(basePath.href);
 
-        const { data: items, isLoading, error, mutate } = useSWR({ resource: itemsUrl });
-
+        const {
+            data: items,
+            isLoading,
+            error,
+            mutate,
+        } = useSWR({
+            resource: itemsUrl,
+            options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
+        });
         useImperativeHandle(ref, () => ({ mutate }));
 
+        if (status === 'loading') {
+            return <Spinner />;
+        }
         if (error) {
             return <p>There was an issue loading this page. Please contact support.</p>;
         }
