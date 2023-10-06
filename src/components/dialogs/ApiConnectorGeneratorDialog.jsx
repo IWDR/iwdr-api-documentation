@@ -1,3 +1,4 @@
+import React from 'react';
 import { Button } from '@/components/Button';
 import { useEffect, useState } from 'react';
 import { Dialog } from '@headlessui/react';
@@ -6,13 +7,11 @@ import { SelectField } from '@/components/SelectField';
 import { TextField } from '@/components/TextField';
 import bcl from '@/models/bcl.json';
 import elbow from '@/models/elbow.json';
-import { Code, CodeGroup } from '@/components/Code';
-import { MDXContext, MDXProvider } from '@mdx-js/react';
-import { TextArea } from '@/components/TextArea';
-import { CodeBlock } from '@/components/CodeBlock';
-import ReactMarkdown from 'react-markdown';
+import Prism from 'prismjs';
+import 'prismjs/components/prism-json';
+import { Pre } from '@/components/Code';
 
-export function ApiConnectorGeneratorDialog({ buttonText }) {
+export function ApiConnectorGeneratorDialog({ buttonText, title }) {
     const [open, setOpen] = useState(false);
 
     const [type, setType] = useState('');
@@ -80,14 +79,16 @@ export function ApiConnectorGeneratorDialog({ buttonText }) {
         2
     );
 
+    const code = Prism.highlight(testData, Prism.languages['json'], 'json');
+
     return (
         <>
             <Button onClick={() => setOpen(true)}>{buttonText}</Button>
             <Modal open={open} openModifier={onClose}>
                 <Dialog.Title as="h1">API Connector Generator</Dialog.Title>
-                <ReactMarkdown>
-                    <CodeGroup>{testData}</CodeGroup>
-                </ReactMarkdown>
+                <Pre>
+                    <code dangerouslySetInnerHTML={{ __html: code }} />
+                </Pre>
                 <form className="space-y-8">
                     <SelectField
                         required

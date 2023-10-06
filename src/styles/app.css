@@ -55,3 +55,9 @@
     transform: rotate(359deg);
   }
 }
+
+code[class*=language-] {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-size: 1em;
+    line-height: 1.5rem;
+}
