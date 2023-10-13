@@ -1,4 +1,4 @@
-import {Properties, Property} from "@/components/mdx";
+import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx";
 
 export const description = 'Describes the behavior checklist data model.';
 
@@ -726,3 +726,264 @@ The behavior checklist model is IWDR's representation of the checklist originall
         </Property>
     </div>
 </Properties>
+
+---
+
+## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=tblDogBehaviorChecklist&action=list' }}
+
+<Row>
+    <Col>
+        List all BCL records for dogs owned by your organization.
+
+        **Query options** - Include these into the request URL as **GET** parameters.
+        <Properties>
+            <Property name="q" type="string">
+                A powerful query string to filter the returned data. The string format is as follows:
+                (field\~operator\~value). For example, (bcl_DogID\~equals\~1). To search using multiple fields just add another query set. For example (field1\~equals\~4)(field2\~equals\~6).
+                The available operators are as follows:
+                - equals
+                - notequal
+                - morethan
+                - lessthan
+                - contains
+                - between
+                - empty
+                - startswith
+            </Property>
+            <Property name="qs" type="string">
+                A generic search string. This acts a general "all fields" search string.
+            </Property>
+            <Property name="records" type="integer">
+                The number of records to be returned. If number is more than all dogs owned, then all dogs will be
+                returned.
+                <Note>
+                    By default, a maximum of 200 records are shown per request. To retrieve more than 200 records this parameter must be adjusted.
+                </Note>
+            </Property>
+            <Property name="skip" type="integer">
+                The number of records to skip over. This parameter combined with the "**records**" parameter can be used to simulate a simple pagination functionality.
+            </Property>
+        </Properties>
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Response">
+            ```json
+            {
+                "success": true,
+                "data": [
+            {
+                "bcl_BehaviorCkID": "1234",
+                "bcl_DogID": "1234",
+                "bcl_Date": null,
+                "bcl_WhichChecklistCode": "1234",
+                "bcl_ComparisonRating": "9",
+                "bcl_StrangerAggressn": "5",
+                "bcl_PossessionAggressn": "5",
+                "bcl_FearStrangers": "5",
+                "bcl_FearDogs": "5",
+                "bcl_BodyHandling": "4",
+                "bcl_LOCTrafficNoise": "4",
+                "bcl_SeparationAnxiety": "4",
+                "bcl_Excitable": "4",
+                "bcl_ChaseAnimals": "99",
+                "bcl_Underfootings": "5",
+                "bcl_SensitivityHarness": "5",
+                "bcl_DropsRespActive": "4",
+                "bcl_DropsRespPassive": "4",
+                "bcl_FearObjects": "4",
+                "bcl_FearTraffic": "99",
+                "bcl_HighEnergy": "4",
+                "bcl_Scavenges": "5",
+                "bcl_Riding": "99",
+                "bcl_AbilityFocusOnWork": "5",
+                "bcl_WillingnessSettle": "5",
+                "bcl_HouseManners": "99",
+                "bcl_SocialManners": "5",
+                "bcl_StairConcern": "5",
+                "bcl_SelfModulation": "5",
+                "bcl_Olfactory": "4",
+                "bcl_FearNewPlacesSituations": "5",
+                "bcl_BarksExcessively": "4",
+                "bcl_YieldsSpace": "5",
+                "bcl_DistractionDogs": "3",
+                "bcl_MovementExcites": "4",
+                "bcl_RudeWDogs": "3",
+                "bcl_KennelsPoorly": "99",
+                "bcl_LackInitiative": "5",
+                "bcl_Unwilling": "5",
+                "bcl_ThunderFear": "99",
+                "bcl_BodyAwareness": "4",
+                "bcl_DogAggressnNotes": "",
+                "bcl_FearStrangersNotes": "",
+                "bcl_FearDogsNotes": "",
+                "bcl_BodyHandlingNotes": "...",
+                "bcl_NoiseNotes": "...",
+                "bcl_UnderfootingNotes": "",
+                "bcl_DropsRespActiveNotes": "",
+                "bcl_DropsRespPassiveNotes": "",
+                "bcl_FearObjectsNotes": "...",
+                "bcl_ScavengeNotes": "",
+                "bcl_HouseMannersNotes": "",
+                "bcl_SocialMannersNotes": "",
+                "bcl_FearNewPlacesSituationsNotes": "...",
+                "bcl_KennelsPoorlyNotes": "",
+                "bcl_ExcitableNotes": "",
+                "bcl_SelfModulationNotes": "",
+                "bcl_StairConcernNotes": "",
+                "bcl_YieldsSpaceNotes": "",
+                "bcl_WillingnessSettleNotes": "...",
+                "bcl_BarksExcessivelyNotes": "...",
+                "bcl_HighEnergyNotes": "",
+                "bcl_FocusNotes": "",
+                "bcl_MovementExcitesNotes": "...",
+                "bcl_DistractionDogsNotes": "...",
+                "bcl_OlfactoryNotes": "",
+                "bcl_HandlerDogTeamNotes": "",
+                "bcl_CurrentRaiser": null,
+                "bcl_InstructorID": "1291",
+                "bcl_DogTypeDescription": "...",
+                "bcl_Recommendations": "",
+                "bcl_DogAggressnNoLeash": "5",
+                "bcl_DogAggressnLeash": "5",
+                "bcl_ChaseAnimalsNotes": "",
+                "bcl_StairsUp": "0",
+                "bcl_StairsDown": "0",
+                "bcl_SlipperyFloors": "0",
+                "bcl_Gratings": "0",
+                "bcl_FearTrafficNotes": "",
+                "bcl_HandlerAttachment": "4",
+                "bcl_InappropriateElimination": "99",
+                "bcl_EliminationNotes": "",
+                "bcl_RidingNotes": "",
+                "bcl_FearElevatedAreas": "5",
+                "bcl_FearElevatedNotes": "",
+                "bcl_Consistency": "5",
+                "bcl_ConsistencyNotes": "",
+                "bcl_HandlerDogTeam": "5",
+                "bcl_CrateConcern": "0",
+                "bcl_Gait": "99",
+                "bcl_WalkingSpeed": "99",
+                "bcl_UnwillingNotes": "...",
+                "bcl_HandlingNails": "0",
+                "bcl_DemandBark": "0",
+                "bcl_HeadIntoHarness": "0",
+                "bcl_Footfall": "0",
+                "bcl_SeparationAnxietyNotes": "...",
+                "bcl_TightSpaces": "0",
+                "bcl_CollarPressure": "0",
+                "bcl_Housebreaking": "99",
+                "bcl_Drive": "99",
+                "bcl_StrangerAggressnNotes": "",
+                "bcl_StairsOpen": "0",
+                "bcl_SensitivityHarnessNotes": "",
+                "bcl_HandlerAttachmentNotes": "",
+                "bcl_ResourceGuardDogs": "5",
+                "bcl_ResourceGuardDogsHome": "0",
+                "bcl_ResourceGuardDogsKennel": "0",
+                "bcl_CommunicationUnclear": "0",
+                "bcl_PoorUseOfYou": "0",
+                "bcl_LeashManages": "0",
+                "bcl_PressuresDog": "0",
+                "bcl_LacksInitiativeNotes": "",
+                "bcl_HandlingRestraint": "0",
+                "bcl_ExposureNotes": "...",
+                "bcl_FanExhaustFear": "5",
+                "bcl_RelationshipSkill": "0",
+                "bcl_StrangerAggressnRel": "0",
+                "bcl_PossessionAggressnRel": "0",
+                "bcl_PossessionAggressnNotes": "",
+                "bcl_DogAggressnNoLeashRel": "0",
+                "bcl_DogAggressnLeashRel": "0",
+                "bcl_FearStrangersRel": "0",
+                "bcl_FearDogsRel": "0",
+                "bcl_BodyHandlingRel": "0",
+                "bcl_LOCTrafficNoiseRel": "0",
+                "bcl_SeparationAnxietyRel": "0",
+                "bcl_ExcitableRel": "0",
+                "bcl_ChaseAnimalsRel": "0",
+                "bcl_UnderfootingsRel": "0",
+                "bcl_SensitivityHarnessRel": "0",
+                "bcl_DropsRespActiveRel": "0",
+                "bcl_DropsRespPassiveRel": "0",
+                "bcl_FearObjectsRel": "0",
+                "bcl_FearTrafficRel": "0",
+                "bcl_HandlerAttachmentRel": "0",
+                "bcl_InappropriateEliminationRel": "0",
+                "bcl_ResourceGuardDogsRel": "0",
+                "bcl_ResourceGuardDogsNotes": "",
+                "bcl_HighEnergyRel": "0",
+                "bcl_ScavengesRel": "0",
+                "bcl_RidingRel": "0",
+                "bcl_FocusRel": "0",
+                "bcl_FearElevatedRel": "0",
+                "bcl_StairConcernRel": "0",
+                "bcl_SelfModRel": "0",
+                "bcl_OlfactoryRel": "0",
+                "bcl_ConsistencyRel": "0",
+                "bcl_FearNewPlacesSituationsRel": "0",
+                "bcl_BarksExcessivelyRel": "0",
+                "bcl_YieldsSpaceRel": "0",
+                "bcl_HouseMannersRel": "0",
+                "bcl_DistractionDogsRel": "0",
+                "bcl_MovementExcitesRel": "0",
+                "bcl_RudeWDogsRel": "0",
+                "bcl_WillingnessSettleRel": "0",
+                "bcl_KennelsPoorlyRel": "0",
+                "bcl_LackInitiativeRel": "0",
+                "bcl_UnwillingRel": "0",
+                "bcl_SocialMannersRel": "0",
+                "bcl_FanExhaustRel": "0",
+                "bcl_FanNotes": "",
+                "bcl_BlowingFan": "0",
+                "bcl_BodyAwarenessNotes": "...",
+                "bcl_BodyAwarenessRel": "0",
+                "bcl_Whining": "0",
+                "bcl_WhiningNotes": "",
+                "bcl_WhiningRel": "0",
+                "bcl_VideoLink": "",
+                "bcl_Done": "0",
+                "bcl_OrgIDWhereTest": "1234",
+                "bcl_NbrDogsRaised": "0",
+                "bcl_DateEntered": null,
+                "bcl_LacksFoodDrive": "0",
+                "bcl_ThunderNotes": "",
+                "bcl_ThunderRel": "0",
+                "bcl_PuddlesWater": "0",
+                "bcl_HousebreakNotes": "",
+                "bcl_HousebreakRel": "0",
+                "bcl_DriveNotes": "",
+                "bcl_DriveRel": "0",
+                "bcl_CarExhaust": "99",
+                "bcl_CarExhaustNotes": "",
+                "bcl_CarExhaustRel": "0",
+                "bcl_AlertNoise": "99",
+                "bcl_AlertNoiseNotes": "",
+                "bcl_AlertNoiseRel": "0",
+                "bcl_RudeWDogsNotes": "",
+                "bcl_LastUpdated": null,
+                "bcl_UserIDLast": "88",
+                "bcl_ComposeLow": "4",
+                "bcl_EnvSoundLow": "4",
+                "bcl_TouchSensLow": "4",
+                "bcl_DistractLow": "3",
+                "bcl_ChaseLow": "4",
+                "bcl_HeightsLow": "5",
+                "bcl_DogProbLow": "5",
+                "bcl_ResGdLow": "5",
+                "bcl_MannersLow": "5",
+                "bcl_AdaptLow": "4",
+                "bcl_DBImportKey": "1234",
+                "bcl_DateImport": null
+            },
+            {
+                ...
+            },
+            {
+                ...
+            }
+                ]
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
