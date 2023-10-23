@@ -2,6 +2,7 @@ import { Guides } from '@/components/Guides';
 import { HeroPattern } from '@/components/HeroPattern';
 import { Resources } from '@/components/Resources';
 import { Note } from '@/components/mdx';
+import Link from 'next/link';
 
 export async function getServerSideProps() {
     const props = {
@@ -33,9 +34,9 @@ export default function Index() {
             </Note>
             <p className="lead">
                 To get started, or, for an overview of the setup process, we highly recommend reading the{' '}
-                <a href="/quickstart">Quickstart</a> page. You can also visit the{' '}
-                <a href="/authentication">Authentication</a> page for information about using your IWDR API token to
-                make authenticated HTTP requests.
+                <Link href="/quickstart">Quickstart</Link> page. You can also visit the{' '}
+                <Link href="/authentication">Authentication</Link> page for information about using your IWDR API token
+                to make authenticated HTTP requests.
             </p>
             <Guides />
             <Resources />

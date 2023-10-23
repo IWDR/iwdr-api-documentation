@@ -10,6 +10,6 @@ export const config = {
         '/testing',
         '/tokens',
         '/token-application',
-        '/token-application-review',
+        '/token-application-review-admin',
     ],
 };
