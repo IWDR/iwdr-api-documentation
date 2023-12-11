@@ -3,7 +3,6 @@ import { Router, useRouter } from 'next/router';
 import { MDXProvider } from '@mdx-js/react';
 import * as mdxComponents from '@/components/mdx';
 import { useMobileNavigationStore } from '@/components/MobileNavigation';
-import 'prismjs/themes/prism-dark.min.css';
 import '@/styles/tailwind.css';
 import '@/styles/app.css';
 import 'focus-visible';

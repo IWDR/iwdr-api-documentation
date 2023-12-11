@@ -61,3 +61,19 @@ code[class*=language-] {
     font-size: 1em;
     line-height: 1.5rem;
 }
+
+.token.boolean,
+.token.constant,
+.token.deleted,
+.token.number,
+.token.property,
+.token.symbol,
+.token.tag {
+  color: var(--shiki-token-keyword);
+}
+
+.token.string {
+  color: var(--shiki-token-constant);
+}
+
+

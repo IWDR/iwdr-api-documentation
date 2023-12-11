@@ -42,13 +42,12 @@ export function SupportForm() {
         e.preventDefault();
 
         const ticket = {
-            email: user.usr_Email,
-            name: user.usr_FirstName + ' ' + user.usr_LastName,
+            email: session?.user.usr_Email,
+            name: session?.user.usr_FirstName + ' ' + session?.user.usr_LastName,
             subject: reason,
             message: detailsRef.current.getContent(),
             attachments: attachments,
         };
-        console.log(ticket);
 
         setLoading(true);
         axios
