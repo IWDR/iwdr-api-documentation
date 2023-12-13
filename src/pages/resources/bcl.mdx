@@ -729,6 +729,98 @@ The behavior checklist model is IWDR's representation of the checklist originall
 
 ---
 
+## Create a record {{ tag: 'POST', label: 'https://iwdr.org/iwdr/api/v1.php?table=tblDogBehaviorChecklist&action=insert' }}
+
+<Row>
+    <Col>
+        Insert a new BCL record for a given dog.
+    </Col>
+    <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "bcl_DBImportKey": "1234",
+                "bcl_Date": "2-9-2019 00:00:00",
+                "local_dog_id": "1234",
+                "bcl_DogID": "1234"
+            }
+            ```
+        </CodeGroup>
+
+        <CodeGroup title="Response">
+            ```json {{title: 'Response'}}
+            {
+                "success": true,
+                "data":
+            {
+                "bcl_DogID": "1234",
+                "bcl_Date": "2019-09-02 00:00:00",
+                "bcl_DBImportKey": "1234",
+                "bcl_OrgIDWhereTest": "1234",
+                "bcl_DateImport": "2023-12-13 18:13:30",
+                "bcl_FearNewPlacesSituations": null,
+                "bcl_LOCTrafficNoise": null,
+                "bcl_FearObjects": null,
+                "bcl_Underfootings": null,
+                "bcl_FearDogs": null,
+                "bcl_StairConcern": null,
+                "bcl_FearTraffic": null,
+                "bcl_SeparationAnxiety": null,
+                "bcl_HandlerAttachment": null,
+                "bcl_FearStrangers": null,
+                "bcl_BodyHandling": null,
+                "bcl_YieldsSpace": null,
+                "bcl_SensitivityHarness": null,
+                "bcl_FanExhaustFear": null,
+                "bcl_BodyAwareness": null,
+                "bcl_Riding": null,
+                "bcl_DropsRespPassive": null,
+                "bcl_DropsRespActive": null,
+                "bcl_Excitable": null,
+                "bcl_SelfModulation": null,
+                "bcl_WillingnessSettle": null,
+                "bcl_FearElevatedAreas": null,
+                "bcl_BarksExcessively": null,
+                "bcl_HighEnergy": null,
+                "bcl_AbilityFocusOnWork": null,
+                "bcl_MovementExcites": null,
+                "bcl_ChaseAnimals": null,
+                "bcl_DistractionDogs": null,
+                "bcl_Olfactory": null,
+                "bcl_Scavenges": null,
+                "bcl_HouseManners": null,
+                "bcl_LackInitiative": null,
+                "bcl_Unwilling": null,
+                "bcl_PossessionAggressn": null,
+                "bcl_StrangerAggressn": null,
+                "bcl_DogAggressnLeash": null,
+                "bcl_DogAggressnNoLeash": null,
+                "bcl_ResourceGuardDogs": null,
+                "bcl_InappropriateElimination": null,
+                "bcl_SocialManners": null,
+                "bcl_Consistency": null,
+                "bcl_HandlerDogTeam": null,
+                "bcl_KennelsPoorly": null,
+                "bcl_WalkingSpeed": null,
+                "bcl_RudeWDogs": null,
+                "bcl_Gait": null,
+                "bcl_Housebreaking": null,
+                "bcl_ThunderFear": null,
+                "bcl_Drive": null,
+                "bcl_CarExhaust": null,
+                "bcl_DateEntered": "2023-12-13 18:13:31",
+                "bcl_LastUpdated": "2023-12-13 18:13:31",
+                "bcl_UserIDLast": "1234",
+                "bcl_BehaviorCkID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
+    </Col>
+</Row>
+
+---
+
 ## List records {{ tag: 'GET', label: 'https://iwdr.org/iwdr/api/v1.php?table=tblDogBehaviorChecklist&action=list' }}
 
 <Row>

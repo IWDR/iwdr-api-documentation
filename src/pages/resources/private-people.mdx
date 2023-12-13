@@ -101,7 +101,37 @@ import {CodeGroup, Col, Note, Properties, Property, Row} from "@/components/mdx"
         Create a new private person in IWDR.
     </Col>
     <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "psn_First": "John",
+                "psn_Last": "Doe",
+                "psn_Country": "United States",
+                "psn_PrivateOrgID": "0",
+                "psn_ContactNote": "Test Data"
+            }
+            ```
+        </CodeGroup>
 
+        <CodeGroup title="Response">
+            ```json {{title: 'Response'}}
+            {
+                "success": true,
+                "data":
+            {
+                "psn_First": "John",
+                "psn_Last": "Doe",
+                "psn_ContactNote": "Test Data",
+                "psn_Country": "202",
+                "psn_PersonFlag": true,
+                "psn_LastUpdated": "2023-12-13 18:03:19",
+                "psn_UserIDEntering": "1234",
+                "psn_PrivateOrgID": "1234",
+                "psn_PersonID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
     </Col>
 </Row>
 
