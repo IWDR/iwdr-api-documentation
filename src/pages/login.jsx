@@ -6,13 +6,22 @@ import { authOptions } from '@/pages/api/auth/[...nextauth]';
 export async function getServerSideProps(context) {
     const session = await getServerSession(context.req, context.res, authOptions);
 
-    if (!!session && context.query?.callbackUrl) {
-        const url = new URL(context.query.callbackUrl, process.env.NEXTAUTH_URL);
+    if (!!session) {
+        if (!!context.query?.callbackUrl) {
+            const url = new URL(context.query.callbackUrl, process.env.NEXTAUTH_URL);
+
+            return {
+                redirect: {
+                    permanent: false,
+                    destination: url.pathname,
+                },
+            };
+        }
 
         return {
             redirect: {
                 permanent: false,
-                destination: url.pathname,
+                destination: '/',
             },
         };
     }

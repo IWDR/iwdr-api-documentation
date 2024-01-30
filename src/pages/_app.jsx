@@ -9,7 +9,7 @@ import 'focus-visible';
 import { SWRConfig } from 'swr';
 import axios from '@/lib/axios';
 import * as Fathom from 'fathom-client';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Layout } from '@/components/Layout';
 import { SessionProvider } from 'next-auth/react';
 
@@ -23,7 +23,6 @@ Router.events.on('routeChangeError', onRouteChange);
 
 export default function App({ Component, pageProps: { session, ...pageProps } }) {
     const router = useRouter();
-    const [user, setUser] = useState(null);
 
     // Engage fathom analytics tracking
     useEffect(() => {

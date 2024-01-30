@@ -3,6 +3,7 @@ import ConfidenceRatingCodeDataTable from "@/components/data-tables/ConfidenceRa
 import EvaluatorIDDataTable from "@/components/data-tables/EvaluatorIDDataTable";
 import CertifAgencyCodeDataTable from "@/components/data-tables/CertifAgencyCodeDataTable";
 import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDataTable";
+import {Code} from "@/components/Code";
 
 
 # Hip FCI
@@ -67,7 +68,46 @@ import MeasureTypeCodeDataTable from "@/components/data-tables/MeasureTypeCodeDa
         Insert a new hip record for a given dog.
     </Col>
     <Col sticky>
+        <CodeGroup title="Request Body">
+            ```json
+            {
+                "local_dog_id": "1234",
+                "pt_DogID": "1234",
+                "pt_MeasureTypeCode": "FCI",
+                "pt_Measure1": "A FCI",
+                "pt_Measure2": "A FCI",
+                "pt_DetailsOfProblem": "Test insert request",
+                "pt_Date": "2023-12-11"
+            }
+            ```
+        </CodeGroup>
 
+        <CodeGroup title="Response">
+            ```json {{title: 'Response'}}
+            {
+                "success": true,
+                "data":
+            {
+                "pt_DogID": "1234",
+                "pt_Date": "2023-12-11 00:00:00",
+                "pt_DetailsOfProblem": "Test insert request",
+                "pt_MeasureTypeCode": "3",
+                "pt_Measure1": "A FCI",
+                "pt_Measure2": "A FCI",
+                "pt_DateImported": "2023-12-11 21:06:13",
+                "pt_PrivateOrgPersonID": "1234",
+                "pt_Level1Code": 11,
+                "pt_Level2Code": 3,
+                "pt_TraitCodeID": "1234",
+                "pt_LastUpdated": "2023-12-11 21:06:13",
+                "pt_UserIDLast": "1234",
+                "pt_DateEnter": "2023-12-11 21:06:13",
+                "pt_UserEnter": "1234",
+                "pt_PhenoTraitRecordID": 1234
+            }
+            }
+            ```
+        </CodeGroup>
     </Col>
 </Row>
 
