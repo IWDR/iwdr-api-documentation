@@ -283,14 +283,20 @@ export default function TokenApplication(props) {
                 console.log(res);
                 if (res.status !== 200) return;
 
-                successAlert('Application successfully submitted!', true, 6000);
+                successAlert('Application successfully submitted!', true);
                 reset();
                 setSubmitted(true);
             })
             .catch((err) => {
                 if (err?.response?.status !== 422) {
                     console.log(err);
-                    serverErrorAlert();
+
+                    if (err?.response?.status === 400) {
+                        errorAlert(err?.response?.data.message, true);
+                    } else {
+                        serverErrorAlert();
+                    }
+
                     return;
                 }
 

@@ -24,13 +24,13 @@ export const useAlertStore = create((set, get) => ({
             get().clearAlert();
         }, 6000);
     },
-    errorAlert: (msg, isClosable = undefined, withTimeout = 0) => {
+    errorAlert: (msg, isClosable = undefined, withTimeout = 6000) => {
         get().showAlert(msg, 'error', isClosable, withTimeout);
     },
-    successAlert: (msg, isClosable = undefined, withTimeout = 0) => {
+    successAlert: (msg, isClosable = undefined, withTimeout = 6000) => {
         get().showAlert(msg, 'success', isClosable, withTimeout);
     },
-    showAlert: (msg, variant, isClosable = undefined, withTimeout = 0) => {
+    showAlert: (msg, variant, isClosable = undefined, withTimeout = 6000) => {
         set({
             open: true,
             message: msg,
