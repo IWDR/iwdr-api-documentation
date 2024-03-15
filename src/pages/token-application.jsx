@@ -19,6 +19,7 @@ import { Note } from '@/components/mdx';
 import clsx from 'clsx';
 import { TextArea } from '@/components/TextArea';
 import { useSession } from 'next-auth/react';
+import AuthChecker from '@/components/AuthChecker';
 
 export async function getServerSideProps() {
     return {
@@ -320,6 +321,7 @@ export default function TokenApplication(props) {
 
     return (
         <>
+            <AuthChecker />
             <h1>API Access Application</h1>
             <div className="m-0 mx-auto max-w-2xl lg:max-w-5xl">
                 <form id="token-applicaiton" className="space-y-8" onSubmit={(e) => submit(e)}>

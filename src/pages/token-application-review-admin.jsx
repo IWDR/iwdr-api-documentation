@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import useSWR from 'swr';
 import { useRef } from 'react';
 import { useSession } from 'next-auth/react';
+import AuthChecker from '@/components/AuthChecker';
 
 function StatusIndicator({ app }) {
     const { data: session, status } = useSession();
@@ -96,6 +97,7 @@ export default function TokenApplicationReview() {
 
     return (
         <>
+            <AuthChecker />
             <h1>API Application Review</h1>
             <DataTable path="/api/access-application" headers={headers} ref={ref} />
         </>

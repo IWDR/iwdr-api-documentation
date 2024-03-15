@@ -1,5 +1,6 @@
 import TokensDataTable from '@/components/data-tables/TokensDataTable';
 import { useSession } from 'next-auth/react';
+import AuthChecker from '@/components/AuthChecker';
 
 export default function Tokens() {
     const { data: session } = useSession({ required: true });
@@ -10,6 +11,7 @@ export default function Tokens() {
 
     return (
         <>
+            <AuthChecker />
             <h1>Tokens</h1>
             <TokensDataTable />
         </>
