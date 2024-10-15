@@ -31,7 +31,7 @@ export default function SemenQualityCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/semen-quality-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/semen-quality-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

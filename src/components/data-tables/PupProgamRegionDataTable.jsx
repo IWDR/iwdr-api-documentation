@@ -31,7 +31,7 @@ export default function PupProgamRegionDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/region?pup_program=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/region?pup_program=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

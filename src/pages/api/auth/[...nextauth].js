@@ -8,25 +8,29 @@ const IWDROAuthProvider = {
     type: 'oauth',
     authorization: {
         url: `${apiurl}/oauth/authorize`,
-        params: { response_type: 'code', scope: '', prompt: 'login' },
+        params: {
+            response_type: 'code',
+            scope: 'references.* user.view geolocate.view people.list region.list',
+        },
     },
     token: { url: `${apiurl}/oauth/token`, params: { grant_type: 'authorization_code' } },
     userinfo: {
-        url: `${apiurl}/api/user-info`,
+        url: `${apiurl}/api/public/v1/user-info`,
         request: async (context) => {
             let token = context.tokens.access_token;
             return await axios
-                .get('/api/user-info', { headers: { Authorization: 'Bearer ' + token } })
+                .get(`${apiurl}/api/public/v1/user-info`, { headers: { Authorization: 'Bearer ' + token } })
                 .then((r) => {
+                    console.log(r);
                     return r?.data?.data;
                 })
-                .catch(() => {
+                .catch((err) => {
+                    console.log(err);
                     return null;
                 });
         },
     },
     idToken: false,
-    checks: ['state'],
     clientId: process.env.IWDR_API_CLIENT_ID,
     clientSecret: process.env.IWDR_API_CLIENT_SECRET,
     profile: (profile, token) => {

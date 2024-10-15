@@ -31,7 +31,12 @@ export default function ElbowTraitCodeIDDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/trait-code-id?elbow=1" headers={headers} paginated searchable />
+                <DataTable
+                    path="/api/public/v1/references/trait-code-id?elbow=1"
+                    headers={headers}
+                    paginated
+                    searchable
+                />
             </Transition>
         </>
     );

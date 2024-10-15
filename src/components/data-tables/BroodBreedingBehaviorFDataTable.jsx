@@ -34,7 +34,7 @@ export default function BroodBreedingBehaviorFDataTable() {
                 leaveTo="opacity-0"
             >
                 <DataTable
-                    path="/api/references/brood-breeding-behavior-female"
+                    path="/api/public/v1/references/brood-breeding-behavior-female"
                     headers={headers}
                     paginated
                     searchable

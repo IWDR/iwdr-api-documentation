@@ -31,7 +31,7 @@ export default function WhelpQualityCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/whelp-quality-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/whelp-quality-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

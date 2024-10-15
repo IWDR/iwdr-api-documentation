@@ -31,7 +31,7 @@ export default function DecideCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/decide-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/decide-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

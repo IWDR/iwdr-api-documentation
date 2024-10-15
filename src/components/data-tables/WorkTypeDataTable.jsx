@@ -31,7 +31,7 @@ export default function WorkTypeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/work-type" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/work-type" headers={headers} paginated searchable />
             </Transition>
         </>
     );

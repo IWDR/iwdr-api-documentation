@@ -31,7 +31,7 @@ export default function CertifAgencyCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/person?registry_name=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/person?registry_name=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

@@ -31,7 +31,7 @@ export default function LibidoCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/libido-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/libido-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

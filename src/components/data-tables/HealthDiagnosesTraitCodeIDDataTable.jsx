@@ -31,7 +31,7 @@ export default function HealthDiagnosesTraitCodeIDDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/trait-code-id" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/trait-code-id" headers={headers} paginated searchable />
             </Transition>
         </>
     );

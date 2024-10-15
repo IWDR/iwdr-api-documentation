@@ -31,7 +31,7 @@ export default function MicrochipBrandDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/person?microchip_brand=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/person?microchip_brand=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

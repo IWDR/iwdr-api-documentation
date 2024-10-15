@@ -35,7 +35,7 @@ export default function CoatColorDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/coat-length" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/coat-length" headers={headers} paginated searchable />
             </Transition>
         </>
     );

@@ -31,7 +31,7 @@ export default function GradRegionDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/region?grad=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/region?grad=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

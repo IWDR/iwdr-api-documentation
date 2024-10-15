@@ -39,7 +39,7 @@ export default function CountryDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/country" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/country" headers={headers} paginated searchable />
             </Transition>
         </>
     );

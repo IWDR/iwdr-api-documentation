@@ -31,7 +31,12 @@ export default function ConfidenceRatingCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/confidence-rating-code" headers={headers} paginated searchable />
+                <DataTable
+                    path="/api/public/v1/references/confidence-rating-code"
+                    headers={headers}
+                    paginated
+                    searchable
+                />
             </Transition>
         </>
     );

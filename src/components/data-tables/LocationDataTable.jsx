@@ -31,7 +31,7 @@ export function LocationDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/locations" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/locations" headers={headers} paginated searchable />
             </Transition>
         </>
     );

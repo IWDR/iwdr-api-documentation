@@ -31,7 +31,7 @@ export default function MeasureTypeCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/measure-type-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/measure-type-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

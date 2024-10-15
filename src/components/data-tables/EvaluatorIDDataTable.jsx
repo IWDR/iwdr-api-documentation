@@ -31,7 +31,7 @@ export default function EvaluatorIDDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/person?private_people=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/person?private_people=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

@@ -31,7 +31,7 @@ export default function TrainingRegionDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/region?training=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/region?training=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

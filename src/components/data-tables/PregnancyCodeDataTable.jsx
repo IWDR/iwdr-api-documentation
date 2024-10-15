@@ -31,7 +31,7 @@ export default function PregnancyCodeDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/references/pregnancy-code" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/references/pregnancy-code" headers={headers} paginated searchable />
             </Transition>
         </>
     );

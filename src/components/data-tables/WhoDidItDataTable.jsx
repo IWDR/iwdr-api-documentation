@@ -31,7 +31,7 @@ export default function WhoDidItDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/person?who_did_it=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/person?who_did_it=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );

@@ -31,7 +31,7 @@ export function BreedersDataTable() {
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <DataTable path="/api/person?breeders=1" headers={headers} paginated searchable />
+                <DataTable path="/api/public/v1/person?breeders=1" headers={headers} paginated searchable />
             </Transition>
         </>
     );
