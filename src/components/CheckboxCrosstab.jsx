@@ -99,7 +99,7 @@ export default function CheckboxCrossTab({
                 )}
             >
                 <legend className="sr-only">{help}</legend>
-                <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
+                <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
                         <table className="min-w-full divide-y divide-gray-300">
                             <thead>
@@ -121,48 +121,58 @@ export default function CheckboxCrossTab({
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-zinc-200 dark:divide-zinc-600">
-                                {rows.map((row) => (
-                                    <tr key={row.field} className="divide-x divide-zinc-200 dark:divide-zinc-600">
-                                        {/* First row space is for the label */}
-                                        <td className="py-4 pl-4 pr-4 text-sm font-semibold dark:text-white sm:pl-0">
-                                            {row.label}
-                                        </td>
-                                        {headers.map((header, index) => {
-                                            let checkbox = (
-                                                <SimpleCheckbox
-                                                    id={`${row.field}-${header.value}`}
-                                                    name={`${row.field}-${header.value}`}
-                                                    error={error}
-                                                    field={row.field}
-                                                    dataValue={header.value}
-                                                    label={`Choose ${row.label} as ${header.label}`}
-                                                    onChange={(e) => updateSelected(e)}
-                                                    disabled={row.hasOwnProperty('readonly') ? row.readonly[index] : disabled}
-                                                />
-                                            );
-
-                                            if (index === headers.length) {
-                                                return (
-                                                    <td
-                                                        className="py-4 pl-4 pr-4 text-center text-sm sm:pr-0"
-                                                        key={`${row.field}-${header.value}`}
-                                                    >
-                                                        {checkbox}
-                                                    </td>
-                                                );
-                                            }
-
-                                            return (
-                                                <td
-                                                    className="p-4 text-center text-sm"
-                                                    key={`${row.field}-${header.value}`}
-                                                >
-                                                    {checkbox}
+                                {rows.map(
+                                    (row) =>
+                                        !row.disabled && (
+                                            <tr
+                                                key={row.field}
+                                                className="divide-x divide-zinc-200 dark:divide-zinc-600"
+                                            >
+                                                {/* First row space is for the label */}
+                                                <td className="py-4 pl-4 pr-4 text-sm font-semibold dark:text-white sm:pl-0">
+                                                    {row.label}
                                                 </td>
-                                            );
-                                        })}
-                                    </tr>
-                                ))}
+                                                {headers.map((header, index) => {
+                                                    let checkbox = (
+                                                        <SimpleCheckbox
+                                                            id={`${row.field}-${header.value}`}
+                                                            name={`${row.field}-${header.value}`}
+                                                            error={error}
+                                                            field={row.field}
+                                                            dataValue={header.value}
+                                                            label={`Choose ${row.label} as ${header.label}`}
+                                                            onChange={(e) => updateSelected(e)}
+                                                            disabled={
+                                                                row.hasOwnProperty('readonly')
+                                                                    ? row.readonly[index]
+                                                                    : disabled
+                                                            }
+                                                        />
+                                                    );
+
+                                                    if (index === headers.length) {
+                                                        return (
+                                                            <td
+                                                                className="py-4 pl-4 pr-4 text-center text-sm sm:pr-0"
+                                                                key={`${row.field}-${header.value}`}
+                                                            >
+                                                                {checkbox}
+                                                            </td>
+                                                        );
+                                                    }
+
+                                                    return (
+                                                        <td
+                                                            className="p-4 text-center text-sm"
+                                                            key={`${row.field}-${header.value}`}
+                                                        >
+                                                            {checkbox}
+                                                        </td>
+                                                    );
+                                                })}
+                                            </tr>
+                                        )
+                                )}
                             </tbody>
                         </table>
                     </div>

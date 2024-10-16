@@ -174,6 +174,54 @@ export default function TokenApplication(props) {
                 readonly: [0, 0, 0],
             },
             {
+                label: 'Elbows',
+                field: 'api_usage_elbows',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'PennHIP',
+                field: 'api_usage_pennhip',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'HIP OFA',
+                field: 'api_usage_hip_extended_view',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'HIP BVA',
+                field: 'api_usage_hip_bva',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'HIP FCI',
+                field: 'api_usage_hip_fci',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'Eyes',
+                field: 'api_usage_eyes',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'Heart',
+                field: 'api_usage_heart',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
+                label: 'Skin',
+                field: 'api_usage_skin_quick',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
                 label: 'General Health Diagnoses',
                 field: 'api_usage_health_diagnoses',
                 readonly: [0, 0, 0],
@@ -204,6 +252,12 @@ export default function TokenApplication(props) {
                 readonly: [0, 0, 0],
             },
             {
+                label: 'Surgeries',
+                field: 'api_usage_surgery',
+                readonly: [0, 0, 0],
+                disabled: true,
+            },
+            {
                 label: 'Vaccines',
                 field: 'api_usage_vaccines',
                 readonly: [0, 0, 0],
@@ -212,6 +266,12 @@ export default function TokenApplication(props) {
                 label: 'Annual Health Survey',
                 field: 'api_usage_health_survey',
                 readonly: [0, 0, 0],
+            },
+            {
+                label: "X-Ray's",
+                field: 'api_usage_xray',
+                readonly: [0, 0, 0],
+                disabled: true,
             },
         ],
     };
