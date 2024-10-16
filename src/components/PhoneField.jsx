@@ -39,7 +39,7 @@ export function PhoneField({
         error: country_code_error,
         isLoading: isLoadingCountryCodes,
     } = useSWR({
-        resource: '/api/references/country',
+        resource: '/api/public/v1/references/country',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
 
@@ -53,7 +53,7 @@ export function PhoneField({
 
             axios
                 .post(
-                    '/api/geolocate',
+                    '/api/public/v1/geolocate',
                     {
                         lat,
                         lng,
@@ -138,7 +138,7 @@ export function PhoneField({
                                                     value={code['CountryAbbrev2']}
                                                     className={({ active }) =>
                                                         clsx(
-                                                            'relative min-w-full cursor-default select-none py-2 px-3',
+                                                            'relative min-w-full cursor-default select-none px-3 py-2',
                                                             active
                                                                 ? 'bg-zinc-800/90 text-white dark:bg-emerald-500/90'
                                                                 : ''
@@ -185,7 +185,7 @@ export function PhoneField({
                         readOnly={readonly}
                         disabled={readonly || disabled}
                         className={clsx(
-                            'block w-full border py-3 pr-3 pl-14 shadow-sm focus-visible:outline-none dark:bg-zinc-900 dark:placeholder:text-zinc-400 sm:text-sm',
+                            'block w-full border py-3 pl-14 pr-3 shadow-sm focus-visible:outline-none dark:bg-zinc-900 dark:placeholder:text-zinc-400 sm:text-sm',
                             copyable ? 'cursor-pointer rounded-l-md border-r-0' : 'rounded-md',
                             error ? error_style : clean_style,
                             (readonly || disabled) && readonly_style

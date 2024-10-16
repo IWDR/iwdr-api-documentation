@@ -73,7 +73,7 @@ export default function TokenApplication(props) {
         isLoading: isLoadingBreeds,
         error: loadingBreedsError,
     } = useSWR({
-        resource: '/api/references/breed',
+        resource: '/api/public/v1/references/breed',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
     const breed_options =
@@ -88,7 +88,7 @@ export default function TokenApplication(props) {
         isLoading: isLoadingDataAccuracyTypes,
         error: loadingDataAccuracyTypesError,
     } = useSWR({
-        resource: '/api/references/data-accuracy-impression',
+        resource: '/api/public/v1/references/data-accuracy-impression',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
     const data_accuracy_options =
@@ -103,7 +103,7 @@ export default function TokenApplication(props) {
         isLoading: isLoadingCurrentStorageVals,
         error: loadingCurrentStorageValuesError,
     } = useSWR({
-        resource: '/api/references/current-storage-solution',
+        resource: '/api/public/v1/references/current-storage-solution',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
     const current_storage_values =
@@ -120,7 +120,7 @@ export default function TokenApplication(props) {
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
     } = useSWR({
-        resource: '/api/references/application-usage',
+        resource: '/api/public/v1/references/application-usage',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
     const api_usage_headers =
@@ -277,7 +277,7 @@ export default function TokenApplication(props) {
 
         setLoading(true);
         axios
-            .post('/api/access-application', form, {
+            .post('/api/public/v1/access-application', form, {
                 headers: { Authorization: 'Bearer ' + session?.user?.access_token },
             })
             .then((res) => {

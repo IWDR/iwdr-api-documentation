@@ -10,7 +10,7 @@ const IWDROAuthProvider = {
         url: `${apiurl}/oauth/authorize`,
         params: {
             response_type: 'code',
-            scope: 'references.* user.view geolocate.view people.list region.list',
+            scope: 'access-application.create user.view geolocate.view references.* people.list region.list',
         },
     },
     token: { url: `${apiurl}/oauth/token`, params: { grant_type: 'authorization_code' } },
@@ -21,7 +21,6 @@ const IWDROAuthProvider = {
             return await axios
                 .get(`${apiurl}/api/public/v1/user-info`, { headers: { Authorization: 'Bearer ' + token } })
                 .then((r) => {
-                    console.log(r);
                     return r?.data?.data;
                 })
                 .catch((err) => {
