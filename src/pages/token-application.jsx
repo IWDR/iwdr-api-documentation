@@ -46,10 +46,12 @@ export default function TokenApplication(props) {
     const [project_leader_phone_error, setProjectLeaderPhoneError] = useState('');
     const [project_desired_start_date, setProjectDesiredStartDate] = useState('');
     const [project_desired_start_date_error, setProjectDesiredStartDateError] = useState('');
-    const [project_current_storage_setup, setProjectCurrentStorageSetup] = useState({});
-    const [project_current_storage_error, setProjectCurrentStorageError] = useState('');
     const [project_desired_api_usage, setProjectDesiredAPIUsage] = useState({});
     const [project_desired_api_usage_error, setProjectDesiredAPIUsageError] = useState('');
+    const [project_api_migrations, setProjectAPIMigrations] = useState({});
+    const [project_api_migrations_error, setProjectAPIMigrationsError] = useState('');
+    const [project_survey_responses, setProjectSurveyResponses] = useState({});
+    const [project_survey_responses_error, setProjectSurveyResponsesError] = useState('');
     const [migration_agreement, setMigrationAgreement] = useState(false);
     const [migration_agreement_error, setMigrationAgreementError] = useState('');
     const [data_map_agreement, setDataMappingAgreement] = useState(false);
@@ -99,23 +101,6 @@ export default function TokenApplication(props) {
             : error_option;
 
     const {
-        data: current_storage_vals,
-        isLoading: isLoadingCurrentStorageVals,
-        error: loadingCurrentStorageValuesError,
-    } = useSWR({
-        resource: '/api/public/v1/references/current-storage-solution',
-        options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
-    });
-    const current_storage_values =
-        !isLoadingCurrentStorageVals && !loadingCurrentStorageValuesError
-            ? current_storage_vals.data.map((row) => {
-                  return { label: row.label, value: row.id };
-              })
-            : error_option.map((row) => {
-                  return { label: row.text, value: row.value };
-              });
-
-    const {
         data: api_usage_vals,
         isLoading: isLoadingAPIUsageVals,
         error: loadingAPIUsageValsError,
@@ -132,146 +117,120 @@ export default function TokenApplication(props) {
                   return { label: row.text, value: row.value };
               });
 
-    const current_storage_options = {
-        headers: current_storage_values,
+    const api_usage_options = {
+        headers: api_usage_headers.slice(0, 2),
         rows: [
             {
-                label: 'Basic Dog Information',
-                help: '(breed, date of birth, name, sex, sire, dam, etc...)',
-                field: 'project_current_storage_breed_info',
+                label: 'New dogs after initial migration',
+                field: 'application_usage.new_dogs',
+                readonly: [1, 0],
+                help: 'Create puppies in IWDR then push to your database the same day via API',
+            },
+            {
+                label: 'Request consideration to import new puppies after migration complete',
+                field: 'application_usage.new_puppies_after_migration',
+                readonly: [0, 0],
+                help: 'Possible option ONLY for large organizations with established database and excellent in-house tech support',
+            },
+            {
+                label: 'Dog updates',
+                field: 'application_usage.dog_updates',
+                readonly: [0, 0],
+                help: 'Can only choose one',
+            },
+            {
+                label: 'Dog status history',
+                field: 'application_usage.dog_status_history',
+                readonly: [1, 0],
+                help: 'Automatically created by IWDR with dog updates',
+            },
+            {
+                label: 'Behavior Checklists',
+                field: 'application_usage.bcls',
+                readonly: [0, 0],
+                help: 'Can only choose one',
             },
             {
                 label: 'Diagnoses',
-                field: 'project_current_storage_diagnoses',
+                field: 'application_usage.diagnoses',
+                readonly: [0, 0],
+                help: 'Can only choose one. Prefer IWDR is source',
             },
             {
-                label: 'Behavior Checklists',
-                field: 'project_current_storage_bcls',
-            },
-        ],
-    };
-    const api_usage_options = {
-        headers: api_usage_headers,
-        rows: [
-            {
-                label: 'Dog Record Created For - New puppies as born',
-                field: 'api_usage_dog_info_puppies',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: 'Basic Dog Information (Status, Names, Dates)',
-                field: 'api_usage_dog_info_ancestors',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: "Dog's Status History",
-                field: 'api_usage_status_history',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: 'Behavior Checklists',
-                field: 'api_usage_bcls',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: 'Elbows',
-                field: 'api_usage_elbows',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'PennHIP',
-                field: 'api_usage_pennhip',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'HIP OFA',
-                field: 'api_usage_hip_extended_view',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'HIP BVA',
-                field: 'api_usage_hip_bva',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'HIP FCI',
-                field: 'api_usage_hip_fci',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'Eyes',
-                field: 'api_usage_eyes',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'Heart',
-                field: 'api_usage_heart',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'Skin',
-                field: 'api_usage_skin_quick',
-                readonly: [0, 0, 0],
-                disabled: true,
-            },
-            {
-                label: 'General Health Diagnoses',
-                field: 'api_usage_health_diagnoses',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: 'Genetic Test Results',
-                field: 'api_usage_genetic_test_results',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: 'Weight',
-                field: 'api_usage_weights',
-                readonly: [0, 0, 0],
-            },
-            {
-                label: "Estrus's and Litter's",
-                field: 'api_usage_estrus_litter',
-                readonly: [0, 0, 0],
+                label: 'Estrus and Litters',
+                field: 'application_usage.estrus_and_litters',
+                readonly: [1, 0],
             },
             {
                 label: 'Estrus Details',
-                field: 'api_usage_estrus_details',
-                readonly: [0, 0, 0],
+                field: 'application_usage.estrus_details',
+                readonly: [0, 0],
             },
             {
-                label: 'Laboratory Tests',
-                field: 'api_usage_lab_tests',
-                readonly: [0, 0, 0],
+                label: 'Medical Procedures',
+                field: 'application_usage.medical_procedures',
+                readonly: [0, 0],
+                help: 'Can only choose one',
             },
             {
-                label: 'Surgeries',
-                field: 'api_usage_surgery',
-                readonly: [0, 0, 0],
-                disabled: true,
+                label: 'Weight',
+                field: 'application_usage.weight',
+                readonly: [0, 0],
+                help: 'Can only choose one',
+            },
+        ],
+    };
+
+    const api_survey_responses = {
+        headers: [{ label: 'Process Surveys using IWDR Interface' }],
+        rows: [
+            {
+                label: 'Diagnoses from Form Assembly',
+                field: 'application_survey_responses.diagnoeses_form_assembly',
+                help: 'Currently Form Assembly is required for owners to submit a survey. However, IWDR will create means that does not require Form Assembly',
+            },
+        ],
+    };
+
+    const api_migration_options = {
+        headers: [{ label: 'Yes, import our existing data' }],
+        rows: [
+            {
+                label: 'Dogs you own',
+                field: 'application_migration.dogs_you_own',
             },
             {
-                label: 'Vaccines',
-                field: 'api_usage_vaccines',
-                readonly: [0, 0, 0],
+                label: 'Ancestors owned by others but are related to dog you own',
+                field: 'application_migration.ancestors',
             },
             {
-                label: 'Annual Health Survey',
-                field: 'api_usage_health_survey',
-                readonly: [0, 0, 0],
+                label: 'Dog status history',
+                field: 'application_migration.status_history',
             },
             {
-                label: "X-Ray's",
-                field: 'api_usage_xray',
-                readonly: [0, 0, 0],
-                disabled: true,
+                label: 'Behavior Checklists',
+                field: 'application_migration.bcls',
+            },
+            {
+                label: 'Diagnoses',
+                field: 'application_migration.diagnoses',
+            },
+            {
+                label: 'Estrus and Litters',
+                field: 'application_migration.estrus_and_litters',
+            },
+            {
+                label: 'Estrus Details',
+                field: 'application_migration.estrus_details',
+            },
+            {
+                label: 'Weight',
+                field: 'application_migration.weight',
+            },
+            {
+                label: 'Medical Procedures',
+                field: 'application_migration.medical_procedures',
+                help: "Not needed for EBV's",
             },
         ],
     };
@@ -289,8 +248,9 @@ export default function TokenApplication(props) {
         setProjectLeaderEmail('');
         setProjectLeaderPhone('');
         setProjectDesiredStartDate('');
-        setProjectCurrentStorageSetup({});
         setProjectDesiredAPIUsage({});
+        setProjectSurveyResponses({});
+        setProjectAPIMigrations({});
         setMigrationAgreement(false);
         setDataMappingAgreement(false);
         setAPIUsageAgreement(false);
@@ -326,8 +286,9 @@ export default function TokenApplication(props) {
             project_leader_email,
             project_leader_phone,
             project_desired_start_date,
-            ...project_current_storage_setup,
             ...project_desired_api_usage,
+            ...project_survey_responses,
+            ...project_api_migrations,
             migration_agreement,
             data_map_agreement,
             api_usage_agreement,
@@ -524,20 +485,29 @@ export default function TokenApplication(props) {
                             className="max-sm:pt-3"
                         />
                         <CheckboxCrossTab
-                            id="project_current_storage_solution"
-                            label="How is your data for records needed in IWDR currently stored?"
-                            help="(check all that apply)"
-                            options={current_storage_options}
-                            onChange={setProjectCurrentStorageSetup}
-                            horizontal
-                            required
-                        />
-                        <CheckboxCrossTab
                             id="project_desired_api_usage"
                             label="Indicate how you want to use the IWDR API"
                             help="(check all that apply)"
                             options={api_usage_options}
                             onChange={setProjectDesiredAPIUsage}
+                            horizontal
+                            required
+                        />
+                        <CheckboxCrossTab
+                            id={'project_survey_responses'}
+                            label={'Survey Responses'}
+                            help={'(check all that apply)'}
+                            options={api_survey_responses}
+                            onChange={setProjectSurveyResponses}
+                            horizontal
+                            required
+                        />
+                        <CheckboxCrossTab
+                            id="project_api_migrations"
+                            label="Migrations from your database to IWDR"
+                            help="(check all that apply)"
+                            options={api_migration_options}
+                            onChange={setProjectAPIMigrations}
                             horizontal
                             required
                         />
