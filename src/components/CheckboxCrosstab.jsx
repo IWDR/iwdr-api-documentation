@@ -60,6 +60,7 @@ export default function CheckboxCrossTab({
         setSelectedOptions(optionsCopy);
         onChange(optionsCopy);
     }, []);
+
     const updateSelected = (e) => {
         let selectedOptionsCopy = selectedOptions;
 

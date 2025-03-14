@@ -1,5 +1,5 @@
 import { TextField } from '@/components/TextField';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { PhoneField } from '@/components/PhoneField';
 import useSWR from 'swr';
 import RadioField from '@/components/RadioField';
@@ -32,20 +32,20 @@ export async function getServerSideProps() {
 
 export default function TokenApplication(props) {
     // Form field states
-    const [organization_total_dogs_to_import, setOrganizationTotalDogsToImport] = useState('');
-    const [organization_total_dogs_to_import_error, setOrganizationTotalDogsToImportError] = useState('');
-    const [organization_breeds_to_import, setOrganizationBreedsToImport] = useState([]);
-    const [organization_breeds_to_import_error, setOrganizationBreedsToImportError] = useState('');
-    const [organization_data_accuracy_impression, setOrganizationDataAccuracyImpression] = useState('');
-    const [organization_data_accuracy_impression_error, setOrganizationDataAccuracyImpressionError] = useState('');
-    const [project_leader_name, setProjectLeaderName] = useState('');
-    const [project_leader_name_error, setProjectLeaderNameError] = useState('');
-    const [project_leader_email, setProjectLeaderEmail] = useState('');
-    const [project_leader_email_error, setProjectLeaderEmailError] = useState('');
-    const [project_leader_phone, setProjectLeaderPhone] = useState('');
-    const [project_leader_phone_error, setProjectLeaderPhoneError] = useState('');
-    const [project_desired_start_date, setProjectDesiredStartDate] = useState('');
-    const [project_desired_start_date_error, setProjectDesiredStartDateError] = useState('');
+    const [total_dogs_to_import, setTotalDogsToImport] = useState('');
+    const [total_dogs_to_import_error, setTotalDogsToImportError] = useState('');
+    const [breeds_to_import, setBreedsToImport] = useState([]);
+    const [breeds_to_import_error, setBreedsToImportError] = useState('');
+    const [data_accuracy_impression, setDataAccuracyImpression] = useState('');
+    const [data_accuracy_impression_error, setDataAccuracyImpressionError] = useState('');
+    const [name, setName] = useState('');
+    const [name_error, setNameError] = useState('');
+    const [email, setEmail] = useState('');
+    const [email_error, setEmailError] = useState('');
+    const [phone, setPhone] = useState('');
+    const [phone_error, setPhoneError] = useState('');
+    const [desired_start_date, setDesiredStartDate] = useState('');
+    const [desired_start_date_error, setDesiredStartDateError] = useState('');
     const [project_desired_api_usage, setProjectDesiredAPIUsage] = useState({});
     const [project_desired_api_usage_error, setProjectDesiredAPIUsageError] = useState('');
     const [project_api_migrations, setProjectAPIMigrations] = useState({});
@@ -182,7 +182,7 @@ export default function TokenApplication(props) {
     };
 
     const api_survey_responses = {
-        headers: [{ label: 'Process Surveys using IWDR Interface' }],
+        headers: [{ label: 'Process Surveys using IWDR Interface', value: 1 }],
         rows: [
             {
                 label: 'Diagnoses from Form Assembly',
@@ -193,7 +193,7 @@ export default function TokenApplication(props) {
     };
 
     const api_migration_options = {
-        headers: [{ label: 'Yes, import our existing data' }],
+        headers: [{ label: 'Yes, import our existing data', value: 1 }],
         rows: [
             {
                 label: 'Dogs you own',
@@ -241,13 +241,13 @@ export default function TokenApplication(props) {
     const [api_modal_open, setAPIModalOpen] = useState(false);
 
     const reset = () => {
-        setOrganizationTotalDogsToImport('');
-        setOrganizationBreedsToImport([]);
-        setOrganizationDataAccuracyImpression('');
-        setProjectLeaderName('');
-        setProjectLeaderEmail('');
-        setProjectLeaderPhone('');
-        setProjectDesiredStartDate('');
+        setTotalDogsToImport('');
+        setBreedsToImport([]);
+        setDataAccuracyImpression('');
+        setName('');
+        setEmail('');
+        setPhone('');
+        setDesiredStartDate('');
         setProjectDesiredAPIUsage({});
         setProjectSurveyResponses({});
         setProjectAPIMigrations({});
@@ -259,13 +259,13 @@ export default function TokenApplication(props) {
     };
 
     const setErrors = (error_list) => {
-        setOrganizationTotalDogsToImportError(error_list.organization_total_dogs_to_import ?? '');
-        setOrganizationBreedsToImportError(error_list.organization_breeds_to_import ?? '');
-        setOrganizationDataAccuracyImpressionError(error_list.organization_data_accuracy_impression ?? '');
-        setProjectLeaderNameError(error_list.project_leader_name ?? '');
-        setProjectLeaderEmailError(error_list.project_leader_email ?? '');
-        setProjectLeaderPhoneError(error_list.project_leader_phone ?? '');
-        setProjectDesiredStartDateError(error_list.project_desired_start_date ?? '');
+        setTotalDogsToImportError(error_list.total_dogs_to_import ?? '');
+        setBreedsToImportError(error_list.breeds_to_import ?? '');
+        setDataAccuracyImpressionError(error_list.data_accuracy_impression ?? '');
+        setNameError(error_list.name ?? '');
+        setEmailError(error_list.email ?? '');
+        setPhoneError(error_list.phone ?? '');
+        setDesiredStartDateError(error_list.desired_start_date ?? '');
         setMigrationAgreementError(error_list.migration_agreement ?? '');
         setDataMappingAgreementError(error_list.data_map_agreement ?? '');
         setAPIUsageAgreementError(error_list.api_usage_agreement ?? '');
@@ -279,16 +279,16 @@ export default function TokenApplication(props) {
     const submit = (e) => {
         e.preventDefault();
         let form = {
-            organization_total_dogs_to_import,
-            organization_breeds_to_import,
-            organization_data_accuracy_impression,
-            project_leader_name,
-            project_leader_email,
-            project_leader_phone,
-            project_desired_start_date,
-            ...project_desired_api_usage,
-            ...project_survey_responses,
-            ...project_api_migrations,
+            total_dogs_to_import,
+            breeds_to_import,
+            data_accuracy_impression,
+            name,
+            email,
+            phone,
+            desired_start_date,
+            project_desired_api_usage,
+            project_survey_responses,
+            project_api_migrations,
             migration_agreement,
             data_map_agreement,
             api_usage_agreement,
@@ -298,7 +298,7 @@ export default function TokenApplication(props) {
 
         setLoading(true);
         axios
-            .post('/api/public/v1/access-application', form, {
+            .post('/api/public/v1/api-applications', form, {
                 headers: { Authorization: 'Bearer ' + session?.user?.access_token },
             })
             .then((res) => {
@@ -357,27 +357,27 @@ export default function TokenApplication(props) {
                             </p>
                         </div>
                         <TextField
-                            name="organization_total_dogs_to_import"
-                            id="organization_total_dogs_to_import"
+                            name="total_dogs_to_import"
+                            id="total_dogs_to_import"
                             type="text"
-                            value={organization_total_dogs_to_import}
-                            onChange={(e) => setOrganizationTotalDogsToImport(e.target.value)}
+                            value={total_dogs_to_import}
+                            onChange={(e) => setTotalDogsToImport(e.target.value)}
                             label="Total number of dogs in your database that need importing to IWDR"
-                            error={!!organization_total_dogs_to_import_error}
-                            error_message={organization_total_dogs_to_import_error}
+                            error={!!total_dogs_to_import_error}
+                            error_message={total_dogs_to_import_error}
                             placeholder="Enter the total number of dogs planned for import..."
                             horizontal
                             required
                             className="max-sm:pt-3"
                         />
                         <ComboboxField
-                            name="organization_breeds_to_import"
-                            id="organization_breeds_to_import"
+                            name="breeds_to_import"
+                            id="breeds_to_import"
                             label="Breed(s) of dog to import"
-                            value={organization_breeds_to_import}
-                            error={!!organization_breeds_to_import_error}
-                            error_message={organization_breeds_to_import_error}
-                            onChange={setOrganizationBreedsToImport}
+                            value={breeds_to_import}
+                            error={!!breeds_to_import_error}
+                            error_message={breeds_to_import_error}
+                            onChange={setBreedsToImport}
                             placeholder="Search for the breed(s) of dog to import..."
                             help="(choose all that apply)"
                             options={breed_options}
@@ -388,16 +388,14 @@ export default function TokenApplication(props) {
 
                         <div>
                             <RadioField
-                                name="organization_data_accuracy_impression"
-                                id="organization_data_accuracy_impression"
+                                name="data_accuracy_impression"
+                                id="data_accuracy_impression"
                                 label="Import's data accuracy"
                                 help="Do you have data on all of your dogs in IWDR or your own database or spreadsheet? Can you identify that you are the managing owner of the dogs? For dogs existing in both IWDR and your own database/spreadsheet, can you match your dogs with their IWDR Dog IDs? How accurate are your birthdates and pedigrees?"
                                 options={data_accuracy_options}
-                                onChange={(e) =>
-                                    setOrganizationDataAccuracyImpression(e.target.checked ? e.target.value : null)
-                                }
-                                error={!!organization_data_accuracy_impression_error}
-                                error_message={organization_data_accuracy_impression_error}
+                                onChange={(e) => setDataAccuracyImpression(e.target.checked ? e.target.value : null)}
+                                error={!!data_accuracy_impression_error}
+                                error_message={data_accuracy_impression_error}
                                 required
                                 className="grid-cols-1 max-sm:pt-3 sm:grid sm:gap-4 sm:pt-5"
                             />
@@ -430,13 +428,13 @@ export default function TokenApplication(props) {
                             </p>
                         </div>
                         <TextField
-                            name="project_leader_name"
-                            id="project_leader_name"
+                            name="name"
+                            id="name"
                             label="Project leader's name"
-                            value={project_leader_name}
-                            error={!!project_leader_name_error}
-                            error_message={project_leader_name_error}
-                            onChange={(e) => setProjectLeaderName(e.target.value)}
+                            value={name}
+                            error={!!name_error}
+                            error_message={name_error}
+                            onChange={(e) => setName(e.target.value)}
                             placeholder="Enter the name of your project leader..."
                             type="text"
                             horizontal
@@ -444,13 +442,13 @@ export default function TokenApplication(props) {
                             className="max-sm:pt-3"
                         />
                         <TextField
-                            name="project_leader_email"
-                            id="project_leader_email"
+                            name="email"
+                            id="email"
                             label="Project leader's email"
-                            value={project_leader_email}
-                            error={!!project_leader_email_error}
-                            error_message={project_leader_email_error}
-                            onChange={(e) => setProjectLeaderEmail(e.target.value)}
+                            value={email}
+                            error={!!email_error}
+                            error_message={email_error}
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="Enter the email for the project leader identified above..."
                             type="email"
                             horizontal
@@ -458,24 +456,24 @@ export default function TokenApplication(props) {
                             className="max-sm:pt-3"
                         />
                         <PhoneField
-                            name="project_leader_phone"
-                            id="project_leader_phone"
+                            name="phone"
+                            id="phone"
                             label="Project leader's telephone number"
-                            error={!!project_leader_phone_error}
-                            error_message={project_leader_phone_error}
-                            onChange={setProjectLeaderPhone}
+                            error={!!phone_error}
+                            error_message={phone_error}
+                            onChange={setPhone}
                             placeholder="Enter the phone number to best reach the project leader..."
                             horizontal
                             required
                             className="max-sm:pt-3"
                         />
                         <TextField
-                            name="project_desired_start_date"
-                            id="project_desired_start_date"
-                            value={project_desired_start_date}
-                            error={!!project_desired_start_date_error}
-                            error_message={project_desired_start_date_error}
-                            onChange={(e) => setProjectDesiredStartDate(e.target.value)}
+                            name="desired_start_date"
+                            id="desired_start_date"
+                            value={desired_start_date}
+                            error={!!desired_start_date_error}
+                            error_message={desired_start_date_error}
+                            onChange={(e) => setDesiredStartDate(e.target.value)}
                             type="date"
                             placeholder="Select the desired date..."
                             label="Your ideal start date to begin data import?"

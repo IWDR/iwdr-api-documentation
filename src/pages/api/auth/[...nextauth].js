@@ -10,7 +10,7 @@ const IWDROAuthProvider = {
         url: `${apiurl}/oauth/authorize`,
         params: {
             response_type: 'code',
-            scope: 'access-application.create user.view geolocate.view references.* people.list region.list',
+            scope: 'api-applications.create user.view geolocate.view references.* people.list region.list',
         },
     },
     token: { url: `${apiurl}/oauth/token`, params: { grant_type: 'authorization_code' } },

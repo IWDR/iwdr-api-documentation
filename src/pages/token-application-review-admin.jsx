@@ -75,15 +75,15 @@ export default function TokenApplicationReview() {
     const headers = [
         {
             text: 'Project Leader',
-            key: 'project_leader_name',
+            key: 'name',
         },
         {
             text: 'Email',
-            key: 'project_leader_email',
+            key: 'email',
         },
         {
             text: 'Ideal Start Date',
-            key: 'project_desired_start_date',
+            key: 'desired_start_date',
         },
         {
             text: 'Status',
@@ -99,7 +99,7 @@ export default function TokenApplicationReview() {
         <>
             <AuthChecker />
             <h1>API Application Review</h1>
-            <DataTable path="/api/access-application" headers={headers} ref={ref} />
+            <DataTable path="/admin/api-applications" headers={headers} ref={ref} />
         </>
     );
 }
