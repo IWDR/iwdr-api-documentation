@@ -11,9 +11,6 @@ import { useSession } from 'next-auth/react';
 
 export function SupportForm() {
     const { data: session, status } = useSession();
-
-    if (status === 'loading') return <p>Loading...</p>;
-
     const [reason, setReason] = useState([]);
     const detailsRef = useRef(null);
     const [attachments, setAttachments] = useState([]);
@@ -67,6 +64,8 @@ export function SupportForm() {
             })
             .finally(() => setLoading(false));
     };
+
+    if (status === 'loading') return <p>Loading...</p>;
 
     return (
         <>

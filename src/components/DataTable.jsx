@@ -13,17 +13,10 @@ export const DataTable = forwardRef(
         { headers = [], path = null, searchable = false, paginated = false, noDataMsg, className, sticky = false },
         ref
     ) => {
-        const { data: session, status } = useSession();
-
-        if (status === "unauthenticated" || status === "loading") return (
-            <div className='py-2'>
-                <span>Please sign into IWDR to see this content.</span>
-            </div>
-        );
-
         const basePath = new URL(path, process.env.NEXT_PUBLIC_API_URL);
         basePath.searchParams.set('paginated', paginated ? '1' : '0');
 
+        const { data: session, status } = useSession();
         const [search, setSearch] = useState('');
         const [itemsUrl, setItemsURL] = useState(basePath.href);
 
@@ -37,10 +30,6 @@ export const DataTable = forwardRef(
             options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
         });
         useImperativeHandle(ref, () => ({ mutate }));
-
-        if (error) {
-            return <p>There was an issue loading this page. Please contact support.</p>;
-        }
 
         const item_data = paginated ? items.data?.data : items.data;
         const item_as_description_list = (item) => {
@@ -99,6 +88,17 @@ export const DataTable = forwardRef(
 
             setItemsURL(currURL.href);
         };
+
+        if (status === "unauthenticated" || status === "loading") return (
+            <div className='py-2'>
+                <span>Please sign into IWDR to see this content.</span>
+            </div>
+        );
+
+        // Error handling
+        if (error) {
+            return <p>There was an issue loading this data-table. Please contact support.</p>;
+        }
 
         return (
             <div className={clsx(className, sticky ? 'flow-root' : 'flex flex-col', 'mt-8')}>
