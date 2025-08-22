@@ -21,7 +21,7 @@ import { TextArea } from '@/components/TextArea';
 import { useSession } from 'next-auth/react';
 import AuthChecker from '@/components/AuthChecker';
 
-export async function getServerSideProps() {
+export function getServerSideProps() {
     return {
         props: {
             title: 'API Access Application',
@@ -81,8 +81,8 @@ export default function TokenApplication(props) {
     const breed_options =
         !isLoadingBreeds && !loadingBreedsError
             ? breeds.data.map((breed) => {
-                  return { text: breed.dbc_DogBreedDescription, value: breed.dbc_DogBreedCode };
-              })
+                return { text: breed.dbc_DogBreedDescription, value: breed.dbc_DogBreedCode };
+            })
             : error_option;
 
     const {
@@ -96,8 +96,8 @@ export default function TokenApplication(props) {
     const data_accuracy_options =
         !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
             ? data_accuracy_types.data.map((row) => {
-                  return { text: row.label, value: row.id };
-              })
+                return { text: row.label, value: row.id };
+            })
             : error_option;
 
     const {
@@ -111,11 +111,11 @@ export default function TokenApplication(props) {
     const api_usage_headers =
         !isLoadingAPIUsageVals && !loadingAPIUsageValsError
             ? api_usage_vals.data.map((row) => {
-                  return { label: row.label, value: row.id };
-              })
+                return { label: row.label, value: row.id };
+            })
             : error_option.map((row) => {
-                  return { label: row.text, value: row.value };
-              });
+                return { label: row.text, value: row.value };
+            });
 
     const api_usage_options = {
         headers: api_usage_headers.slice(0, 2),
