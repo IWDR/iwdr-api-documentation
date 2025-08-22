@@ -151,17 +151,10 @@ export function Resources() {
             </Heading>
             <div
                 className={clsx(
-                    !!session?.user && 'sm:grid-cols-2 xl:grid-cols-4',
-                    'not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
+                    'sm:grid-cols-2 xl:grid-cols-4 not-prose mt-4 grid grid-cols-1 gap-8 border-t border-zinc-900/5 pt-10 dark:border-white/5'
                 )}
             >
-                {!!session?.user ? (
-                    resources.map((resource) => <Resource key={resource.href} resource={resource} />)
-                ) : (
-                    <p className="font-medium dark:text-gray-200">
-                        You must sign in to view our available API resources.
-                    </p>
-                )}
+                {resources.map((resource) => <Resource key={resource.href} resource={resource} />)}
             </div>
         </div>
     );

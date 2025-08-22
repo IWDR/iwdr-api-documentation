@@ -4,8 +4,6 @@ import clsx from 'clsx';
 import { Fragment, useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { Listbox, Transition } from '@headlessui/react';
-import { useGeolocation } from '@/hooks/geolocation';
-import axios from '@/lib/axios';
 import { parsePhoneNumber } from 'libphonenumber-js';
 import { useSession } from 'next-auth/react';
 
@@ -26,7 +24,6 @@ export function PhoneField({
     copyable,
 }) {
     const { data: session, status } = useSession();
-    const { location } = useGeolocation();
     const error_style = 'border-red-500 text-red-500 focus:border-red-900 focus:outline-none focus:ring-red-900';
     const clean_style = 'border-zinc-500 text-zinc-900 focus:border-emerald-300 focus:ring-emerald-300 dark:text-white';
     const readonly_style = 'disabled:cursor-text disabled:border-zinc-500 disabled:bg-zinc-100 disabled:text-zinc-500';
@@ -43,43 +40,7 @@ export function PhoneField({
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
 
-    // Geolocate the phone code
-    useEffect(() => {
-        if (!!location) {
-            if (location.code === 1) return;
-
-            let lat = location.coords.latitude;
-            let lng = location.coords.longitude;
-
-            axios
-                .post(
-                    '/api/public/v1/geolocate',
-                    {
-                        lat,
-                        lng,
-                    },
-                    { headers: { Authorization: 'Bearer ' + session?.user?.access_token } }
-                )
-                .then((res) => {
-                    if (res.status !== 200) return;
-                    let data = res.data.data;
-                    let results = data.results;
-
-                    if (!results) return;
-                    for (const add of results) {
-                        let components = add.address_components;
-                        components.forEach((piece) => {
-                            let types = piece.types;
-                            if (types.findIndex((val) => val === 'country') > -1) {
-                                setCountryCode(piece.short_name);
-                            }
-                        });
-                    }
-                });
-        }
-    }, [location]);
-
-    // Update as you type when country changes
+    // Reset entry when country changes
     useEffect(() => {
         setPhoneNumber('');
     }, [country_code]);

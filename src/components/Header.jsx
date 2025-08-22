@@ -63,21 +63,16 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     <ul role="list" className="flex items-center gap-8">
                         <TopLevelNavItem
                             href="/token-application"
-                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
+                            className={clsx('text-sm leading-5')}
                         >
                             API Access Application
                         </TopLevelNavItem>
                         <TopLevelNavItem
                             href="/support"
-                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
+                            className={clsx('text-sm leading-5')}
                         >
                             API Support
                         </TopLevelNavItem>
-                        {/*<FlyoutMenuSimple*/}
-                        {/*    className={clsx(session?.user.usr_GroupID !== -1 && 'hidden')}*/}
-                        {/*    label="Admin Items"*/}
-                        {/*    menuItems={adminMenuItems}*/}
-                        {/*/>*/}
                     </ul>
                 </nav>
                 <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />

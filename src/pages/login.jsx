@@ -38,7 +38,7 @@ export default function Login() {
         <div>
             <h1>Please Sign In to continue.</h1>
             <p>
-                In order to utilize this API Documentation website you must first have an account in the International
+                In order to fully utilize this API Documentation website you must first have an account in the International
                 Working Dog Registry Database Interface. If you do not already have an account then you will need to{' '}
                 <a href={'https://iwdr.org/iwdr/register.php'} target={'_blank'}>
                     register

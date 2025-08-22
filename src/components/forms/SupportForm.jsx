@@ -10,25 +10,27 @@ import { useLoadingStore } from '@/stores/loadingStore';
 import { useSession } from 'next-auth/react';
 
 export function SupportForm() {
+    const { data: session, status } = useSession();
+
+    if (status === 'loading') return <p>Loading...</p>;
+
     const [reason, setReason] = useState([]);
     const detailsRef = useRef(null);
     const [attachments, setAttachments] = useState([]);
     const attachmentRef = useRef();
     const { successAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
-    const { data: session, status } = useSession();
-
     const error_option = [{ text: 'No options found.', value: '' }];
     const { data, isLoading, error } = useSWR({
-        resource: '/api/references/support-type-code',
+        resource: '/api/public/v1/references/support-type-code',
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
 
     const reasons =
         !isLoading && !error
             ? data.data.map((reason) => {
-                  return { text: reason.stc_Type, value: reason.stc_ID };
-              })
+                return { text: reason.stc_Type, value: reason.stc_ID };
+            })
             : error_option;
 
     const reset = () => {
@@ -48,7 +50,6 @@ export function SupportForm() {
             message: detailsRef.current.getContent(),
             attachments: attachments,
         };
-        console.log(ticket);
 
         setLoading(true);
         axios
@@ -66,8 +67,6 @@ export function SupportForm() {
             })
             .finally(() => setLoading(false));
     };
-
-    if (status === 'loading') return <p>Loading...</p>;
 
     return (
         <>

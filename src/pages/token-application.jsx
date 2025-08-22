@@ -1,5 +1,5 @@
 import { TextField } from '@/components/TextField';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { PhoneField } from '@/components/PhoneField';
 import useSWR from 'swr';
 import RadioField from '@/components/RadioField';
@@ -19,7 +19,6 @@ import { Note } from '@/components/mdx';
 import clsx from 'clsx';
 import { TextArea } from '@/components/TextArea';
 import { useSession } from 'next-auth/react';
-import AuthChecker from '@/components/AuthChecker';
 
 export function getServerSideProps() {
     return {
@@ -62,7 +61,7 @@ export default function TokenApplication(props) {
     const [custom_development_request, setCustomDevelopmentRequest] = useState(false);
     const [custom_development_request_comments, setCustomDevelopmentRequestComments] = useState('');
 
-    const { data: session, status } = useSession();
+    const { data: session, status } = useSession({ required: true });
     const { successAlert, errorAlert, serverErrorAlert } = useAlertStore();
     const { setLoading } = useLoadingStore();
 
@@ -342,7 +341,6 @@ export default function TokenApplication(props) {
 
     return (
         <>
-            <AuthChecker />
             <h1>API Access Application</h1>
             <div className="m-0 mx-auto max-w-2xl lg:max-w-5xl">
                 <form id="token-applicaiton" className="space-y-8" onSubmit={(e) => submit(e)}>
