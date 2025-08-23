@@ -12,6 +12,7 @@ import GradRegionDataTable from "@/components/data-tables/GradRegionDataTable";
 import WorkTypeDataTable from "@/components/data-tables/WorkTypeDataTable";
 import CoatColorDataTable from "@/components/data-tables/CoatColorDataTable";
 import CoatLengthDataTable from "@/components/data-tables/CoatLengthDataTable";
+import AuthChecker from "@/components/AuthChecker";
 
 export const description =
     'The dog model contains all the pertinent information on a given dog within IWDR.'
@@ -20,6 +21,7 @@ export const today = new Date().toLocaleDateString()
 
 # Dogs
 
+<AuthChecker />
 Dogs are the focal point of IWDR. When you input a dog into IWDR it becomes a part of
 the global data set used to calculate Estimated Breeding Values on a variety of health
 and behavior characteristics. The more dogs input into our database the more accurate

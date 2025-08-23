@@ -193,7 +193,7 @@ export const navigation = [
             { title: 'Weights', href: '/resources/weight' },
             { title: "X-Ray's", href: '/resources/xray' },
         ],
-        is_restricted: false,
+        is_restricted: true,
     },
 ];
 
@@ -213,15 +213,22 @@ export default function Navigation({ ...props }) {
         <nav {...props}>
             <ul role="list">
                 <TopLevelNavItem
+                    href="/token-application-review-admin"
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
+                    listClass="md:hidden"
+                >
+                    API Access Review
+                </TopLevelNavItem>
+                <TopLevelNavItem
                     href="/token-application"
-                    className={clsx('block py-1')}
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
                     listClass="md:hidden"
                 >
                     API Access Application
                 </TopLevelNavItem>
                 <TopLevelNavItem
                     href="/support"
-                    className={clsx('block py-1')}
+                    className={clsx(!Boolean(session?.user) && 'hidden', 'block py-1')}
                     listClass="md:hidden"
                 >
                     API Support

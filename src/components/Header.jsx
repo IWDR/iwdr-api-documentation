@@ -9,7 +9,6 @@ import { ModeToggle } from '@/components/ModeToggle';
 import { MobileSearch, Search } from '@/components/Search';
 import { TopLevelNavItem } from '@/components/TopLevelNavItem';
 import SignInOutButton from './SignInOutButton';
-import FlyoutMenuSimple from '@/components/FlyoutMenuSimple';
 import { useSession } from 'next-auth/react';
 
 export const Header = forwardRef(function Header({ className }, ref) {
@@ -51,7 +50,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     (isInsideMobileNavigation || !mobileNavIsOpen) && 'bg-zinc-900/7.5 dark:bg-white/7.5'
                 )}
             />
-            <Search />
+            <div className="hidden lg:block lg:max-w-md lg:flex-auto" />
             <div className="flex items-center gap-5 lg:hidden">
                 <MobileNavigation />
                 <Link href="/" aria-label="Home">
@@ -63,13 +62,13 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     <ul role="list" className="flex items-center gap-8">
                         <TopLevelNavItem
                             href="/token-application"
-                            className={clsx('text-sm leading-5')}
+                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
                         >
                             API Access Application
                         </TopLevelNavItem>
                         <TopLevelNavItem
                             href="/support"
-                            className={clsx('text-sm leading-5')}
+                            className={clsx('text-sm leading-5', !Boolean(session) && 'hidden')}
                         >
                             API Support
                         </TopLevelNavItem>
