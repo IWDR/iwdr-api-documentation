@@ -41,8 +41,8 @@ export function SupportForm() {
         e.preventDefault();
 
         const ticket = {
-            email: user.usr_Email,
-            name: user.usr_FirstName + ' ' + user.usr_LastName,
+            email: session?.user.email,
+            name: session?.user.name,
             subject: reason,
             message: detailsRef.current.getContent(),
             attachments: attachments,
@@ -50,7 +50,7 @@ export function SupportForm() {
 
         setLoading(true);
         axios
-            .post('/api/support', ticket, { headers: { Authorization: 'Bearer ' + session?.user?.access_token } })
+            .post('/api/public/v1/support', {...ticket}, { headers: { Authorization: 'Bearer ' + session?.user?.access_token } })
             .then((res) => {
                 if (res.status !== 204) return;
 

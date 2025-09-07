@@ -6,7 +6,6 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { IWDRLogo } from '@/components/IWDRLogo';
 import { MobileNavigation, useIsInsideMobileNavigation, useMobileNavigationStore } from '@/components/MobileNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
-import { MobileSearch, Search } from '@/components/Search';
 import { TopLevelNavItem } from '@/components/TopLevelNavItem';
 import SignInOutButton from './SignInOutButton';
 import { useSession } from 'next-auth/react';
@@ -19,12 +18,6 @@ export const Header = forwardRef(function Header({ className }, ref) {
     let { scrollY } = useScroll();
     let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9]);
     let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8]);
-
-    const adminMenuItems = [{ name: 'API Applications', href: '/token-application-review-admin' }];
-
-    useEffect(() => {
-        console.log(session);
-    }, [session, status]);
 
     if (status === 'loading') return <p>Loading...</p>;
 

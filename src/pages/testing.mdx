@@ -57,11 +57,9 @@ providing it with your API key.
 
     ```js
     // This example is done using JavaScript-Fetch
-
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    myHeaders.append("X-Auth-Token", "abcdefg1234567");
-    myHeaders.append("Cookie", "runnerSession=abc1234; abcdefg1234567");
+    myHeaders.append("X-Auth-Token", "assigned-api-key-here");
 
     var urlencoded = new URLSearchParams();
     urlencoded.append("local_dog_id", "1234");

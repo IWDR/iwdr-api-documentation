@@ -301,7 +301,6 @@ export default function TokenApplication(props) {
                 headers: { Authorization: 'Bearer ' + session?.user?.access_token },
             })
             .then((res) => {
-                console.log(res);
                 if (res.status !== 200) return;
 
                 successAlert('Application successfully submitted!', true, 6000);

@@ -8,7 +8,7 @@ const IWDROAuthProvider = {
     version: "2.0",
     authorization: {
         url: `${apiurl}/oauth/authorize`,
-        params: { grant_type: "authorization_code", scope: "api-applications.create user.view geolocate.view references.* people.list region.list" },
+        params: { grant_type: "authorization_code", scope: "api-applications.create support-ticket.create user.view references.* people.list region.list" },
     },
     token: `${apiurl}/oauth/token`,
     userinfo: `${apiurl}/api/public/v1/user-info`,
