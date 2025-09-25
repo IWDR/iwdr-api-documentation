@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, Fragment, useImperativeHandle, useState } from 'react';
+import { forwardRef, Fragment, useEffect, useImperativeHandle, useState } from 'react';
 import { DataTablePagination } from '@/components/DataTablePagination';
 import useSWR from 'swr';
 import Spinner from '@/components/Spinner';
@@ -31,7 +31,7 @@ export const DataTable = forwardRef(
         });
         useImperativeHandle(ref, () => ({ mutate }));
 
-        const item_data = paginated ? items.data?.data : items.data;
+        const item_data = paginated ? items.data?.data?.data : items.data?.data;
         const item_as_description_list = (item) => {
             const list = headers.map((header, index) => {
                 return (

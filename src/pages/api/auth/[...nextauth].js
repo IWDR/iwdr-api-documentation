@@ -15,8 +15,6 @@ const IWDROAuthProvider = {
     clientId: process.env.IWDR_API_CLIENT_ID,
     clientSecret: process.env.IWDR_API_CLIENT_SECRET,
     async profile(profile, tokens) {
-        console.log('IWDROAuthProvider profile', profile, tokens);
-
         const {data: user} = profile.data;
 
         return {
