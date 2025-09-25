@@ -187,7 +187,7 @@ export const DataTable = forwardRef(
                                 </tbody>
                             </table>
                         </div>
-                        {paginated && <DataTablePagination page_data={{ ...items.data }} setPage={setItemsURL} />}
+                        {paginated && <DataTablePagination page_data={{ ...items.data?.data }} setPage={setItemsURL} />}
                     </div>
                 </div>
             </div>
