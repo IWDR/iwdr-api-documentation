@@ -79,7 +79,7 @@ export default function TokenApplication(props) {
     });
     const breed_options =
         !isLoadingBreeds && !loadingBreedsError
-            ? breeds.data.map((breed) => {
+            ? breeds.data.data.map((breed) => {
                 return { text: breed.dbc_DogBreedDescription, value: breed.dbc_DogBreedCode };
             })
             : error_option;
@@ -94,7 +94,7 @@ export default function TokenApplication(props) {
     });
     const data_accuracy_options =
         !isLoadingDataAccuracyTypes && !loadingDataAccuracyTypesError
-            ? data_accuracy_types.data.map((row) => {
+            ? data_accuracy_types.data.data.map((row) => {
                 return { text: row.label, value: row.id };
             })
             : error_option;
@@ -109,7 +109,7 @@ export default function TokenApplication(props) {
     });
     const api_usage_headers =
         !isLoadingAPIUsageVals && !loadingAPIUsageValsError
-            ? api_usage_vals.data.map((row) => {
+            ? api_usage_vals.data.data.map((row) => {
                 return { label: row.label, value: row.id };
             })
             : error_option.map((row) => {

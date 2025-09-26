@@ -93,7 +93,7 @@ export function PhoneField({
                                 >
                                     <Listbox.Options className="absolute z-10 mt-14 max-h-60 w-24 overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-zinc-800 dark:text-white sm:text-sm">
                                         {!(country_code_error || isLoadingCountryCodes) &&
-                                            country_codes.data.map((code) => (
+                                            country_codes.data.data.map((code) => (
                                                 <Listbox.Option
                                                     key={code['CountryAbbrev2']}
                                                     value={code['CountryAbbrev2']}
