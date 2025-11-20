@@ -8,8 +8,6 @@ export const config = {
         '/resources/:path*',
         '/support',
         '/testing',
-        '/tokens',
         '/token-application',
-        '/token-application-review-admin',
     ],
 };

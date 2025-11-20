@@ -1,44 +1,28 @@
 import NextAuth from 'next-auth';
-import axios from '@/lib/axios';
 
 const apiurl = process.env.NEXT_PUBLIC_API_URL;
 const IWDROAuthProvider = {
     id: 'iwdr',
     name: 'International Working Dog Registry',
     type: 'oauth',
+    version: "2.0",
     authorization: {
         url: `${apiurl}/oauth/authorize`,
-        params: {
-            response_type: 'code',
-            scope: 'access-application.create user.view geolocate.view references.* people.list region.list',
-        },
+        params: { grant_type: "authorization_code", scope: "api-applications.create support-ticket.create user.view references.* people.list region.list" },
     },
-    token: { url: `${apiurl}/oauth/token`, params: { grant_type: 'authorization_code' } },
-    userinfo: {
-        url: `${apiurl}/api/public/v1/user-info`,
-        request: async (context) => {
-            let token = context.tokens.access_token;
-            return await axios
-                .get(`${apiurl}/api/public/v1/user-info`, { headers: { Authorization: 'Bearer ' + token } })
-                .then((r) => {
-                    return r?.data?.data;
-                })
-                .catch((err) => {
-                    console.log(err);
-                    return null;
-                });
-        },
-    },
-    idToken: false,
+    token: `${apiurl}/oauth/token`,
+    userinfo: `${apiurl}/api/public/v1/user-info`,
     clientId: process.env.IWDR_API_CLIENT_ID,
     clientSecret: process.env.IWDR_API_CLIENT_SECRET,
-    profile: (profile, token) => {
+    async profile(profile, tokens) {
+        const {data: user} = profile.data;
+
         return {
-            ...profile,
-            access_token: token.access_token,
-            id: profile.usr_ID,
-            email: profile.usr_Email,
-            name: profile.usr_FirstName + ' ' + profile.usr_LastName,
+            iwdr_user: { ...user },
+            access_token: tokens.access_token,
+            id: user.usr_ID,
+            email: user.usr_Email,
+            name: user.usr_FirstName + ' ' + user.usr_LastName,
             image: '',
         };
     },

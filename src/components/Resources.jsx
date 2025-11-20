@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import { motion, useMotionTemplate, useMotionValue } from 'framer-motion';
 import clsx from 'clsx';
-
 import { GridPattern } from '@/components/GridPattern';
 import { Heading } from '@/components/Heading';
 import { ServiceDogIcon } from './icons/ServiceDogIcon';

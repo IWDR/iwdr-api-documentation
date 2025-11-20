@@ -39,7 +39,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         isLoading: isLoadingApp,
         error: errorApp,
     } = useSWR({
-        resource: `/api/access-application/${app.id}`,
+        resource: `/api/api-applications/${app.id}`,
         options: { headers: { Authorization: 'Bearer ' + session?.user?.access_token } },
     });
     const organization_breeds_to_import =
@@ -221,7 +221,7 @@ export function CreateApplicationReviewDialog({ app, onSave }) {
         setLoading(true);
         axios
             .patch(
-                `/api/access-application/${appData.data.id}`,
+                `/api/api-applications/${appData.data.id}`,
                 {
                     application_progress_id: appStatus,
                     application_progress_notes: application_progress_notes,

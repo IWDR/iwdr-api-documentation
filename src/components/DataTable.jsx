@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import { forwardRef, Fragment, useImperativeHandle, useState } from 'react';
+import { forwardRef, Fragment, useEffect, useImperativeHandle, useState } from 'react';
 import { DataTablePagination } from '@/components/DataTablePagination';
 import useSWR from 'swr';
 import Spinner from '@/components/Spinner';
@@ -13,10 +13,10 @@ export const DataTable = forwardRef(
         { headers = [], path = null, searchable = false, paginated = false, noDataMsg, className, sticky = false },
         ref
     ) => {
-        const { data: session, status } = useSession({ required: true });
         const basePath = new URL(path, process.env.NEXT_PUBLIC_API_URL);
         basePath.searchParams.set('paginated', paginated ? '1' : '0');
 
+        const { data: session, status } = useSession();
         const [search, setSearch] = useState('');
         const [itemsUrl, setItemsURL] = useState(basePath.href);
 
@@ -31,14 +31,7 @@ export const DataTable = forwardRef(
         });
         useImperativeHandle(ref, () => ({ mutate }));
 
-        if (status === 'loading') {
-            return <Spinner />;
-        }
-        if (error) {
-            return <p>There was an issue loading this page. Please contact support.</p>;
-        }
-
-        const item_data = paginated ? items.data?.data : items.data;
+        const item_data = paginated ? items.data?.data?.data : items.data?.data;
         const item_as_description_list = (item) => {
             const list = headers.map((header, index) => {
                 return (
@@ -96,6 +89,17 @@ export const DataTable = forwardRef(
             setItemsURL(currURL.href);
         };
 
+        if (status === "unauthenticated" || status === "loading") return (
+            <div className='py-2'>
+                <span>Please sign into IWDR to see this content.</span>
+            </div>
+        );
+
+        // Error handling
+        if (error) {
+            return <p>There was an issue loading this data-table. Please contact support.</p>;
+        }
+
         return (
             <div className={clsx(className, sticky ? 'flow-root' : 'flex flex-col', 'mt-8')}>
                 <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
@@ -137,7 +141,7 @@ export const DataTable = forwardRef(
                                 <thead
                                     className={clsx(
                                         sticky &&
-                                            'sticky top-0 z-10 bg-opacity-75 backdrop-blur backdrop-filter dark:bg-opacity-50',
+                                        'sticky top-0 z-10 bg-opacity-75 backdrop-blur backdrop-filter dark:bg-opacity-50',
                                         'bg-slate-100 dark:bg-zinc-800'
                                     )}
                                 >
@@ -183,7 +187,7 @@ export const DataTable = forwardRef(
                                 </tbody>
                             </table>
                         </div>
-                        {paginated && <DataTablePagination page_data={{ ...items.data }} setPage={setItemsURL} />}
+                        {paginated && <DataTablePagination page_data={{ ...items.data?.data }} setPage={setItemsURL} />}
                     </div>
                 </div>
             </div>

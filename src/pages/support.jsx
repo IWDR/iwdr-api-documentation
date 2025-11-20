@@ -1,5 +1,5 @@
 import { SupportForm } from '@/components/forms/SupportForm';
-import AuthChecker from '@/components/AuthChecker';
+import { useSession } from 'next-auth/react';
 
 export function getServerSideProps() {
     return {
@@ -10,9 +10,10 @@ export function getServerSideProps() {
 }
 
 export default function Support() {
+    useSession({ required: true });
+
     return (
         <>
-            <AuthChecker />
             <h1>Submit a support ticket</h1>
             <SupportForm />
         </>

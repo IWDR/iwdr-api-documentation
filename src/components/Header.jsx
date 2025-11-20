@@ -6,10 +6,8 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { IWDRLogo } from '@/components/IWDRLogo';
 import { MobileNavigation, useIsInsideMobileNavigation, useMobileNavigationStore } from '@/components/MobileNavigation';
 import { ModeToggle } from '@/components/ModeToggle';
-import { MobileSearch, Search } from '@/components/Search';
 import { TopLevelNavItem } from '@/components/TopLevelNavItem';
 import SignInOutButton from './SignInOutButton';
-import FlyoutMenuSimple from '@/components/FlyoutMenuSimple';
 import { useSession } from 'next-auth/react';
 
 export const Header = forwardRef(function Header({ className }, ref) {
@@ -20,12 +18,6 @@ export const Header = forwardRef(function Header({ className }, ref) {
     let { scrollY } = useScroll();
     let bgOpacityLight = useTransform(scrollY, [0, 72], [0.5, 0.9]);
     let bgOpacityDark = useTransform(scrollY, [0, 72], [0.2, 0.8]);
-
-    const adminMenuItems = [{ name: 'API Applications', href: '/token-application-review-admin' }];
-
-    useEffect(() => {
-        console.log(session);
-    }, [session, status]);
 
     if (status === 'loading') return <p>Loading...</p>;
 
@@ -51,7 +43,7 @@ export const Header = forwardRef(function Header({ className }, ref) {
                     (isInsideMobileNavigation || !mobileNavIsOpen) && 'bg-zinc-900/7.5 dark:bg-white/7.5'
                 )}
             />
-            <Search />
+            <div className="hidden lg:block lg:max-w-md lg:flex-auto" />
             <div className="flex items-center gap-5 lg:hidden">
                 <MobileNavigation />
                 <Link href="/" aria-label="Home">
@@ -73,16 +65,11 @@ export const Header = forwardRef(function Header({ className }, ref) {
                         >
                             API Support
                         </TopLevelNavItem>
-                        <FlyoutMenuSimple
-                            className={clsx(session?.user.usr_GroupID !== -1 && 'hidden')}
-                            label="Admin Items"
-                            menuItems={adminMenuItems}
-                        />
                     </ul>
                 </nav>
                 <div className="hidden md:block md:h-5 md:w-px md:bg-zinc-900/10 md:dark:bg-white/15" />
                 <div className="flex gap-4">
-                    <MobileSearch />
+                    {/* <MobileSearch /> */}
                     <ModeToggle />
                 </div>
                 <div className="hidden min-[416px]:contents">
